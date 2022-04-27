@@ -1,0 +1,2645 @@
+{
+	"info": {
+		"_postman_id": "e28d19b3-f53d-413c-8692-69f658646741",
+		"name": "FHIRGenomicsOperations",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "find-subject-variants",
+			"item": [
+				{
+					"name": "Mock Operations",
+					"item": []
+				},
+				{
+					"name": "find-subject-variants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-variants?subject=HG00403&ranges=NC_000019.10:11089431-11133820&includeVariants=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-variants"
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "HG00403"
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000019.10:11089431-11133820"
+								},
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "includeVariants",
+									"value": "true"
+								},
+								{
+									"key": "testDateRange",
+									"value": "le2014-05-01",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LDLR query using build37 range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-variants?subject=HG00403&ranges=NC_000019.9:11200138-11244496&includeVariants=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-variants"
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "HG00403"
+								},
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "le2014-05-01",
+									"disabled": true
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000019.9:11200138-11244496"
+								},
+								{
+									"key": "includeVariants",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LDLR query using build38 range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-variants?subject=HG00403&includeVariants=true&ranges=NC_000019.10:11089431-11133820",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-variants"
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "HG00403"
+								},
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "le2014-05-01",
+									"disabled": true
+								},
+								{
+									"key": "includeVariants",
+									"value": "true"
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000019.10:11089431-11133820"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LDLR exon 7 query",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-variants?subject=HG00403&ranges=NC_000019.9:11221327-11221447&includeVariants=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-variants"
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "HG00403"
+								},
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "le2014-05-01",
+									"disabled": true
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000019.9:11221327-11221447"
+								},
+								{
+									"key": "includeVariants",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "find-subject-specific-variants",
+			"item": [
+				{
+					"name": "find-subject-specific-variants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-specific-variants?subject=m123&variants=NC_000005.9:g.112102032A>T",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-specific-variants"
+							],
+							"query": [
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "m123"
+								},
+								{
+									"key": "variants",
+									"value": "NC_000005.9:g.112102032A>T"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ClinVar 819274, DOES normalize",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-specific-variants?subject=m123&variants=NM_001127510.3:c.145A>T",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-specific-variants"
+							],
+							"query": [
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "m123"
+								},
+								{
+									"key": "variants",
+									"value": "NM_001127510.3:c.145A>T"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ClinVar 1097908, DOES NOT normalize",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-specific-variants?subject=m123&variants=NM_001385641.1:c.804C>T",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-specific-variants"
+							],
+							"query": [
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "m123"
+								},
+								{
+									"key": "variants",
+									"value": "NM_001385641.1:c.804C>T"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Polygenic risk score",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-specific-variants?subject=HG00404&variants=NC_000005.9:112154946:CC:C,NC_000005.9:112157612:C:T,NC_000017.10:41246373:G:,NC_000017.10:41243854:AAA:AAAA,NC_000013.10:32900284:C:A,NC_000019.9:11216262:C:A,NC_000014.8:23894101:A:T",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-specific-variants"
+							],
+							"query": [
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "HG00404"
+								},
+								{
+									"key": "variants",
+									"value": "NC_000005.9:112154946:CC:C,NC_000005.9:112157612:C:T,NC_000017.10:41246373:G:,NC_000017.10:41243854:AAA:AAAA,NC_000013.10:32900284:C:A,NC_000019.9:11216262:C:A,NC_000014.8:23894101:A:T"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "find-subject-structural-intersecting-variants",
+			"item": [
+				{
+					"name": "find-subject-structural-intersecting-variants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-structural-intersecting-variants?subject=HCC1143&ranges=NC_000007.14:55019016-55211628,NC_000004.12:54727415-54727542&specimenIdentifiers=HCC1143-Sp1",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-structural-intersecting-variants"
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "HCC1143"
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000007.14:55019016-55211628,NC_000004.12:54727415-54727542"
+								},
+								{
+									"key": "includeVariants",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "HCC1143-Sp1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SVs intersecting EGFR or KIT exon 11",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-structural-intersecting-variants?subject=HCC1143&ranges=NC_000007.14:55019016-55211628,NC_000004.12:54727415-54727542&specimenIdentifiers=HCC1143-Sp1",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-structural-intersecting-variants"
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "HCC1143"
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000007.14:55019016-55211628,NC_000004.12:54727415-54727542"
+								},
+								{
+									"key": "includeVariants",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "HCC1143-Sp1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SVs intersecting the A-band of TTN",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-structural-intersecting-variants?subject=ABC789&ranges=NC_000002.12:179400709-179483218&includeVariants=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-structural-intersecting-variants"
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "ABC789"
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000002.12:179400709-179483218"
+								},
+								{
+									"key": "includeVariants",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SVs intersecting BRCA1 or BRCA2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-structural-intersecting-variants?subject=HCC1143&ranges=NC_000017.11:43044294-43125364,NC_000013.11:32315507-32400268&includeVariants=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-structural-intersecting-variants"
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "HCC1143"
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000017.11:43044294-43125364,NC_000013.11:32315507-32400268"
+								},
+								{
+									"key": "includeVariants",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "find-subject-structural-subsuming-variants",
+			"item": [
+				{
+					"name": "find-subject-structural-subsuming-variants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-structural-subsuming-variants?subject=HCC1143&ranges=NC_000007.14:116672195-116798386&specimenIdentifiers=HCC1143-Sp1&includeVariants=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-structural-subsuming-variants"
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "HCC1143"
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000007.14:116672195-116798386"
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "HCC1143-Sp1"
+								},
+								{
+									"key": "includeVariants",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SVs subsuming MET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-structural-subsuming-variants?subject=HCC1143&ranges=NC_000007.14:116672195-116798386&specimenIdentifiers=HCC1143-Sp1&includeVariants=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-structural-subsuming-variants"
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "HCC1143"
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000007.14:116672195-116798386"
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "HCC1143-Sp1"
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "includeVariants",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SVs subsuming CYP2D6",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-structural-subsuming-variants?subject=ABC789&ranges=NC_000022.10:42522500-42526812&includeVariants=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-structural-subsuming-variants"
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "ABC789"
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000022.10:42522500-42526812"
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "HCC1143-Sp1",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "includeVariants",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "find-subject-haplotypes",
+			"item": [
+				{
+					"name": "find-subject-haplotypes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-haplotypes?subject=NB6TK328&genes=http://www.genenames.org/geneId|HGNC:2625",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-haplotypes"
+							],
+							"query": [
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "NB6TK328"
+								},
+								{
+									"key": "genes",
+									"value": "http://www.genenames.org/geneId|HGNC:2625"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CYP2D6 and CYP2C19 haplotypes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-haplotypes?subject=NB6TK328&genes=http://www.genenames.org/geneId|HGNC:2625,http://www.genenames.org/geneId|HGNC:2621",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-haplotypes"
+							],
+							"query": [
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "NB6TK328"
+								},
+								{
+									"key": "genes",
+									"value": "http://www.genenames.org/geneId|HGNC:2625,http://www.genenames.org/geneId|HGNC:2621"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "HLA-B haplotype, queried using codesystem|code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-haplotypes?subject=NB6TK328&genes=http://www.genenames.org/geneId|HGNC:4932",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-haplotypes"
+							],
+							"query": [
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "NB6TK328"
+								},
+								{
+									"key": "genes",
+									"value": "http://www.genenames.org/geneId|HGNC:4932"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "HLA-B haplotype, queried using token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-haplotypes?subject=NB6TK328&genes=HLA-B",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-haplotypes"
+							],
+							"query": [
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "NB6TK328"
+								},
+								{
+									"key": "genes",
+									"value": "HLA-B"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "find-subject-specific-haplotypes",
+			"item": [
+				{
+					"name": "find-subject-specific-haplotypes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-specific-haplotypes?subject=XYZ123&haplotypes=CYP2C19",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-specific-haplotypes"
+							],
+							"query": [
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "XYZ123"
+								},
+								{
+									"key": "haplotypes",
+									"value": "CYP2C19"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "HLA-B27 specific haplotype",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-specific-haplotypes?subject=NB6TK328&haplotypes=HLA-B*27",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"genotype-operations",
+								"$find-subject-specific-haplotypes"
+							],
+							"query": [
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "NB6TK328"
+								},
+								{
+									"key": "haplotypes",
+									"value": "HLA-B*27"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "find-subject-tx-implications",
+			"item": [
+				{
+					"name": "find-subject-tx-implications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-tx-implications?conditions=https://disease-ontology.org|3908,https://disease-ontology.org|1324,https://disease-ontology.org|3910&subject=CA12345&variants=NM_001354609.2:c.1799T>A",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"phenotype-operations",
+								"$find-subject-tx-implications"
+							],
+							"query": [
+								{
+									"key": "treatments",
+									"value": "http://www.nlm.nih.gov/research/umls/rxnorm|337525,http://www.nlm.nih.gov/research/umls/rxnorm|1147220,http://www.nlm.nih.gov/research/umls/rxnorm|1721560",
+									"disabled": true
+								},
+								{
+									"key": "conditions",
+									"value": "https://disease-ontology.org|3908,https://disease-ontology.org|1324,https://disease-ontology.org|3910"
+								},
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "CA12345"
+								},
+								{
+									"key": "variants",
+									"value": "NM_001354609.2:c.1799T>A"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tx implications of amitriptyline",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-tx-implications?subject=NB6TK328&treatments=http://www.nlm.nih.gov/research/umls/rxnorm|704",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"phenotype-operations",
+								"$find-subject-tx-implications"
+							],
+							"query": [
+								{
+									"key": "treatments",
+									"value": "http://www.nlm.nih.gov/research/umls/rxnorm|337525,http://www.nlm.nih.gov/research/umls/rxnorm|1147220,http://www.nlm.nih.gov/research/umls/rxnorm|1721560",
+									"disabled": true
+								},
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "NB6TK328"
+								},
+								{
+									"key": "variants",
+									"value": "NM_001354609.2:c.1799T>A",
+									"disabled": true
+								},
+								{
+									"key": "treatments",
+									"value": "http://www.nlm.nih.gov/research/umls/rxnorm|704"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tx implications of vemurafenib",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-tx-implications?subject=CA12345&treatments=http://www.nlm.nih.gov/research/umls/rxnorm|1147220",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"phenotype-operations",
+								"$find-subject-tx-implications"
+							],
+							"query": [
+								{
+									"key": "treatments",
+									"value": "http://www.nlm.nih.gov/research/umls/rxnorm|337525,http://www.nlm.nih.gov/research/umls/rxnorm|1147220,http://www.nlm.nih.gov/research/umls/rxnorm|1721560",
+									"disabled": true
+								},
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "CA12345"
+								},
+								{
+									"key": "variants",
+									"value": "NM_001354609.2:c.1799T>A",
+									"disabled": true
+								},
+								{
+									"key": "treatments",
+									"value": "http://www.nlm.nih.gov/research/umls/rxnorm|1147220"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tx implications of CYP2D6 and CYP2C19 genotypes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-tx-implications?subject=NB6TK328&haplotypes=CYP2C19 *1/*17,CYP2D6 *1/*41",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"phenotype-operations",
+								"$find-subject-tx-implications"
+							],
+							"query": [
+								{
+									"key": "treatments",
+									"value": "http://www.nlm.nih.gov/research/umls/rxnorm|337525,http://www.nlm.nih.gov/research/umls/rxnorm|1147220,http://www.nlm.nih.gov/research/umls/rxnorm|1721560",
+									"disabled": true
+								},
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "variants",
+									"value": "NM_001354609.2:c.1799T>A",
+									"disabled": true
+								},
+								{
+									"key": "treatments",
+									"value": "http://www.nlm.nih.gov/research/umls/rxnorm|704",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "NB6TK328"
+								},
+								{
+									"key": "haplotypes",
+									"value": "CYP2C19 *1/*17,CYP2D6 *1/*41"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tx implications of lung cancer with NRAS and BRAF oncogenic mutations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-tx-implications?subject=CA12345&variants=NM_002524.5:c.182A>C,NM_001354609.2:c.1799T>A&conditions=https://disease-ontology.org|3908",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"phenotype-operations",
+								"$find-subject-tx-implications"
+							],
+							"query": [
+								{
+									"key": "treatments",
+									"value": "http://www.nlm.nih.gov/research/umls/rxnorm|337525,http://www.nlm.nih.gov/research/umls/rxnorm|1147220,http://www.nlm.nih.gov/research/umls/rxnorm|1721560",
+									"disabled": true
+								},
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "CA12345"
+								},
+								{
+									"key": "haplotypes",
+									"value": "CYP2D6 *1/*41",
+									"disabled": true
+								},
+								{
+									"key": "variants",
+									"value": "NM_002524.5:c.182A>C,NM_001354609.2:c.1799T>A"
+								},
+								{
+									"key": "conditions",
+									"value": "https://disease-ontology.org|3908"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "find-subject-dx-implications",
+			"item": [
+				{
+					"name": "find-subject-dx-implications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-dx-implications?subject=huC30902&variants=NC_000001.10:161333381:C:T",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"phenotype-operations",
+								"$find-subject-dx-implications"
+							],
+							"query": [
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "huC30902"
+								},
+								{
+									"key": "conditions",
+									"value": "https://www.ncbi.nlm.nih.gov/medgen|C1708353",
+									"disabled": true
+								},
+								{
+									"key": "variants",
+									"value": "NC_000001.10:161333381:C:T"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hereditary Paraganglioma-Pheochromocytoma Syndrome",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-dx-implications?subject=huC30902&conditions=https://www.ncbi.nlm.nih.gov/medgen|C1708353",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"phenotype-operations",
+								"$find-subject-dx-implications"
+							],
+							"query": [
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "huC30902"
+								},
+								{
+									"key": "conditions",
+									"value": "https://www.ncbi.nlm.nih.gov/medgen|C1708353"
+								},
+								{
+									"key": "variants",
+									"value": "NC_000019.10:38499669:C:T",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "HBOC, LS, FH",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-dx-implications?subject=NB6TK329&conditions=https://www.ncbi.nlm.nih.gov/medgen|C0677776,https://www.ncbi.nlm.nih.gov/medgen|C4552100,https://www.ncbi.nlm.nih.gov/medgen|C0020445",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"phenotype-operations",
+								"$find-subject-dx-implications"
+							],
+							"query": [
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "NB6TK329"
+								},
+								{
+									"key": "conditions",
+									"value": "https://www.ncbi.nlm.nih.gov/medgen|C0677776,https://www.ncbi.nlm.nih.gov/medgen|C4552100,https://www.ncbi.nlm.nih.gov/medgen|C0020445"
+								},
+								{
+									"key": "variants",
+									"value": "NC_000001.10:161333381:C:T",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hemachromatosis",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-dx-implications?subject=HG02657&conditions=https://www.ncbi.nlm.nih.gov/medgen|C3469186",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"phenotype-operations",
+								"$find-subject-dx-implications"
+							],
+							"query": [
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "HG02657"
+								},
+								{
+									"key": "conditions",
+									"value": "https://www.ncbi.nlm.nih.gov/medgen|C3469186"
+								},
+								{
+									"key": "variants",
+									"value": "NC_000001.10:161333381:C:T",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "find-population-specific-variants",
+			"item": [
+				{
+					"name": "find-population-specific-variants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/genotype-operations/$find-population-specific-variants?variants=NC_000011.10:g.8263343T>C&variants=NC_000006.11:26091305:T:C",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"genotype-operations",
+								"$find-population-specific-variants"
+							],
+							"query": [
+								{
+									"key": "variants",
+									"value": "NC_000011.10:g.8263343T>C"
+								},
+								{
+									"key": "variants",
+									"value": "NC_000006.11:26091305:T:C"
+								},
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AND example",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/genotype-operations/$find-population-specific-variants?subject=HG00403&variants=NC_000001.10:144931726:G:A&variants=NC_000001.10:145532548:T:C&variants=NC_000001.10:145592072:A:T&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"genotype-operations",
+								"$find-population-specific-variants"
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "HG00403"
+								},
+								{
+									"key": "variants",
+									"value": "NC_000001.10:144931726:G:A"
+								},
+								{
+									"key": "variants",
+									"value": "NC_000001.10:145532548:T:C"
+								},
+								{
+									"key": "variants",
+									"value": "NC_000001.10:145592072:A:T"
+								},
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OR example",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/genotype-operations/$find-population-specific-variants?variants=NC_000001.10:144931726:G:A, NC_000001.10:145532548:T:C, NC_000001.10:145592072:A:T",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"genotype-operations",
+								"$find-population-specific-variants"
+							],
+							"query": [
+								{
+									"key": "variants",
+									"value": "NC_000001.10:144931726:G:A, NC_000001.10:145532548:T:C, NC_000001.10:145592072:A:T"
+								},
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BRAF V600E",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/genotype-operations/$find-population-specific-variants?variants=NM_001354609.2:c.1799T>A,NM_002524.5:c.182A>C&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"genotype-operations",
+								"$find-population-specific-variants"
+							],
+							"query": [
+								{
+									"key": "variants",
+									"value": "NM_001354609.2:c.1799T>A,NM_002524.5:c.182A>C"
+								},
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "find-population-structural-intersecting-variants",
+			"item": [
+				{
+					"name": "find-population-structural-intersecting-variants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/genotype-operations/$find-population-structural-intersecting-variants?ranges=NC_000022.10:42522500-42526812&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"genotype-operations",
+								"$find-population-structural-intersecting-variants"
+							],
+							"query": [
+								{
+									"key": "ranges",
+									"value": "NC_000022.10:42522500-42526812"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BRCA1,  BRCA2 SVs in population",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/genotype-operations/$find-population-structural-intersecting-variants?ranges=NC_000017.11:43044294-43125364,NC_000013.11:32315507-32400268&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"genotype-operations",
+								"$find-population-structural-intersecting-variants"
+							],
+							"query": [
+								{
+									"key": "ranges",
+									"value": "NC_000017.11:43044294-43125364,NC_000013.11:32315507-32400268"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CYP2D6 SVs in population",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/genotype-operations/$find-population-structural-intersecting-variants?ranges=NC_000022.10:42522500-42526812&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"genotype-operations",
+								"$find-population-structural-intersecting-variants"
+							],
+							"query": [
+								{
+									"key": "ranges",
+									"value": "NC_000022.10:42522500-42526812"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "find-population-structural-subsuming-variants",
+			"item": [
+				{
+					"name": "find-population-structural-subsuming-variants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/genotype-operations/$find-population-structural-subsuming-variants?ranges=NC_000022.10:42522500-42526812&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"genotype-operations",
+								"$find-population-structural-subsuming-variants"
+							],
+							"query": [
+								{
+									"key": "ranges",
+									"value": "NC_000022.10:42522500-42526812"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ERBB2, MET SVs in population",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/genotype-operations/$find-population-structural-subsuming-variants?ranges=NC_000017.10:37844346-37884911,NC_000007.13:116312249-116438431&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"genotype-operations",
+								"$find-population-structural-subsuming-variants"
+							],
+							"query": [
+								{
+									"key": "ranges",
+									"value": "NC_000017.10:37844346-37884911,NC_000007.13:116312249-116438431"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "find-population-specific-haplotypes",
+			"item": [
+				{
+					"name": "find-population-specific-haplotypes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/genotype-operations/$find-population-specific-haplotypes?haplotypes=CYP2C9 *1/*2&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"genotype-operations",
+								"$find-population-specific-haplotypes"
+							],
+							"query": [
+								{
+									"key": "haplotypes",
+									"value": "CYP2C9 *1/*2"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Population - CYP2C19",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/genotype-operations/$find-population-specific-haplotypes?haplotypes=CYP2C19&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"genotype-operations",
+								"$find-population-specific-haplotypes"
+							],
+							"query": [
+								{
+									"key": "haplotypes",
+									"value": "CYP2C19"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Population - ALL of HLA-A*01,HLA-B*08,HLA-DRB1*03",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/genotype-operations/$find-population-specific-haplotypes?haplotypes=HLA-A*01&includePatientList=true&haplotypes=HLA-B*08&haplotypes=HLA-DRB1*03",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"genotype-operations",
+								"$find-population-specific-haplotypes"
+							],
+							"query": [
+								{
+									"key": "haplotypes",
+									"value": "HLA-A*01"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								},
+								{
+									"key": "haplotypes",
+									"value": "HLA-B*08"
+								},
+								{
+									"key": "haplotypes",
+									"value": "HLA-DRB1*03"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Population - ANY of HLA-A*01,HLA-B*08,HLA-DRB1*03",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/genotype-operations/$find-population-specific-haplotypes?haplotypes=HLA-A*01,HLA-B*08,HLA-DRB1*03&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"genotype-operations",
+								"$find-population-specific-haplotypes"
+							],
+							"query": [
+								{
+									"key": "haplotypes",
+									"value": "HLA-A*01,HLA-B*08,HLA-DRB1*03"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "find-population-tx-implications",
+			"item": [
+				{
+					"name": "find-population-tx-implications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/phenotype-operations/$find-population-tx-implications?variants=NC_000006.11:26091178:C:G&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"phenotype-operations",
+								"$find-population-tx-implications"
+							],
+							"query": [
+								{
+									"key": "variants",
+									"value": "NC_000006.11:26091178:C:G"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Population tx implications of amitriptyline",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/phenotype-operations/$find-population-tx-implications?treatments=http://www.nlm.nih.gov/research/umls/rxnorm|704&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"phenotype-operations",
+								"$find-population-tx-implications"
+							],
+							"query": [
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "variants",
+									"value": "NM_001354609.2:c.1799T>A",
+									"disabled": true
+								},
+								{
+									"key": "treatments",
+									"value": "http://www.nlm.nih.gov/research/umls/rxnorm|704"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Population tx implications of vemurafenib",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/phenotype-operations/$find-population-tx-implications?treatments=http://www.nlm.nih.gov/research/umls/rxnorm|1147220&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"phenotype-operations",
+								"$find-population-tx-implications"
+							],
+							"query": [
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "variants",
+									"value": "NM_001354609.2:c.1799T>A",
+									"disabled": true
+								},
+								{
+									"key": "treatments",
+									"value": "http://www.nlm.nih.gov/research/umls/rxnorm|1147220"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Population tx implications of CYP2D6 and CYP2C19 genotypes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/phenotype-operations/$find-population-tx-implications?haplotypes=CYP2C19 *1/*17,CYP2D6 *1/*41&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"phenotype-operations",
+								"$find-population-tx-implications"
+							],
+							"query": [
+								{
+									"key": "treatments",
+									"value": "http://www.nlm.nih.gov/research/umls/rxnorm|337525,http://www.nlm.nih.gov/research/umls/rxnorm|1147220,http://www.nlm.nih.gov/research/umls/rxnorm|1721560",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "variants",
+									"value": "NM_001354609.2:c.1799T>A",
+									"disabled": true
+								},
+								{
+									"key": "treatments",
+									"value": "http://www.nlm.nih.gov/research/umls/rxnorm|704",
+									"disabled": true
+								},
+								{
+									"key": "haplotypes",
+									"value": "CYP2C19 *1/*17,CYP2D6 *1/*41"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Population tx implications of lung cancer with NRAS and BRAF oncogenic mutations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/phenotype-operations/$find-population-tx-implications?conditions=https://disease-ontology.org|3908&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"phenotype-operations",
+								"$find-population-tx-implications"
+							],
+							"query": [
+								{
+									"key": "treatments",
+									"value": "http://www.nlm.nih.gov/research/umls/rxnorm|337525,http://www.nlm.nih.gov/research/umls/rxnorm|1147220,http://www.nlm.nih.gov/research/umls/rxnorm|1721560",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "somatic",
+									"disabled": true
+								},
+								{
+									"key": "haplotypes",
+									"value": "CYP2D6 *1/*41",
+									"disabled": true
+								},
+								{
+									"key": "variants",
+									"value": "NM_002524.5:c.182A>C,NM_001354609.2:c.1799T>A",
+									"disabled": true
+								},
+								{
+									"key": "conditions",
+									"value": "https://disease-ontology.org|3908"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "find-population-dx-implications",
+			"item": [
+				{
+					"name": "find-population-dx-implications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/phenotype-operations/$find-population-dx-implications?conditions=https://www.ncbi.nlm.nih.gov/medgen|C3469186&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"phenotype-operations",
+								"$find-population-dx-implications"
+							],
+							"query": [
+								{
+									"key": "conditions",
+									"value": "https://www.ncbi.nlm.nih.gov/medgen|C3469186"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Population - Hereditary Paraganglioma-Pheochromocytoma Syndrome",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/phenotype-operations/$find-population-dx-implications?conditions=https://www.ncbi.nlm.nih.gov/medgen|C1708353",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"phenotype-operations",
+								"$find-population-dx-implications"
+							],
+							"query": [
+								{
+									"key": "conditions",
+									"value": "https://www.ncbi.nlm.nih.gov/medgen|C1708353"
+								},
+								{
+									"key": "variants",
+									"value": "NC_000019.10:38499669:C:T",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Population - hemachromatosis",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/phenotype-operations/$find-population-dx-implications?conditions=https://www.ncbi.nlm.nih.gov/medgen|C3469186&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"phenotype-operations",
+								"$find-population-dx-implications"
+							],
+							"query": [
+								{
+									"key": "conditions",
+									"value": "https://www.ncbi.nlm.nih.gov/medgen|C3469186"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Population - HBOC, LS, FH",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/phenotype-operations/$find-population-dx-implications?conditions=https://www.ncbi.nlm.nih.gov/medgen|C0677776,https://www.ncbi.nlm.nih.gov/medgen|C4552100,https://www.ncbi.nlm.nih.gov/medgen|C0020445&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"phenotype-operations",
+								"$find-population-dx-implications"
+							],
+							"query": [
+								{
+									"key": "conditions",
+									"value": "https://www.ncbi.nlm.nih.gov/medgen|C0677776,https://www.ncbi.nlm.nih.gov/medgen|C4552100,https://www.ncbi.nlm.nih.gov/medgen|C0020445"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "find-study-metadata",
+			"item": [
+				{
+					"name": "find-study-metadata",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/metadata-operations/$find-study-metadata?subject=HCC1143&ranges=NC_000006.11:26091303-26091307",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"metadata-operations",
+								"$find-study-metadata"
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "HCC1143"
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000006.11:26091303-26091307"
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-02-02",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "multiple overlapping regions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/metadata-operations/$find-study-metadata?subject=HCC1143&ranges=NC_000006.11:26091303-26091307,NC_000011.10:123456789-133456789, NC_000007.14:55019016-55211628, NC_000007.14:55211600-55211800, NC_000007.14:55300000-55300500",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"metadata-operations",
+								"$find-study-metadata"
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "HCC1143"
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000006.11:26091303-26091307,NC_000011.10:123456789-133456789, NC_000007.14:55019016-55211628, NC_000007.14:55211600-55211800, NC_000007.14:55300000-55300500"
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-02-02",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EGFR exon 19",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/metadata-operations/$find-study-metadata?subject=HCC1143&ranges=NC_000007.14:55019016-55211628",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"metadata-operations",
+								"$find-study-metadata"
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "HCC1143"
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000007.14:55019016-55211628"
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-02-02",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
