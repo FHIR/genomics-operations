@@ -3,4 +3,4 @@ A public reference implementation of HL7 FHIR Genomics Operations (http://build.
 
 Please refer to [project Wiki page](https://github.com/FHIR/genomics-operations/wiki) for details of this reference implementation. 
 
-Contact info@elimu.io for comments on this Reference Implementation.
+Issues (bugs, enhancements, etc) can be entered [here](https://github.com/FHIR/genomics-operations/issues). Contact info@elimu.io for other comments.
