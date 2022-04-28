@@ -4,3 +4,36 @@ Source code for a [public reference implementation](https://fhir-gen-ops.herokua
 Please refer to [project Wiki page](https://github.com/FHIR/genomics-operations/wiki) for details of this reference implementation. 
 
 Issues (bugs, enhancements, etc) can be entered [here](https://github.com/FHIR/genomics-operations/issues). Contact info@elimu.io for other comments.
+
+## Use Case
+
+A common use case driving the operations is the notion of an application (e.g. a SMART-ON-FHIR clinical genomics App, a clinical decision support application, an EHR screen) needing specific genotype or phenotype information, for a patient or a population. Applications have diverse needs, such as matching a cancer patient to available clinical trials based on identified somatic variants; screening for actionable hereditary conditions; identifying a risk for adverse medication reactions based on pharmacogenomic variants; updating a patient's risk as knowledge of their variants evolves; and more. A goal for FHIR Genomics operations is to ultimately support any and all of these clinical scenarios.
+
+## Scope
+
+In scope are clinical genomics operations. In the future, operations supporting variant calling and annotation, and knowledge base lookups may be added. We further categorize clinical genomics operations along two orthogonal axes - subject vs. population, and genotype vs. phenotype. For example, the '**find-subject-variants**' operation retrieves genotype information for a single subject; whereas the '**find-population-tx-implications**' retrieves a count or list of patients having specific phenotypes (such as being intermediate metabolizers of clopidogrel).
+
+## Response
+
+All operations return a JSON output. However, if an invalid request is submitted, or some other error occurs, a JSON response is returned in the following format:
+
+```javascript
+{
+  "type": string,
+  "title": tring,
+  "detail": string,
+  "status": int
+}
+```
+
+## Status Codes
+
+The operations return the following status codes:
+
+| Status Code | Description |
+| :--- | :--- |
+| 200 | `Successfully executed request` |
+| 400 | `ERROR: Invalid query parameters` |
+| 404 | `ERROR: Patient not found` |
+| 422 | `ERROR: Failed LiftOver` |
+| 500 | `INTERNAL SERVER ERROR` |
