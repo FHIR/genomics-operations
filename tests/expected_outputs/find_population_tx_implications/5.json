@@ -1,0 +1,82 @@
+{
+    "resourceType": "Parameters",
+    "parameter": [
+        {
+            "name": "implications",
+            "part": [
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 15
+                    }
+                },
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 89
+                    }
+                },
+                {
+                    "name": "subject",
+                    "valueString": "CA12345"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "FLATIRON1"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "HG00403"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "HG00406"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "HG02657"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NA18498"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NA18499"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NA18870"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NA18871"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NA19190"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NA19210"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NA19238"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NA19239"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NA19240"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NB6TK329"
+                }
+            ]
+        }
+    ]
+}

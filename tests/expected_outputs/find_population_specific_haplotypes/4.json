@@ -1,0 +1,80 @@
+{
+    "resourceType": "Parameters",
+    "parameter": [
+        {
+            "name": "variants",
+            "part": [
+                {
+                    "name": "variantItem",
+                    "valueString": "HLA-A*01"
+                },
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 1
+                    }
+                },
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 89
+                    }
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NB6TK328"
+                }
+            ]
+        },
+        {
+            "name": "variants",
+            "part": [
+                {
+                    "name": "variantItem",
+                    "valueString": "HLA-B*08"
+                },
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 1
+                    }
+                },
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 89
+                    }
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NB6TK328"
+                }
+            ]
+        },
+        {
+            "name": "variants",
+            "part": [
+                {
+                    "name": "variantItem",
+                    "valueString": "HLA-DRB1*03"
+                },
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 1
+                    }
+                },
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 89
+                    }
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NB6TK328"
+                }
+            ]
+        }
+    ]
+}

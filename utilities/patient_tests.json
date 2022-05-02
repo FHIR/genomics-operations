@@ -1,0 +1,316 @@
+[
+    {
+        "patientID": "ABC123",
+        "testDate": "2020-09-20",
+        "testID": "ABC123-T1",
+        "specimenID": "ABC123-Sp1",
+        "genomicBuild": "GRCh37",
+        "studiedRegion": "Default.WGS.GRCh37.bed",
+        "dnaChangeType": [
+            "INS",
+            " INV",
+            " CNV",
+            " DEL",
+            " DUP"
+        ]
+    },
+    {
+        "patientID": "ABC456",
+        "testDate": "2020-09-20",
+        "testID": "ABC456-T1",
+        "specimenID": "ABC456-Sp1",
+        "genomicBuild": "GRCh37",
+        "studiedRegion": "Default.WGS.GRCh37.bed",
+        "dnaChangeType": [
+            "INS",
+            " INV",
+            " CNV",
+            " DEL",
+            " DUP"
+        ]
+    },
+    {
+        "patientID": "CA12345",
+        "testDate": "2020-03-01",
+        "testID": "CA12345-T1",
+        "specimenID": "CA12345-Sp1",
+        "genomicBuild": "GRCh38",
+        "studiedRegion": "Agilent_Human_Exon_V7_Regions.GRCh38.bed",
+        "uncallableRegion": "Default.WGS.GRCh38.uncallable.bed",
+        "dnaChangeType": [
+            "SNV",
+            " MNV",
+            " delins",
+            " CNV"
+        ]
+    },
+    {
+        "patientID": "CA12345",
+        "testDate": "2020-07-01",
+        "testID": "CA12345-T2",
+        "specimenID": "CA12345-Sp2",
+        "genomicBuild": "GRCh38",
+        "studiedRegion": "Agilent_Human_Exon_V7_Regions.GRCh38.bed",
+        "uncallableRegion": "Default.WGS.GRCh38.uncallable.bed",
+        "dnaChangeType": [
+            "SNV",
+            " MNV",
+            " delins",
+            " CNV"
+        ]
+    },
+    {
+        "patientID": "HCC1143",
+        "testDate": "2020-02-03",
+        "testID": "HCC1143-T1",
+        "specimenID": "HCC1143-Sp1",
+        "genomicBuild": "GRCh38",
+        "studiedRegion": "Default.WGS.GRCh38.bed",
+        "dnaChangeType": [
+            "SNV",
+            " MNV",
+            " delins"
+        ]
+    },
+    {
+        "patientID": "HCC1143",
+        "testDate": "2020-02-17",
+        "testID": "HCC1143-T2",
+        "specimenID": "HCC1143-Sp1",
+        "genomicBuild": "GRCh37",
+        "studiedRegion": "Default.WGS.GRCh37.bed",
+        "dnaChangeType": [
+            "INS",
+            " INV",
+            " CNV",
+            " DEL",
+            " DUP"
+        ]
+    },
+    {
+        "patientID": "HG00403",
+        "testDate": "2014-03-03",
+        "testID": "TL000016660-ASM",
+        "specimenID": "GS000016660-ASM",
+        "genomicBuild": "GRCh37",
+        "studiedRegion": "Default.WES.GRCh37.bed",
+        "dnaChangeType": [
+            "SNV",
+            " MNV",
+            " delins"
+        ]
+    },
+    {
+        "patientID": "HG00406",
+        "testDate": "2014-03-03",
+        "testID": "TL000016662-ASM",
+        "specimenID": "GS000016662-ASM",
+        "genomicBuild": "GRCh37",
+        "studiedRegion": "Default.WES.GRCh37.bed",
+        "uncallableRegion": "Default.WES.GRCh37.uncallable.bed",
+        "dnaChangeType": [
+            "SNV",
+            " MNV",
+            " delins"
+        ]
+    },
+    {
+        "patientID": "HG02657",
+        "testDate": "2014-03-03",
+        "testID": "TL000016544-ASM",
+        "specimenID": "GS000016544-ASM",
+        "genomicBuild": "GRCh37",
+        "studiedRegion": "Default.WES.GRCh37.bed",
+        "dnaChangeType": [
+            "SNV",
+            " MNV",
+            " delins"
+        ]
+    },
+    {
+        "patientID": "huC30902",
+        "testDate": "2014-03-03",
+        "testID": "huC30902-T1",
+        "specimenID": "huC30902-Sp1",
+        "genomicBuild": "GRCh37",
+        "studiedRegion": "FMI_studied_region_GRCh37.bed",
+        "dnaChangeType": [
+            "SNV",
+            " MNV",
+            " delins"
+        ]
+    },
+    {
+        "patientID": "m123",
+        "testDate": "2019-04-01",
+        "testID": "m123-T1",
+        "specimenID": "m123-Sp1",
+        "genomicBuild": "GRCh37",
+        "studiedRegion": "Default.WGS.GRCh37.bed",
+        "dnaChangeType": [
+            "SNV",
+            " MNV",
+            " delins"
+        ]
+    },
+    {
+        "patientID": "NA18498",
+        "testDate": "2014-03-03",
+        "testID": "TL000017237-ASM",
+        "specimenID": "GS000017237-ASM",
+        "genomicBuild": "GRCh37",
+        "studiedRegion": "Default.WES.GRCh37.bed",
+        "dnaChangeType": [
+            "SNV",
+            " MNV",
+            " delins"
+        ]
+    },
+    {
+        "patientID": "NA18499",
+        "testDate": "2014-03-03",
+        "testID": "TL000017224-ASM",
+        "specimenID": "GS000017224-ASM",
+        "genomicBuild": "GRCh37",
+        "studiedRegion": "Default.WES.GRCh37.bed",
+        "dnaChangeType": [
+            "SNV",
+            " MNV",
+            " delins"
+        ]
+    },
+    {
+        "patientID": "NA18870",
+        "testDate": "2014-03-03",
+        "testID": "TL000017227-ASM",
+        "specimenID": "GS000017227-ASM",
+        "genomicBuild": "GRCh37",
+        "studiedRegion": "Default.WES.GRCh37.bed",
+        "dnaChangeType": [
+            "SNV",
+            " MNV",
+            " delins"
+        ]
+    },
+    {
+        "patientID": "NA18871",
+        "testDate": "2014-03-03",
+        "testID": "TL000017226-ASM",
+        "specimenID": "GS000017226-ASM",
+        "genomicBuild": "GRCh37",
+        "studiedRegion": "Default.WES.GRCh37.bed",
+        "dnaChangeType": [
+            "SNV",
+            " MNV",
+            " delins"
+        ]
+    },
+    {
+        "patientID": "NA19190",
+        "testDate": "2014-03-03",
+        "testID": "TL000017276-ASM",
+        "specimenID": "GS000017276-ASM",
+        "genomicBuild": "GRCh37",
+        "studiedRegion": "Default.WES.GRCh37.bed",
+        "uncallableRegion": "Default.WES.GRCh37.uncallable.bed",
+        "dnaChangeType": [
+            "SNV",
+            " MNV",
+            " delins"
+        ]
+    },
+    {
+        "patientID": "NA19210",
+        "testDate": "2014-03-03",
+        "testID": "TL000017274-ASM",
+        "specimenID": "GS000017274-ASM",
+        "genomicBuild": "GRCh37",
+        "studiedRegion": "Default.WES.GRCh37.bed",
+        "dnaChangeType": [
+            "SNV",
+            " MNV",
+            " delins"
+        ]
+    },
+    {
+        "patientID": "NA19238",
+        "testDate": "2014-03-03",
+        "testID": "TL000017268-ASM",
+        "specimenID": "GS000017268-ASM",
+        "genomicBuild": "GRCh37",
+        "studiedRegion": "Default.WES.GRCh37.bed",
+        "dnaChangeType": [
+            "SNV",
+            " MNV",
+            " delins"
+        ]
+    },
+    {
+        "patientID": "NA19239",
+        "testDate": "2014-03-03",
+        "testID": "TL000017267-ASM",
+        "specimenID": "GS000017267-ASM",
+        "genomicBuild": "GRCh37",
+        "studiedRegion": "Default.WES.GRCh37.bed",
+        "dnaChangeType": [
+            "SNV",
+            " MNV",
+            " delins"
+        ]
+    },
+    {
+        "patientID": "NA19240",
+        "testDate": "2014-03-03",
+        "testID": "TL000018625-ASM",
+        "specimenID": "GS000018625-ASM",
+        "genomicBuild": "GRCh37",
+        "studiedRegion": "Default.WES.GRCh37.bed",
+        "dnaChangeType": [
+            "SNV",
+            " MNV",
+            " delins"
+        ]
+    },
+    {
+        "patientID": "NB6TK328",
+        "testDate": "2021-03-03",
+        "testID": "NB6TK328-T2",
+        "specimenID": "NB6TK328-Sp1",
+        "genomicBuild": "GRCh38"
+    },
+    {
+        "patientID": "NB6TK329",
+        "testDate": "2021-03-03",
+        "testID": "NB6TK329-T1",
+        "specimenID": "NB6TK329-Sp1",
+        "genomicBuild": "GRCh38",
+        "studiedRegion": "Agilent_Human_Exon_V7_Regions.GRCh38.bed",
+        "uncallableRegion": "Default.WGS.GRCh38.uncallable.bed",
+        "dnaChangeType": [
+            "SNV",
+            " MNV",
+            " delins"
+        ]
+    },
+    {
+        "patientID": "XYZ123",
+        "testDate": "2020-09-20",
+        "testID": "XYZ123-T1",
+        "specimenID": "XYZ123-Sp1",
+        "genomicBuild": "GRCh38"
+    },
+    {
+        "patientID": "XYZ234",
+        "testDate": "2020-09-20",
+        "testID": "XYZ234-T1",
+        "specimenID": "XYZ234-Sp1",
+        "genomicBuild": "GRCh38"
+    },
+    {
+        "patientID": "XYZ345",
+        "testDate": "2020-09-20",
+        "testID": "XYZ345-T1",
+        "specimenID": "XYZ345-Sp1",
+        "genomicBuild": "GRCh38"
+    }
+]

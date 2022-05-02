@@ -1,0 +1,193 @@
+{
+    "resourceType": "Parameters",
+    "parameter": [
+        {
+            "name": "variants",
+            "part": [
+                {
+                    "name": "rangeItem",
+                    "valueString": "NC_000007.14:116672195-116798386"
+                },
+                {
+                    "name": "presence",
+                    "valueBoolean": true
+                },
+                {
+                    "name": "variant",
+                    "resource": {
+                        "resourceType": "Observation",
+                        "id": "dv-621a0c500610fa16d41047b9",
+                        "meta": {
+                            "profile": [
+                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
+                            ]
+                        },
+                        "status": "final",
+                        "category": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                                        "code": "laboratory"
+                                    }
+                                ]
+                            }
+                        ],
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "69548-6",
+                                    "display": "Genetic variant assessment"
+                                }
+                            ]
+                        },
+                        "subject": {
+                            "reference": "Patient/HCC1143"
+                        },
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "LA9633-4",
+                                    "display": "present"
+                                }
+                            ]
+                        },
+                        "component": [
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "48019-4",
+                                            "display": "DNA Change Type"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://sequenceontology.org",
+                                            "code": "SO:1000035",
+                                            "display": "duplication"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "48002-0",
+                                            "display": "Genomic Source Class"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "LA6684-0",
+                                            "display": "somatic"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "48013-7",
+                                            "display": "Genomic reference sequence ID"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+                                            "code": "NC_000007.13"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69547-8",
+                                            "display": "Genomic Ref allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "N"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "92822-6",
+                                            "display": "Genomic coord system"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "LA30100-4",
+                                            "display": "0-based interval counting"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "81301-4",
+                                            "display": "Variant outer start-end"
+                                        }
+                                    ]
+                                },
+                                "valueRange": {
+                                    "low": {
+                                        "value": 66028223
+                                    },
+                                    "high": {
+                                        "value": 129038244
+                                    }
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "81302-2",
+                                            "display": "Variant inner start-end"
+                                        }
+                                    ]
+                                },
+                                "valueRange": {
+                                    "low": {
+                                        "value": 66028243
+                                    },
+                                    "high": {
+                                        "value": 129038224
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

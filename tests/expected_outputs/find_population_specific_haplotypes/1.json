@@ -1,0 +1,30 @@
+{
+    "resourceType": "Parameters",
+    "parameter": [
+        {
+            "name": "variants",
+            "part": [
+                {
+                    "name": "variantItem",
+                    "valueString": "CYP2C9 *1/*2"
+                },
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 1
+                    }
+                },
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 89
+                    }
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NB6TK328"
+                }
+            ]
+        }
+    ]
+}

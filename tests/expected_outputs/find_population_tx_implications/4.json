@@ -1,0 +1,26 @@
+{
+    "resourceType": "Parameters",
+    "parameter": [
+        {
+            "name": "implications",
+            "part": [
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 1
+                    }
+                },
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 89
+                    }
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NB6TK328"
+                }
+            ]
+        }
+    ]
+}

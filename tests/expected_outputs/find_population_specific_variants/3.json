@@ -1,0 +1,68 @@
+{
+    "resourceType": "Parameters",
+    "parameter": [
+        {
+            "name": "variants",
+            "part": [
+                {
+                    "name": "variantItem",
+                    "valueString": "NC_000001.10:144931726:G:A"
+                },
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 9
+                    }
+                },
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 89
+                    }
+                }
+            ]
+        },
+        {
+            "name": "variants",
+            "part": [
+                {
+                    "name": "variantItem",
+                    "valueString": "NC_000001.10:145532548:T:C"
+                },
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 12
+                    }
+                },
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 89
+                    }
+                }
+            ]
+        },
+        {
+            "name": "variants",
+            "part": [
+                {
+                    "name": "variantItem",
+                    "valueString": "NC_000001.10:145592072:A:T"
+                },
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 9
+                    }
+                },
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 89
+                    }
+                }
+            ]
+        }
+    ]
+}

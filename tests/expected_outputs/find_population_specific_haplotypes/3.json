@@ -1,0 +1,30 @@
+{
+    "resourceType": "Parameters",
+    "parameter": [
+        {
+            "name": "haplotypes",
+            "part": [
+                {
+                    "name": "haplotypeItem",
+                    "valueString": "HLA-A*01 AND HLA-B*08 AND HLA-DRB1*03"
+                },
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 1
+                    }
+                },
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 89
+                    }
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NB6TK328"
+                }
+            ]
+        }
+    ]
+}

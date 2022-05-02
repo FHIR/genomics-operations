@@ -1,0 +1,51 @@
+{
+    "resourceType": "Parameters",
+    "parameter": [
+        {
+            "name": "variants",
+            "part": [
+                {
+                    "name": "rangeItem",
+                    "valueString": "NC_000017.10:37844346-37884911"
+                },
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 0
+                    }
+                },
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 89
+                    }
+                }
+            ]
+        },
+        {
+            "name": "variants",
+            "part": [
+                {
+                    "name": "rangeItem",
+                    "valueString": "NC_000007.13:116312249-116438431"
+                },
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 1
+                    }
+                },
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 89
+                    }
+                },
+                {
+                    "name": "subject",
+                    "valueString": "HCC1143"
+                }
+            ]
+        }
+    ]
+}

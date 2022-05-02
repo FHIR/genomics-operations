@@ -1,0 +1,15 @@
+[
+    {
+        "geneId": "HGNC:5",
+        "geneSymbol": "A1BG",
+        "geneLink": "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:5",
+        "build37Coordinates": "NC_000019.9:58856548-58864858",
+        "build38Coordinates": "NC_000019.10:58345182-58353492",
+        "transcripts": [
+            "NM_130786.4"
+        ],
+        "MANE": [
+            "NM_130786.4"
+        ]
+    }
+]

@@ -1,0 +1,38 @@
+{
+    "resourceType": "Parameters",
+    "parameter": [
+        {
+            "name": "implications",
+            "part": [
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 4
+                    }
+                },
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 89
+                    }
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NB6TK328"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "XYZ123"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "XYZ234"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "XYZ345"
+                }
+            ]
+        }
+    ]
+}
