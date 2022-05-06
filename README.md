@@ -3,7 +3,7 @@ Source code for a [public reference implementation](https://fhir-gen-ops.herokua
 
 Please refer to [project Wiki page](https://github.com/FHIR/genomics-operations/wiki) for details of this reference implementation. 
 
-Issues (bugs, enhancements, etc) can be entered [here](https://github.com/FHIR/genomics-operations/issues). Contact info@elimu.io for other comments.
+Issues (bugs, enhancements, etc) can be entered [here](https://github.com/FHIR/genomics-operations/issues). (Legacy issues are [here](https://docs.google.com/spreadsheets/d/1xPRDB2lvMPTImPHLwUvSboILZLG6jH1LHVXoOfgak9U/edit#gid=0)). Contact info@elimu.io for other comments.
 
 ## Use Case
 
