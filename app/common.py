@@ -6,16 +6,15 @@ from datetime import datetime
 import pymongo
 from flask import abort
 from itertools import groupby
-import os
 import re
 
-# Environment Variables
-MONGODB_USERNAME = os.environ.get('MONGODB_USERNAME')
-MONGODB_PASSWORD = os.environ.get('MONGODB_PASSWORD')
+# MongoDB Client URIs
+FHIR_genomics_data_client_uri = "mongodb+srv://download:download@cluster0.pe0bv.mongodb.net/FHIRGenomicsData"
+utilities_data_client_uri = "mongodb+srv://download:download@cluster0.8ianr.mongodb.net/UtilitiesData"
 
 # MongoDB Clients
-client = pymongo.MongoClient(f"mongodb+srv://{MONGODB_USERNAME}:{MONGODB_PASSWORD}@cluster0.pe0bv.mongodb.net/FHIRGenomicsData")
-utilities_client = pymongo.MongoClient(f"mongodb+srv://{MONGODB_USERNAME}:{MONGODB_PASSWORD}@cluster0.8ianr.mongodb.net/UtilitiesData")
+client = pymongo.MongoClient(FHIR_genomics_data_client_uri)
+utilities_client = pymongo.MongoClient(utilities_data_client_uri)
 
 # Databases
 db = client.FHIRGenomicsData
@@ -469,9 +468,9 @@ def create_fhir_variant_resource(record, subject):
         resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
                                                            "code": "82155-3",
                                                            "display": "Genomic Structural Variant copy Number"}]},
-                                      "valueCodeableConcept": {"coding": [{"system": "http://unitsofmeasure.org",
-                                                                           "code": 1,
-                                                                           "display": f"{record['CN']}"}]}})
+                                      "valueQuantity": {"value": int(f"{record['CN']}"),
+                                                        "system": "http://unitsofmeasure.org",
+                                                        "code": "1"}})
 
     # Genomic Ref Allele ID
     resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",

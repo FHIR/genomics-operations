@@ -104,14 +104,10 @@
                                         }
                                     ]
                                 },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://unitsofmeasure.org",
-                                            "code": 1,
-                                            "display": "1"
-                                        }
-                                    ]
+                                "valueQuantity": {
+                                    "value": 1,
+                                    "system": "http://unitsofmeasure.org",
+                                    "code": "1"
                                 }
                             },
                             {

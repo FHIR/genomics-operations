@@ -3,6 +3,8 @@ name: CI
 on:
   push:
     branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
   workflow_dispatch:
 
@@ -21,7 +23,20 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run Tests
-        env: 
-          MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
-          MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
         run: python -m pytest
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' && always() && contains(join(needs.*.result, ','), 'success') }}
+    needs: [test]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}

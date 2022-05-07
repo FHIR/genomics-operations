@@ -11,7 +11,7 @@
                 {
                     "name": "numerator",
                     "valueQuantity": {
-                        "value": 1
+                        "value": 3
                     }
                 },
                 {
@@ -19,6 +19,14 @@
                     "valueQuantity": {
                         "value": 89
                     }
+                },
+                {
+                    "name": "subject",
+                    "valueString": "ABC123"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "ABC456"
                 },
                 {
                     "name": "subject",

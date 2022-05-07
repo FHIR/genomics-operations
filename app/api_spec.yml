@@ -7,7 +7,7 @@ info:
 
     FHIR Genomics operations are based on the premise that genomic data, in FHIR format and/or some other format (e.g. <a href="https://samtools.github.io/hts-specs/VCFv4.3.pdf">VCF format</a>), are stored in a repository, either in or alongside an EHR, possibly along with phenotype annotations. The FHIR Genomics operations essentially 'wrap' the repository, presenting a uniform interface to applications, regardless of internal repository data structures.
 
-    Click <a href="http://build.fhir.org/ig/HL7/genomics-reporting/branches/operations/operations.html">here</a> to Learn more about FHIR Genomics Operations
+    Click <a href="https://github.com/FHIR/genomics-operations">here</a> to Learn more about FHIR Genomics Operations
 
     All patient data used in this implementation is either synthetic or publicly available and anonymized. All data and code used in this implementation is open-sourced. Click <a href="https://docs.google.com/document/d/1b6u-AfjPKfyGZ3orUC7jJUMIJfFUhu3Sk5KOFhjuV0g/edit#">here</a> to learn more about the reference implementation.
 

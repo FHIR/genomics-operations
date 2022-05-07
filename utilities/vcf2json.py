@@ -147,11 +147,10 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
 
         alleles = get_allelic_state(record, ratio_ad_dp)
 
-        if (alleles['CODE'] != "" or alleles['ALLELE'] != ""):
+        if (alleles['CODE'] != "" or alleles['ALLELE'] != "") and genomic_source_class.lower() == Genomic_Source_Class.GERMLINE.value.lower() :
             output_json["allelicState"] = alleles['ALLELE']
 
-        if genomic_source_class is not None:
-            output_json["genomicSourceClass"] = genomic_source_class
+        output_json["genomicSourceClass"] = genomic_source_class
 
         alt_ad_index = 1
         for alt in alts:

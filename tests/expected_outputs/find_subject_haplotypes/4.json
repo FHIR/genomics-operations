@@ -42,8 +42,8 @@
                             "coding": [
                                 {
                                     "system": "http://glstring.org",
-                                    "code": "HLA-B*08:01/HLA-B*40:01",
-                                    "display": "HLA-B*08:01/HLA-B*40:01"
+                                    "code": "hla#3.33.0#HLA-B*08:01/HLA-B*40:01",
+                                    "display": "hla#3.33.0#HLA-B*08:01/HLA-B*40:01"
                                 }
                             ]
                         },

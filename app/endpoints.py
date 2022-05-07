@@ -339,7 +339,7 @@ def find_subject_structural_intersecting_variants(
             {
                 "$and": [
                     {"POS": {"$gte": chrom["PGB"]["L"]}},
-                    {"END": {"$lte": chrom["PGB"]["H"]}}
+                    {"POS": {"$lte": chrom["PGB"]["H"]}}
                 ]
             }
         ]})
@@ -356,7 +356,7 @@ def find_subject_structural_intersecting_variants(
                 {
                     "$and": [
                         {"POS": {"$gte": chrom["OGB"]["L"]}},
-                        {"END": {"$lt": chrom["OGB"]["H"]}}
+                        {"POS": {"$lt": chrom["OGB"]["H"]}}
                     ]
                 }]
             )
@@ -1498,7 +1498,7 @@ def find_population_structural_intersecting_variants(
             {
                 "$and": [
                     {"POS": {"$gte": chrom["PGB"]["L"]}},
-                    {"END": {"$lte": chrom["PGB"]["H"]}}
+                    {"POS": {"$lte": chrom["PGB"]["H"]}}
                 ]
             }
         ]})
@@ -1515,7 +1515,7 @@ def find_population_structural_intersecting_variants(
                 {
                     "$and": [
                         {"POS": {"$gte": chrom["OGB"]["L"]}},
-                        {"END": {"$lte": chrom["OGB"]["H"]}}
+                        {"POS": {"$lte": chrom["OGB"]["H"]}}
                     ]
                 }]
             )
