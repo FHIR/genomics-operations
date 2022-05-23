@@ -4,7 +4,6 @@ import requests
 import csv
 import random
 from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode, JsCode
-import os
 
 st.set_page_config(
      page_title="PGx Screening",
@@ -45,8 +44,6 @@ def getMedicationList(subject):
                ingList.append(i["ing"])
                finalMedList.append(i)
      return finalMedList
-
-st.write(os.getcwd())
 
 st.title("PGx Screening")
 st.markdown("This app illustrates [FHIR Genomics Operations](http://build.fhir.org/ig/HL7/genomics-reporting/operations.html) find-subject-haplotypes and \
