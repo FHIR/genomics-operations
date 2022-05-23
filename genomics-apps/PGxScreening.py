@@ -28,7 +28,7 @@ def findSubjectTxImplications(subject, haplotypes):
      return r.json()
 
 def getMedicationList(subject):
-     with open('product.csv') as productFile:
+     with open('./product.csv') as productFile:
           products=csv.reader(productFile, delimiter=',', quotechar='"')
           productList=[]
           for row in products:
