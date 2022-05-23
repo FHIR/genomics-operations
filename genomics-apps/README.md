@@ -1,4 +1,4 @@
-# Genomics Apps
+# Genomics Applications
 Here are some simple genomics applications built using the FHIR Genomics Operations:
 
 ## Simple App
