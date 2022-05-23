@@ -7,7 +7,7 @@ info:
 
     FHIR Genomics operations are based on the premise that genomic data, in FHIR format and/or some other format (e.g. <a href="https://samtools.github.io/hts-specs/VCFv4.3.pdf">VCF format</a>), are stored in a repository, either in or alongside an EHR, possibly along with phenotype annotations. The FHIR Genomics operations essentially 'wrap' the repository, presenting a uniform interface to applications, regardless of internal repository data structures.
 
-    Click <a href="http://build.fhir.org/ig/HL7/genomics-reporting/branches/operations/operations.html">here</a> to Learn more about FHIR Genomics Operations
+    Click <a href="http://build.fhir.org/ig/HL7/genomics-reporting/operations.html">here</a> to Learn more about FHIR Genomics Operations
 
     All patient data used in this implementation is either synthetic or publicly available and anonymized. All data and code used in this implementation is open-sourced. Click <a href="https://github.com/FHIR/genomics-operations">here</a> to learn more about the reference implementation.
 
@@ -20,7 +20,7 @@ paths:
   /subject-operations/genotype-operations/$find-subject-variants:
     get:
       description: >
-        Determine if simple variants are present that overlap range(s). (See section '<a href="http://build.fhir.org/ig/HL7/genomics-reporting/branches/operations/operations.html#Simple_Structural">Simple vs. Structural variant operations</a>' for the distinction between simple and structural variants).
+        Determine if simple variants are present that overlap range(s). (See section '<a href="http://build.fhir.org/ig/HL7/genomics-reporting/operations.html#simple-vs-structural-variant-operations">Simple vs. Structural variant operations</a>' for the distinction between simple and structural variants).
       summary: "Find Subject Variants"
       operationId: "app.endpoints.find_subject_variants"
       tags:
@@ -100,7 +100,7 @@ paths:
   /subject-operations/genotype-operations/$find-subject-specific-variants:
     get:
       description: >
-        Determine if specified simple variants are present or not. If any specified variant instance that passes the filters is present, then presence=true, else presence=false. (See section '<a href="http://build.fhir.org/ig/HL7/genomics-reporting/branches/operations/operations.html#Simple_Structural">Simple vs. Structural variant operations</a>' for the distinction between simple and structural variants).
+        Determine if specified simple variants are present or not. If any specified variant instance that passes the filters is present, then presence=true, else presence=false. (See section '<a href="http://build.fhir.org/ig/HL7/genomics-reporting/operations.html#simple-vs-structural-variant-operations">Simple vs. Structural variant operations</a>' for the distinction between simple and structural variants).
       summary: "Find Subject Specific Variants"
       operationId: "app.endpoints.find_subject_specific_variants"
       tags:
@@ -175,7 +175,7 @@ paths:
   /subject-operations/genotype-operations/$find-subject-structural-intersecting-variants:
     get:
       description: >
-        Determine if structural variants are present that intersect range(s). (See section '<a href="http://build.fhir.org/ig/HL7/genomics-reporting/branches/operations/operations.html#use-of-genomic-regions">Use of genomic regions</a>' for the distinction between variants that 'intersect' vs. 'subsume' a region; see section '<a href="http://build.fhir.org/ig/HL7/genomics-reporting/branches/operations/operations.html#Simple_Structural">Simple vs. Structural variant operations</a>' for the distinction between simple and structural variants).
+        Determine if structural variants are present that intersect range(s). (See section '<a href="http://build.fhir.org/ig/HL7/genomics-reporting/operations.html#use-of-genomic-regions">Use of genomic regions</a>' for the distinction between variants that 'intersect' vs. 'subsume' a region; see section '<a href="http://build.fhir.org/ig/HL7/genomics-reporting/operations.html#simple-vs-structural-variant-operations">Simple vs. Structural variant operations</a>' for the distinction between simple and structural variants).
       summary: "Find Subject Structural Intersecting Variants"
       operationId: "app.endpoints.find_subject_structural_intersecting_variants"
       tags:
@@ -260,7 +260,7 @@ paths:
   /subject-operations/genotype-operations/$find-subject-structural-subsuming-variants:
     get:
       description: >
-        Determine if structural variants are present that subsume range(s). (See section '<a href="http://build.fhir.org/ig/HL7/genomics-reporting/branches/operations/operations.html#use-of-genomic-regions">Use of genomic regions</a>' for the distinction between variants that 'intersect' vs. 'subsume' a region; see section '<a href="http://build.fhir.org/ig/HL7/genomics-reporting/branches/operations/operations.html#Simple_Structural">Simple vs. Structural variant operations</a>' for the distinction between simple and structural variants).
+        Determine if structural variants are present that subsume range(s). (See section '<a href="http://build.fhir.org/ig/HL7/genomics-reporting/operations.html#use-of-genomic-regions">Use of genomic regions</a>' for the distinction between variants that 'intersect' vs. 'subsume' a region; see section '<a href="http://build.fhir.org/ig/HL7/genomics-reporting/operations.html#simple-vs-structural-variant-operations">Simple vs. Structural variant operations</a>' for the distinction between simple and structural variants).
       summary: "Find Subject Structural Subsuming Variants"
       operationId: "app.endpoints.find_subject_structural_subsuming_variants"
       tags:
@@ -801,7 +801,7 @@ paths:
   /population-operations/genotype-operations/$find-population-structural-intersecting-variants:
     get:
       description: |-
-        Retrieve count or list of patients having structural intersecting variants in specified regions. (See section '<a href="http://build.fhir.org/ig/HL7/genomics-reporting/branches/operations/operations.html#genes-vs-regions">Genes vs. Regions</a>' for the distinction between variants that 'intersect' vs. 'subsume' a region).
+        Retrieve count or list of patients having structural intersecting variants in specified regions. (See section '<a href="http://build.fhir.org/ig/HL7/genomics-reporting/operations.html#genes-vs-regions">Genes vs. Regions</a>' for the distinction between variants that 'intersect' vs. 'subsume' a region).
 
         A patient meets numerator criteria if they have at least one structural variant intersecting a given range.
 
@@ -850,7 +850,7 @@ paths:
   /population-operations/genotype-operations/$find-population-structural-subsuming-variants:
     get:
       description: |-
-        Retrieve count or list of patients having structural subsuming variants in specified regions. (See section '<a href="http://build.fhir.org/ig/HL7/genomics-reporting/branches/operations/operations.html#genes-vs-regions">Genes vs. Regions</a>' for the distinction between variants that 'intersect' vs. 'subsume' a region).
+        Retrieve count or list of patients having structural subsuming variants in specified regions. (See section '<a href="http://build.fhir.org/ig/HL7/genomics-reporting/operations.html#genes-vs-regions">Genes vs. Regions</a>' for the distinction between variants that 'intersect' vs. 'subsume' a region).
 
         A patient meets numerator criteria if they have at least one structural variant subsuming a given range.
 
