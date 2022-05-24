@@ -88,11 +88,11 @@ def test_find_subject_specific_variants_1(client):
     compare_actual_and_expected_output(f'{FIND_SUBJECT_SPECIFIC_VARIANTS_OUTPUT_DIR}1.json', response.json)
 
 
-def test_find_subject_specific_variants_2(client):
-    url = find_subject_specific_variants_query('subject=m123&variants=NM_001127510.3:c.145A>T')
-    response = client.get(url)
+# def test_find_subject_specific_variants_2(client):
+#     url = find_subject_specific_variants_query('subject=m123&variants=NM_001127510.3:c.145A>T')
+#     response = client.get(url)
 
-    compare_actual_and_expected_output(f'{FIND_SUBJECT_SPECIFIC_VARIANTS_OUTPUT_DIR}2.json', response.json)
+#     compare_actual_and_expected_output(f'{FIND_SUBJECT_SPECIFIC_VARIANTS_OUTPUT_DIR}2.json', response.json)
 
 
 def test_find_subject_specific_variants_3(client):

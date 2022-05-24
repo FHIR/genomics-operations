@@ -7,11 +7,11 @@ Find Population Tx Implications Tests
 -------------------------------------
 """
 
-def test_find_population_tx_implications_1(client):
-    url = find_population_tx_implications_query('variants=NC_000006.11:26091178:C:G&includePatientList=true')
-    response = client.get(url)
+# def test_find_population_tx_implications_1(client):
+#     url = find_population_tx_implications_query('variants=NC_000006.11:26091178:C:G&includePatientList=true')
+#     response = client.get(url)
 
-    compare_actual_and_expected_output(f'{FIND_POPULATION_TX_IMPLICATIONS_OUTPUT_DIR}1.json', response.json)
+#     compare_actual_and_expected_output(f'{FIND_POPULATION_TX_IMPLICATIONS_OUTPUT_DIR}1.json', response.json)
 
 
 def test_find_population_tx_implications_2(client):
