@@ -97,6 +97,14 @@ def get_feature_coordinates(
             ord_dict['build38Coordinates'] = f"{res['build38RefSeq']}:{res['build38Start']}-{res['build38End']}"
             ord_dict['MANE'] = True if res['MANE'] == 1 else False
 
+            if res['cdsMatches']:
+                ord_dict['build38CDSStart'] = res['cdsMatches'][0]['build38CDSStart']
+                ord_dict['build38CDSEnd'] = res['cdsMatches'][0]['build38CDSEnd']
+                ord_dict['build38Strand'] = res['cdsMatches'][0]['build38Strand']
+                ord_dict['build37CDSStart'] = res['cdsMatches'][0]['build37CDSStart']
+                ord_dict['build37CDSEnd'] = res['cdsMatches'][0]['build37CDSEnd']
+                ord_dict['build37Strand'] = res['cdsMatches'][0]['build37Strand']
+
             ord_dict['exons'] = []
             for exon in res['exonMatches']:
                 exon_dict = OrderedDict()

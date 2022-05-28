@@ -6,6 +6,12 @@
         "build37Coordinates": "NC_000012.11:9220303-9268515",
         "build38Coordinates": "NC_000012.12:9067707-9115919",
         "MANE": true,
+        "build38CDSStart": 9067822,
+        "build38CDSEnd": 9115849,
+        "build38Strand": "-",
+        "build37CDSStart": 9220418,
+        "build37CDSEnd": 9268445,
+        "build37Strand": "-",
         "exons": [
             {
                 "exonNumber": 1,

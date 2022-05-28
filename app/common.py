@@ -1330,6 +1330,9 @@ def query_transcript(transcript):
     exon_pipeline_part = [{'$match': {'$expr': {'$eq': ['$transcript', '$$refSeq']}}},
                           {'$addFields': {}}]
 
+    cds_pipeline_part = [{'$match': {'$expr': {'$eq': ['$transcript', '$$refSeq']}}},
+                          {'$addFields': {}}]
+
     query['transcriptRefSeq'] = {"$regex": ".*"+str(transcript).replace('*', r'\*')+".*"}
 
     query_string = [{'$match': query},
@@ -1338,6 +1341,9 @@ def query_transcript(transcript):
                     {'$addFields': {}},
                     {'$lookup': {'from': 'Exons', 'let': {'refSeq': '$transcriptRefSeq'}, 'pipeline': exon_pipeline_part,
                                  'as': 'exonMatches'}},
+                    {'$addFields': {}},
+                    {'$lookup': {'from': 'CDS', 'let': {'refSeq': '$transcriptRefSeq'}, 'pipeline': cds_pipeline_part,
+                                 'as': 'cdsMatches'}},
                     {'$addFields': {}}]
 
     try:
