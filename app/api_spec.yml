@@ -1117,6 +1117,28 @@ paths:
             type: string
             pattern: '^\s*[Nn][Pp]_\d{4,10}(\.)?(\d{1,2})?\s*$'
           example: "NP_000005.3"
+  /utilities/find-the-gene:
+    get:
+      summary: "Find The Gene"
+      operationId: "app.utilities_endpoints.find_the_gene"
+      tags:
+        - "Find The Gene Utility"
+      responses:
+        '200':
+          description: "Returns all genes that intersect with a provided genomic region."
+          content:
+            application/json:
+              schema:
+                type: object
+      parameters:
+        - name: range
+          in: query
+          required: true
+          description: Genomic region to be searched for genes. Must be in zero-based RefSeq:Integer-range format.
+          schema:
+            type: string
+            pattern: '^\s*[Nn][Cc]_\d{4,10}(\.)(\d{1,2}):\d{1,10}-\d{1,10}\s*$'
+            example: "NC_000001.11:11794399-11794400"
 
 tags:
   - name: Subject Genotype Operations
@@ -1126,5 +1148,7 @@ tags:
   - name: Population Phenotype Operations
   - name: Feature Coordinates Utility
     description: This utility returns genomic feature coordinates and other annotations. All data are from <a href="https://www.ncbi.nlm.nih.gov/genome/guide/human/">NCBI Human Genome Resources</a>. For chromosomes, build 37 and build 38 reference sequences are returned. For genes, genomic coordinates are returned, along with a list of transcripts. MANE transcript is flagged. For transcripts, genomic coordinates are returned, along with the gene name and composite exons, along with exon coordinates. For proteins, the corresponding transcript is returned.
-
+  
+  - name: Find The Gene Utility
+    description: This utility returns all genes that intersect with a provided genomic region.
 

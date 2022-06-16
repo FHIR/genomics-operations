@@ -1321,6 +1321,54 @@ def query_genes(gene):
     return results
 
 
+def query_genes_range(given_range):
+    pipeline_part = [{'$match': {'$expr': {'$eq': ['$ncbiGeneSymbol', '$$geneSymbol']}}},
+                     {'$addFields': {}}]
+
+    ref_seq = given_range['CHROMOSOME']['RefSeq']
+    print(ref_seq)
+    build = get_build_and_chrom_by_ref_seq(ref_seq)['build']
+    start = given_range['RANGE']['L']
+    end = given_range['RANGE']['H']
+
+    if build == 'GRCh37':
+        query = {"$and": [{"build37RefSeq": {"$eq": ref_seq}},
+                      {'$or': [
+                         {"$and": [
+                             {"build37Start": {"$gte": start}},
+                             {"build37Start": {"$lte": end}}
+                         ]},
+                         {"$and": [
+                             {"build37Start": {"$lte": start}},
+                             {"build37End": {"$gte": start}}
+        ]}]}]}
+    else:
+        query = {"$and": [{"build38RefSeq": {"$eq": ref_seq}},
+                      {'$or': [
+                         {"$and": [
+                             {"build38Start": {"$gte": start}},
+                             {"build38Start": {"$lte": end}}
+                         ]},
+                         {"$and": [
+                             {"build38Start": {"$lte": start}},
+                             {"build38End": {"$gte": start}}
+        ]}]}]}
+
+    query_string = [{'$match': query},
+                    {'$lookup': {'from': 'Transcripts', 'let': {'geneSymbol': '$NCBIgeneSymbol'}, 'pipeline': pipeline_part,
+                                 'as': 'transcriptMatches'}},
+                    {'$addFields': {}}]
+
+    try:
+        results = genes_data.aggregate(query_string)
+        results = list(results)
+    except Exception as e:
+        print(f"DEBUG: Error({e}) under find_the_gene(given_range={given_range})")
+        result = []
+  
+    return results
+
+
 def query_transcript(transcript):
     query = {}
 

@@ -48,6 +48,9 @@ FIND_POPULATION_DX_IMPLICATIONS_OUTPUT_DIR = "tests/expected_outputs/find_popula
 GET_FEATURE_COORDINATES_URL = "/utilities/get-feature-coordinates"
 GET_FEATURE_COORDINATES_OUTPUT_DIR = "tests/expected_outputs/get_feature_coordinates/"
 
+FIND_THE_GENE_URL = "/utilities/find-the-gene"
+FIND_THE_GENE_OUTPUT_DIR = "tests/expected_outputs/find_the_gene/"
+
 
 def find_subject_variants_query(query):
     return f"{FIND_SUBJECT_VARIANTS_URL}?{query}"
@@ -110,6 +113,10 @@ def find_population_dx_implications_query(query):
 
 def get_feature_coordinates_query(query):
     return f"{GET_FEATURE_COORDINATES_URL}?{query}"
+
+
+def find_the_gene_query(query):
+    return f"{FIND_THE_GENE_URL}?{query}"
 
 
 def compare_actual_and_expected_output(filename, actual_json):

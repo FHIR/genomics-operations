@@ -138,7 +138,6 @@ def get_feature_coordinates(
             print(f"DEBUG: Error({e}) under get_feature_coordinates(protein={protein})")
             result = []
 
-        print(len(result))
         if len(result) > 1:
             abort(400, "Unable to provide information on this transcript at this time")
 
@@ -154,3 +153,38 @@ def get_feature_coordinates(
         output["transcript"] = result["transcript"]
 
         return(jsonify(output))
+
+
+def find_the_gene(range=None):
+    if not range:
+        abort(400, f"Range is required.")
+
+    given_range = get_range(range)
+
+    result = query_genes_range(given_range)
+
+    output = []
+
+    for res in result:
+        ord_dict = OrderedDict()
+
+        ord_dict['geneId'] = res['HGNCgeneId']
+        ord_dict['geneSymbol'] = res['HGNCgeneSymbol']
+        ord_dict['geneLink'] = f"https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/{res['HGNCgeneId']}"
+        ord_dict['build37Coordinates'] = f"{res['build37RefSeq']}:{res['build37Start']}-{res['build37End']}"
+        ord_dict['build38Coordinates'] = f"{res['build38RefSeq']}:{res['build38Start']}-{res['build38End']}"
+        ord_dict['transcripts'] = []
+        ord_dict['MANE'] = []
+        for transcript in res['transcriptMatches']:
+            ord_dict['transcripts'].append(transcript['transcriptRefSeq'])
+            if transcript['MANE'] == 1:
+                ord_dict['MANE'].append(transcript['transcriptRefSeq'])
+
+        if not ord_dict['transcripts']:
+            ord_dict.pop('transcripts')
+        if not ord_dict['MANE']:
+            ord_dict.pop('MANE')
+
+        output.append(ord_dict)
+
+    return(jsonify(output))
