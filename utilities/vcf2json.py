@@ -100,6 +100,7 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
         output_json["REF"] = record.REF
         
         alts = record.ALT
+        noRefFlag = 0
 
         if record.FILTER is None:
             output_json["FILTER"] = '.'
@@ -119,6 +120,7 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
 
 
         hasAD = False
+        alt_ad_index = 1
         output_json["GT"] = record.samples[sample_position]["GT"]
         if hasattr(record.samples[sample_position].data, "PS") and record.samples[sample_position]["PS"] is not None:
             output_json["PS"] = record.samples[sample_position]["PS"]
@@ -127,7 +129,35 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
         if hasattr(record.samples[sample_position].data, "AD") and record.samples[sample_position]["AD"] is not None:
             hasAD = True
             output_json["ADS"] = []
-            output_json["ADS"].append({"AD": int(record.samples[sample_position]["AD"][0])})
+
+            for index in range(0, len(record.samples[sample_position]["AD"])):
+                if record.samples[sample_position]["AD"][index] == None:
+                    record.samples[sample_position]["AD"][index] = 0
+
+            #Split the genotype into a list of integers. This will help find the number of alternate alleles in the VCF row
+            genotypeList = re.split(r'\D+', record.samples[sample_position]["GT"])      
+
+            for index in range(0, len(genotypeList)):
+                if genotypeList[index] == (None or ''):
+                    genotypeList[index] = 0
+                else:
+                    genotypeList[index] = int(genotypeList[index])
+
+            #altNumber is the number of alternate alleles in the VCF row
+            altNumber = max(genotypeList)
+
+            #VCF row contains refAD count followed by AD counts for each alt allele
+            if len(record.samples[sample_position]["AD"]) == altNumber + 1:
+                output_json["ADS"].append({"AD": int(record.samples[sample_position]["AD"][0])})
+            
+            #VCF row contains only alt allele AD counts
+            else:
+                output_json["ADS"].append({"AD": 0})
+                noRefFlag = 1
+                #The alt allele ADs start at 0, since there is no reference AD count taking that slot in the VCF row
+                alt_ad_index = 0
+
+
         if hasattr(record.samples[sample_position].data, "DP") and record.samples[sample_position]["DP"] is not None:
             output_json["DP"] = int(record.samples[sample_position]["DP"])
 
@@ -151,34 +181,54 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
             output_json["allelicState"] = alleles['ALLELE']
 
         output_json["genomicSourceClass"] = genomic_source_class
+        onRef = 1
 
-        alt_ad_index = 1
         for alt in alts:
-            if alt:
-                if "ALT" in output_json:
-                    del output_json["ALT"]
+            altDict, alt_ad_index, onRef = getMultADs(output_json, record, sample_position, alt, alt_ad_index, hasAD, noRefFlag, onRef)
+            output_json_array.append(altDict)
 
-                new_orderded_dict = OrderedDict()
+    output_json_string = json.dumps(output_json_array, indent=4)
 
-                for key, value in output_json.items():
-                    new_orderded_dict[key]=copy.deepcopy(value)
-                    if key == 'REF':
-                        new_orderded_dict["ALT"] = f"{alt}"
-
-                try:
-                    if hasAD:
-                        if record.samples[sample_position]["AD"][alt_ad_index] != '.' and record.samples[sample_position]["AD"][alt_ad_index] is not None:
-                            new_orderded_dict["ADS"].append({"AD": int(record.samples[sample_position]["AD"][alt_ad_index])})
-                        else:
-                            new_orderded_dict["ADS"].append({"AD": 0})
-                        alt_ad_index += 1
-                except Exception as e:
-                    new_orderded_dict["ADS"].append({"AD": 0})
-                    alt_ad_index += 1
-                output_json_array.append(new_orderded_dict)
-            else:
-                if "ALT" in output_json:
-                    del output_json["ALT"]
-                output_json_array.append(output_json)
+    fileOutput = open("convertedVCF.json", "w")
+    fileOutput.write(output_json_string)
+    fileOutput.close()
 
     return output_json_array
+
+#getMultADs finds the allele reads for each decomposed alternate allele in the VCF row. 
+def getMultADs(output_json, record, sample_position, alt, alt_ad_index, hasAD, noRefFlag, onRef):
+    altDict = OrderedDict()
+    if alt:
+        if "ALT" in output_json:
+            del output_json["ALT"]
+
+        for key, value in output_json.items():
+            altDict[key]=copy.deepcopy(value)
+            if key == 'REF':
+                altDict["ALT"] = f"{alt}"
+
+        try:
+            if hasAD and noRefFlag == 0:
+                if record.samples[sample_position]["AD"][alt_ad_index] != '.' and record.samples[sample_position]["AD"][alt_ad_index] is not None:
+                    altDict["ADS"].append({"AD": int(record.samples[sample_position]["AD"][alt_ad_index])})
+                else:
+                    altDict["ADS"].append({"AD": 0})
+                alt_ad_index += 1
+            elif noRefFlag == 1:
+                #If there is no reference AD, set initial AD to 0 and insert new ADs instead of appending
+                if record.samples[sample_position]["AD"][alt_ad_index] != '.' and record.samples[sample_position]["AD"][alt_ad_index] is not None:
+                    altDict["ADS"].insert(0, {"AD": int(record.samples[sample_position]["AD"][alt_ad_index])})
+                else:
+                    altDict["ADS"].insert(0, {"AD": 0})
+                alt_ad_index += 1
+        except Exception as e:
+            altDict["ADS"].append({"AD": 0})
+            alt_ad_index += 1
+    else:
+        if "ALT" in output_json:
+            del output_json["ALT"]
+        for key, value in output_json.items():
+            altDict[key]=copy.deepcopy(value)
+
+
+    return altDict, alt_ad_index, onRef
