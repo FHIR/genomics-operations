@@ -123,7 +123,7 @@ def find_subject_variants(
           "valueBoolean": present
         })
 
-        if present:                
+        if present:
             if includeVariants:
                 variant_fhir_profiles = []
 
@@ -141,25 +141,25 @@ def find_subject_variants(
                       "resource": resource
                     })
 
-            if includePhasing:
-                variantIDs = [str(v['_id']) for v in variant_q]
-                sequence_phase_profiles = []
-                sequence_phase_data = get_sequence_phase_data(subject)
+                if includePhasing:
+                    variantIDs = [str(v['_id']) for v in variant_q]
+                    sequence_phase_profiles = []
+                    sequence_phase_data = get_sequence_phase_data(subject)
 
-                for sq_data in sequence_phase_data:
-                    if sq_data["variantID1"] in variantIDs and sq_data["variantID2"] in variantIDs:
-                        sq_profile = create_sequence_phase_relationship(subject, sq_data)
+                    for sq_data in sequence_phase_data:
+                        if sq_data["variantID1"] in variantIDs and sq_data["variantID2"] in variantIDs:
+                            sq_profile = create_sequence_phase_relationship(subject, sq_data)
 
-                        sequence_phase_profiles.append(sq_profile)
+                            sequence_phase_profiles.append(sq_profile)
 
-                if sequence_phase_profiles:
-                    sequence_phase_profiles = sorted(sequence_phase_profiles, key=lambda d: d['id'])
+                    if sequence_phase_profiles:
+                        sequence_phase_profiles = sorted(sequence_phase_profiles, key=lambda d: d['id'])
 
-                for sq_profile in sequence_phase_profiles:
-                    parameter["part"].append({
-                      "name": "Sequence Phase Relationship",
-                      "resource": sq_profile
-                    })
+                    for sq_profile in sequence_phase_profiles:
+                        parameter["part"].append({
+                          "name": "Sequence Phase Relationship",
+                          "resource": sq_profile
+                        })
 
         result["parameter"].append(parameter)
 
