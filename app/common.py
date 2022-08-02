@@ -29,6 +29,7 @@ clinvar_db = db.Clinvar
 civic_db = db.CIViC
 pharmGKB_db = db.PharmGKB
 beds = db.BEDs
+phase_data = db.PhaseData
 
 chromosomes_data = utilities_db.Chromosomes
 genes_data = utilities_db.Genes
@@ -731,6 +732,39 @@ def add_variation_id(resource, variation_id, system):
                                                   "code": f'{variation_id}'}]}})
 
 
+def create_sequence_phase_relationship(subject, sequence_phase_data):
+    resource = OrderedDict()
+    resource["resourceType"] = "Observation"
+    resource["id"] = f"sid-{str(sequence_phase_data['_id'])}"
+    resource["meta"] = {"profile": [
+                        "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/sequence-phase-relationship"]}
+    resource["status"] = "final"
+    resource["category"] = [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                                         "code": "laboratory"}]}]
+    resource["code"] = {"coding": [{"system": "http://loinc.org",
+                                    "code": "82120-7",
+                                    "display": "Allelic phase"}]}
+    resource["subject"] = {"reference": f"Patient/{subject}"}
+    resource["valueCodeableConcept"] = {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/SequencePhaseRelationshipCS",
+                                        "code": sequence_phase_data["phase"],
+                                        "display": sequence_phase_data["phase"]}]}
+    resource["derivedFrom"] = [{"reference": sequence_phase_data["variantID1"]},
+                               {"reference": sequence_phase_data["variantID2"]}]
+
+    return resource
+
+
+def get_sequence_phase_data(patient_id):
+    try:
+        results = phase_data.aggregate([{'$match': {"patientID": {"$eq": patient_id}}}])
+        results = list(results)
+    except Exception as e:
+        print(f"DEBUG: Error({e}) under get_sequence_phase_data(patient_id={patient_id})")
+        results = []
+    
+    return results
+
+
 def lift_over(ref_seq, start, end):
     try:
         start = int(start)
@@ -1316,7 +1350,7 @@ def query_genes(gene):
         results = list(results)
     except Exception as e:
         print(f"DEBUG: Error({e}) under get_feature_coordinates(gene={gene})")
-        result = []
+        results = []
   
     return results
 
@@ -1364,7 +1398,7 @@ def query_genes_range(given_range):
         results = list(results)
     except Exception as e:
         print(f"DEBUG: Error({e}) under find_the_gene(given_range={given_range})")
-        result = []
+        results = []
   
     return results
 
@@ -1399,7 +1433,7 @@ def query_transcript(transcript):
         results = list(results)
     except Exception as e:
         print(f"DEBUG: Error({e}) under get_feature_coordinates(transcript={transcript})")
-        result = []
+        results = []
 
     if len(results) > 1:
         abort(400, "Unable to provide information on this transcript at this time")

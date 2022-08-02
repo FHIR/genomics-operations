@@ -96,6 +96,12 @@ paths:
             type: boolean
             default: false
           description: Include variants in response if set to true.
+        - name: includePhasing
+          in: query
+          schema:
+            type: boolean
+            default: false
+          description: Include sequence phase relationships in response if set to true.
   
   /subject-operations/genotype-operations/$find-subject-specific-variants:
     get:

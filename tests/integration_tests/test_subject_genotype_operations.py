@@ -56,6 +56,13 @@ def test_find_subject_variants_5(client):
     compare_actual_and_expected_output(f'{FIND_SUBJECT_VARIANTS_OUTPUT_DIR}5.json', response.json)
 
 
+def test_find_subject_variants_6(client):
+    url = find_subject_variants_query('subject=NB6TK329&ranges=NC_000006.12:32584350-32584360&includePhasing=true')
+    response = client.get(url)
+
+    compare_actual_and_expected_output(f'{FIND_SUBJECT_VARIANTS_OUTPUT_DIR}6.json', response.json)
+
+
 """
 Find Subject Specific Variants Tests
 ------------------------------------
