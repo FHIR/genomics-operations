@@ -8,7 +8,50 @@ from SPDI_Normalization import get_normalized_spdi
 from common import *
 import time
 import copy
+import pandas as pd
 
+phased_rec_map = {}
+spr_json = []
+
+df = pd.read_json("variants.json", lines=True)
+
+def add_phase_records(record):
+    if(record.samples[0].phased is False):
+        return
+    sample_data = record.samples[0].data
+    if(sample_data.GT is not None and
+       len(sample_data.GT.split('|')) >= 2 and
+       'PS' in sample_data._fields):
+        sample_data_ps = sample_data.PS
+        if isinstance(sample_data.PS, list):
+            sample_data_ps = sample_data_ps[0]
+        phased_rec_map.setdefault(sample_data_ps, []).append(record)
+
+
+def add_phased_relationship_obv(patientID, test_id, specimen_id, ref_build):
+    sequence_rels = get_sequence_relation(phased_rec_map)
+    c = len(sequence_rels)
+    df_func = df[(df['patientID']==patientID)]
+    for index in sequence_rels.index:
+        output_json = OrderedDict()
+        output_json['patientID'] = patientID
+
+        relation = sequence_rels.at[index, 'Relation']
+        pos1 = sequence_rels.at[index, 'POS1']
+        pos2 = sequence_rels.at[index, 'POS2']
+
+        df_copy = df_func[((df_func['testID']==test_id) & (df_func['specimenID']==specimen_id) & (df_func['genomicBuild']==ref_build)) & ((df_func['POS']==pos1-1) | (df_func['POS']==pos2-1))]
+
+        if len(df_copy) != 2:
+            c-=1
+            continue
+
+        output_json['variantID1'] = str(df_copy.iloc[0]['_id']['$oid'])
+        output_json['variantID2'] = str(df_copy.iloc[1]['_id']['$oid'])
+        output_json['phase'] = relation
+        
+        spr_json.append(output_json)
+        c-=1
 
 def _valid_record(record, genomic_source_class, sample_position):
     if len(record.samples) < 1:
@@ -20,17 +63,17 @@ def _valid_record(record, genomic_source_class, sample_position):
     if record.is_sv:
         if len(record.samples) > 1:
             return False
-        if(record.INFO['SVTYPE'].upper() not in list(SVs)):
+        if(record.INFO['SVTYPE'][0].upper() not in list(SVs)):
             return False
         if(not all(alt is None or alt.type in ['SNV', 'MNV'] or
            isinstance(alt, vcf.model._SV) for alt in record.ALT)):
             return False
-        if(record.INFO['SVTYPE'].upper() in list(SVs - {'DUP', 'CNV'}) and
+        if(record.INFO['SVTYPE'][0].upper() in list(SVs - {'DUP', 'CNV'}) and
            '.' in record.samples[sample_position]["GT"] and
            genomic_source_class.lower() == Genomic_Source_Class.GERMLINE.value.lower()):
             return False
     else:
-        if(not all(alt is None or alt.type in ['SNV', 'MNV']
+        if(not all(alt is None or alt.type in ['SNV', 'MNV'] or '*' not in str(alt)
            for alt in record.ALT)):
             return False
         if('.' in record.samples[sample_position]["GT"] and
@@ -85,9 +128,9 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
 
 
     for record in vcf_reader:
-        # print(record.POS)
         if not _valid_record(record, genomic_source_class, sample_position):
             continue
+        add_phase_records(record)
         output_json = OrderedDict()
         output_json["patientID"] = patient_id
         output_json["testDate"] = test_date
