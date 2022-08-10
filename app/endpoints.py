@@ -765,7 +765,7 @@ def find_subject_specific_haplotypes(
 
 
 def find_subject_tx_implications(
-        subject, variants=None, haplotypes=None, treatments=None, conditions=None,
+        subject, variants=None, ranges=None, haplotypes=None, treatments=None, conditions=None,
         testIdentifiers=None, testDateRange=None, specimenIdentifiers=None,
         genomicSourceClass=None):
 
@@ -773,15 +773,14 @@ def find_subject_tx_implications(
     subject = subject.strip()
     validate_subject(subject)
 
-    if variants and haplotypes:
-        return jsonify({"resourceType":"Parameters"})
-        
-    if not variants and not conditions and not treatments and not haplotypes:
+    if variants and ranges:
         return jsonify({"resourceType":"Parameters"})
 
-    normalized_variant_list = []
-    if variants:
-        normalized_variant_list = list(map(get_variant, variants))
+    if (variants or ranges) and haplotypes:
+        return jsonify({"resourceType":"Parameters"})
+        
+    if not variants and not conditions and not treatments and not haplotypes and not ranges:
+        return jsonify({"resourceType":"Parameters"})
     
     normalized_haplotype_list = []
     if haplotypes:
@@ -823,6 +822,15 @@ def find_subject_tx_implications(
     if genomicSourceClass:
         genomicSourceClass = genomicSourceClass.strip().lower()
         query["genomicSourceClass"] = {"$eq": genomicSourceClass}
+
+    if ranges:
+        ranges = list(map(get_range, ranges))
+        variants = get_spdis(ranges, query)
+        print(variants)
+
+    normalized_variant_list = []
+    if variants:
+        normalized_variant_list = list(map(get_variant, variants))
 
     # Result Object
     result = OrderedDict()
@@ -1031,22 +1039,22 @@ def find_subject_tx_implications(
 
 
 def find_subject_dx_implications(
-        subject, variants=None, conditions=None, testIdentifiers=None,
+        subject, variants=None, ranges=None, conditions=None, testIdentifiers=None,
         testDateRange=None, specimenIdentifiers=None, genomicSourceClass=None):
 
     # Parameters
     subject = subject.strip()
     validate_subject(subject)
 
-    if not variants and not conditions:
+    if not variants and not conditions and not ranges:
+        return jsonify({"resourceType":"Parameters"})
+
+    if variants and ranges:
         return jsonify({"resourceType":"Parameters"})
 
     condition_code_list = []
     if conditions:
         condition_code_list = list(map(get_condition, conditions))
-
-    if variants:
-        variants = list(map(get_variant, variants))
 
     # Query
     query = {}
@@ -1076,6 +1084,13 @@ def find_subject_dx_implications(
     if genomicSourceClass:
         genomicSourceClass = genomicSourceClass.strip().lower()
         query["genomicSourceClass"] = {"$eq": genomicSourceClass}
+
+    if ranges:
+        ranges = list(map(get_range, ranges))
+        variants = get_spdis(ranges, query)
+
+    if variants:
+        variants = list(map(get_variant, variants))
 
     # Result Object
     result = OrderedDict()

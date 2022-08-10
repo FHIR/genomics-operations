@@ -284,6 +284,63 @@ def get_range(range):
     return {'CHROMOSOME': chromosome, 'RANGE': _range}
 
 
+def get_spdis(ranges, query):
+    spdis = []
+    chromosome_to_ranges = []
+
+    for range_ in ranges:
+        temp_dict = {}
+
+        chromosome = range_['CHROMOSOME']
+        _range = range_['RANGE']
+
+        provided_genomic_build = get_build_and_chrom_by_ref_seq(chromosome['RefSeq'])["build"]
+
+        temp_dict["CHROM"] = chromosome['CHROM']
+        temp_dict["RefSeq"] = chromosome['RefSeq']
+        temp_dict["PGB"] = {"RefSeq": chromosome['RefSeq'], "BUILD": provided_genomic_build, "L": _range["L"], "H": _range["H"]}
+
+        chromosome_to_ranges.append(temp_dict)
+
+    for chrom in chromosome_to_ranges:
+        variant_q = []
+        genomic_builds = [chrom["PGB"]["BUILD"]]
+
+        query["$and"] = []
+        query["$and"].append({"SVTYPE": { "$exists": False}})
+        query["$and"].append({"$expr": {"$gte": [{"$subtract": [{"$add": [{"$strLenCP": "$REF"}, "$POS"]}, "$POS"]}, 1]}})
+        query["$and"].append({"$or": [
+            {
+                "$and": [
+                    {"POS": {"$lte": chrom["PGB"]["L"]}},
+                    {"$expr": {"$gt":[{"$add": [{"$strLenCP": "$REF"}, "$POS"]}, chrom["PGB"]["L"]]}}
+                ]
+            },
+            {
+                "$and": [
+                    {"POS": {"$gte": chrom["PGB"]["L"]}},
+                    {"POS": {"$lt": chrom["PGB"]["H"]}}
+                ]
+            }
+        ]})
+        query["$and"].append({"CHROM": {"$eq": chrom["CHROM"]}})
+
+        query["genomicBuild"] = {"$in": genomic_builds}
+
+        try:
+            variant_q = variants_db.aggregate([{"$match": query}])
+            variant_q = list(variant_q)
+        except Exception as e:
+            print(f"DEBUG: Error{e} under find_subject_variants query={query}")
+            variant_q = []
+
+        for variant in variant_q:
+            if "SPDI" in variant:
+                spdis.append(f'{variant["SPDI"]}')
+
+    return spdis
+
+
 def get_date(dateRange):
     dateRange = dateRange.strip()
 

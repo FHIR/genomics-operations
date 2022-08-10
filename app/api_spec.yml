@@ -535,6 +535,18 @@ paths:
               type: string
           style: "form"
           explode: false
+        - name: ranges
+          in: query
+          description: List of regions to be searched for variants. Must be in zero-based RefSeq:Integer-range format.
+          schema:
+            type: array
+            items:
+              type: string
+              pattern: '^\s*[Nn][A-Za-z]_\d{4,10}(\.)(\d{1,2}):\d{1,10}-\d{1,10}\s*$'
+            example:
+              - "NC_000019.9:11200138-11244496"
+          style: "form"
+          explode: false
         - name: haplotypes
           in: query
           description: List of haplotypes and/or genotypes being sought. Must be in token or codesystem|code format.
@@ -638,6 +650,18 @@ paths:
             type: array
             items:
               type: string
+          style: "form"
+          explode: false
+        - name: ranges
+          in: query
+          description: List of regions to be searched for variants. Must be in zero-based RefSeq:Integer-range format.
+          schema:
+            type: array
+            items:
+              type: string
+              pattern: '^\s*[Nn][A-Za-z]_\d{4,10}(\.)(\d{1,2}):\d{1,10}-\d{1,10}\s*$'
+            example:
+              - "NC_000019.9:11200138-11244496"
           style: "form"
           explode: false
         - name: conditions
