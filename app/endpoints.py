@@ -774,10 +774,10 @@ def find_subject_tx_implications(
     validate_subject(subject)
 
     if variants and ranges:
-        return jsonify({"resourceType":"Parameters"})
+        abort(400, f"You cannot supply both 'varinats' and 'ranges'.")
 
     if (variants or ranges) and haplotypes:
-        return jsonify({"resourceType":"Parameters"})
+        abort(400, f"You cannot supply both ('varinats' or 'ranges') and 'haplotypes'.")
         
     if not variants and not conditions and not treatments and not haplotypes and not ranges:
         return jsonify({"resourceType":"Parameters"})
@@ -824,9 +824,11 @@ def find_subject_tx_implications(
         query["genomicSourceClass"] = {"$eq": genomicSourceClass}
 
     if ranges:
+        temp_ranges = ranges
         ranges = list(map(get_range, ranges))
         variants = get_spdis(ranges, query)
-        print(variants)
+        if not variants:
+            abort(400, f"No variants in the given range ({temp_ranges}")
 
     normalized_variant_list = []
     if variants:
@@ -1050,7 +1052,7 @@ def find_subject_dx_implications(
         return jsonify({"resourceType":"Parameters"})
 
     if variants and ranges:
-        return jsonify({"resourceType":"Parameters"})
+        abort(400, f"You cannot supply both 'varinats' and 'ranges'.")
 
     condition_code_list = []
     if conditions:
@@ -1086,8 +1088,11 @@ def find_subject_dx_implications(
         query["genomicSourceClass"] = {"$eq": genomicSourceClass}
 
     if ranges:
+        temp_ranges = ranges
         ranges = list(map(get_range, ranges))
         variants = get_spdis(ranges, query)
+        if not variants:
+            abort(400, f"No variants in the given range ({temp_ranges}")
 
     if variants:
         variants = list(map(get_variant, variants))
