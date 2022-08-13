@@ -9,7 +9,7 @@ from itertools import groupby
 import re
 
 # MongoDB Client URIs
-FHIR_genomics_data_client_uri = "mongodb+srv://download:download@cluster0.8ianr.mongodb.net/FHIRGenomicsData"
+FHIR_genomics_data_client_uri = "mongodb+srv://download:download@cluster0.pe0bv.mongodb.net/FHIRGenomicsData"
 utilities_data_client_uri = "mongodb+srv://download:download@cluster0.8ianr.mongodb.net/UtilitiesData"
 
 # MongoDB Clients
