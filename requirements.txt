@@ -1,4 +1,4 @@
-connexion==2.14.0
+connexion==2.14.1
 Flask==2.2.2
 pyliftover==0.4
 pymongo==4.2.0
