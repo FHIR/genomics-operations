@@ -1,11 +1,18 @@
 from enum import Enum
 import re
+import csv
 
 GERMLINE = 'Germline'
 SOMATIC = 'Somatic'
 MIXED = 'Mixed'
 SVs = {'INS', 'DEL', 'DUP', 'CNV', 'INV'}
 
+codeDict = {}
+#Read in code table for molecular consequence data. System should be in first column, code should be in second, and the display
+#consequence name should be in the third column.
+with open('SOCodeTable.csv') as codeTable:
+    reader = csv.reader(codeTable)
+    codeDict = {rows[2]:[rows[0], rows[1]] for rows in reader}
 
 class Genomic_Source_Class(Enum):
 
