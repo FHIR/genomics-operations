@@ -57,3 +57,4 @@ for vcfFile in os.listdir(fileFolderPath):
     os.remove(intVCFPath)
     os.remove(annotatedVCFPath)
     os.remove(changedAFPath)
+    

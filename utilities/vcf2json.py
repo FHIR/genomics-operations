@@ -9,7 +9,6 @@ from common import *
 import time
 import copy
 import pandas as pd
-import csv
 
 phased_rec_map = {}
 spr_json = []
@@ -127,13 +126,6 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
     if not patient_id:
         patient_id = vcf_reader.samples[sample_position]
 
-    codeDict = {}
-    #Read in code table for molecular consequence data. System should be in first column, code should be in second, and the display
-    #consequence name should be in the third column.
-    with open('SOCodeTable.csv') as codeTable:
-        reader = csv.reader(codeTable)
-        codeDict = {rows[2]:[rows[0], rows[1]] for rows in reader}
-
     for record in vcf_reader:
         if not _valid_record(record, genomic_source_class, sample_position):
             continue
@@ -233,7 +225,7 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
         output_json["genomicSourceClass"] = genomic_source_class
         onRef = 1
 
-        output_json = extractINFOField(output_json, record, codeDict)
+        extractINFOField(output_json, record, codeDict)
 
         for alt in alts:
             altDict, alt_ad_index, onRef = getMultADs(output_json, record, sample_position, alt, alt_ad_index, hasAD, noRefFlag, onRef)
@@ -293,7 +285,7 @@ def extractINFOField(output_json, record, codeDict):
         output_json["molecConseq"] = []
         firstFlag = True
         for ann in record.INFO['ANN']:
-            output_json = parseANN(output_json, ann, firstFlag, codeDict)
+            parseANN(output_json, ann, firstFlag, codeDict)
             firstFlag = False
 
     if 'POPAF' in record.INFO:
@@ -306,8 +298,6 @@ def extractINFOField(output_json, record, codeDict):
         output_json["funcConseq"].append({"system": r'http://sequenceontology.org/',
                                             "code": "SO_0002054",
                                             "display": "loss_of_function_variant"})
-
-    return output_json
 
 #Orders and extracts molecular consequence data from SnpEff annotations.
 def parseANN(output_json, ann, firstFlag, codeDict):
@@ -333,5 +323,3 @@ def parseANN(output_json, ann, firstFlag, codeDict):
  
     if firstFlag:    
         output_json["predictedMolecImpact"] = annList[2]
-
-    return output_json
