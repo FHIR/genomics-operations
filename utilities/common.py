@@ -8,7 +8,7 @@ MIXED = 'Mixed'
 SVs = {'INS', 'DEL', 'DUP', 'CNV', 'INV'}
 
 codeDict = {}
-#Read in code table for molecular consequence data. System should be in first column, code should be in second, and the display
+#Read code table for molecular consequence data. System should be in first column, code should be in second, and the display
 #consequence name should be in the third column.
 with open('SOCodeTable.csv') as codeTable:
     reader = csv.reader(codeTable)
