@@ -1,12 +1,9 @@
-import os
 import vcf
-import requests
 import json
 from collections import OrderedDict
 from gene_ref_seq import _get_ref_seq_by_chrom
 from SPDI_Normalization import get_normalized_spdi
 from common import *
-import time
 import copy
 import pandas as pd
 
