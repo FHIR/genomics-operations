@@ -850,7 +850,7 @@ def find_subject_tx_implications(
         query_results = query_CIVIC_by_variants(normalized_variant_list, condition_code_list, treatment_code_list, query)
 
         for res in query_results:
-            for implication in res["civicMatches"]:
+            for implication in res["txImplicationMatches"]:
                 parameter = OrderedDict()
                 parameter["name"] = "implications"
                 parameter["part"] = []
@@ -862,7 +862,7 @@ def find_subject_tx_implications(
                 })
                 resource = create_fhir_variant_resource(res, subject)
 
-                add_variation_id(resource, implication["variationID"], "https://civicdb.org")
+                add_variation_id(resource, implication["variationID"])
 
                 parameter["part"].append({
                 "name": "variant",
@@ -883,8 +883,9 @@ def find_subject_tx_implications(
             query.pop("genomicSourceClass")
         
         query_results = query_PharmGKB_by_haplotypes(normalized_haplotype_list, treatment_code_list, query)
+        print(query_results)
         for res in query_results:
-            for implication in res["pahrmGKBMatches"]:
+            for implication in res["txImplicationMatches"]:
                 parameter = OrderedDict()
                 parameter["name"] = "implications"
                 parameter["part"] = []
@@ -904,7 +905,7 @@ def find_subject_tx_implications(
                 
                 genotype_profile = create_genotype_profile(res, subject, [str(res['_id'])])
 
-                add_variation_id(genotype_profile, implication["variationID"], "https://www.pharmgkb.org")
+                add_variation_id(genotype_profile, implication["variationID"])
 
                 parameter["part"].append({
                 "name": "genotype",
@@ -946,7 +947,7 @@ def find_subject_tx_implications(
                 
                 genotype_profile = create_genotype_profile(genItem, subject, [str(genItem['_id'])])
 
-                add_variation_id(genotype_profile, res["variationID"], "https://www.pharmgkb.org")
+                add_variation_id(genotype_profile, res["variationID"])
 
                 genotype_profiles.append(genotype_profile)
 
@@ -977,7 +978,7 @@ def find_subject_tx_implications(
                 
                 resource = create_fhir_variant_resource(varItem, subject)
 
-                add_variation_id(resource, res["variationID"], "https://civicdb.org")
+                add_variation_id(resource, res["variationID"])
 
                 variant_fhir_profiles.append(resource)
 
@@ -1016,7 +1017,7 @@ def find_subject_tx_implications(
             for varItem in res["patientMatches"]:
                 resource = create_fhir_variant_resource(varItem, subject)
 
-                add_variation_id(resource, res["variationID"], "https://civicdb.org")
+                add_variation_id(resource, res["variationID"])
 
                 variant_fhir_profiles.append(resource)
                 
@@ -1112,7 +1113,7 @@ def find_subject_dx_implications(
         query_results = query_clinvar_by_variants(variants, condition_code_list, query)
 
         for res in query_results:
-            for implication in res["clinvarMatches"]:
+            for implication in res["dxImplicationMatches"]:
                 parameter = OrderedDict()
                 parameter["name"] = "implications"
                 parameter["part"] = []
@@ -1125,7 +1126,7 @@ def find_subject_dx_implications(
                 })
                 resource = create_fhir_variant_resource(res, subject)
 
-                add_variation_id(resource, implication["variationID"], "http://www.ncbi.nlm.nih.gov/clinvar")
+                add_variation_id(resource, implication["variationID"])
 
                 parameter["part"].append({
                 "name": "variant",
@@ -1143,6 +1144,7 @@ def find_subject_dx_implications(
     
     if conditions:
         query_results = query_clinvar_by_condition(condition_code_list, query)
+
         for res in query_results:
             parameter = OrderedDict()
             parameter["name"] = "implications"
@@ -1157,7 +1159,7 @@ def find_subject_dx_implications(
             for varItem in res["patientMatches"]:
                 resource = create_fhir_variant_resource(varItem, subject)
 
-                add_variation_id(resource, res["variationID"], "http://www.ncbi.nlm.nih.gov/clinvar")
+                add_variation_id(resource, res["variationID"])
 
                 parameter["part"].append({
                 "name": "variant",
