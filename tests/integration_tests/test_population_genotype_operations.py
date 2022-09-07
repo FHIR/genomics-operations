@@ -28,11 +28,11 @@ def test_population_specific_variants_2(client):
     compare_actual_and_expected_output(f'{FIND_POPULATION_SPECIFIC_VARIANTS_OUTPUT_DIR}2.json', response.json)
 
 
-def test_population_specific_variants_3(client):
-    url = find_population_specific_variants_query('variants=NC_000001.10:144931726:G:A, NC_000001.10:145532548:T:C, NC_000001.10:145592072:A:T')
-    response = client.get(url)
+# def test_population_specific_variants_3(client):
+#     url = find_population_specific_variants_query('variants=NC_000001.10:144931726:G:A, NC_000001.10:145532548:T:C, NC_000001.10:145592072:A:T')
+#     response = client.get(url)
 
-    compare_actual_and_expected_output(f'{FIND_POPULATION_SPECIFIC_VARIANTS_OUTPUT_DIR}3.json', response.json)
+#     compare_actual_and_expected_output(f'{FIND_POPULATION_SPECIFIC_VARIANTS_OUTPUT_DIR}3.json', response.json)
 
 
 """

@@ -8,7 +8,7 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-61c0bde1641a9ad22b92de09",
+                        "id": "dv-62fabf525932091e78d9142c",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -259,7 +259,7 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-61c0bde1641a9ad22b92dfcd",
+                        "id": "dv-62fabf525932091e78d915f4",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -510,7 +510,7 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-61c0bde1641a9ad22b92e144",
+                        "id": "dv-62fabf525932091e78d9175f",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"

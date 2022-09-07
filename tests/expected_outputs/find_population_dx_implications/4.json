@@ -7,7 +7,7 @@
                 {
                     "name": "numerator",
                     "valueQuantity": {
-                        "value": 14
+                        "value": 18
                     }
                 },
                 {
@@ -71,6 +71,22 @@
                 {
                     "name": "subject",
                     "valueString": "huC30902"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "m123"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "m5123"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "m6123"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "m7123"
                 }
             ]
         }
