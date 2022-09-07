@@ -8,7 +8,7 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-61cd00b1072302a0eb228b97",
+                        "id": "dv-62fac40a5932091e78e2dce7",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -189,7 +189,7 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-61cd00b3072302a0eb22ba51",
+                        "id": "dv-62fac4115932091e78e30e41",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"

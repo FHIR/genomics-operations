@@ -809,11 +809,11 @@ def create_sequence_phase_relationship(subject, sequence_phase_data):
                                     "code": "82120-7",
                                     "display": "Allelic phase"}]}
     resource["subject"] = {"reference": f"Patient/{subject}"}
-    resource["valueCodeableConcept"] = {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/SequencePhaseRelationshipCS",
+    resource["valueCodeableConcept"] = {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/sequence-phase-relationship-cs",
                                         "code": sequence_phase_data["phase"],
                                         "display": sequence_phase_data["phase"]}]}
-    resource["derivedFrom"] = [{"reference": sequence_phase_data["variantID1"]},
-                               {"reference": sequence_phase_data["variantID2"]}]
+    resource["derivedFrom"] = [{"reference": f"Observation/dv-{sequence_phase_data['variantID1']}"},
+                               {"reference": f"Observation/dv-{sequence_phase_data['variantID2']}"}]
 
     return resource
 
@@ -1486,8 +1486,14 @@ def query_PharmGKB_by_haplotypes(normalizedHaplotypeList, treatmentCodeList, que
                                           "predictedImplication": {
                                             "$first": "$$ROOT.predictedImplication"
                                           },
-                                          "genotype": {
-                                            "$first": "$$ROOT.genotype"
+                                          "genotype_code": {
+                                            "$first": {"$first": "$$ROOT.genotype.code"}
+                                          },
+                                          "genotype_system": {
+                                            "$first": {"$first": "$$ROOT.genotype.system"}
+                                          },
+                                          "genotype_display": {
+                                            "$first": {"$first": "$$ROOT.genotype.display"}
                                           },
                                           "medicationAssessed": {
                                             "$push": "$$ROOT.medicationAssessed"
@@ -1506,7 +1512,9 @@ def query_PharmGKB_by_haplotypes(normalizedHaplotypeList, treatmentCodeList, que
                 ]})
 
     query_string = [{'$match': query},
-                   {'$lookup': {'from': 'txImplication', 'let': {'mygenotypeCode': '$genotypeCode'}, 'pipeline': pipeline_part,
+                   {'$lookup': {'from': 'txImplication',
+                    'localField': 'genotypeCode',
+                    'foreignField': 'genotype.code',
                                 'as': 'txImplicationMatches'}},
                    {'$addFields': {}},
                    {'$match': {'txImplicationMatches': {'$exists': True, '$not': {'$size': 0}}}}]
@@ -1550,7 +1558,7 @@ def query_PharmGKB_by_treatments(code_list, treatment_list, query):
         treatment_or_query = []
         for treatment in treatment_list:
             if treatment['isSystem']:
-                treatment_or_query.append({'$and': [{'medicationAssessed.code': {'$eq': treatment['treatment']}}, {'medicationAssessed.system': {'$eq': treatment['system']}}]})
+                treatment_or_query.append({'$and': [{'medicationAssessed.code': {'$eq': str(treatment['treatment'])}}, {'medicationAssessed.system': {'$eq': treatment['system']}}]})
             else:
                 treatment_or_query.append({'$or': [
                     {'medicationAssessed.code': {'$regex': ".*"+str(treatment['treatment']).replace('*', r'\*')+".*"}},
@@ -1572,8 +1580,14 @@ def query_PharmGKB_by_treatments(code_list, treatment_list, query):
                                   "predictedImplication": {
                                     "$first": "$$ROOT.predictedImplication"
                                   },
-                                  "genotype": {
-                                    "$first": "$$ROOT.genotype"
+                                  "genotype_code": {
+                                    "$first": {"$first": "$$ROOT.genotype.code"}
+                                  },
+                                  "genotype_system": {
+                                    "$first": {"$first": "$$ROOT.genotype.system"}
+                                  },
+                                  "genotype_display": {
+                                    "$first": {"$first": "$$ROOT.genotype.display"}
                                   },
                                   "medicationAssessed": {
                                     "$first": "$$ROOT.medicationAssessed"
@@ -1595,15 +1609,22 @@ def query_PharmGKB_by_treatments(code_list, treatment_list, query):
                                   "predictedImplication": {
                                     "$first": "$$ROOT.predictedImplication"
                                   },
-                                  "genotype": {
-                                    "$first": "$$ROOT.genotype"
+                                  "genotype_code": {
+                                    "$first": {"$first": "$$ROOT.genotype.code"}
+                                  },
+                                  "genotype_system": {
+                                    "$first": {"$first": "$$ROOT.genotype.system"}
+                                  },
+                                  "genotype_display": {
+                                    "$first": {"$first": "$$ROOT.genotype.display"}
                                   },
                                   "medicationAssessed": {
                                     "$push": "$$ROOT.medicationAssessed"
                                   },
                                   "phenotypicTreatmentContext": {
                                     "$first": "$$ROOT.phenotypicTreatmentContext"
-                                  }}}]
+                                  }}}
+                                  ]
 
     query_string = []
     if condition_query['$or']:
@@ -1616,16 +1637,16 @@ def query_PharmGKB_by_treatments(code_list, treatment_list, query):
         query.pop('genomicSourceClass')
  
     query_string.extend([
-                    {'$lookup': {'from': 'Genotypes', 'let': {'genotypeCode': '$genotype.code'}, 
+                    {'$lookup': {'from': 'Genotypes', 'let': {'genotype_code_v': '$genotype_code'}, 
                                  'pipeline': [{'$match': query},
-                                              {'$match': {'$expr': {'$and': [{'$eq': ['$genotypeCode', '$$genotypeCode']}]}}},
+                                              {'$match': {'$expr': {'$and': [{'$eq': ['$genotypeCode', '$$genotype_code_v']}]}}},
                                               {'$addFields': {}}],
                                  'as': 'patientMatches'}},
                     {'$addFields': {}},
                     {'$match': {'patientMatches': {'$exists': True, '$not': {'$size': 0}}}}])
 
     try:
-        results = pharmGKB_db.aggregate(query_string)
+        results = txImplication_db.aggregate(query_string)
         results = list(results)
     except Exception as e:
         print(f"DEBUG: Error({e}) under query_PharmGKB_by_treatments(code_list={code_list}, treatment_list={treatment_list}, query={query})")
@@ -1670,7 +1691,6 @@ def query_genes_range(given_range):
                      {'$addFields': {}}]
 
     ref_seq = given_range['CHROMOSOME']['RefSeq']
-    print(ref_seq)
     build = get_build_and_chrom_by_ref_seq(ref_seq)['build']
     start = given_range['RANGE']['L']
     end = given_range['RANGE']['H']
