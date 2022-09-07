@@ -7,7 +7,7 @@
                 {
                     "name": "numerator",
                     "valueQuantity": {
-                        "value": 1
+                        "value": 0
                     }
                 },
                 {
@@ -15,10 +15,6 @@
                     "valueQuantity": {
                         "value": 89
                     }
-                },
-                {
-                    "name": "subject",
-                    "valueString": "CA12345"
                 }
             ]
         }
