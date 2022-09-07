@@ -26,8 +26,6 @@ variants_db = db.Variants
 tests_db = db.Tests
 genotypes_db = db.Genotypes
 dxImplication_db = db.dxImplication
-
-pharmGKB_db = db.PharmGKB
 txImplication_db = db.txImplication
 
 beds = db.BEDs
