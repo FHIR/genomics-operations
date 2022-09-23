@@ -583,7 +583,30 @@ def create_fhir_variant_resource(record, subject):
                                                            "display": "Variant inner start-end"}]},
                                       "valueRange": {"low": {"value": inner_start},
                                                      "high": {"value": inner_end}}})
-
+        
+    # Variant Molecular Consequence and Predicted Impact
+    if 'molecConseq' in record:
+        resource["component"].append({"code": {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                                "code": "molecular-consequence"}]},
+                                        "valueCodeableConcept": {"coding": record['molecConseq']},
+                                        "interpretation": {"text": "PREDICTED IMPACT " + record['predictedMolecImpact'].upper()}})
+    
+    # Variant Loss of Function
+    if 'funcConseq' in record:
+        resource["component"].append({"code": {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                                "code": "functional-effect"}]},
+                                    "valueCodeableConcept": {"coding": record['funcConseq']}})
+    
+    # Variant population allele frequency
+    if 'popAlleleFreq' in record:
+        resource["component"].append({"code": {"coding": [{
+                                                "system": "http://loinc.org",
+                                                "code": "92821-8",
+                                                "display": "Population allele frequency"
+                                                }]},
+                                        "valueQuantity": {"value": record['popAlleleFreq'],
+                                                            "system": "http://unitsofmeasure.org",
+                                                            "code": "1"}})
     return resource
 
 
