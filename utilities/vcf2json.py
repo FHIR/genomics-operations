@@ -320,3 +320,4 @@ def parseANN(output_json, ann, firstFlag, codeDict):
  
     if firstFlag:    
         output_json["predictedMolecImpact"] = annList[2]
+        
