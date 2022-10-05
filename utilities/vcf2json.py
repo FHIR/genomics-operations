@@ -137,6 +137,7 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
         output_json["CHROM"] = f"chr{record.CHROM}"
         output_json["POS"] = record.POS - 1
         output_json["REF"] = record.REF
+        output_json["END"] = (record.POS - 1 + len(record.REF))
         
         alts = record.ALT
         noRefFlag = 0
