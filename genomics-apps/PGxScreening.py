@@ -120,7 +120,7 @@ with col2:
                 """).js_code
               )
           go=gb.build()
-          AgGrid(inxData, gridOptions=go, allow_unsafe_jscode=True, editable=True)
+          AgGrid(inxData, gridOptions=go, allow_unsafe_jscode=True, editable=True, enable_enterprise_modules=True, update_mode="value_changed")
      inxData_t=inxData.T
      st.download_button("Download table (json)",inxData_t.to_json())
      st.download_button("Download table (csv)",inxData.to_csv())
@@ -145,4 +145,4 @@ with col1:
              """).js_code,
            )
      go=gb.build()
-     AgGrid(data, gridOptions=go, allow_unsafe_jscode=True)
+     AgGrid(data, gridOptions=go, allow_unsafe_jscode=True, enable_enterprise_modules=True, update_mode="value_changed")

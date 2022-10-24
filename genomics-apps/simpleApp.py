@@ -47,7 +47,7 @@ if st.sidebar.button("Run"):
 					variantList.append({"SPDI":SPDI,"Source Class": sourceClass, "Allelic State": allelicState, "Allele Frequeny": alleleFreq})
 		data=(pd.DataFrame(variantList))
 		with col2:
-			AgGrid(data)
+			AgGrid(data, enable_enterprise_modules=True, update_mode="value_changed", allow_unsafe_jscode=True)
 			st.download_button("Download table (json)",data.T.to_json(),mime="application/json")
 			st.download_button("Download table (csv)",data.to_csv(),mime="text/csv")
 

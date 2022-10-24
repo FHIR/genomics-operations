@@ -112,6 +112,6 @@ data=(pd.DataFrame({
     'Evidence': evidenceList}))
 data_t=data.T
 
-AgGrid(data)
+AgGrid(data, enable_enterprise_modules=True, update_mode="value_changed", allow_unsafe_jscode=True)
 
 st.download_button("Download table",data_t.to_json())
