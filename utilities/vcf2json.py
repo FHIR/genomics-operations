@@ -73,8 +73,12 @@ def _valid_record(record, genomic_source_class, sample_position):
            genomic_source_class.lower() == Genomic_Source_Class.GERMLINE.value.lower()):
             return False
     else:
+<<<<<<< HEAD
         if(not all(alt is None or (alt.type in ['SNV', 'MNV'] or ('*' not in str(alt)
             and (str(alt).isalpha() or (alt == '.' and len(record.ALT) == 1))))
+=======
+        if(not all(alt is None or ((alt.type in ['SNV', 'MNV'] or '*' not in str(alt)) and str(alt).isalpha())
+>>>>>>> 89abf0e726f7a5221beec510cf9f5ddb2108ae51
            for alt in record.ALT)):
             return False
         if('.' in record.samples[sample_position]["GT"] and
@@ -324,3 +328,7 @@ def parseANN(output_json, ann, firstFlag, codeDict):
  
     if firstFlag:    
         output_json["predictedMolecImpact"] = annList[2]
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 89abf0e726f7a5221beec510cf9f5ddb2108ae51
