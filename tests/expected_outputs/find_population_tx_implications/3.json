@@ -7,14 +7,18 @@
                 {
                     "name": "numerator",
                     "valueQuantity": {
-                        "value": 0
+                        "value": 1
                     }
                 },
                 {
                     "name": "denominator",
                     "valueQuantity": {
-                        "value": 89
+                        "value": 90
                     }
+                },
+                {
+                    "name": "subject",
+                    "valueString": "CA12345"
                 }
             ]
         }

@@ -1377,7 +1377,7 @@ def query_CIVIC_by_condition(code_list, treatment_list, query):
         treatment_or_query = []
         for treatment in treatment_list:
             if treatment['isSystem']:
-                treatment_or_query.append({'$and': [{'medicationAssessed.code': {'$eq': treatment['treatment']}}, {'medicationAssessed.system': {'$eq': treatment['system']}}]})
+                treatment_or_query.append({'$and': [{'medicationAssessed.code': {'$eq': str(treatment['treatment'])}}, {'medicationAssessed.system': {'$eq': treatment['system']}}]})
             else:
                 treatment_or_query.append({'$or': [
                     {'medicationAssessed.code': {'$regex': ".*"+str(treatment['treatment']).replace('*', r'\*')+".*"}},

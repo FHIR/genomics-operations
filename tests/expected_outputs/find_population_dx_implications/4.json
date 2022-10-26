@@ -7,13 +7,13 @@
                 {
                     "name": "numerator",
                     "valueQuantity": {
-                        "value": 18
+                        "value": 19
                     }
                 },
                 {
                     "name": "denominator",
                     "valueQuantity": {
-                        "value": 89
+                        "value": 90
                     }
                 },
                 {
@@ -67,6 +67,10 @@
                 {
                     "name": "subject",
                     "valueString": "NB6TK329"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "cancer-patient-jenny-m"
                 },
                 {
                     "name": "subject",
