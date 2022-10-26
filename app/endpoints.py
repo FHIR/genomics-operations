@@ -157,7 +157,7 @@ def find_subject_variants(
 
                     for sq_profile in sequence_phase_profiles:
                         parameter["part"].append({
-                          "name": "Sequence Phase Relationship",
+                          "name": "sequencePhaseRelationship",
                           "resource": sq_profile
                         })
 
