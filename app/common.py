@@ -783,10 +783,9 @@ def create_genotype_profile(genotype, subject, gids):
                                          "code": f"{genotype['genotypeCode']}",
                                          "display": f"{genotype['genotypeDesc']}"}]}
 
-    if len(gids) > 0:
-        resource["derivedFrom"] = []
-        for gid in gids:
-            resource["derivedFrom"].append({"reference": f"Observation/dv-{gid}"})
+    resource["subject"] = {
+        "reference": f"Patient/{subject}"
+    }
 
     resource["component"] = []
     resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",

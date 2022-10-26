@@ -132,11 +132,9 @@
                                 }
                             ]
                         },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c3"
-                            }
-                        ],
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
                         "component": [
                             {
                                 "code": {
@@ -313,11 +311,9 @@
                                 }
                             ]
                         },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
-                            }
-                        ],
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
                         "component": [
                             {
                                 "code": {
