@@ -283,6 +283,21 @@ def get_range(range):
 
     return {'CHROMOSOME': chromosome, 'RANGE': _range}
 
+def get_lift_over_range(ranges):
+    ranges_to_add = []
+    for range in ranges:
+        print("LO start")
+        rse_other_build = lift_over(range['CHROMOSOME']['RefSeq'], range['RANGE']['L'], range['RANGE']['H'])
+        print("LO end")
+        if rse_other_build is not None:
+            provided_genomic_build = get_build_and_chrom_by_ref_seq(range['CHROMOSOME']['RefSeq'])["build"]
+            other_genomic_build = get_other_build(provided_genomic_build)
+            other_ref_seq = get_ref_seq_by_chrom_and_build(other_genomic_build, range['CHROMOSOME']['CHROM'])
+            chromosome = {'CHROM': range['CHROMOSOME']['CHROM'], 'RefSeq': other_ref_seq}
+            _range = {'L': rse_other_build["start"], 'H': rse_other_build["end"]}
+            ranges_to_add.append({'CHROMOSOME': chromosome, 'RANGE': _range})
+    ranges.extend(ranges_to_add)
+
 
 def get_spdis(ranges, query):
     spdis = []
@@ -337,6 +352,8 @@ def get_spdis(ranges, query):
         for variant in variant_q:
             if "SPDI" in variant:
                 spdis.append(f'{variant["SPDI"]}')
+
+    del query["$and"]
 
     return spdis
 
