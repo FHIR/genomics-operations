@@ -286,9 +286,7 @@ def get_range(range):
 def get_lift_over_range(ranges):
     ranges_to_add = []
     for range in ranges:
-        print("LO start")
         rse_other_build = lift_over(range['CHROMOSOME']['RefSeq'], range['RANGE']['L'], range['RANGE']['H'])
-        print("LO end")
         if rse_other_build is not None:
             provided_genomic_build = get_build_and_chrom_by_ref_seq(range['CHROMOSOME']['RefSeq'])["build"]
             other_genomic_build = get_other_build(provided_genomic_build)
