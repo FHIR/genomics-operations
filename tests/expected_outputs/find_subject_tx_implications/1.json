@@ -8,7 +8,7 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-62fabf525932091e78d9142c",
+                        "id": "dv-63287c9ff7c8d34d272a3d61",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -38,7 +38,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-61ca5fc4641a9ad22b9f44da"
+                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
                             }
                         ],
                         "component": [
@@ -73,7 +73,7 @@
                                     ]
                                 },
                                 "valueCodeableConcept": {
-                                    "text": "C (Case Study)"
+                                    "text": "C (Case study)"
                                 }
                             },
                             {
@@ -117,7 +117,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-61ca5fc4641a9ad22b9f44da",
+                        "id": "dv-6352e3eef5ec02ce77a89711",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -170,7 +170,7 @@
                                     "coding": [
                                         {
                                             "system": "http://www.ncbi.nlm.nih.gov/nuccore",
-                                            "code": "NC_000008.11"
+                                            "code": "NC_000007.14"
                                         }
                                     ]
                                 }
@@ -193,8 +193,12 @@
                                             "display": "NC_000007.14:140753335:A:T"
                                         },
                                         {
-                                            "system": "https://civicdb.org",
+                                            "system": "https://civicdb.org/variant",
                                             "code": "12"
+                                        },
+                                        {
+                                            "system": "https://civicdb.org/evidence",
+                                            "code": "91"
                                         }
                                     ]
                                 }
@@ -246,6 +250,44 @@
                                         "value": 140753335
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001583",
+                                            "display": "missense_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODERATE"
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "92821-8",
+                                            "display": "Population allele frequency"
+                                        }
+                                    ]
+                                },
+                                "valueQuantity": {
+                                    "value": 3.97994e-06,
+                                    "system": "http://unitsofmeasure.org",
+                                    "code": "1"
+                                }
                             }
                         ]
                     }
@@ -259,7 +301,7 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-62fabf525932091e78d915f4",
+                        "id": "dv-63287c9ff7c8d34d272a3d7a",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -289,7 +331,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-61ca5fc4641a9ad22b9f44da"
+                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
                             }
                         ],
                         "component": [
@@ -324,7 +366,7 @@
                                     ]
                                 },
                                 "valueCodeableConcept": {
-                                    "text": "B (Clinical)"
+                                    "text": "B (Clinical evidence)"
                                 }
                             },
                             {
@@ -368,7 +410,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-61ca5fc4641a9ad22b9f44da",
+                        "id": "dv-6352e3eef5ec02ce77a89711",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -421,7 +463,7 @@
                                     "coding": [
                                         {
                                             "system": "http://www.ncbi.nlm.nih.gov/nuccore",
-                                            "code": "NC_000008.11"
+                                            "code": "NC_000007.14"
                                         }
                                     ]
                                 }
@@ -444,8 +486,12 @@
                                             "display": "NC_000007.14:140753335:A:T"
                                         },
                                         {
-                                            "system": "https://civicdb.org",
+                                            "system": "https://civicdb.org/variant",
                                             "code": "12"
+                                        },
+                                        {
+                                            "system": "https://civicdb.org/evidence",
+                                            "code": "5958"
                                         }
                                     ]
                                 }
@@ -497,6 +543,44 @@
                                         "value": 140753335
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001583",
+                                            "display": "missense_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODERATE"
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "92821-8",
+                                            "display": "Population allele frequency"
+                                        }
+                                    ]
+                                },
+                                "valueQuantity": {
+                                    "value": 3.97994e-06,
+                                    "system": "http://unitsofmeasure.org",
+                                    "code": "1"
+                                }
                             }
                         ]
                     }
@@ -510,7 +594,7 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-62fabf525932091e78d9175f",
+                        "id": "dv-63287c9ff7c8d34d272a40a9",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -540,7 +624,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-61ca5fc4641a9ad22b9f44da"
+                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
                             }
                         ],
                         "component": [
@@ -575,27 +659,7 @@
                                     ]
                                 },
                                 "valueCodeableConcept": {
-                                    "text": "A (Validated)"
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "51963-7",
-                                            "display": "medication-assessed"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-                                            "code": "1425099",
-                                            "display": "Trametinib"
-                                        }
-                                    ]
+                                    "text": "A (Validated association)"
                                 }
                             },
                             {
@@ -622,6 +686,26 @@
                                 "code": {
                                     "coding": [
                                         {
+                                            "system": "http://loinc.org",
+                                            "code": "51963-7",
+                                            "display": "medication-assessed"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                                            "code": "1425099",
+                                            "display": "Trametinib"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
                                             "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
                                             "code": "predicted-therapeutic-implication",
                                             "display": "predicted-therapeutic-implication"
@@ -639,7 +723,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-61ca5fc4641a9ad22b9f44da",
+                        "id": "dv-6352e3eef5ec02ce77a89711",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -692,7 +776,7 @@
                                     "coding": [
                                         {
                                             "system": "http://www.ncbi.nlm.nih.gov/nuccore",
-                                            "code": "NC_000008.11"
+                                            "code": "NC_000007.14"
                                         }
                                     ]
                                 }
@@ -715,8 +799,12 @@
                                             "display": "NC_000007.14:140753335:A:T"
                                         },
                                         {
-                                            "system": "https://civicdb.org",
+                                            "system": "https://civicdb.org/variant",
                                             "code": "12"
+                                        },
+                                        {
+                                            "system": "https://civicdb.org/evidence",
+                                            "code": "3017"
                                         }
                                     ]
                                 }
@@ -767,6 +855,44 @@
                                     "low": {
                                         "value": 140753335
                                     }
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001583",
+                                            "display": "missense_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODERATE"
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "92821-8",
+                                            "display": "Population allele frequency"
+                                        }
+                                    ]
+                                },
+                                "valueQuantity": {
+                                    "value": 3.97994e-06,
+                                    "system": "http://unitsofmeasure.org",
+                                    "code": "1"
                                 }
                             }
                         ]

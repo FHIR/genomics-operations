@@ -157,7 +157,7 @@ def find_subject_variants(
 
                     for sq_profile in sequence_phase_profiles:
                         parameter["part"].append({
-                          "name": "Sequence Phase Relationship",
+                          "name": "sequencePhaseRelationship",
                           "resource": sq_profile
                         })
 
@@ -825,6 +825,7 @@ def find_subject_tx_implications(
 
     if ranges:
         ranges = list(map(get_range, ranges))
+        get_lift_over_range(ranges)
         variants = get_spdis(ranges, query)
         if not variants:
             return jsonify({"resourceType":"Parameters"})
@@ -1089,6 +1090,7 @@ def find_subject_dx_implications(
 
     if ranges:
         ranges = list(map(get_range, ranges))
+        get_lift_over_range(ranges)
         variants = get_spdis(ranges, query)
         if not variants:
             return jsonify({"resourceType":"Parameters"})

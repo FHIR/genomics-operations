@@ -1023,7 +1023,7 @@
                     }
                 },
                 {
-                    "name": "Sequence Phase Relationship",
+                    "name": "sequencePhaseRelationship",
                     "resource": {
                         "resourceType": "Observation",
                         "id": "sid-6301cf4b8b749345194c184b",
@@ -1075,7 +1075,7 @@
                     }
                 },
                 {
-                    "name": "Sequence Phase Relationship",
+                    "name": "sequencePhaseRelationship",
                     "resource": {
                         "resourceType": "Observation",
                         "id": "sid-6301cf4b8b749345194c184c",
@@ -1127,7 +1127,7 @@
                     }
                 },
                 {
-                    "name": "Sequence Phase Relationship",
+                    "name": "sequencePhaseRelationship",
                     "resource": {
                         "resourceType": "Observation",
                         "id": "sid-6301cf4b8b749345194c184d",

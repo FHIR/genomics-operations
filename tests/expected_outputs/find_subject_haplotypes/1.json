@@ -47,6 +47,9 @@
                                 }
                             ]
                         },
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
                         "component": [
                             {
                                 "code": {

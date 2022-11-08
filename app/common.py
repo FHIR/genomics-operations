@@ -283,6 +283,19 @@ def get_range(range):
 
     return {'CHROMOSOME': chromosome, 'RANGE': _range}
 
+def get_lift_over_range(ranges):
+    ranges_to_add = []
+    for range in ranges:
+        rse_other_build = lift_over(range['CHROMOSOME']['RefSeq'], range['RANGE']['L'], range['RANGE']['H'])
+        if rse_other_build is not None:
+            provided_genomic_build = get_build_and_chrom_by_ref_seq(range['CHROMOSOME']['RefSeq'])["build"]
+            other_genomic_build = get_other_build(provided_genomic_build)
+            other_ref_seq = get_ref_seq_by_chrom_and_build(other_genomic_build, range['CHROMOSOME']['CHROM'])
+            chromosome = {'CHROM': range['CHROMOSOME']['CHROM'], 'RefSeq': other_ref_seq}
+            _range = {'L': rse_other_build["start"], 'H': rse_other_build["end"]}
+            ranges_to_add.append({'CHROMOSOME': chromosome, 'RANGE': _range})
+    ranges.extend(ranges_to_add)
+
 
 def get_spdis(ranges, query):
     spdis = []
@@ -337,6 +350,8 @@ def get_spdis(ranges, query):
         for variant in variant_q:
             if "SPDI" in variant:
                 spdis.append(f'{variant["SPDI"]}')
+
+    del query["$and"]
 
     return spdis
 
@@ -783,10 +798,9 @@ def create_genotype_profile(genotype, subject, gids):
                                          "code": f"{genotype['genotypeCode']}",
                                          "display": f"{genotype['genotypeDesc']}"}]}
 
-    if len(gids) > 0:
-        resource["derivedFrom"] = []
-        for gid in gids:
-            resource["derivedFrom"].append({"reference": f"Observation/dv-{gid}"})
+    resource["subject"] = {
+        "reference": f"Patient/{subject}"
+    }
 
     resource["component"] = []
     resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
@@ -1377,7 +1391,7 @@ def query_CIVIC_by_condition(code_list, treatment_list, query):
         treatment_or_query = []
         for treatment in treatment_list:
             if treatment['isSystem']:
-                treatment_or_query.append({'$and': [{'medicationAssessed.code': {'$eq': treatment['treatment']}}, {'medicationAssessed.system': {'$eq': treatment['system']}}]})
+                treatment_or_query.append({'$and': [{'medicationAssessed.code': {'$eq': str(treatment['treatment'])}}, {'medicationAssessed.system': {'$eq': treatment['system']}}]})
             else:
                 treatment_or_query.append({'$or': [
                     {'medicationAssessed.code': {'$regex': ".*"+str(treatment['treatment']).replace('*', r'\*')+".*"}},

@@ -8,550 +8,7 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-62fac40a5932091e78e2dce4",
-                        "meta": {
-                            "profile": [
-                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
-                            ]
-                        },
-                        "status": "final",
-                        "category": [
-                            {
-                                "coding": [
-                                    {
-                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                                        "code": "laboratory"
-                                    }
-                                ]
-                            }
-                        ],
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                    "code": "therapeutic-implication"
-                                }
-                            ]
-                        },
-                        "subject": {
-                            "reference": "Patient/NB6TK328"
-                        },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c3"
-                            }
-                        ],
-                        "component": [
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "93044-6",
-                                            "display": "Level of evidence"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "text": "CPIC Level A"
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "51963-7",
-                                            "display": "medication-assessed"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-                                            "code": "121243",
-                                            "display": "voriconazole"
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                            "code": "predicted-therapeutic-implication",
-                                            "display": "predicted-therapeutic-implication"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "text": "CYP2C19 Rapid Metabolizer "
-                                }
-                            }
-                        ]
-                    }
-                },
-                {
-                    "name": "genotype",
-                    "resource": {
-                        "resourceType": "Observation",
-                        "id": "dv-61ccfd4a072302a0eb2115c3",
-                        "meta": {
-                            "profile": [
-                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/genotype"
-                            ]
-                        },
-                        "status": "final",
-                        "category": [
-                            {
-                                "coding": [
-                                    {
-                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                                        "code": "laboratory"
-                                    }
-                                ]
-                            }
-                        ],
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "84413-4",
-                                    "display": "Genotype display name"
-                                }
-                            ]
-                        },
-                        "valueCodeableConcept": {
-                            "coding": [
-                                {
-                                    "system": "https://www.pharmvar.org",
-                                    "code": "CYP2C19 *1/*17",
-                                    "display": "CYP2C19 *1/*17"
-                                }
-                            ]
-                        },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c3"
-                            }
-                        ],
-                        "component": [
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "48018-6",
-                                            "display": "Gene studied"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://www.genenames.org/geneId",
-                                            "code": "HGNC:2621",
-                                            "display": "CYP2C19"
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "81252-9",
-                                            "display": "Discrete genetic variant"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "https://www.pharmgkb.org",
-                                            "code": "PA124"
-                                        }
-                                    ]
-                                }
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        {
-            "name": "implications",
-            "part": [
-                {
-                    "name": "implication",
-                    "resource": {
-                        "resourceType": "Observation",
-                        "id": "dv-62fac40a5932091e78e2dce5",
-                        "meta": {
-                            "profile": [
-                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
-                            ]
-                        },
-                        "status": "final",
-                        "category": [
-                            {
-                                "coding": [
-                                    {
-                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                                        "code": "laboratory"
-                                    }
-                                ]
-                            }
-                        ],
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                    "code": "therapeutic-implication"
-                                }
-                            ]
-                        },
-                        "subject": {
-                            "reference": "Patient/NB6TK328"
-                        },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c3"
-                            }
-                        ],
-                        "component": [
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "93044-6",
-                                            "display": "Level of evidence"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "text": "CPIC Level A"
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "51963-7",
-                                            "display": "medication-assessed"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-                                            "code": "32968",
-                                            "display": "clopidogrel"
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                            "code": "predicted-therapeutic-implication",
-                                            "display": "predicted-therapeutic-implication"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "text": "CYP2C19 Rapid Metabolizer "
-                                }
-                            }
-                        ]
-                    }
-                },
-                {
-                    "name": "genotype",
-                    "resource": {
-                        "resourceType": "Observation",
-                        "id": "dv-61ccfd4a072302a0eb2115c3",
-                        "meta": {
-                            "profile": [
-                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/genotype"
-                            ]
-                        },
-                        "status": "final",
-                        "category": [
-                            {
-                                "coding": [
-                                    {
-                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                                        "code": "laboratory"
-                                    }
-                                ]
-                            }
-                        ],
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "84413-4",
-                                    "display": "Genotype display name"
-                                }
-                            ]
-                        },
-                        "valueCodeableConcept": {
-                            "coding": [
-                                {
-                                    "system": "https://www.pharmvar.org",
-                                    "code": "CYP2C19 *1/*17",
-                                    "display": "CYP2C19 *1/*17"
-                                }
-                            ]
-                        },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c3"
-                            }
-                        ],
-                        "component": [
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "48018-6",
-                                            "display": "Gene studied"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://www.genenames.org/geneId",
-                                            "code": "HGNC:2621",
-                                            "display": "CYP2C19"
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "81252-9",
-                                            "display": "Discrete genetic variant"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "https://www.pharmgkb.org",
-                                            "code": "PA124"
-                                        }
-                                    ]
-                                }
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        {
-            "name": "implications",
-            "part": [
-                {
-                    "name": "implication",
-                    "resource": {
-                        "resourceType": "Observation",
-                        "id": "dv-62fac40a5932091e78e2dce6",
-                        "meta": {
-                            "profile": [
-                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
-                            ]
-                        },
-                        "status": "final",
-                        "category": [
-                            {
-                                "coding": [
-                                    {
-                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                                        "code": "laboratory"
-                                    }
-                                ]
-                            }
-                        ],
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                    "code": "therapeutic-implication"
-                                }
-                            ]
-                        },
-                        "subject": {
-                            "reference": "Patient/NB6TK328"
-                        },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c3"
-                            }
-                        ],
-                        "component": [
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "93044-6",
-                                            "display": "Level of evidence"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "text": "CPIC Level A"
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "51963-7",
-                                            "display": "medication-assessed"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-                                            "code": "321988",
-                                            "display": "Escitalopram"
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                            "code": "predicted-therapeutic-implication",
-                                            "display": "predicted-therapeutic-implication"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "text": "CYP2C19 Rapid Metabolizer "
-                                }
-                            }
-                        ]
-                    }
-                },
-                {
-                    "name": "genotype",
-                    "resource": {
-                        "resourceType": "Observation",
-                        "id": "dv-61ccfd4a072302a0eb2115c3",
-                        "meta": {
-                            "profile": [
-                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/genotype"
-                            ]
-                        },
-                        "status": "final",
-                        "category": [
-                            {
-                                "coding": [
-                                    {
-                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                                        "code": "laboratory"
-                                    }
-                                ]
-                            }
-                        ],
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "84413-4",
-                                    "display": "Genotype display name"
-                                }
-                            ]
-                        },
-                        "valueCodeableConcept": {
-                            "coding": [
-                                {
-                                    "system": "https://www.pharmvar.org",
-                                    "code": "CYP2C19 *1/*17",
-                                    "display": "CYP2C19 *1/*17"
-                                }
-                            ]
-                        },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c3"
-                            }
-                        ],
-                        "component": [
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "48018-6",
-                                            "display": "Gene studied"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://www.genenames.org/geneId",
-                                            "code": "HGNC:2621",
-                                            "display": "CYP2C19"
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "81252-9",
-                                            "display": "Discrete genetic variant"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "https://www.pharmgkb.org",
-                                            "code": "PA124"
-                                        }
-                                    ]
-                                }
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        {
-            "name": "implications",
-            "part": [
-                {
-                    "name": "implication",
-                    "resource": {
-                        "resourceType": "Observation",
-                        "id": "dv-62fac40a5932091e78e2dce7",
+                        "id": "dv-631a4ae012d58a72041f3aba",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -630,7 +87,7 @@
                                     ]
                                 },
                                 "valueCodeableConcept": {
-                                    "text": "CYP2C19 Rapid Metabolizer "
+                                    "text": "CYP2C19 Rapid Metabolizer"
                                 }
                             }
                         ]
@@ -675,11 +132,9 @@
                                 }
                             ]
                         },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c3"
-                            }
-                        ],
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
                         "component": [
                             {
                                 "code": {
@@ -732,7 +187,186 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-62fac40a5932091e78e2dce8",
+                        "id": "dv-631a4ae012d58a72041f3abb",
+                        "meta": {
+                            "profile": [
+                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+                            ]
+                        },
+                        "status": "final",
+                        "category": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                                        "code": "laboratory"
+                                    }
+                                ]
+                            }
+                        ],
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                    "code": "therapeutic-implication"
+                                }
+                            ]
+                        },
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
+                        "derivedFrom": [
+                            {
+                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c3"
+                            }
+                        ],
+                        "component": [
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "93044-6",
+                                            "display": "Level of evidence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "text": "CPIC Level A"
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "51963-7",
+                                            "display": "medication-assessed"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                                            "code": "32968",
+                                            "display": "clopidogrel"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "predicted-therapeutic-implication",
+                                            "display": "predicted-therapeutic-implication"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "text": "CYP2C19 Rapid Metabolizer"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "genotype",
+                    "resource": {
+                        "resourceType": "Observation",
+                        "id": "dv-61ccfd4a072302a0eb2115c3",
+                        "meta": {
+                            "profile": [
+                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/genotype"
+                            ]
+                        },
+                        "status": "final",
+                        "category": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                                        "code": "laboratory"
+                                    }
+                                ]
+                            }
+                        ],
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "84413-4",
+                                    "display": "Genotype display name"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "https://www.pharmvar.org",
+                                    "code": "CYP2C19 *1/*17",
+                                    "display": "CYP2C19 *1/*17"
+                                }
+                            ]
+                        },
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
+                        "component": [
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "48018-6",
+                                            "display": "Gene studied"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.genenames.org/geneId",
+                                            "code": "HGNC:2621",
+                                            "display": "CYP2C19"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "81252-9",
+                                            "display": "Discrete genetic variant"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "https://www.pharmgkb.org",
+                                            "code": "PA124"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "implications",
+            "part": [
+                {
+                    "name": "implication",
+                    "resource": {
+                        "resourceType": "Observation",
+                        "id": "dv-631a4ae012d58a72041f3abc",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -811,7 +445,7 @@
                                     ]
                                 },
                                 "valueCodeableConcept": {
-                                    "text": "CYP2C19 Rapid Metabolizer "
+                                    "text": "CYP2C19 Rapid Metabolizer"
                                 }
                             }
                         ]
@@ -856,11 +490,9 @@
                                 }
                             ]
                         },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c3"
-                            }
-                        ],
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
                         "component": [
                             {
                                 "code": {
@@ -913,7 +545,7 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-62fac4115932091e78e30e39",
+                        "id": "dv-631a4ae012d58a72041f3ac2",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -943,7 +575,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
+                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c3"
                             }
                         ],
                         "component": [
@@ -975,8 +607,8 @@
                                     "coding": [
                                         {
                                             "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-                                            "code": "42355",
-                                            "display": "Fluvoxamine"
+                                            "code": "321988",
+                                            "display": "Escitalopram"
                                         }
                                     ]
                                 }
@@ -992,7 +624,7 @@
                                     ]
                                 },
                                 "valueCodeableConcept": {
-                                    "text": "Normal Metabolizer"
+                                    "text": "CYP2C19 Rapid Metabolizer"
                                 }
                             }
                         ]
@@ -1002,7 +634,7 @@
                     "name": "genotype",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-61ccfd4a072302a0eb2115c6",
+                        "id": "dv-61ccfd4a072302a0eb2115c3",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/genotype"
@@ -1032,16 +664,14 @@
                             "coding": [
                                 {
                                     "system": "https://www.pharmvar.org",
-                                    "code": "CYP2D6 *1/*41",
-                                    "display": "CYP2D6 *1/*41"
+                                    "code": "CYP2C19 *1/*17",
+                                    "display": "CYP2C19 *1/*17"
                                 }
                             ]
                         },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
-                            }
-                        ],
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
                         "component": [
                             {
                                 "code": {
@@ -1057,8 +687,8 @@
                                     "coding": [
                                         {
                                             "system": "http://www.genenames.org/geneId",
-                                            "code": "HGNC:2625",
-                                            "display": "CYP2D6"
+                                            "code": "HGNC:2621",
+                                            "display": "CYP2C19"
                                         }
                                     ]
                                 }
@@ -1077,7 +707,7 @@
                                     "coding": [
                                         {
                                             "system": "https://www.pharmgkb.org",
-                                            "code": "PA128"
+                                            "code": "PA124"
                                         }
                                     ]
                                 }
@@ -1094,7 +724,7 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-62fac4115932091e78e30e3a",
+                        "id": "dv-631a4ae012d58a72041f3ad0",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -1124,7 +754,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
+                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c3"
                             }
                         ],
                         "component": [
@@ -1156,8 +786,8 @@
                                     "coding": [
                                         {
                                             "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-                                            "code": "26225",
-                                            "display": "Ondansetron"
+                                            "code": "121243",
+                                            "display": "voriconazole"
                                         }
                                     ]
                                 }
@@ -1173,7 +803,7 @@
                                     ]
                                 },
                                 "valueCodeableConcept": {
-                                    "text": "Normal Metabolizer"
+                                    "text": "CYP2C19 Rapid Metabolizer"
                                 }
                             }
                         ]
@@ -1183,7 +813,7 @@
                     "name": "genotype",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-61ccfd4a072302a0eb2115c6",
+                        "id": "dv-61ccfd4a072302a0eb2115c3",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/genotype"
@@ -1213,197 +843,14 @@
                             "coding": [
                                 {
                                     "system": "https://www.pharmvar.org",
-                                    "code": "CYP2D6 *1/*41",
-                                    "display": "CYP2D6 *1/*41"
-                                }
-                            ]
-                        },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
-                            }
-                        ],
-                        "component": [
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "48018-6",
-                                            "display": "Gene studied"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://www.genenames.org/geneId",
-                                            "code": "HGNC:2625",
-                                            "display": "CYP2D6"
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "81252-9",
-                                            "display": "Discrete genetic variant"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "https://www.pharmgkb.org",
-                                            "code": "PA128"
-                                        }
-                                    ]
-                                }
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        {
-            "name": "implications",
-            "part": [
-                {
-                    "name": "implication",
-                    "resource": {
-                        "resourceType": "Observation",
-                        "id": "dv-62fac4115932091e78e30e3c",
-                        "meta": {
-                            "profile": [
-                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
-                            ]
-                        },
-                        "status": "final",
-                        "category": [
-                            {
-                                "coding": [
-                                    {
-                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                                        "code": "laboratory"
-                                    }
-                                ]
-                            }
-                        ],
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                    "code": "therapeutic-implication"
+                                    "code": "CYP2C19 *1/*17",
+                                    "display": "CYP2C19 *1/*17"
                                 }
                             ]
                         },
                         "subject": {
                             "reference": "Patient/NB6TK328"
                         },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
-                            }
-                        ],
-                        "component": [
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "93044-6",
-                                            "display": "Level of evidence"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "text": "CPIC Level A"
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "51963-7",
-                                            "display": "medication-assessed"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-                                            "code": "32937",
-                                            "display": "Paroxetine"
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                            "code": "predicted-therapeutic-implication",
-                                            "display": "predicted-therapeutic-implication"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "text": "Normal Metabolizer"
-                                }
-                            }
-                        ]
-                    }
-                },
-                {
-                    "name": "genotype",
-                    "resource": {
-                        "resourceType": "Observation",
-                        "id": "dv-61ccfd4a072302a0eb2115c6",
-                        "meta": {
-                            "profile": [
-                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/genotype"
-                            ]
-                        },
-                        "status": "final",
-                        "category": [
-                            {
-                                "coding": [
-                                    {
-                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                                        "code": "laboratory"
-                                    }
-                                ]
-                            }
-                        ],
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "84413-4",
-                                    "display": "Genotype display name"
-                                }
-                            ]
-                        },
-                        "valueCodeableConcept": {
-                            "coding": [
-                                {
-                                    "system": "https://www.pharmvar.org",
-                                    "code": "CYP2D6 *1/*41",
-                                    "display": "CYP2D6 *1/*41"
-                                }
-                            ]
-                        },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
-                            }
-                        ],
                         "component": [
                             {
                                 "code": {
@@ -1419,8 +866,8 @@
                                     "coding": [
                                         {
                                             "system": "http://www.genenames.org/geneId",
-                                            "code": "HGNC:2625",
-                                            "display": "CYP2D6"
+                                            "code": "HGNC:2621",
+                                            "display": "CYP2C19"
                                         }
                                     ]
                                 }
@@ -1439,7 +886,7 @@
                                     "coding": [
                                         {
                                             "system": "https://www.pharmgkb.org",
-                                            "code": "PA128"
+                                            "code": "PA124"
                                         }
                                     ]
                                 }
@@ -1456,7 +903,7 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-62fac4115932091e78e30e3d",
+                        "id": "dv-631a4ae712d58a72041f91a1",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -1580,11 +1027,9 @@
                                 }
                             ]
                         },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
-                            }
-                        ],
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
                         "component": [
                             {
                                 "code": {
@@ -1637,7 +1082,7 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-62fac4115932091e78e30e3e",
+                        "id": "dv-631a4ae712d58a72041f91a2",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -1699,8 +1144,8 @@
                                     "coding": [
                                         {
                                             "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-                                            "code": "10324",
-                                            "display": "Tamoxifen"
+                                            "code": "42355",
+                                            "display": "Fluvoxamine"
                                         }
                                     ]
                                 }
@@ -1761,11 +1206,9 @@
                                 }
                             ]
                         },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
-                            }
-                        ],
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
                         "component": [
                             {
                                 "code": {
@@ -1818,7 +1261,7 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-62fac4115932091e78e30e3f",
+                        "id": "dv-631a4ae712d58a72041f91a3",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -1880,8 +1323,8 @@
                                     "coding": [
                                         {
                                             "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-                                            "code": "27392",
-                                            "display": "tropisetron"
+                                            "code": "26225",
+                                            "display": "Ondansetron"
                                         }
                                     ]
                                 }
@@ -1942,11 +1385,9 @@
                                 }
                             ]
                         },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
-                            }
-                        ],
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
                         "component": [
                             {
                                 "code": {
@@ -1999,7 +1440,186 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-62fac4115932091e78e30e40",
+                        "id": "dv-631a4ae712d58a72041f91a5",
+                        "meta": {
+                            "profile": [
+                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+                            ]
+                        },
+                        "status": "final",
+                        "category": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                                        "code": "laboratory"
+                                    }
+                                ]
+                            }
+                        ],
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                    "code": "therapeutic-implication"
+                                }
+                            ]
+                        },
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
+                        "derivedFrom": [
+                            {
+                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
+                            }
+                        ],
+                        "component": [
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "93044-6",
+                                            "display": "Level of evidence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "text": "CPIC Level A"
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "51963-7",
+                                            "display": "medication-assessed"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                                            "code": "32937",
+                                            "display": "Paroxetine"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "predicted-therapeutic-implication",
+                                            "display": "predicted-therapeutic-implication"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "text": "Normal Metabolizer"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "genotype",
+                    "resource": {
+                        "resourceType": "Observation",
+                        "id": "dv-61ccfd4a072302a0eb2115c6",
+                        "meta": {
+                            "profile": [
+                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/genotype"
+                            ]
+                        },
+                        "status": "final",
+                        "category": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                                        "code": "laboratory"
+                                    }
+                                ]
+                            }
+                        ],
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "84413-4",
+                                    "display": "Genotype display name"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "https://www.pharmvar.org",
+                                    "code": "CYP2D6 *1/*41",
+                                    "display": "CYP2D6 *1/*41"
+                                }
+                            ]
+                        },
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
+                        "component": [
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "48018-6",
+                                            "display": "Gene studied"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.genenames.org/geneId",
+                                            "code": "HGNC:2625",
+                                            "display": "CYP2D6"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "81252-9",
+                                            "display": "Discrete genetic variant"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "https://www.pharmgkb.org",
+                                            "code": "PA128"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "implications",
+            "part": [
+                {
+                    "name": "implication",
+                    "resource": {
+                        "resourceType": "Observation",
+                        "id": "dv-631a4ae712d58a72041f91a8",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -2123,11 +1743,9 @@
                                 }
                             ]
                         },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
-                            }
-                        ],
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
                         "component": [
                             {
                                 "code": {
@@ -2180,7 +1798,7 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-62fac4115932091e78e30e41",
+                        "id": "dv-631a4ae712d58a72041f91a9",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -2242,8 +1860,8 @@
                                     "coding": [
                                         {
                                             "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-                                            "code": "704",
-                                            "display": "Amitriptyline"
+                                            "code": "10324",
+                                            "display": "Tamoxifen"
                                         }
                                     ]
                                 }
@@ -2301,195 +1919,12 @@
                                     "system": "https://www.pharmvar.org",
                                     "code": "CYP2D6 *1/*41",
                                     "display": "CYP2D6 *1/*41"
-                                }
-                            ]
-                        },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
-                            }
-                        ],
-                        "component": [
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "48018-6",
-                                            "display": "Gene studied"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://www.genenames.org/geneId",
-                                            "code": "HGNC:2625",
-                                            "display": "CYP2D6"
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "81252-9",
-                                            "display": "Discrete genetic variant"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "https://www.pharmgkb.org",
-                                            "code": "PA128"
-                                        }
-                                    ]
-                                }
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        {
-            "name": "implications",
-            "part": [
-                {
-                    "name": "implication",
-                    "resource": {
-                        "resourceType": "Observation",
-                        "id": "dv-62fac4115932091e78e30e42",
-                        "meta": {
-                            "profile": [
-                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
-                            ]
-                        },
-                        "status": "final",
-                        "category": [
-                            {
-                                "coding": [
-                                    {
-                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                                        "code": "laboratory"
-                                    }
-                                ]
-                            }
-                        ],
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                    "code": "therapeutic-implication"
                                 }
                             ]
                         },
                         "subject": {
                             "reference": "Patient/NB6TK328"
                         },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
-                            }
-                        ],
-                        "component": [
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "93044-6",
-                                            "display": "Level of evidence"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "text": "CPIC Level A"
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "51963-7",
-                                            "display": "medication-assessed"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-                                            "code": "7804",
-                                            "display": "Oxycodone"
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                            "code": "predicted-therapeutic-implication",
-                                            "display": "predicted-therapeutic-implication"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "text": "Normal Metabolizer"
-                                }
-                            }
-                        ]
-                    }
-                },
-                {
-                    "name": "genotype",
-                    "resource": {
-                        "resourceType": "Observation",
-                        "id": "dv-61ccfd4a072302a0eb2115c6",
-                        "meta": {
-                            "profile": [
-                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/genotype"
-                            ]
-                        },
-                        "status": "final",
-                        "category": [
-                            {
-                                "coding": [
-                                    {
-                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                                        "code": "laboratory"
-                                    }
-                                ]
-                            }
-                        ],
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "84413-4",
-                                    "display": "Genotype display name"
-                                }
-                            ]
-                        },
-                        "valueCodeableConcept": {
-                            "coding": [
-                                {
-                                    "system": "https://www.pharmvar.org",
-                                    "code": "CYP2D6 *1/*41",
-                                    "display": "CYP2D6 *1/*41"
-                                }
-                            ]
-                        },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
-                            }
-                        ],
                         "component": [
                             {
                                 "code": {
@@ -2542,7 +1977,7 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-62fac4115932091e78e30e43",
+                        "id": "dv-631a4ae712d58a72041f91aa",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -2666,11 +2101,9 @@
                                 }
                             ]
                         },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
-                            }
-                        ],
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
                         "component": [
                             {
                                 "code": {
@@ -2723,7 +2156,7 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-62fac4115932091e78e30e46",
+                        "id": "dv-631a4ae712d58a72041f91ab",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -2847,11 +2280,546 @@
                                 }
                             ]
                         },
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
+                        "component": [
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "48018-6",
+                                            "display": "Gene studied"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.genenames.org/geneId",
+                                            "code": "HGNC:2625",
+                                            "display": "CYP2D6"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "81252-9",
+                                            "display": "Discrete genetic variant"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "https://www.pharmgkb.org",
+                                            "code": "PA128"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "implications",
+            "part": [
+                {
+                    "name": "implication",
+                    "resource": {
+                        "resourceType": "Observation",
+                        "id": "dv-631a4ae712d58a72041f91ac",
+                        "meta": {
+                            "profile": [
+                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+                            ]
+                        },
+                        "status": "final",
+                        "category": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                                        "code": "laboratory"
+                                    }
+                                ]
+                            }
+                        ],
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                    "code": "therapeutic-implication"
+                                }
+                            ]
+                        },
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
                         "derivedFrom": [
                             {
                                 "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
                             }
                         ],
+                        "component": [
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "93044-6",
+                                            "display": "Level of evidence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "text": "CPIC Level A"
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "51963-7",
+                                            "display": "medication-assessed"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                                            "code": "704",
+                                            "display": "Amitriptyline"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "predicted-therapeutic-implication",
+                                            "display": "predicted-therapeutic-implication"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "text": "Normal Metabolizer"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "genotype",
+                    "resource": {
+                        "resourceType": "Observation",
+                        "id": "dv-61ccfd4a072302a0eb2115c6",
+                        "meta": {
+                            "profile": [
+                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/genotype"
+                            ]
+                        },
+                        "status": "final",
+                        "category": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                                        "code": "laboratory"
+                                    }
+                                ]
+                            }
+                        ],
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "84413-4",
+                                    "display": "Genotype display name"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "https://www.pharmvar.org",
+                                    "code": "CYP2D6 *1/*41",
+                                    "display": "CYP2D6 *1/*41"
+                                }
+                            ]
+                        },
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
+                        "component": [
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "48018-6",
+                                            "display": "Gene studied"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.genenames.org/geneId",
+                                            "code": "HGNC:2625",
+                                            "display": "CYP2D6"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "81252-9",
+                                            "display": "Discrete genetic variant"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "https://www.pharmgkb.org",
+                                            "code": "PA128"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "implications",
+            "part": [
+                {
+                    "name": "implication",
+                    "resource": {
+                        "resourceType": "Observation",
+                        "id": "dv-631a4ae712d58a72041f91ad",
+                        "meta": {
+                            "profile": [
+                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+                            ]
+                        },
+                        "status": "final",
+                        "category": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                                        "code": "laboratory"
+                                    }
+                                ]
+                            }
+                        ],
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                    "code": "therapeutic-implication"
+                                }
+                            ]
+                        },
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
+                        "derivedFrom": [
+                            {
+                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
+                            }
+                        ],
+                        "component": [
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "93044-6",
+                                            "display": "Level of evidence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "text": "CPIC Level A"
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "51963-7",
+                                            "display": "medication-assessed"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                                            "code": "7804",
+                                            "display": "Oxycodone"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "predicted-therapeutic-implication",
+                                            "display": "predicted-therapeutic-implication"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "text": "Normal Metabolizer"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "genotype",
+                    "resource": {
+                        "resourceType": "Observation",
+                        "id": "dv-61ccfd4a072302a0eb2115c6",
+                        "meta": {
+                            "profile": [
+                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/genotype"
+                            ]
+                        },
+                        "status": "final",
+                        "category": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                                        "code": "laboratory"
+                                    }
+                                ]
+                            }
+                        ],
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "84413-4",
+                                    "display": "Genotype display name"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "https://www.pharmvar.org",
+                                    "code": "CYP2D6 *1/*41",
+                                    "display": "CYP2D6 *1/*41"
+                                }
+                            ]
+                        },
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
+                        "component": [
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "48018-6",
+                                            "display": "Gene studied"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.genenames.org/geneId",
+                                            "code": "HGNC:2625",
+                                            "display": "CYP2D6"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "81252-9",
+                                            "display": "Discrete genetic variant"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "https://www.pharmgkb.org",
+                                            "code": "PA128"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "implications",
+            "part": [
+                {
+                    "name": "implication",
+                    "resource": {
+                        "resourceType": "Observation",
+                        "id": "dv-631a4ae712d58a72041f91af",
+                        "meta": {
+                            "profile": [
+                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+                            ]
+                        },
+                        "status": "final",
+                        "category": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                                        "code": "laboratory"
+                                    }
+                                ]
+                            }
+                        ],
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                    "code": "therapeutic-implication"
+                                }
+                            ]
+                        },
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
+                        "derivedFrom": [
+                            {
+                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
+                            }
+                        ],
+                        "component": [
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "93044-6",
+                                            "display": "Level of evidence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "text": "CPIC Level A"
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "51963-7",
+                                            "display": "medication-assessed"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                                            "code": "27392",
+                                            "display": "tropisetron"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "predicted-therapeutic-implication",
+                                            "display": "predicted-therapeutic-implication"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "text": "Normal Metabolizer"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "genotype",
+                    "resource": {
+                        "resourceType": "Observation",
+                        "id": "dv-61ccfd4a072302a0eb2115c6",
+                        "meta": {
+                            "profile": [
+                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/genotype"
+                            ]
+                        },
+                        "status": "final",
+                        "category": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                                        "code": "laboratory"
+                                    }
+                                ]
+                            }
+                        ],
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "84413-4",
+                                    "display": "Genotype display name"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "https://www.pharmvar.org",
+                                    "code": "CYP2D6 *1/*41",
+                                    "display": "CYP2D6 *1/*41"
+                                }
+                            ]
+                        },
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
                         "component": [
                             {
                                 "code": {

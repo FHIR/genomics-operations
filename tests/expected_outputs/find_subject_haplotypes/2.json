@@ -47,6 +47,9 @@
                                 }
                             ]
                         },
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
                         "component": [
                             {
                                 "code": {
@@ -118,6 +121,9 @@
                                     "display": "CYP2C19 *1/*17"
                                 }
                             ]
+                        },
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
                         },
                         "component": [
                             {

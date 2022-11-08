@@ -51,6 +51,9 @@
                                 }
                             ]
                         },
+                        "subject": {
+                            "reference": "Patient/XYZ123"
+                        },
                         "component": [
                             {
                                 "code": {

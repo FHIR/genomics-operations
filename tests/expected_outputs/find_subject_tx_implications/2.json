@@ -8,7 +8,7 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-62fac40a5932091e78e2dce7",
+                        "id": "dv-631a4ae012d58a72041f3aba",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -87,7 +87,7 @@
                                     ]
                                 },
                                 "valueCodeableConcept": {
-                                    "text": "CYP2C19 Rapid Metabolizer "
+                                    "text": "CYP2C19 Rapid Metabolizer"
                                 }
                             }
                         ]
@@ -132,11 +132,9 @@
                                 }
                             ]
                         },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c3"
-                            }
-                        ],
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
                         "component": [
                             {
                                 "code": {
@@ -189,7 +187,7 @@
                     "name": "implication",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-62fac4115932091e78e30e41",
+                        "id": "dv-631a4ae712d58a72041f91ac",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -313,11 +311,9 @@
                                 }
                             ]
                         },
-                        "derivedFrom": [
-                            {
-                                "reference": "Observation/dv-61ccfd4a072302a0eb2115c6"
-                            }
-                        ],
+                        "subject": {
+                            "reference": "Patient/NB6TK328"
+                        },
                         "component": [
                             {
                                 "code": {

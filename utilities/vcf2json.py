@@ -6,6 +6,7 @@ from SPDI_Normalization import get_normalized_spdi
 from common import *
 import copy
 import pandas as pd
+import re
 
 phased_rec_map = {}
 spr_json = []
@@ -51,6 +52,7 @@ def add_phased_relationship_obv(patientID, test_id, specimen_id, ref_build):
         c-=1
 
 def _valid_record(record, genomic_source_class, sample_position):
+    svAltRegex = re.compile("^<{1}.*>{1}$");
     if len(record.samples) < 1:
         return False
     if not (validate_chrom_identifier(record.CHROM)):
@@ -63,15 +65,15 @@ def _valid_record(record, genomic_source_class, sample_position):
         if(record.INFO['SVTYPE'][0].upper() not in list(SVs)):
             return False
         if(not all(alt is None or alt.type in ['SNV', 'MNV'] or
-           isinstance(alt, vcf.model._SV) for alt in record.ALT)):
+           isinstance(alt, vcf.model._SV) or svAltRegex.match(str(alt)) or (str(alt).isalpha() or (alt == '.' and len(record.ALT) == 1))
+           for alt in record.ALT)):
             return False
         if(record.INFO['SVTYPE'][0].upper() in list(SVs - {'DUP', 'CNV'}) and
            '.' in record.samples[sample_position]["GT"] and
            genomic_source_class.lower() == Genomic_Source_Class.GERMLINE.value.lower()):
             return False
     else:
-        if(not all(alt is None or alt.type in ['SNV', 'MNV'] or '*' not in str(alt)
-           for alt in record.ALT)):
+        if(not all(alt is None or ((alt.type in ['SNV', 'MNV'] or '*' not in str(alt)) and str(alt).isalpha()) for alt in record.ALT)):
             return False
         if('.' in record.samples[sample_position]["GT"] and
            genomic_source_class.lower() == Genomic_Source_Class.GERMLINE.value.lower()):
@@ -321,4 +323,3 @@ def parseANN(output_json, ann, firstFlag, codeDict):
  
     if firstFlag:    
         output_json["predictedMolecImpact"] = annList[2]
-
