@@ -2,7 +2,8 @@
 	"info": {
 		"_postman_id": "e28d19b3-f53d-413c-8692-69f658646741",
 		"name": "FHIRGenomicsOperations",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8256147"
 	},
 	"item": [
 		{
@@ -14,7 +15,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-variants?subject=HG00403&ranges=NC_000019.10:11089431-11133820&includeVariants=true",
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-variants?subject=NB6TK329&ranges=NC_000002.12:178525988-178807423&includeVariants=true&includePhasing=true",
 							"protocol": "https",
 							"host": [
 								"fhir-gen-ops",
@@ -29,11 +30,11 @@
 							"query": [
 								{
 									"key": "subject",
-									"value": "HG00403"
+									"value": "NB6TK329"
 								},
 								{
 									"key": "ranges",
-									"value": "NC_000019.10:11089431-11133820"
+									"value": "NC_000002.12:178525988-178807423"
 								},
 								{
 									"key": "testIdentifiers",
@@ -63,6 +64,10 @@
 									"key": "testDateRange",
 									"value": "le2014-05-01",
 									"disabled": true
+								},
+								{
+									"key": "includePhasing",
+									"value": "true"
 								}
 							]
 						}
@@ -75,7 +80,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-variants?subject=HG00403&ranges=NC_000019.9:11200138-11244496&includeVariants=true",
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-variants?subject=HG00403&ranges=NC_000019.9:11200138-11244496&includeVariants=true&includePhasing=true",
 							"protocol": "https",
 							"host": [
 								"fhir-gen-ops",
@@ -123,6 +128,10 @@
 								},
 								{
 									"key": "includeVariants",
+									"value": "true"
+								},
+								{
+									"key": "includePhasing",
 									"value": "true"
 								}
 							]
@@ -635,7 +644,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-structural-subsuming-variants?subject=HCC1143&ranges=NC_000007.14:116672195-116798386&specimenIdentifiers=HCC1143-Sp1&includeVariants=true",
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-structural-subsuming-variants?subject=FLATIRON2&ranges=NC_000007.14:116672195-116798386&includeVariants=true",
 							"protocol": "https",
 							"host": [
 								"fhir-gen-ops",
@@ -650,7 +659,7 @@
 							"query": [
 								{
 									"key": "subject",
-									"value": "HCC1143"
+									"value": "FLATIRON2"
 								},
 								{
 									"key": "ranges",
@@ -668,7 +677,8 @@
 								},
 								{
 									"key": "specimenIdentifiers",
-									"value": "HCC1143-Sp1"
+									"value": "HCC1143-Sp1",
+									"disabled": true
 								},
 								{
 									"key": "includeVariants",
@@ -1456,6 +1466,73 @@
 								{
 									"key": "variants",
 									"value": "NC_000001.10:161333381:C:T"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dx implications for LDLR",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-dx-implications?subject=HG00403&ranges=NC_000019.9:11200138-11244496",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"phenotype-operations",
+								"$find-subject-dx-implications"
+							],
+							"query": [
+								{
+									"key": "treatments",
+									"value": "http://www.nlm.nih.gov/research/umls/rxnorm|337525,http://www.nlm.nih.gov/research/umls/rxnorm|1147220,http://www.nlm.nih.gov/research/umls/rxnorm|1721560",
+									"disabled": true
+								},
+								{
+									"key": "conditions",
+									"value": "https://disease-ontology.org|3908,https://disease-ontology.org|1324,https://disease-ontology.org|3910",
+									"disabled": true
+								},
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "HG00403"
+								},
+								{
+									"key": "variants",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000019.9:11200138-11244496"
 								}
 							]
 						}
@@ -2629,6 +2706,90 @@
 									"key": "testDateRange",
 									"value": "ge2014-02-02",
 									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UTILITY find-the-gene",
+			"item": [
+				{
+					"name": "find-the-gene",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/utilities/find-the-gene?range=NC_000014.9:23429328-23429328",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"utilities",
+								"find-the-gene"
+							],
+							"query": [
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-02-02",
+									"disabled": true
+								},
+								{
+									"key": "range",
+									"value": "NC_000014.9:23429328-23429328"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UTILITY get-feature-coordinates",
+			"item": [
+				{
+					"name": "get-feature-coordinates",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/utilities/get-feature-coordinates?gene=BRCA1",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"utilities",
+								"get-feature-coordinates"
+							],
+							"query": [
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-02-02",
+									"disabled": true
+								},
+								{
+									"key": "gene",
+									"value": "BRCA1"
 								}
 							]
 						}
