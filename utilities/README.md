@@ -9,3 +9,6 @@ Converts a BED file into a format suitable for loading into MongoDB. Chromosome 
 
 ## vcf2json
 Uses  [vcf2fhir](https://github.com/elimuinformatics/vcf2fhir)  logic to translate VCF records into a format suitable for loading into MongoDB.
+
+## vcfPrepper
+Implements the molecular consequence pipeline described on the [Getting Started](https://github.com/FHIR/genomics-operations/wiki/2.-Getting-Started#molecular-consequences) page.
