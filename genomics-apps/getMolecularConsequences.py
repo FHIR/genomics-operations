@@ -46,8 +46,14 @@ def _liftOver(chrom, pos):
 	newPos = lo_b37_to_b38.convert_coordinate(chrom,pos,'+')
 	return {"chrom":chrom,"pos":newPos[0][1]}
 
+@st.cache
+def findSPDI(SPDI):
+	url='https://api.ncbi.nlm.nih.gov/variation/v0/spdi/' + SPDI + '/canonical_representative'
+	headers={'Accept': 'application/json'}
+	return requests.get(url, headers=headers)
+
 def computeAnnotations(SPDI):
-	st.write("SPDI:" + SPDI)
+	# st.write("SPDI:" + SPDI)
 	SPDIList = SPDI.split(':')
 	chromosome = SPDIList[0].split('.')[0][-2]
 	version = SPDIList[0].split('.')[1]
@@ -57,19 +63,25 @@ def computeAnnotations(SPDI):
 	chromosome = "chr" + chromosome
 	liftOver = _liftOver(chromosome, int(SPDIList[1]))
 
-	# SPDI = SPDIList[0].split('.')[0] + '.' + str(version) + ":" + str(43049165) + ":" + SPDIList[2] + ":" + SPDIList[3]
-	SPDI = SPDIList[0].split('.')[0] + '.' + str(version) + ":" + str(liftOver["pos"]) + ":" + SPDIList[2] + ":" + SPDIList[3]
+	SPDI = SPDIList[0].split('.')[0] + '.' + str(version) + ":" + str(43049165) + ":" + SPDIList[2] + ":" + SPDIList[3]
+	# SPDI = SPDIList[0].split('.')[0] + '.' + str(version) + ":" + str(liftOver["pos"]) + ":" + SPDIList[2] + ":" + SPDIList[3]
 
-	st.write("In computeAnnotations")
-	st.write(SPDI)
+	# st.write("In computeAnnotations")
+	# st.write(SPDI)
 	cleanSPDI = SPDI.replace(":", "%3A")
-	st.write(cleanSPDI)
+	b38SPDI = findSPDI(cleanSPDI)
+
+	# st.write(b38SPDI.json())
+
+	SPDI = SPDIList[0].split('.')[0] + '.' + str(version) + ":" + str(b38SPDI.json()["data"]["position"]) + ":" + SPDIList[2] + ":" + SPDIList[3]
+
+
 	url='https://api.ncbi.nlm.nih.gov/variation/v0/spdi/' + cleanSPDI + '/hgvs'
 	headers={'Accept': 'application/json'}
 	HGVS = requests.get(url, headers=headers)
 
-	st.write(HGVS)
-	st.write(HGVS.json())
+	# st.write(HGVS)
+	# st.write(HGVS.json())
 
 	HGVS = HGVS.json()['data']['hgvs']
 
@@ -80,7 +92,7 @@ def computeAnnotations(SPDI):
 
 	molecImpact = ""
 
-	st.write(r.json())
+	# st.write(r.json())
 
 	for entry in r.json()[0]['transcript_consequences']:
 		if "impact" in entry:
@@ -91,7 +103,7 @@ def computeAnnotations(SPDI):
 
 def findMNVs(cisVariantsID, response, cisVariantsList):
 	for IDList in cisVariantsID:
-		st.write(IDList)
+		# st.write(IDList)
 		SPDIList = []
 		for i in response.json()["parameter"]:
 					for j in i["part"]:
@@ -115,7 +127,7 @@ def findMNVs(cisVariantsID, response, cisVariantsList):
 			refAllele += SPDIDict["refAllele"]
 			altAllele += SPDIDict["altAllele"]
 		
-		st.write(SPDIList)
+		# st.write(SPDIList)
 		SPDI = SPDIList[0]["chromosome"] + ":" + SPDIList[0]["position"] + ":" + refAllele + ":" + altAllele
 		cisVariantsList.append({
 			"SPDI": SPDI,
@@ -162,7 +174,6 @@ if st.sidebar.button("Run"):
 							elif k["code"]["coding"][0]["code"]=="81258-6":
 								alleleFreq=k["valueQuantity"]["value"]
 							elif k["code"]["coding"][0]["code"]=="molecular-consequence":
-								k["interpretation"]
 								molecImpact = k["interpretation"]["text"]
 						if molecImpact == "":
 							if computeAnnotationsFlag:
@@ -171,11 +182,11 @@ if st.sidebar.button("Run"):
 							"DNA Change Type": dnaChangeType,
 							"Source Class": sourceClass,
 							"SPDI": SPDI,
-							"Location": location,
-							"Genotype": genotype,
+							# "Location": location,
+							# "Genotype": genotype,
 							"Allelic State": allelicState,
 							"Molecular Impact": molecImpact,
-							"Copy Number": copyNumber,
+							# "Copy Number": copyNumber,
 							"Allele Frequeny": alleleFreq})
 
 					if j["name"] == "sequencePhaseRelationship" and computeAnnotationsFlag:
@@ -222,11 +233,11 @@ if st.sidebar.button("Run"):
 							"DNA Change Type": dnaChangeType,
 							"Source Class": sourceClass,
 							"SPDI": SPDI,
-							"Location": location,
-							"Genotype": genotype,
+							# "Location": location,
+							# "Genotype": genotype,
 							"Allelic State": allelicState,
 							"Molecular Impact": molecImpact,
-							"Copy Number": copyNumber,
+							# "Copy Number": copyNumber,
 							"Allele Frequeny": alleleFreq})
 
 					if j["name"] == "sequencePhaseRelationship" and computeAnnotationsFlag:
@@ -250,10 +261,10 @@ if st.sidebar.button("Run"):
 							"DNA Change Type": dnaChangeType,
 							"Source Class": sourceClass,
 							"SPDI": SPDI,
-							"Location": location,
-							"Genotype": genotype,
+							# "Location": location,
+							# "Genotype": genotype,
 							"Allelic State": allelicState,
-							"Copy Number": copyNumber,
+							# "Copy Number": copyNumber,
 							"Allele Frequeny": alleleFreq})
 
 	data=(pd.DataFrame(variantList))
