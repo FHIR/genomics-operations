@@ -2,12 +2,13 @@ import streamlit as st
 import pandas as pd
 import requests
 import json
-from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode
+from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode, JsCode
 import string
 import pyliftover
+import matplotlib
 
 st.set_page_config(
-     page_title="Get Variants",
+     page_title="Get Molecular Consequences",
      page_icon="random",
      layout="wide",
      initial_sidebar_state="collapsed"
@@ -101,7 +102,7 @@ def computeAnnotations(SPDI):
 
 	return molecImpact
 
-def findMNVs(cisVariantsID, response, cisVariantsList):
+def findMNVs(cisVariantsID, response, cisVariantsList, convertedVariants):
 	for IDList in cisVariantsID:
 		# st.write(IDList)
 		SPDIList = []
@@ -112,13 +113,15 @@ def findMNVs(cisVariantsID, response, cisVariantsList):
 								for k in j["resource"]["component"]:
 									if k["code"]["coding"][0]["code"]=="81252-9" and k["valueCodeableConcept"]["coding"][0]["display"] not in SPDIList:
 										SPDIString = (k["valueCodeableConcept"]["coding"][0]["display"])
-										SPDIString = SPDIString.split(":")
+										SPDIStringList = SPDIString.split(":")
 										SPDIList.append({
-											"chromosome": SPDIString[0],
-											"position": SPDIString[1],
-											"refAllele": SPDIString[2],
-											"altAllele": SPDIString[3]
+											"chromosome": SPDIStringList[0],
+											"position": SPDIStringList[1],
+											"refAllele": SPDIStringList[2],
+											"altAllele": SPDIStringList[3]
 										})
+
+										convertedVariants.append(SPDIString)
 				
 		SPDIList = sorted(SPDIList, key=lambda d: d['position'])
 		refAllele = ""
@@ -133,21 +136,21 @@ def findMNVs(cisVariantsID, response, cisVariantsList):
 			"SPDI": SPDI,
 			"Molecular Impact": computeAnnotations(SPDI)
 		})
-	
-	return cisVariantsList
 
 
 
-st.title("Get Variants")
+st.title("Get Molecular Consequences")
 st.markdown("This app illustrates [FHIR Genomics Operations](http://build.fhir.org/ig/HL7/genomics-reporting/operations.html) find-subject-variants, find-subject-intersecting-variants, \
 	and find-subject-haplotypes; and the get-feature-coordinates utility. Enter patient and gene in the sidebar and click 'run'. All overlapping simple variants, structural variants, \
-	and genotypes are returned.")
+	and genotypes are returned. Check the compute additional annotations button to calculate annotations for variants that were previously unannotated, concatenate SNVs that are \
+	in cis into MNVs, and annotate those MNVs.")
 
 with st.sidebar:
 	subject=st.text_input("Enter patient ID", value="HG00403")
-	gene=st.text_input("Enter gene (HGNC gene symbol or code)",value="APC")
+	gene=st.text_input("Enter gene (HGNC gene symbol or code)",value="BRCA1")
 	computeAnnotationsFlag = st.checkbox("Compute additional annotations")
 
+convertedVariants = []
 if st.sidebar.button("Run"):
 	variantList=[]
 	cisVariantsID = []
@@ -187,7 +190,7 @@ if st.sidebar.button("Run"):
 							"Allelic State": allelicState,
 							"Molecular Impact": molecImpact,
 							# "Copy Number": copyNumber,
-							"Allele Frequeny": alleleFreq})
+							"Allele Frequeny": alleleFreq,})
 
 					if j["name"] == "sequencePhaseRelationship" and computeAnnotationsFlag:
 						if j["resource"]["valueCodeableConcept"]["coding"][0]["code"] == "Cis":
@@ -196,7 +199,7 @@ if st.sidebar.button("Run"):
 								derivedFromIDs.append(idEntry["reference"].split('/')[1])
 							cisVariantsID.append(derivedFromIDs)
 			if computeAnnotationsFlag:
-				cisVariantsList = findMNVs(cisVariantsID, response, cisVariantsList)
+				findMNVs(cisVariantsID, response, cisVariantsList, convertedVariants)
 		# get and parse structural variants
 		response=findSubjectStructuralIntersectingVariants(subject,range, computeAnnotationsFlag)
 		cisVariantsID = []
@@ -247,7 +250,7 @@ if st.sidebar.button("Run"):
 								derivedFromIDs.append(idEntry["reference"])
 							cisVariantsID.append(derivedFromIDs)
 			if computeAnnotationsFlag:
-				cisVariantsList = findMNVs(cisVariantsID, response, cisVariantsList)
+				findMNVs(cisVariantsID, response, cisVariantsList, convertedVariants)
 		# get and parse haplotypes
 		response=findSubjectHaplotypes(subject,geneId)
 		if response.status_code == 200:
@@ -268,9 +271,36 @@ if st.sidebar.button("Run"):
 							"Allele Frequeny": alleleFreq})
 
 	data=(pd.DataFrame(variantList))
-	AgGrid(data, enable_enterprise_modules=True, update_mode="value_changed", allow_unsafe_jscode=True)
+
+	gb = GridOptionsBuilder.from_dataframe(data)
+	highlightedRows = []
+	for index, row in data.iterrows():
+		if row['SPDI'] in convertedVariants:
+			highlightedRows.append(index)
+			
+	gb.configure_selection('multiple', pre_selected_rows=highlightedRows)
+	AgGrid(data, enable_enterprise_modules=True, update_mode="value_changed", allow_unsafe_jscode=True, gridOptions=gb.build())
+
+	#data.apply(colors.get, subset=['cisVariantIndex'])
+
+	# AgGrid(data.style.format('{:.0f}').applymap(colors.get, subset=['cisVariantIndex']).hide_columns(['cisVariantIndex']), \
+
+	# AgGrid(data, \
+	# 	enable_enterprise_modules=True, update_mode="value_changed", allow_unsafe_jscode=True)
 	st.download_button("Download table (json)",data.T.to_json(),mime="application/json")
 	st.download_button("Download table (csv)",data.to_csv(),mime="text/csv")
 
 	cisVariantsTable = pd.DataFrame(cisVariantsList)
-	AgGrid(cisVariantsTable, enable_enterprise_modules=True, update_mode="value_changed", allow_unsafe_jscode=True, key="cisVariants")
+	mnvgb = GridOptionsBuilder.from_dataframe(cisVariantsTable)
+	# AgGrid(cisVariantsTable.style.format('{:.0f}').apply(colors.get, subset=['cisVariantIndex']).hide('cisVariantIndex'), \
+	# AgGrid(cisVariantsTable.style.format('{:.0f}').apply(colors.get, subset=['cisVariantIndex']), \
+	# 	enable_enterprise_modules=True, update_mode="value_changed", allow_unsafe_jscode=True, key="cisVariants")
+
+	st.write('Concatenated MNV Table')
+
+	mnvgb.configure_selection('multiple', pre_selected_rows=['0'])
+	AgGrid(cisVariantsTable, enable_enterprise_modules=True, update_mode="value_changed", allow_unsafe_jscode=True, gridOptions=mnvgb.build())
+
+	st.download_button("Download table (json)",cisVariantsTable.T.to_json(),mime="application/json")
+	st.download_button("Download table (csv)",cisVariantsTable.to_csv(),mime="text/csv")
+
