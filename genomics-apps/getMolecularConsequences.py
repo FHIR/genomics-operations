@@ -5,7 +5,6 @@ import json
 from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode, JsCode
 import string
 import pyliftover
-import matplotlib
 
 st.set_page_config(
      page_title="Get Molecular Consequences",
