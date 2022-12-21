@@ -136,6 +136,40 @@ def findMNVs(cisVariantsID, response, cisVariantsList, convertedVariants):
 			"Molecular Impact": computeAnnotations(SPDI)
 		})
 
+def getImplication(entry):
+	for component in entry['resource']['component']:
+		if component['code']['coding'][0]['code'] == "53037-8":
+			return component['valueCodeableConcept']['coding'][0]['display']
+
+def putVariant(variantList, entry, pathogenicity):
+	SPDI = ''
+	for component in entry['resource']['component']:
+		if component['code']['coding'][0]['code'] == "81252-9":
+			SPDI=k["valueCodeableConcept"]["coding"][0]["display"]
+
+	for variant in variantList:
+		if variant['SPDI'] == SPDI:
+			variant['Pathogenicity'] = pathogenicity
+
+		
+
+def findPathogenicities(variantList, subject, range):
+	url='https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-dx-implications?subject=' + subject + '&ranges=' + range
+	headers={'Accept': 'application/json'}
+	response = requests.get(url, headers=headers)
+
+	if response.status_code != 200:
+		st.write(range)
+		return
+
+	for parameter in response.json()['parameter']:
+		for entry in parameter["part"]:
+			pathogenicity = ''
+			if entry["name"] == "implication":
+				pathogenicity = getImplication(entry)
+			if entry["name"] == "variant":
+				putVariant(variantList, entry, pathogenicity)
+
 
 
 st.title("Get Molecular Consequences")
@@ -154,6 +188,7 @@ if st.sidebar.button("Run"):
 	variantList=[]
 	cisVariantsID = []
 	cisVariantsList = []
+	range = {}
 	geneFeatures=getFeatureCoordinates(gene)
 	if len(geneFeatures.json())>0:
 		geneId=geneFeatures.json()[0]["geneId"]
@@ -268,6 +303,8 @@ if st.sidebar.button("Run"):
 							"Allelic State": allelicState,
 							# "Copy Number": copyNumber,
 							"Allele Frequeny": alleleFreq})
+
+	findPathogenicities(variantList, subject, range)
 
 	data=(pd.DataFrame(variantList))
 
