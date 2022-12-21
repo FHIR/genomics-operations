@@ -296,7 +296,7 @@ def extractINFOField(output_json, record, codeDict):
     if 'LOF' in record.INFO:
         output_json["funcConseq"] = []
         output_json["funcConseq"].append({"system": r'http://sequenceontology.org/',
-                                            "code": "SO_0002054",
+                                            "code": "SO:0002054",
                                             "display": "loss_of_function_variant"})
 
 #Orders and extracts molecular consequence data from SnpEff annotations.
