@@ -16,7 +16,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3afaaf6",
+                        "id": "dv-6387cb82fbdf92361e09ee89",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -192,6 +192,44 @@
                                     "low": {
                                         "value": 69510
                                     }
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001583",
+                                            "display": "missense_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODERATE"
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "92821-8",
+                                            "display": "Population allele frequency"
+                                        }
+                                    ]
+                                },
+                                "valueQuantity": {
+                                    "value": 0.949691,
+                                    "system": "http://unitsofmeasure.org",
+                                    "code": "1"
                                 }
                             }
                         ]
@@ -214,7 +252,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3afaaf6",
+                        "id": "dv-6387cb82fbdf92361e09ee89",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -390,6 +428,44 @@
                                     "low": {
                                         "value": 69510
                                     }
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001583",
+                                            "display": "missense_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODERATE"
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "92821-8",
+                                            "display": "Population allele frequency"
+                                        }
+                                    ]
+                                },
+                                "valueQuantity": {
+                                    "value": 0.949691,
+                                    "system": "http://unitsofmeasure.org",
+                                    "code": "1"
                                 }
                             }
                         ]

@@ -16,7 +16,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-62201f5f155fa6da7e8c9e69",
+                        "id": "dv-639224f104908c0632d26136",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -152,6 +152,47 @@
                                     "low": {
                                         "value": 112102031
                                     }
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001587",
+                                            "display": "stop_gained"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT HIGH"
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "functional-effect"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://sequenceontology.org/",
+                                            "code": "SO_0002054",
+                                            "display": "loss_of_function_variant"
+                                        }
+                                    ]
                                 }
                             }
                         ]

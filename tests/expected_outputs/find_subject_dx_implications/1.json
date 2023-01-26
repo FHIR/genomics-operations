@@ -38,7 +38,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-621a0dd297d6683c9607424c"
+                                "reference": "Observation/dv-6387ccb86f163bcb733ae503"
                             }
                         ],
                         "component": [
@@ -103,7 +103,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0dd297d6683c9607424c",
+                        "id": "dv-6387ccb86f163bcb733ae503",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -287,6 +287,38 @@
                                     "low": {
                                         "value": 161333381
                                     }
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001624",
+                                            "display": "3_prime_UTR_variant"
+                                        },
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001632",
+                                            "display": "downstream_gene_variant"
+                                        },
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001792",
+                                            "display": "non_coding_transcript_exon_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODIFIER"
                                 }
                             }
                         ]

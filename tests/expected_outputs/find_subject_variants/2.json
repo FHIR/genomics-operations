@@ -16,7 +16,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3b03012",
+                        "id": "dv-6387cb82fbdf92361e0a73a5",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -193,6 +193,63 @@
                                         "value": 11210927
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001587",
+                                            "display": "stop_gained"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT HIGH"
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "functional-effect"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://sequenceontology.org/",
+                                            "code": "SO_0002054",
+                                            "display": "loss_of_function_variant"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "92821-8",
+                                            "display": "Population allele frequency"
+                                        }
+                                    ]
+                                },
+                                "valueQuantity": {
+                                    "value": 7.96318e-06,
+                                    "system": "http://unitsofmeasure.org",
+                                    "code": "1"
+                                }
                             }
                         ]
                     }
@@ -201,7 +258,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3b03013",
+                        "id": "dv-6387cb82fbdf92361e0a73a6",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -395,6 +452,44 @@
                                         "value": 11233940
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001819",
+                                            "display": "synonymous_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT LOW"
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "92821-8",
+                                            "display": "Population allele frequency"
+                                        }
+                                    ]
+                                },
+                                "valueQuantity": {
+                                    "value": 0.781146,
+                                    "system": "http://unitsofmeasure.org",
+                                    "code": "1"
+                                }
                             }
                         ]
                     }
@@ -403,7 +498,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3b03014",
+                        "id": "dv-6387cb82fbdf92361e0a73a7",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -597,6 +692,44 @@
                                         "value": 11242043
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001624",
+                                            "display": "3_prime_UTR_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODIFIER"
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "92821-8",
+                                            "display": "Population allele frequency"
+                                        }
+                                    ]
+                                },
+                                "valueQuantity": {
+                                    "value": 0.243375,
+                                    "system": "http://unitsofmeasure.org",
+                                    "code": "1"
+                                }
                             }
                         ]
                     }
@@ -605,7 +738,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3b03015",
+                        "id": "dv-6387cb82fbdf92361e0a73a8",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -799,6 +932,44 @@
                                         "value": 11242306
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001624",
+                                            "display": "3_prime_UTR_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODIFIER"
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "92821-8",
+                                            "display": "Population allele frequency"
+                                        }
+                                    ]
+                                },
+                                "valueQuantity": {
+                                    "value": 0.818994,
+                                    "system": "http://unitsofmeasure.org",
+                                    "code": "1"
+                                }
                             }
                         ]
                     }
@@ -807,7 +978,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3b03016",
+                        "id": "dv-6387cb82fbdf92361e0a73a9",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -1001,6 +1172,28 @@
                                         "value": 11242495
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001624",
+                                            "display": "3_prime_UTR_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODIFIER"
+                                }
                             }
                         ]
                     }
@@ -1009,7 +1202,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3b03017",
+                        "id": "dv-6387cb82fbdf92361e0a73aa",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -1203,6 +1396,28 @@
                                         "value": 11242657
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001624",
+                                            "display": "3_prime_UTR_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODIFIER"
+                                }
                             }
                         ]
                     }
@@ -1211,7 +1426,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3b03018",
+                        "id": "dv-6387cb82fbdf92361e0a73ab",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -1405,6 +1620,28 @@
                                         "value": 11242764
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001624",
+                                            "display": "3_prime_UTR_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODIFIER"
+                                }
                             }
                         ]
                     }
@@ -1413,7 +1650,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3b03019",
+                        "id": "dv-6387cb82fbdf92361e0a73ac",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -1607,6 +1844,28 @@
                                         "value": 11243159
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001624",
+                                            "display": "3_prime_UTR_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODIFIER"
+                                }
                             }
                         ]
                     }
@@ -1615,7 +1874,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3b0301a",
+                        "id": "dv-6387cb82fbdf92361e0a73ad",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -1809,6 +2068,28 @@
                                         "value": 11243207
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001624",
+                                            "display": "3_prime_UTR_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODIFIER"
+                                }
                             }
                         ]
                     }
@@ -1817,7 +2098,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3b0301b",
+                        "id": "dv-6387cb82fbdf92361e0a73ae",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -2011,6 +2292,28 @@
                                         "value": 11243222
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001624",
+                                            "display": "3_prime_UTR_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODIFIER"
+                                }
                             }
                         ]
                     }
@@ -2019,7 +2322,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3b0301c",
+                        "id": "dv-6387cb82fbdf92361e0a73af",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -2213,6 +2516,28 @@
                                         "value": 11243253
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001624",
+                                            "display": "3_prime_UTR_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODIFIER"
+                                }
                             }
                         ]
                     }
@@ -2221,7 +2546,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3b0301d",
+                        "id": "dv-6387cb82fbdf92361e0a73b0",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -2415,6 +2740,28 @@
                                         "value": 11243259
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001624",
+                                            "display": "3_prime_UTR_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODIFIER"
+                                }
                             }
                         ]
                     }
@@ -2423,7 +2770,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3b0301e",
+                        "id": "dv-6387cb82fbdf92361e0a73b1",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -2617,6 +2964,28 @@
                                         "value": 11243327
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001624",
+                                            "display": "3_prime_UTR_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODIFIER"
+                                }
                             }
                         ]
                     }
@@ -2625,7 +2994,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3b0301f",
+                        "id": "dv-6387cb82fbdf92361e0a73b2",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -2819,6 +3188,28 @@
                                         "value": 11243331
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001624",
+                                            "display": "3_prime_UTR_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODIFIER"
+                                }
                             }
                         ]
                     }
@@ -2827,7 +3218,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3b03020",
+                        "id": "dv-6387cb82fbdf92361e0a73b3",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -3021,6 +3412,28 @@
                                         "value": 11243367
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001624",
+                                            "display": "3_prime_UTR_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODIFIER"
+                                }
                             }
                         ]
                     }
@@ -3029,7 +3442,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3b03021",
+                        "id": "dv-6387cb82fbdf92361e0a73b4",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -3223,6 +3636,28 @@
                                         "value": 11243444
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001624",
+                                            "display": "3_prime_UTR_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODIFIER"
+                                }
                             }
                         ]
                     }
@@ -3231,7 +3666,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3b03022",
+                        "id": "dv-6387cb82fbdf92361e0a73b5",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -3425,6 +3860,28 @@
                                         "value": 11243501
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001624",
+                                            "display": "3_prime_UTR_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODIFIER"
+                                }
                             }
                         ]
                     }
@@ -3433,7 +3890,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3b03023",
+                        "id": "dv-6387cb82fbdf92361e0a73b6",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -3627,6 +4084,28 @@
                                         "value": 11243591
                                     }
                                 }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001624",
+                                            "display": "3_prime_UTR_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODIFIER"
+                                }
                             }
                         ]
                     }
@@ -3635,7 +4114,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-621a0cbcf77c3d1fd3b03024",
+                        "id": "dv-6387cb82fbdf92361e0a73b7",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -3828,6 +4307,28 @@
                                     "low": {
                                         "value": 11243734
                                     }
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                            "code": "molecular-consequence"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.sequenceontology.org/",
+                                            "code": "SO:0001624",
+                                            "display": "3_prime_UTR_variant"
+                                        }
+                                    ]
+                                },
+                                "interpretation": {
+                                    "text": "PREDICTED IMPACT MODIFIER"
                                 }
                             }
                         ]

@@ -38,7 +38,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -117,7 +117,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -214,6 +214,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -331,7 +343,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -410,7 +422,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -507,6 +519,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -624,7 +648,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -703,7 +727,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -800,6 +824,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -917,7 +953,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -996,7 +1032,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -1093,6 +1129,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -1210,7 +1258,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -1289,7 +1337,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -1386,6 +1434,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -1503,7 +1563,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -1582,7 +1642,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -1679,6 +1739,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -1796,7 +1868,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -1875,7 +1947,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -1972,6 +2044,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -2089,7 +2173,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -2168,7 +2252,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -2265,6 +2349,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -2382,7 +2478,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -2461,7 +2557,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -2558,6 +2654,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -2675,7 +2783,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -2754,7 +2862,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -2851,6 +2959,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -2968,7 +3088,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -3047,7 +3167,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -3144,6 +3264,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -3261,7 +3393,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -3340,7 +3472,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -3437,6 +3569,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -3554,7 +3698,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -3633,7 +3777,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -3730,6 +3874,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -3847,7 +4003,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -3926,7 +4082,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -4023,6 +4179,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -4140,7 +4308,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -4219,7 +4387,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -4316,6 +4484,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -4433,7 +4613,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -4512,7 +4692,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -4609,6 +4789,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -4726,7 +4918,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -4805,7 +4997,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -4902,6 +5094,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -5019,7 +5223,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -5098,7 +5302,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -5195,6 +5399,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -5312,7 +5528,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -5391,7 +5607,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -5488,6 +5704,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -5605,7 +5833,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -5684,7 +5912,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -5781,6 +6009,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -5898,7 +6138,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -5977,7 +6217,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -6074,6 +6314,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -6191,7 +6443,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -6270,7 +6522,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -6367,6 +6619,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -6484,7 +6748,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -6563,7 +6827,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -6660,6 +6924,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -6777,7 +7053,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -6856,7 +7132,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -6953,6 +7229,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -7070,7 +7358,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -7149,7 +7437,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -7246,6 +7534,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -7363,7 +7663,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -7442,7 +7742,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -7539,6 +7839,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -7656,7 +7968,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -7735,7 +8047,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -7832,6 +8144,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -7949,7 +8273,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -8028,7 +8352,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -8125,6 +8449,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -8242,7 +8578,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -8321,7 +8657,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -8418,6 +8754,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -8535,7 +8883,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -8614,7 +8962,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -8711,6 +9059,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -8828,7 +9188,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -8907,7 +9267,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -9004,6 +9364,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -9121,7 +9493,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -9200,7 +9572,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -9297,6 +9669,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -9414,7 +9798,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -9493,7 +9877,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -9590,6 +9974,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -9707,7 +10103,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -9786,7 +10182,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -9883,6 +10279,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
@@ -10000,7 +10408,7 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-6352e3eef5ec02ce77a89711"
+                                "reference": "Observation/dv-639224f104908c0632d2612d"
                             }
                         ],
                         "component": [
@@ -10079,7 +10487,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6352e3eef5ec02ce77a89711",
+                        "id": "dv-639224f104908c0632d2612d",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -10176,6 +10584,18 @@
                                     ]
                                 },
                                 "valueString": "A"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
                             },
                             {
                                 "code": {
