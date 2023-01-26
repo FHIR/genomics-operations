@@ -503,7 +503,7 @@ def create_fhir_variant_resource(record, subject):
                                                                        "code": f"{get_ref_seq_by_chrom_and_build(record['genomicBuild'], record['CHROM'])}"}]}})
 
     # Allelic State
-    if "allelicState" in record and (('SVTYPE' not in record) or ('SVTYPE' in record and record['SVTYPE'] in ['DUP', 'DEL', 'INV', 'INS'] and record['genomicSourceClass'].lower() == 'germline')):
+    if "allelicState" in record and (('SVTYPE' not in record) or ('SVTYPE' in record and 'genomicSourceClass' in record and record['SVTYPE'] in ['DUP', 'DEL', 'INV', 'INS'] and record['genomicSourceClass'].lower() == 'germline')):
         resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
                                                            "code": "53034-5",
                                                            "display": "Allelic state"}]},
