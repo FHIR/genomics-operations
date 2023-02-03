@@ -128,7 +128,8 @@ def find_subject_variants(
                 variant_fhir_profiles = []
 
                 for record in variant_q:
-                    resource = create_fhir_variant_resource(record, subject)
+                    ref_seq = get_ref_seq_by_chrom_and_build(record['genomicBuild'], record['CHROM'])
+                    resource = create_fhir_variant_resource(record, ref_seq, subject)
 
                     variant_fhir_profiles.append(resource)
 
@@ -259,7 +260,8 @@ def find_subject_specific_variants(
             variant_fhir_profiles = []
 
             for record in variant_q:
-                resource = create_fhir_variant_resource(record, subject)
+                ref_seq = get_ref_seq_by_chrom_and_build(record['genomicBuild'], record['CHROM'])
+                resource = create_fhir_variant_resource(record, ref_seq, subject)
 
                 variant_fhir_profiles.append(resource)
 
@@ -405,7 +407,8 @@ def find_subject_structural_intersecting_variants(
                 variant_fhir_profiles = []
 
                 for record in variant_q:
-                    resource = create_fhir_variant_resource(record, subject)
+                    ref_seq = get_ref_seq_by_chrom_and_build(record['genomicBuild'], record['CHROM'])
+                    resource = create_fhir_variant_resource(record, ref_seq, subject)
 
                     variant_fhir_profiles.append(resource)
 
@@ -534,7 +537,8 @@ def find_subject_structural_subsuming_variants(
                 variant_fhir_profiles = []
 
                 for record in variant_q:
-                    resource = create_fhir_variant_resource(record, subject)
+                    ref_seq = get_ref_seq_by_chrom_and_build(record['genomicBuild'], record['CHROM'])
+                    resource = create_fhir_variant_resource(record, ref_seq, subject)
 
                     variant_fhir_profiles.append(resource)
 
@@ -853,6 +857,8 @@ def find_subject_tx_implications(
         query_results = query_CIVIC_by_variants(normalized_variants, condition_code_list, treatment_code_list, query)
 
         for res in query_results:
+            if res["txImplicationMatches"]:
+                ref_seq = get_ref_seq_by_chrom_and_build(res['genomicBuild'], res['CHROM'])
             for implication in res["txImplicationMatches"]:
                 parameter = OrderedDict()
                 parameter["name"] = "implications"
@@ -863,7 +869,7 @@ def find_subject_tx_implications(
                 "name": "implication",
                 "resource": implication_profile
                 })
-                resource = create_fhir_variant_resource(res, subject)
+                resource = create_fhir_variant_resource(res, ref_seq, subject)
 
                 add_variation_id(resource, implication["variationID"])
 
@@ -978,8 +984,8 @@ def find_subject_tx_implications(
 
             variant_fhir_profiles = []
             for varItem in res["patientMatches"]:
-                
-                resource = create_fhir_variant_resource(varItem, subject)
+                ref_seq = get_ref_seq_by_chrom_and_build(varItem['genomicBuild'], varItem['CHROM'])
+                resource = create_fhir_variant_resource(varItem, ref_seq, subject)
 
                 add_variation_id(resource, res["variationID"])
 
@@ -1018,7 +1024,8 @@ def find_subject_tx_implications(
 
             variant_fhir_profiles = []
             for varItem in res["patientMatches"]:
-                resource = create_fhir_variant_resource(varItem, subject)
+                ref_seq = get_ref_seq_by_chrom_and_build(varItem['genomicBuild'], varItem['CHROM'])
+                resource = create_fhir_variant_resource(varItem, ref_seq, subject)
 
                 add_variation_id(resource, res["variationID"])
 
@@ -1120,6 +1127,8 @@ def find_subject_dx_implications(
         query_results = query_clinvar_by_variants(normalized_variants, condition_code_list, query)
 
         for res in query_results:
+            if res["dxImplicationMatches"]:
+                ref_seq = get_ref_seq_by_chrom_and_build(res['genomicBuild'], res['CHROM'])
             for implication in res["dxImplicationMatches"]:
                 parameter = OrderedDict()
                 parameter["name"] = "implications"
@@ -1131,7 +1140,7 @@ def find_subject_dx_implications(
                 "name": "implication",
                 "resource": implication_profile
                 })
-                resource = create_fhir_variant_resource(res, subject)
+                resource = create_fhir_variant_resource(res, ref_seq, subject)
 
                 add_variation_id(resource, implication["variationID"])
 
@@ -1164,7 +1173,8 @@ def find_subject_dx_implications(
             })
 
             for varItem in res["patientMatches"]:
-                resource = create_fhir_variant_resource(varItem, subject)
+                ref_seq = get_ref_seq_by_chrom_and_build(varItem['genomicBuild'], varItem['CHROM'])
+                resource = create_fhir_variant_resource(varItem, ref_seq, subject)
 
                 add_variation_id(resource, res["variationID"])
 

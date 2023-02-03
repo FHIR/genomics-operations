@@ -452,7 +452,7 @@ def get_dna_chg(svtype):
     return {"CODE": dna_chg[0], "DISPLAY": dna_chg[1]}
 
 
-def create_fhir_variant_resource(record, subject):
+def create_fhir_variant_resource(record, ref_seq, subject):
     vid = f"dv-{str(record['_id'])}"
 
     resource = OrderedDict()
@@ -497,7 +497,7 @@ def create_fhir_variant_resource(record, subject):
                                                        "code": "48013-7",
                                                        "display": "Genomic reference sequence ID"}]},
                                   "valueCodeableConcept": {"coding": [{"system": "http://www.ncbi.nlm.nih.gov/nuccore",
-                                                                       "code": f"{get_ref_seq_by_chrom_and_build(record['genomicBuild'], record['CHROM'])}"}]}})
+                                                                       "code": ref_seq}]}})
 
     # Allelic State
     if "allelicState" in record and (('SVTYPE' not in record) or ('SVTYPE' in record and 'genomicSourceClass' in record and record['SVTYPE'] in ['DUP', 'DEL', 'INV', 'INS'] and record['genomicSourceClass'].lower() == 'germline')):
