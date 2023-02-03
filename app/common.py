@@ -272,42 +272,39 @@ def get_range(range):
     if chrom is None:
         abort(400, f'RefSeq({ref_seq}) is not valid')
 
-    chrom = chrom["chrom"]
     _range = list(map(int, range.split(':')[1].split('-')))
 
     if _range[0] > _range[1]:
         abort(400, f'Range start({_range[0]}) should be less than or equal to Range end({_range[1]})')
 
-    chromosome = {'CHROM': chrom, 'RefSeq': ref_seq}
+    chromosome = {'CHROM': chrom["chrom"], 'RefSeq': ref_seq}
     _range = {'L': _range[0], 'H': _range[1]}
 
-    return {'CHROMOSOME': chromosome, 'RANGE': _range}
+    return {'CHROMOSOME': chromosome, 'BUILD': chrom["build"], 'RANGE': _range}
 
 def get_lift_over_range(ranges):
     ranges_to_add = []
     for range in ranges:
         rse_other_build = lift_over(range['CHROMOSOME']['RefSeq'], range['RANGE']['L'], range['RANGE']['H'])
         if rse_other_build is not None:
-            provided_genomic_build = get_build_and_chrom_by_ref_seq(range['CHROMOSOME']['RefSeq'])["build"]
-            other_genomic_build = get_other_build(provided_genomic_build)
+            other_genomic_build = get_other_build(range["BUILD"])
             other_ref_seq = get_ref_seq_by_chrom_and_build(other_genomic_build, range['CHROMOSOME']['CHROM'])
             chromosome = {'CHROM': range['CHROMOSOME']['CHROM'], 'RefSeq': other_ref_seq}
             _range = {'L': rse_other_build["start"], 'H': rse_other_build["end"]}
-            ranges_to_add.append({'CHROMOSOME': chromosome, 'RANGE': _range})
+            ranges_to_add.append({'CHROMOSOME': chromosome, 'BUILD': other_genomic_build, 'RANGE': _range})
     ranges.extend(ranges_to_add)
 
 
-def get_spdis(ranges, query):
-    spdis = []
+def get_variants(ranges, query):
+    variants = []
     chromosome_to_ranges = []
 
     for range_ in ranges:
         temp_dict = {}
 
         chromosome = range_['CHROMOSOME']
+        provided_genomic_build = range_['BUILD']
         _range = range_['RANGE']
-
-        provided_genomic_build = get_build_and_chrom_by_ref_seq(chromosome['RefSeq'])["build"]
 
         temp_dict["CHROM"] = chromosome['CHROM']
         temp_dict["RefSeq"] = chromosome['RefSeq']
@@ -349,11 +346,11 @@ def get_spdis(ranges, query):
 
         for variant in variant_q:
             if "SPDI" in variant:
-                spdis.append(f'{variant["SPDI"]}')
+                variants.append({'BUILD': chrom["PGB"]["BUILD"], 'SPDI': variant["SPDI"]})
 
     del query["$and"]
 
-    return spdis
+    return variants
 
 
 def get_date(dateRange):
@@ -1121,9 +1118,9 @@ def SPDI_2_canonical_SPDI(spdi):
 def query_clinvar_by_variants(normalized_variant_list, code_list, query, population=False):
     variant_list = []
     for item in normalized_variant_list:
-        if item["GRCh37"]:
+        if "GRCh37" in item:
             variant_list.append(item["GRCh37"])
-        if item["GRCh38"]:
+        if "GRCh38" in item:
             variant_list.append(item["GRCh38"])
 
     pipeline_part = [{'$match': {'$expr': {'$and': [{'$or': [{'$eq': ['$b37SPDI', '$$mySPDI']},

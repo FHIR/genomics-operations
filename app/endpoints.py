@@ -823,32 +823,34 @@ def find_subject_tx_implications(
         genomicSourceClass = genomicSourceClass.strip().lower()
         query["genomicSourceClass"] = {"$eq": genomicSourceClass}
 
+    normalized_variants = []
     if ranges:
         ranges = list(map(get_range, ranges))
         get_lift_over_range(ranges)
-        variants = get_spdis(ranges, query)
+        variants = get_variants(ranges, query)
         if not variants:
             return jsonify({"resourceType":"Parameters"})
+        normalized_variants = [{variant["BUILD"]: variant["SPDI"]} for variant in variants]
 
-    normalized_variant_list = []
-    if variants:
-        normalized_variant_list = list(map(get_variant, variants))
+    if variants and not ranges:
+        normalized_variants = list(map(get_variant, variants))
 
     # Result Object
     result = OrderedDict()
     result["resourceType"] = "Parameters"
     result["parameter"] = []
 
-    if variants:
-        genomics_build_presence = get_genomics_build_presence(query)
+    if normalized_variants:
+        if not ranges:
+            genomics_build_presence = get_genomics_build_presence(query)
 
-        for normalizedVariant in normalized_variant_list:
-            if not normalizedVariant["GRCh37"] and genomics_build_presence["GRCh37"]:
-                abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
-            elif not normalizedVariant["GRCh38"] and genomics_build_presence["GRCh38"]:
-                abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
+            for normalizedVariant in normalized_variants:
+                if not normalizedVariant["GRCh37"] and genomics_build_presence["GRCh37"]:
+                    abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
+                elif not normalizedVariant["GRCh38"] and genomics_build_presence["GRCh38"]:
+                    abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
 
-        query_results = query_CIVIC_by_variants(normalized_variant_list, condition_code_list, treatment_code_list, query)
+        query_results = query_CIVIC_by_variants(normalized_variants, condition_code_list, treatment_code_list, query)
 
         for res in query_results:
             for implication in res["txImplicationMatches"]:
@@ -1088,31 +1090,34 @@ def find_subject_dx_implications(
         genomicSourceClass = genomicSourceClass.strip().lower()
         query["genomicSourceClass"] = {"$eq": genomicSourceClass}
 
+    normalized_variants = []
     if ranges:
         ranges = list(map(get_range, ranges))
         get_lift_over_range(ranges)
-        variants = get_spdis(ranges, query)
+        variants = get_variants(ranges, query)
         if not variants:
             return jsonify({"resourceType":"Parameters"})
-
-    if variants:
-        variants = list(map(get_variant, variants))
+        normalized_variants = [{variant["BUILD"]: variant["SPDI"]} for variant in variants]
+    
+    if variants and not ranges:
+        normalized_variants = list(map(get_variant, variants))
 
     # Result Object
     result = OrderedDict()
     result["resourceType"] = "Parameters"
     result["parameter"] = []
 
-    if variants:
-        genomics_build_presence = get_genomics_build_presence(query)
+    if normalized_variants:
+        if not ranges:
+            genomics_build_presence = get_genomics_build_presence(query)
 
-        for normalizedVariant in variants:
-            if not normalizedVariant["GRCh37"] and genomics_build_presence["GRCh37"]:
-                abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
-            elif not normalizedVariant["GRCh38"] and genomics_build_presence["GRCh38"]:
-                abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
+            for normalizedVariant in normalized_variants:
+                if not normalizedVariant["GRCh37"] and genomics_build_presence["GRCh37"]:
+                    abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
+                elif not normalizedVariant["GRCh38"] and genomics_build_presence["GRCh38"]:
+                    abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
 
-        query_results = query_clinvar_by_variants(variants, condition_code_list, query)
+        query_results = query_clinvar_by_variants(normalized_variants, condition_code_list, query)
 
         for res in query_results:
             for implication in res["dxImplicationMatches"]:
