@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from threading import Lock
 from uuid import uuid4
 import pyliftover
 import requests
@@ -36,6 +37,17 @@ genes_data = utilities_db.Genes
 transcripts_data = utilities_db.Transcripts
 exons_data = utilities_db.Exons
 proteins_data = utilities_db.Proteins
+
+# Liftover utilities
+liftover_cache = {}
+liftover_lock = Lock()
+def get_liftover(from_db, to_db):
+    key = from_db + "-" + to_db
+    with liftover_lock:
+        if key not in liftover_cache:
+            liftover = pyliftover.LiftOver(from_db, to_db)
+            liftover_cache[key] = liftover
+        return liftover_cache[key]
 
 # Constants
 SVTYPE_TO_DNA_CHANGE_TYPE = {
@@ -878,7 +890,7 @@ def lift_over(ref_seq, start, end):
     # convert build37 to build38
     if build == 'GRCh37':
         new_ref_seq = get_ref_seq_by_chrom_and_build('GRCh38', chrom)
-        lo_b37_to_b38 = pyliftover.LiftOver('hg19', 'hg38')
+        lo_b37_to_b38 = get_liftover('hg19', 'hg38')
         new_coor = lo_b37_to_b38.convert_coordinate(chrom, start, '+')
         if len(new_coor) != 1 or chrom != new_coor[0][0]:
             return None
@@ -897,8 +909,7 @@ def lift_over(ref_seq, start, end):
     #convert build38 to build37
     elif build == 'GRCh38':
         new_ref_seq = get_ref_seq_by_chrom_and_build('GRCh37', chrom)
-        lo_b38_to_b37 = pyliftover.LiftOver('hg38', 'hg19')
-        
+        lo_b38_to_b37 = get_liftover('hg38', 'hg19')
         new_coor = lo_b38_to_b37.convert_coordinate(chrom, start, '+')
         if len(new_coor) != 1 or chrom != new_coor[0][0]:
             return None
