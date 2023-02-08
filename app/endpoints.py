@@ -128,7 +128,8 @@ def find_subject_variants(
                 variant_fhir_profiles = []
 
                 for record in variant_q:
-                    resource = create_fhir_variant_resource(record, subject)
+                    ref_seq = get_ref_seq_by_chrom_and_build(record['genomicBuild'], record['CHROM'])
+                    resource = create_fhir_variant_resource(record, ref_seq, subject)
 
                     variant_fhir_profiles.append(resource)
 
@@ -259,7 +260,8 @@ def find_subject_specific_variants(
             variant_fhir_profiles = []
 
             for record in variant_q:
-                resource = create_fhir_variant_resource(record, subject)
+                ref_seq = get_ref_seq_by_chrom_and_build(record['genomicBuild'], record['CHROM'])
+                resource = create_fhir_variant_resource(record, ref_seq, subject)
 
                 variant_fhir_profiles.append(resource)
 
@@ -405,7 +407,8 @@ def find_subject_structural_intersecting_variants(
                 variant_fhir_profiles = []
 
                 for record in variant_q:
-                    resource = create_fhir_variant_resource(record, subject)
+                    ref_seq = get_ref_seq_by_chrom_and_build(record['genomicBuild'], record['CHROM'])
+                    resource = create_fhir_variant_resource(record, ref_seq, subject)
 
                     variant_fhir_profiles.append(resource)
 
@@ -534,7 +537,8 @@ def find_subject_structural_subsuming_variants(
                 variant_fhir_profiles = []
 
                 for record in variant_q:
-                    resource = create_fhir_variant_resource(record, subject)
+                    ref_seq = get_ref_seq_by_chrom_and_build(record['genomicBuild'], record['CHROM'])
+                    resource = create_fhir_variant_resource(record, ref_seq, subject)
 
                     variant_fhir_profiles.append(resource)
 
@@ -823,34 +827,38 @@ def find_subject_tx_implications(
         genomicSourceClass = genomicSourceClass.strip().lower()
         query["genomicSourceClass"] = {"$eq": genomicSourceClass}
 
+    normalized_variants = []
     if ranges:
         ranges = list(map(get_range, ranges))
         get_lift_over_range(ranges)
-        variants = get_spdis(ranges, query)
+        variants = get_variants(ranges, query)
         if not variants:
             return jsonify({"resourceType":"Parameters"})
+        normalized_variants = [{variant["BUILD"]: variant["SPDI"]} for variant in variants]
 
-    normalized_variant_list = []
-    if variants:
-        normalized_variant_list = list(map(get_variant, variants))
+    if variants and not ranges:
+        normalized_variants = list(map(get_variant, variants))
 
     # Result Object
     result = OrderedDict()
     result["resourceType"] = "Parameters"
     result["parameter"] = []
 
-    if variants:
-        genomics_build_presence = get_genomics_build_presence(query)
+    if normalized_variants:
+        if not ranges:
+            genomics_build_presence = get_genomics_build_presence(query)
 
-        for normalizedVariant in normalized_variant_list:
-            if not normalizedVariant["GRCh37"] and genomics_build_presence["GRCh37"]:
-                abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
-            elif not normalizedVariant["GRCh38"] and genomics_build_presence["GRCh38"]:
-                abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
+            for normalizedVariant in normalized_variants:
+                if not normalizedVariant["GRCh37"] and genomics_build_presence["GRCh37"]:
+                    abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
+                elif not normalizedVariant["GRCh38"] and genomics_build_presence["GRCh38"]:
+                    abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
 
-        query_results = query_CIVIC_by_variants(normalized_variant_list, condition_code_list, treatment_code_list, query)
+        query_results = query_CIVIC_by_variants(normalized_variants, condition_code_list, treatment_code_list, query)
 
         for res in query_results:
+            if res["txImplicationMatches"]:
+                ref_seq = get_ref_seq_by_chrom_and_build(res['genomicBuild'], res['CHROM'])
             for implication in res["txImplicationMatches"]:
                 parameter = OrderedDict()
                 parameter["name"] = "implications"
@@ -861,7 +869,7 @@ def find_subject_tx_implications(
                 "name": "implication",
                 "resource": implication_profile
                 })
-                resource = create_fhir_variant_resource(res, subject)
+                resource = create_fhir_variant_resource(res, ref_seq, subject)
 
                 add_variation_id(resource, implication["variationID"])
 
@@ -976,8 +984,8 @@ def find_subject_tx_implications(
 
             variant_fhir_profiles = []
             for varItem in res["patientMatches"]:
-                
-                resource = create_fhir_variant_resource(varItem, subject)
+                ref_seq = get_ref_seq_by_chrom_and_build(varItem['genomicBuild'], varItem['CHROM'])
+                resource = create_fhir_variant_resource(varItem, ref_seq, subject)
 
                 add_variation_id(resource, res["variationID"])
 
@@ -1016,7 +1024,8 @@ def find_subject_tx_implications(
 
             variant_fhir_profiles = []
             for varItem in res["patientMatches"]:
-                resource = create_fhir_variant_resource(varItem, subject)
+                ref_seq = get_ref_seq_by_chrom_and_build(varItem['genomicBuild'], varItem['CHROM'])
+                resource = create_fhir_variant_resource(varItem, ref_seq, subject)
 
                 add_variation_id(resource, res["variationID"])
 
@@ -1088,33 +1097,38 @@ def find_subject_dx_implications(
         genomicSourceClass = genomicSourceClass.strip().lower()
         query["genomicSourceClass"] = {"$eq": genomicSourceClass}
 
+    normalized_variants = []
     if ranges:
         ranges = list(map(get_range, ranges))
         get_lift_over_range(ranges)
-        variants = get_spdis(ranges, query)
+        variants = get_variants(ranges, query)
         if not variants:
             return jsonify({"resourceType":"Parameters"})
-
-    if variants:
-        variants = list(map(get_variant, variants))
+        normalized_variants = [{variant["BUILD"]: variant["SPDI"]} for variant in variants]
+    
+    if variants and not ranges:
+        normalized_variants = list(map(get_variant, variants))
 
     # Result Object
     result = OrderedDict()
     result["resourceType"] = "Parameters"
     result["parameter"] = []
 
-    if variants:
-        genomics_build_presence = get_genomics_build_presence(query)
+    if normalized_variants:
+        if not ranges:
+            genomics_build_presence = get_genomics_build_presence(query)
 
-        for normalizedVariant in variants:
-            if not normalizedVariant["GRCh37"] and genomics_build_presence["GRCh37"]:
-                abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
-            elif not normalizedVariant["GRCh38"] and genomics_build_presence["GRCh38"]:
-                abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
+            for normalizedVariant in normalized_variants:
+                if not normalizedVariant["GRCh37"] and genomics_build_presence["GRCh37"]:
+                    abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
+                elif not normalizedVariant["GRCh38"] and genomics_build_presence["GRCh38"]:
+                    abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
 
-        query_results = query_clinvar_by_variants(variants, condition_code_list, query)
+        query_results = query_clinvar_by_variants(normalized_variants, condition_code_list, query)
 
         for res in query_results:
+            if res["dxImplicationMatches"]:
+                ref_seq = get_ref_seq_by_chrom_and_build(res['genomicBuild'], res['CHROM'])
             for implication in res["dxImplicationMatches"]:
                 parameter = OrderedDict()
                 parameter["name"] = "implications"
@@ -1126,7 +1140,7 @@ def find_subject_dx_implications(
                 "name": "implication",
                 "resource": implication_profile
                 })
-                resource = create_fhir_variant_resource(res, subject)
+                resource = create_fhir_variant_resource(res, ref_seq, subject)
 
                 add_variation_id(resource, implication["variationID"])
 
@@ -1159,7 +1173,8 @@ def find_subject_dx_implications(
             })
 
             for varItem in res["patientMatches"]:
-                resource = create_fhir_variant_resource(varItem, subject)
+                ref_seq = get_ref_seq_by_chrom_and_build(varItem['genomicBuild'], varItem['CHROM'])
+                resource = create_fhir_variant_resource(varItem, ref_seq, subject)
 
                 add_variation_id(resource, res["variationID"])
 
