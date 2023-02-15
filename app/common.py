@@ -360,6 +360,7 @@ def get_variants(ranges, query):
             if "SPDI" in variant:
                 variants.append({'BUILD': chrom["PGB"]["BUILD"], 'SPDI': variant["SPDI"]})
 
+    del query["genomicBuild"]
     del query["$and"]
 
     return variants
