@@ -7,6 +7,7 @@ Find Subject Variants Tests
 ---------------------------
 """
 
+
 def test_find_subject_variants_subject_supplied(client):
     url = find_subject_variants_query('testDateRange=ge2010-01-01&includeVariants=true')
     response = client.get(url)
@@ -68,6 +69,7 @@ Find Subject Specific Variants Tests
 ------------------------------------
 """
 
+
 def test_find_subject_specific_variants_subject_supplied(client):
     url = find_subject_variants_query('testDateRange=ge2010-01-01&includeVariants=true')
     response = client.get(url)
@@ -80,6 +82,7 @@ def test_find_subject_specific_variants_variants_supplied(client):
     response = client.get(url)
 
     assert response.status_code == 400
+
 
 def test_find_subject_specific_variants_failed_normalization(client):
     url = find_subject_variants_query('subject=m123&variants=NM_001385641.1:c.804C>T')
@@ -103,7 +106,8 @@ def test_find_subject_specific_variants_2(client):
 
 
 def test_find_subject_specific_variants_3(client):
-    url = find_subject_specific_variants_query('subject=HG00404&variants=NC_000005.9:112154946:CC:C,NC_000005.9:112157612:C:T,NC_000017.10:41246373:G:,NC_000017.10:41243854:AAA:AAAA,NC_000013.10:32900284:C:A,NC_000019.9:11216262:C:A,NC_000014.8:23894101:A:T')
+    url = find_subject_specific_variants_query(
+        'subject=HG00404&variants=NC_000005.9:112154946:CC:C,NC_000005.9:112157612:C:T,NC_000017.10:41246373:G:,NC_000017.10:41243854:AAA:AAAA,NC_000013.10:32900284:C:A,NC_000019.9:11216262:C:A,NC_000014.8:23894101:A:T')
     response = client.get(url)
 
     compare_actual_and_expected_output(f'{FIND_SUBJECT_SPECIFIC_VARIANTS_OUTPUT_DIR}3.json', response.json)
@@ -113,6 +117,7 @@ def test_find_subject_specific_variants_3(client):
 Find Subject Structural Intersecting Variants Tests
 ---------------------------------------------------
 """
+
 
 def test_find_subject_structural_intersecting_variants_subject_supplied(client):
     url = find_subject_structural_intersecting_variants_query('testDateRange=ge2010-01-01&includeVariants=true')
@@ -161,6 +166,7 @@ Find Subject Structural Subsuming Variants Tests
 ------------------------------------------------
 """
 
+
 def test_find_subject_structural_subsuming_variants_subject_supplied(client):
     url = find_subject_structural_subsuming_variants_query('testDateRange=ge2010-01-01&includeVariants=true')
     response = client.get(url)
@@ -200,6 +206,7 @@ def test_find_subject_structural_subsuming_variants_3(client):
 Find Subject Haplotypes Tests
 -----------------------------
 """
+
 
 def test_find_subject_haplotypes_subject_supplied(client):
     url = find_subject_haplotypes_query('testDateRange=ge2010-01-01&includeVariants=true')
@@ -247,6 +254,7 @@ def test_find_subject_haplotypes_4(client):
 Find Subject Specific Haplotypes Tests
 --------------------------------------
 """
+
 
 def test_find_subject_specific_haplotypes_subject_supplied(client):
     url = find_subject_specific_haplotypes_query('testDateRange=ge2010-01-01&includeVariants=true')

@@ -39,7 +39,7 @@ for vcfFile in os.listdir(fileFolderPath):
             for line in orig:
                 newString = line.replace(';AF=', ';CHANGEDAF=')
                 updated.write(newString)
-            
+
     snpSiftCmd = 'java -jar ' + snpSiftJarPath + ' annotate ' + databasePath + ' -info "AF" ' + changedAFPath
 
     annotatedVCFPath = os.path.join(snpEffPath, 'annotatedVCF.vcf')
@@ -53,8 +53,7 @@ for vcfFile in os.listdir(fileFolderPath):
                 newLine = line.replace(';AF=', ';POPAF=')
                 newLine = newLine.replace(';CHANGEDAF=', ';AF=')
                 updated.write(newLine)
-            
+
     os.remove(intVCFPath)
     os.remove(annotatedVCFPath)
     os.remove(changedAFPath)
-    

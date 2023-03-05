@@ -2,9 +2,10 @@ from flask import jsonify
 from collections import OrderedDict
 from .common import *
 
+
 def get_feature_coordinates(
-    chromosome=None, gene=None, transcript=None, protein=None):
-    
+        chromosome=None, gene=None, transcript=None, protein=None):
+
     if not chromosome and not gene and not transcript and not protein:
         abort(400, f"You must provide one parameter.")
 
@@ -69,7 +70,7 @@ def get_feature_coordinates(
 
             output.append(ord_dict)
 
-        return(jsonify(output))
+        return (jsonify(output))
 
     if transcript:
         if protein:
@@ -118,11 +119,11 @@ def get_feature_coordinates(
             if not ord_dict['exons']:
                 ord_dict.pop('exons')
             else:
-                ord_dict['exons'] = sorted(ord_dict['exons'], key=lambda d: d['exonNumber']) 
+                ord_dict['exons'] = sorted(ord_dict['exons'], key=lambda d: d['exonNumber'])
 
             output.append(ord_dict)
 
-        return(jsonify(output))
+        return (jsonify(output))
 
     if protein:
 
@@ -152,7 +153,7 @@ def get_feature_coordinates(
         output["proteinName"] = result["proteinName"]
         output["transcript"] = result["transcript"]
 
-        return(jsonify(output))
+        return (jsonify(output))
 
 
 def find_the_gene(range=None):
@@ -187,4 +188,4 @@ def find_the_gene(range=None):
 
         output.append(ord_dict)
 
-    return(jsonify(output))
+    return (jsonify(output))

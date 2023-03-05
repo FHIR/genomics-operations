@@ -8,6 +8,7 @@ Unit Tests
 ----------
 """
 
+
 @pytest.mark.parametrize("input, expected_result", [
     ("", False),
     ("1", True),

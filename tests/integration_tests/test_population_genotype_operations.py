@@ -7,6 +7,7 @@ Find Population Specific Variants Tests
 ---------------------------------------
 """
 
+
 def test_population_specific_variants_variants_supplied(client):
     url = find_population_specific_variants_query('genomicSourceClass=germline')
     response = client.get(url)
@@ -39,6 +40,7 @@ def test_population_specific_variants_2(client):
 Find Population Structural Intersecting Variants Tests
 ------------------------------------------------------
 """
+
 
 def test_population_structural_intersecting_variants_ranges_supplied(client):
     url = find_population_structural_intersecting_variants_query('genomicSourceClass=germline')
@@ -73,6 +75,7 @@ Find Population Structural Subsuming Variants Tests
 ---------------------------------------------------
 """
 
+
 def test_population_structural_subsuming_variants_ranges_supplied(client):
     url = find_population_structural_subsuming_variants_query('genomicSourceClass=germline')
     response = client.get(url)
@@ -98,6 +101,7 @@ def test_population_structural_subsuming_variants_2(client):
 Find Population Specific Haplotypes Tests
 -----------------------------------------
 """
+
 
 def test_population_specific_haplotypes_haplotypes_supplied(client):
     url = find_population_specific_haplotypes_query('genomicSourceClass=germline')

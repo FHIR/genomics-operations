@@ -7,6 +7,7 @@ Find Study Metadata Tests
 -------------------------
 """
 
+
 def test_find_study_metadata_subject_supplied(client):
     url = find_study_metadata_query('testDateRange=ge2010-01-01')
     response = client.get(url)

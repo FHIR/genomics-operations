@@ -91,6 +91,7 @@ def find_study_metadata_query(query):
 def find_population_specific_variants_query(query):
     return f"{FIND_POPULATION_SPECIFIC_VARIANTS_URL}?{query}"
 
+
 def find_population_structural_intersecting_variants_query(query):
     return f"{FIND_POPULATION_STRUCTURAL_INTERSECTING_VARIANTS_URL}?{query}"
 

@@ -41,6 +41,8 @@ proteins_data = utilities_db.Proteins
 # Liftover utilities
 liftover_cache = {}
 liftover_lock = Lock()
+
+
 def get_liftover(from_db, to_db):
     key = from_db + "-" + to_db
     with liftover_lock:
@@ -48,6 +50,7 @@ def get_liftover(from_db, to_db):
             liftover = pyliftover.LiftOver(from_db, to_db)
             liftover_cache[key] = liftover
         return liftover_cache[key]
+
 
 # Constants
 SVTYPE_TO_DNA_CHANGE_TYPE = {
@@ -116,6 +119,8 @@ NCBI_VARIATION_SERVICES_BASE_URL = 'https://api.ncbi.nlm.nih.gov/variation/v0/'
 CHROMOSOME_CSV_FILE = 'app/_Dict_Chromosome.csv'
 
 # Utility Functions
+
+
 def key_func(k):
     return k['CHROMOSOME']['RefSeq']
 
@@ -145,11 +150,11 @@ def merge(arr):
     return merged_list
 
 
-def merge_ranges(ranges):  
+def merge_ranges(ranges):
     ranges = sorted(ranges, key=key_func)
 
     merged_ranges = []
-      
+
     for key, value in groupby(ranges, key_func):
         merged_ranges.extend(merge(list(value)))
 
@@ -188,7 +193,7 @@ def get_variant(variant):
 
     variant = variant.lstrip()
 
-    if variant.count(":") == 1: # HGVS expression
+    if variant.count(":") == 1:  # HGVS expression
         SPDIs = hgvs_2_contextual_SPDIs(variant)
         if not SPDIs:
             abort(400, f'Cannot normalize variant: {variant}')
@@ -197,7 +202,7 @@ def get_variant(variant):
         else:
             normalized_variant = {"variant": variant, "GRCh37": SPDIs["GRCh37"], "GRCh38": SPDIs["GRCh38"]}
 
-    elif variant.count(":") == 3: # SPDI expression
+    elif variant.count(":") == 3:  # SPDI expression
         SPDIs = SPDI_2_contextual_SPDIs(variant)
         if not SPDIs:
             abort(400, f'Cannot normalize variant: {variant}')
@@ -294,6 +299,7 @@ def get_range(range):
 
     return {'CHROMOSOME': chromosome, 'BUILD': chrom["build"], 'RANGE': _range}
 
+
 def get_lift_over_range(ranges):
     ranges_to_add = []
     for range in ranges:
@@ -329,13 +335,13 @@ def get_variants(ranges, query):
         genomic_builds = [chrom["PGB"]["BUILD"]]
 
         query["$and"] = []
-        query["$and"].append({"SVTYPE": { "$exists": False}})
+        query["$and"].append({"SVTYPE": {"$exists": False}})
         query["$and"].append({"$expr": {"$gte": [{"$subtract": [{"$add": [{"$strLenCP": "$REF"}, "$POS"]}, "$POS"]}, 1]}})
         query["$and"].append({"$or": [
             {
                 "$and": [
                     {"POS": {"$lte": chrom["PGB"]["L"]}},
-                    {"$expr": {"$gt":[{"$add": [{"$strLenCP": "$REF"}, "$POS"]}, chrom["PGB"]["L"]]}}
+                    {"$expr": {"$gt": [{"$add": [{"$strLenCP": "$REF"}, "$POS"]}, chrom["PGB"]["L"]]}}
                 ]
             },
             {
@@ -442,7 +448,7 @@ def get_chromosome_to_ranges(ranges, genomics_build_presence):
             temp_dict["CHROM"] = chromosome['CHROM']
             temp_dict["RefSeq"] = chromosome['RefSeq']
             temp_dict["PGB"] = {"RefSeq": chromosome['RefSeq'], "BUILD": provided_genomic_build, "L": _range["L"], "H": _range["H"]}
-            
+
             if (genomics_build_presence is None or genomics_build_presence[other_genomic_build]):
                 rse_other_build = lift_over(chromosome['RefSeq'], _range["L"], _range["H"])
 
@@ -478,7 +484,7 @@ def create_fhir_variant_resource(record, ref_seq, subject):
                                          "code": "laboratory"}]}]
     resource["code"] = {"coding": [{"system": "http://loinc.org",
                                    "code": "69548-6",
-                                   "display": "Genetic variant assessment"}]}
+                                    "display": "Genetic variant assessment"}]}
     resource["subject"] = {"reference": f"Patient/{subject}"}
     resource["valueCodeableConcept"] = {"coding": [{"system": "http://loinc.org",
                                                     "code": "LA9633-4",
@@ -494,7 +500,6 @@ def create_fhir_variant_resource(record, ref_seq, subject):
                                       "valueCodeableConcept": {"coding": [{"system": "http://sequenceontology.org",
                                                                            "code": f"{dna_chg['CODE']}",
                                                                            "display": f"{dna_chg['DISPLAY']}"}]}})
-
 
     # Genomic Source Class
     if 'genomicSourceClass' in record and record['genomicSourceClass'].upper() in ['GERMLINE', 'SOMATIC']:
@@ -529,7 +534,7 @@ def create_fhir_variant_resource(record, ref_seq, subject):
                                       "valueCodeableConcept": {"coding": [{"system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                                                            "code": record["SPDI"],
                                                                            "display": record["SPDI"]}]}})
-    
+
     # Allelic Frequency
     if ('SVTYPE' not in record):
         try:
@@ -558,9 +563,8 @@ def create_fhir_variant_resource(record, ref_seq, subject):
     # Genomic Ref Allele ID
     resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
                                            "code": "69547-8",
-                                           "display": "Genomic Ref allele [ID]"}]},
+                                                       "display": "Genomic Ref allele [ID]"}]},
                                   "valueString": f"{record['REF']}"})
-
 
     # Genomic Alt Allele ID
     if ((('SVTYPE' not in record) or ('SVTYPE' in record and record['SVTYPE'] in ['INS'])) and ('ALT' in record) and (record['ALT'].isalpha())):
@@ -608,30 +612,30 @@ def create_fhir_variant_resource(record, ref_seq, subject):
                                                            "display": "Variant inner start-end"}]},
                                       "valueRange": {"low": {"value": inner_start},
                                                      "high": {"value": inner_end}}})
-        
+
     # Variant Molecular Consequence and Predicted Impact
     if 'molecConseq' in record:
         resource["component"].append({"code": {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                                "code": "molecular-consequence"}]},
-                                        "valueCodeableConcept": {"coding": record['molecConseq']},
-                                        "interpretation": {"text": "PREDICTED IMPACT " + record['predictedMolecImpact'].upper()}})
-    
+                                                           "code": "molecular-consequence"}]},
+                                      "valueCodeableConcept": {"coding": record['molecConseq']},
+                                      "interpretation": {"text": "PREDICTED IMPACT " + record['predictedMolecImpact'].upper()}})
+
     # Variant Loss of Function
     if 'funcConseq' in record:
         resource["component"].append({"code": {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                                "code": "functional-effect"}]},
-                                    "valueCodeableConcept": {"coding": record['funcConseq']}})
-    
+                                                           "code": "functional-effect"}]},
+                                      "valueCodeableConcept": {"coding": record['funcConseq']}})
+
     # Variant population allele frequency
     if 'popAlleleFreq' in record:
         resource["component"].append({"code": {"coding": [{
-                                                "system": "http://loinc.org",
-                                                "code": "92821-8",
-                                                "display": "Population allele frequency"
-                                                }]},
-                                        "valueQuantity": {"value": record['popAlleleFreq'],
-                                                            "system": "http://unitsofmeasure.org",
-                                                            "code": "1"}})
+            "system": "http://loinc.org",
+            "code": "92821-8",
+            "display": "Population allele frequency"
+        }]},
+            "valueQuantity": {"value": record['popAlleleFreq'],
+                              "system": "http://unitsofmeasure.org",
+                              "code": "1"}})
     return resource
 
 
@@ -653,33 +657,33 @@ def create_dx_implication_profile(implication, subject, vids):
             resource["derivedFrom"].append({"reference": f"Observation/dv-{vid}"})
 
     resource["component"] = []
-    
+
     if implication['clinicalSignificance'] in CLIN_SIG_TO_CODE.keys():
         resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
-                                                            "code": "53037-8",
-                                                            "display": "Genetic variation clinical significance"}]},
-                                        "valueCodeableConcept": {"coding": [{"system": "http://loinc.org",
-                                                                            "code": f"{CLIN_SIG_TO_CODE[implication['clinicalSignificance']]}",
-                                                                            "display": f"{implication['clinicalSignificance']}"}]}})
+                                                           "code": "53037-8",
+                                                           "display": "Genetic variation clinical significance"}]},
+                                      "valueCodeableConcept": {"coding": [{"system": "http://loinc.org",
+                                                                           "code": f"{CLIN_SIG_TO_CODE[implication['clinicalSignificance']]}",
+                                                                           "display": f"{implication['clinicalSignificance']}"}]}})
     else:
         resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
-                                                            "code": "53037-8",
-                                                            "display": "Genetic variation clinical significance"}]},
-                                        "valueCodeableConcept": {"text": f"{implication['clinicalSignificance']}"}})
+                                                           "code": "53037-8",
+                                                           "display": "Genetic variation clinical significance"}]},
+                                      "valueCodeableConcept": {"text": f"{implication['clinicalSignificance']}"}})
 
     for predicted_phenotype in implication["predictedPhenotype"]:
         resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
-                                                               "code": "81259-4",
-                                                               "display": "predicted phenotype"}]},
-                                          "valueCodeableConcept": {"coding": [{"system": f"{predicted_phenotype['system']}",
-                                                                               "code": f"{predicted_phenotype['code']}",
-                                                                               "display": f"{predicted_phenotype['display']}"}]}})
+                                                           "code": "81259-4",
+                                                           "display": "predicted phenotype"}]},
+                                      "valueCodeableConcept": {"coding": [{"system": f"{predicted_phenotype['system']}",
+                                                                           "code": f"{predicted_phenotype['code']}",
+                                                                           "display": f"{predicted_phenotype['display']}"}]}})
 
     resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
-                                                           "code": "93044-6",
-                                                           "display": "Level of evidence"}]},
-                                      "valueCodeableConcept": {"text": f"{implication['evidenceLevel']}"}})
-    
+                                                       "code": "93044-6",
+                                                       "display": "Level of evidence"}]},
+                                  "valueCodeableConcept": {"text": f"{implication['evidenceLevel']}"}})
+
     return resource
 
 
@@ -700,36 +704,34 @@ def create_tx_implication_profile_civic(implication, subject, vids):
         for vid in vids:
             resource["derivedFrom"].append({"reference": f"Observation/dv-{vid}"})
 
-
     resource["component"] = []
-
 
     for ptc in implication['phenotypicTreatmentContext']:
         resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
                                                            "code": "81259-4",
                                                            "display": "phenotypic treatment context"}]},
-                                               "valueCodeableConcept": {"coding": [{"system": f"{ptc['system']}",
-                                                                                    "code": f"{ptc['code']}",
-                                                                                    "display": f"{ptc['display']}"}]}})
+                                      "valueCodeableConcept": {"coding": [{"system": f"{ptc['system']}",
+                                                                           "code": f"{ptc['code']}",
+                                                                           "display": f"{ptc['display']}"}]}})
 
     resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
                                                        "code": "93044-6",
                                                        "display": "Level of evidence"}]},
-                                           "valueCodeableConcept": {"text": f"{implication['evidenceLevel']}"}})
-    
+                                  "valueCodeableConcept": {"text": f"{implication['evidenceLevel']}"}})
+
     for med in implication['medicationAssessed']:
         resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
                                                            "code": "51963-7",
                                                            "display": "medication-assessed"}]},
-                    "valueCodeableConcept": {"coding": [{"system": f"{med['system']}",
-                                                         "code": f"{med['code']}",
-                                                         "display": f"{med['display']}"}]}})
-        
+                                      "valueCodeableConcept": {"coding": [{"system": f"{med['system']}",
+                                                                           "code": f"{med['code']}",
+                                                                           "display": f"{med['display']}"}]}})
+
     resource["component"].append({"code": {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
                                                        "code": "predicted-therapeutic-implication",
                                                        "display": "predicted-therapeutic-implication"}]},
-                "valueCodeableConcept": {"text": implication['predictedImplication']}})
-    
+                                  "valueCodeableConcept": {"text": implication['predictedImplication']}})
+
     return resource
 
 
@@ -755,21 +757,21 @@ def create_tx_implication_profile_pharmgkb(implication, subject, gids):
     resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
                                                        "code": "93044-6",
                                                        "display": "Level of evidence"}]},
-                                           "valueCodeableConcept": {"text": f"{implication['evidenceLevel']}"}})
-    
+                                  "valueCodeableConcept": {"text": f"{implication['evidenceLevel']}"}})
+
     for med in implication['medicationAssessed']:
         resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
                                                            "code": "51963-7",
                                                            "display": "medication-assessed"}]},
-                    "valueCodeableConcept": {"coding": [{"system": f"{med['system']}",
-                                                         "code": f"{med['code']}",
-                                                         "display": f"{med['display']}"}]}})
-        
+                                      "valueCodeableConcept": {"coding": [{"system": f"{med['system']}",
+                                                                           "code": f"{med['code']}",
+                                                                           "display": f"{med['display']}"}]}})
+
     resource["component"].append({"code": {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
                                                        "code": "predicted-therapeutic-implication",
                                                        "display": "predicted-therapeutic-implication"}]},
-                "valueCodeableConcept": {"text": implication['predictedImplication']}})
-    
+                                  "valueCodeableConcept": {"text": implication['predictedImplication']}})
+
     return resource
 
 
@@ -801,12 +803,12 @@ def create_genotype_profile(genotype, subject, gids):
     resource["category"] = [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/observation-category",
                                          "code": "laboratory"}]}]
     resource["code"] = {"coding": [{"system": "http://loinc.org",
-                                                       "code": "84413-4",
-                                                       "display": "Genotype display name"}]}
+                                    "code": "84413-4",
+                                    "display": "Genotype display name"}]}
 
     resource["valueCodeableConcept"] = {"coding": [{"system": f"{genotype['genotypeCodeSystem']}",
-                                         "code": f"{genotype['genotypeCode']}",
-                                         "display": f"{genotype['genotypeDesc']}"}]}
+                                                    "code": f"{genotype['genotypeCode']}",
+                                                    "display": f"{genotype['genotypeDesc']}"}]}
 
     resource["subject"] = {
         "reference": f"Patient/{subject}"
@@ -814,13 +816,13 @@ def create_genotype_profile(genotype, subject, gids):
 
     resource["component"] = []
     resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
-                                                           "code": "48018-6",
-                                                           "display": "Gene studied"}]},
+                                                       "code": "48018-6",
+                                                       "display": "Gene studied"}]},
 
                                   "valueCodeableConcept": {"coding": [{"system": "http://www.genenames.org/geneId",
-                                                                        "code": f"{genotype['geneCode']}",
-                                                                        "display": f"{genotype['geneDesc']}"}]}})
-    
+                                                                       "code": f"{genotype['geneCode']}",
+                                                                       "display": f"{genotype['geneDesc']}"}]}})
+
     return resource
 
 
@@ -856,7 +858,7 @@ def create_sequence_phase_relationship(subject, sequence_phase_data):
     resource["subject"] = {"reference": f"Patient/{subject}"}
     resource["valueCodeableConcept"] = {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/sequence-phase-relationship-cs",
                                         "code": sequence_phase_data["phase"],
-                                        "display": sequence_phase_data["phase"]}]}
+                                                    "display": sequence_phase_data["phase"]}]}
     resource["derivedFrom"] = [{"reference": f"Observation/dv-{sequence_phase_data['variantID1']}"},
                                {"reference": f"Observation/dv-{sequence_phase_data['variantID2']}"}]
 
@@ -870,7 +872,7 @@ def get_sequence_phase_data(patient_id):
     except Exception as e:
         print(f"DEBUG: Error({e}) under get_sequence_phase_data(patient_id={patient_id})")
         results = []
-    
+
     return results
 
 
@@ -896,18 +898,18 @@ def lift_over(ref_seq, start, end):
         if len(new_coor) != 1 or chrom != new_coor[0][0]:
             return None
         else:
-            new_start = new_coor[0][1]            
+            new_start = new_coor[0][1]
         new_coor = lo_b37_to_b38.convert_coordinate(chrom, end, '+')
         if len(new_coor) != 1 or chrom != new_coor[0][0]:
             return None
         else:
-            new_end = new_coor[0][1]      
+            new_end = new_coor[0][1]
         if new_start > new_end:
             return None
         else:
             return {"refSeq": new_ref_seq, "start": new_start, "end": new_end}
 
-    #convert build38 to build37
+    # convert build38 to build37
     elif build == 'GRCh38':
         new_ref_seq = get_ref_seq_by_chrom_and_build('GRCh37', chrom)
         lo_b38_to_b37 = get_liftover('hg38', 'hg19')
@@ -915,7 +917,7 @@ def lift_over(ref_seq, start, end):
         if len(new_coor) != 1 or chrom != new_coor[0][0]:
             return None
         else:
-            new_start = new_coor[0][1]    
+            new_start = new_coor[0][1]
         new_coor = lo_b38_to_b37.convert_coordinate(chrom, end, '+')
         if len(new_coor) != 1 or chrom != new_coor[0][0]:
             return None
@@ -924,7 +926,7 @@ def lift_over(ref_seq, start, end):
         if new_start > new_end:
             return None
         else:
-            return {"refSeq": new_ref_seq, "start":new_start, "end": new_end}
+            return {"refSeq": new_ref_seq, "start": new_start, "end": new_end}
     else:
         return None
 
@@ -937,7 +939,7 @@ def get_build_and_chrom_by_ref_seq(ref_seq):
             return {"chrom": chrom_data['chr'], "build": 'GRCh37'}
         else:
             return {"chrom": chrom_data['chr'], "build": 'GRCh38'}
-    
+
     return None
 
 
@@ -963,25 +965,25 @@ def get_intersected_regions(bed_id, build, chrom, start, end, intersected_region
             {"$match": {"$and": [{"BedID": {"$eq": bed_id}},
                                  {"BED.Chromosome": {"$eq": chrom}},
                                  {'$or': [
-                                    {"$and": [
-                                        {"BED.Start": {"$gte": start}},
-                                        {"BED.Start": {"$lte": end}}
-                                    ]},
-                                    {"$and": [
-                                        {"BED.Start": {"$lte": start}},
-                                        {"BED.End": {"$gte": start}}
-                                    ]}]}]}},
+                                     {"$and": [
+                                         {"BED.Start": {"$gte": start}},
+                                         {"BED.Start": {"$lte": end}}
+                                     ]},
+                                     {"$and": [
+                                         {"BED.Start": {"$lte": start}},
+                                         {"BED.End": {"$gte": start}}
+                                     ]}]}]}},
             {"$unwind": "$BED"},
             {"$match": {"$and": [{"BED.Chromosome": {"$eq": chrom}},
                                  {'$or': [
-                                    {"$and": [
-                                        {"BED.Start": {"$gte": start}},
-                                        {"BED.Start": {"$lte": end}}
-                                    ]},
-                                    {"$and": [
-                                        {"BED.Start": {"$lte": start}},
-                                        {"BED.End": {"$gte": start}}
-                                    ]}]}]}},
+                                     {"$and": [
+                                         {"BED.Start": {"$gte": start}},
+                                         {"BED.Start": {"$lte": end}}
+                                     ]},
+                                     {"$and": [
+                                         {"BED.Start": {"$lte": start}},
+                                         {"BED.End": {"$gte": start}}
+                                     ]}]}]}},
             {"$group": {"_id": "$BedID", "BED": {"$push": "$$ROOT.BED"}}}])
 
         result = list(result)
@@ -1004,7 +1006,7 @@ def hgvs_2_contextual_SPDIs(hgvs):
     headers = {'Accept': 'application/json'}
 
     r = requests.get(url, headers=headers)
-    if r.status_code != 200: 
+    if r.status_code != 200:
         return False
 
     response = r.json()
@@ -1014,13 +1016,13 @@ def hgvs_2_contextual_SPDIs(hgvs):
     seq_id, position, deleted_sequence, inserted_sequence = get_spdi_elements(raw_SPDI)
 
     contextual_SPDI = build_spdi(seq_id, position, deleted_sequence, inserted_sequence)
-    
+
     # convert contextualSPDI to build37 and build38 contextual SPDIs
     url = get_spdi_all_equivalent_contextual_url(contextual_SPDI)
     headers = {'Accept': 'application/json'}
 
     r = requests.get(url, headers=headers)
-    if r.status_code != 200: 
+    if r.status_code != 200:
         return False
 
     response = r.json()
@@ -1034,7 +1036,7 @@ def hgvs_2_contextual_SPDIs(hgvs):
             if temp:
                 seq_id, position, deleted_sequence, inserted_sequence = get_spdi_elements(item)
 
-                if temp['build']=='GRCh37':
+                if temp['build'] == 'GRCh37':
                     b37SPDI = build_spdi(seq_id, position, deleted_sequence, inserted_sequence)
                 elif temp['build'] == 'GRCh38':
                     b38SPDI = build_spdi(seq_id, position, deleted_sequence, inserted_sequence)
@@ -1051,7 +1053,7 @@ def hgvs_2_canonical_SPDI(hgvs):
     headers = {'Accept': 'application/json'}
 
     r = requests.get(url, headers=headers)
-    if r.status_code != 200: 
+    if r.status_code != 200:
         return False
 
     response = r.json()
@@ -1061,13 +1063,13 @@ def hgvs_2_canonical_SPDI(hgvs):
     seq_id, position, deleted_sequence, inserted_sequence = get_spdi_elements(raw_SPDI)
 
     contextual_SPDI = build_spdi(seq_id, position, deleted_sequence, inserted_sequence)
-    
+
     # convert contextualSPDI to canonical SPDI
     url = get_spdi_canonical_representative_url(contextual_SPDI)
     headers = {'Accept': 'application/json'}
 
     r = requests.get(url, headers=headers)
-    if r.status_code != 200: 
+    if r.status_code != 200:
         return False
 
     response = r.json()
@@ -1114,7 +1116,7 @@ def SPDI_2_canonical_SPDI(spdi):
     headers = {'Accept': 'application/json'}
 
     r = requests.get(url, headers=headers)
-    if r.status_code != 200: 
+    if r.status_code != 200:
         return False
 
     response = r.json()
@@ -1152,25 +1154,25 @@ def query_clinvar_by_variants(normalized_variant_list, code_list, query, populat
         pipeline_part[-1]['$match']['$or'] = or_query
         pipeline_part.append({"$unwind": "$predictedPhenotype"})
         pipeline_part.append({'$match': {'$or': or_query}})
-        pipeline_part.append({"$group": { "_id": "$_id",
-                                          "variationID": {
-                                            "$first": "$$ROOT.variationID"
-                                          },
-                                          "b37SPDI": {
-                                            "$first": "$$ROOT.b37SPDI"
-                                          },
-                                          "b38SPDI": {
-                                            "$first": "$$ROOT.b38SPDI"
-                                          },
-                                          "evidenceLevel": {
-                                            "$first": "$$ROOT.evidenceLevel"
-                                          },
-                                          "clinicalSignificance": {
-                                            "$first": "$$ROOT.clinicalSignificance"
-                                          },
-                                          "predictedPhenotype": {
-                                            "$push": "$$ROOT.predictedPhenotype"
-                                          }}})
+        pipeline_part.append({"$group": {"_id": "$_id",
+                                         "variationID": {
+                                             "$first": "$$ROOT.variationID"
+                                         },
+                                         "b37SPDI": {
+                                             "$first": "$$ROOT.b37SPDI"
+                                         },
+                                         "b38SPDI": {
+                                             "$first": "$$ROOT.b38SPDI"
+                                         },
+                                         "evidenceLevel": {
+                                             "$first": "$$ROOT.evidenceLevel"
+                                         },
+                                         "clinicalSignificance": {
+                                             "$first": "$$ROOT.clinicalSignificance"
+                                         },
+                                         "predictedPhenotype": {
+                                             "$push": "$$ROOT.predictedPhenotype"
+                                         }}})
 
     query['SPDI'] = {'$in': variant_list}
 
@@ -1179,7 +1181,7 @@ def query_clinvar_by_variants(normalized_variant_list, code_list, query, populat
                                  'as': 'dxImplicationMatches'}},
                     {'$addFields': {}},
                     {'$match': {'dxImplicationMatches': {'$exists': True, '$not': {'$size': 0}}}}]
-             
+
     if population:
         query_string.append({'$group': {'_id': '$patientID'}})
 
@@ -1191,11 +1193,11 @@ def query_clinvar_by_variants(normalized_variant_list, code_list, query, populat
         results = []
 
     query_results = []
-    
+
     for item in results:
         item["UUID"] = str(uuid4())
         query_results.append(item)
-  
+
     return query_results
 
 
@@ -1218,38 +1220,38 @@ def query_clinvar_by_condition(code_list, query):
         {'$match': condition_query},
         {"$unwind": "$predictedPhenotype"},
         {'$match': {'$or': or_query}},
-        {"$group": {  "_id": "$_id",
-                      "variationID": {
+        {"$group": {"_id": "$_id",
+                    "variationID": {
                         "$first": "$$ROOT.variationID"
-                      },
-                      "b37SPDI": {
+                    },
+                    "b37SPDI": {
                         "$first": "$$ROOT.b37SPDI"
-                      },
-                      "b38SPDI": {
+                    },
+                    "b38SPDI": {
                         "$first": "$$ROOT.b38SPDI"
-                      },
-                      "evidenceLevel": {
+                    },
+                    "evidenceLevel": {
                         "$first": "$$ROOT.evidenceLevel"
-                      },
-                      "clinicalSignificance": {
+                    },
+                    "clinicalSignificance": {
                         "$first": "$$ROOT.clinicalSignificance"
-                      },
-                      "predictedPhenotype": {
+                    },
+                    "predictedPhenotype": {
                         "$push": "$$ROOT.predictedPhenotype"
-                      }}},
-        {'$lookup': {'from': 'Variants', 'let': {'b37SPDI': '$b37SPDI', 'b38SPDI': '$b38SPDI'}, 
+                    }}},
+        {'$lookup': {'from': 'Variants', 'let': {'b37SPDI': '$b37SPDI', 'b38SPDI': '$b38SPDI'},
                      'pipeline': [{'$match': query},
                                   {'$addFields': {}},
                                   {'$match': {'$expr': {'$and': [{'$or': [
-                                                                    {'$eq': ['$SPDI', '$$b37SPDI']},
-                                                                    {'$eq': ['$SPDI', '$$b38SPDI']}
-                                                                ]}]}}},
+                                      {'$eq': ['$SPDI', '$$b37SPDI']},
+                                      {'$eq': ['$SPDI', '$$b38SPDI']}
+                                  ]}]}}},
                                   {'$addFields': {}}],
-                      'as': 'patientMatches'}},
-        {'$addFields': {}}, 
+                     'as': 'patientMatches'}},
+        {'$addFields': {}},
         {'$match': {'patientMatches': {'$exists': True, '$not': {'$size': 0}}}}
     ]
- 
+
     try:
         results = dxImplication_db.aggregate(query_string)
         results = list(results)
@@ -1293,28 +1295,28 @@ def query_CIVIC_by_variants(normalized_variant_list, code_list, treatment_list, 
         pipeline_part[-1]['$match']['$or'] = or_query
         pipeline_part.append({"$unwind": "$phenotypicTreatmentContext"})
         pipeline_part.append({'$match': {'$or': or_query}})
-        pipeline_part.append({"$group": { "_id": "$_id",
-                                          "variationID": {
-                                            "$first": "$$ROOT.variationID"
-                                          },
-                                          "b37SPDI": {
-                                            "$first": "$$ROOT.b37SPDI"
-                                          },
-                                          "b38SPDI": {
-                                            "$first": "$$ROOT.b38SPDI"
-                                          },
-                                          "evidenceLevel": {
-                                            "$first": "$$ROOT.evidenceLevel"
-                                          },
-                                          "predictedImplication": {
-                                            "$first": "$$ROOT.predictedImplication"
-                                          },
-                                          "medicationAssessed": {
-                                            "$first": "$$ROOT.medicationAssessed"
-                                          },
-                                          "phenotypicTreatmentContext": {
-                                            "$push": "$$ROOT.phenotypicTreatmentContext"
-                                          }}})
+        pipeline_part.append({"$group": {"_id": "$_id",
+                                         "variationID": {
+                                             "$first": "$$ROOT.variationID"
+                                         },
+                                         "b37SPDI": {
+                                             "$first": "$$ROOT.b37SPDI"
+                                         },
+                                         "b38SPDI": {
+                                             "$first": "$$ROOT.b38SPDI"
+                                         },
+                                         "evidenceLevel": {
+                                             "$first": "$$ROOT.evidenceLevel"
+                                         },
+                                         "predictedImplication": {
+                                             "$first": "$$ROOT.predictedImplication"
+                                         },
+                                         "medicationAssessed": {
+                                             "$first": "$$ROOT.medicationAssessed"
+                                         },
+                                         "phenotypicTreatmentContext": {
+                                             "$push": "$$ROOT.phenotypicTreatmentContext"
+                                         }}})
 
     if treatment_list != []:
         pipeline_part.append({'$match': {'$or': []}})
@@ -1330,28 +1332,28 @@ def query_CIVIC_by_variants(normalized_variant_list, code_list, treatment_list, 
         pipeline_part[-1]['$match']['$or'] = or_query
         pipeline_part.append({"$unwind": "$medicationAssessed"})
         pipeline_part.append({'$match': {'$or': or_query}})
-        pipeline_part.append({"$group": { "_id": "$_id",
-                                          "variationID": {
-                                            "$first": "$$ROOT.variationID"
-                                          },
-                                          "b37SPDI": {
-                                            "$first": "$$ROOT.b37SPDI"
-                                          },
-                                          "b38SPDI": {
-                                            "$first": "$$ROOT.b38SPDI"
-                                          },
-                                          "evidenceLevel": {
-                                            "$first": "$$ROOT.evidenceLevel"
-                                          },
-                                          "predictedImplication": {
-                                            "$first": "$$ROOT.predictedImplication"
-                                          },
-                                          "phenotypicTreatmentContext": {
-                                            "$first": "$$ROOT.phenotypicTreatmentContext"
-                                          },
-                                          "medicationAssessed": {
-                                            "$push": "$$ROOT.medicationAssessed"
-                                          }}})
+        pipeline_part.append({"$group": {"_id": "$_id",
+                                         "variationID": {
+                                             "$first": "$$ROOT.variationID"
+                                         },
+                                         "b37SPDI": {
+                                             "$first": "$$ROOT.b37SPDI"
+                                         },
+                                         "b38SPDI": {
+                                             "$first": "$$ROOT.b38SPDI"
+                                         },
+                                         "evidenceLevel": {
+                                             "$first": "$$ROOT.evidenceLevel"
+                                         },
+                                         "predictedImplication": {
+                                             "$first": "$$ROOT.predictedImplication"
+                                         },
+                                         "phenotypicTreatmentContext": {
+                                             "$first": "$$ROOT.phenotypicTreatmentContext"
+                                         },
+                                         "medicationAssessed": {
+                                             "$push": "$$ROOT.medicationAssessed"
+                                         }}})
 
     query['SPDI'] = {'$in': variant_list}
 
@@ -1360,7 +1362,7 @@ def query_CIVIC_by_variants(normalized_variant_list, code_list, treatment_list, 
                                  'as': 'txImplicationMatches'}},
                     {'$addFields': {}},
                     {'$match': {'txImplicationMatches': {'$exists': True, '$not': {'$size': 0}}}}]
-             
+
     if population:
         query_string.append({'$group': {'_id': '$patientID'}})
 
@@ -1372,11 +1374,11 @@ def query_CIVIC_by_variants(normalized_variant_list, code_list, treatment_list, 
         results = []
 
     query_results = []
-    
+
     for item in results:
         item["UUID"] = str(uuid4())
         query_results.append(item)
-  
+
     return query_results
 
 
@@ -1410,56 +1412,56 @@ def query_CIVIC_by_condition(code_list, treatment_list, query):
         treatment_query['$or'] = treatment_or_query
 
     condition_query_string = [{'$match': condition_query},
-                    {"$unwind": "$phenotypicTreatmentContext"},
-                    {'$match': condition_query},
-                    {"$group": {  "_id": "$_id",
-                                  "variationID": {
-                                    "$first": "$$ROOT.variationID"
-                                  },
-                                  "b37SPDI": {
-                                    "$first": "$$ROOT.b37SPDI"
-                                  },
-                                  "b38SPDI": {
-                                    "$first": "$$ROOT.b38SPDI"
-                                  },
-                                  "evidenceLevel": {
-                                    "$first": "$$ROOT.evidenceLevel"
-                                  },
-                                  "predictedImplication": {
-                                    "$first": "$$ROOT.predictedImplication"
-                                  },
-                                  "medicationAssessed": {
-                                    "$first": "$$ROOT.medicationAssessed"
-                                  },
-                                  "phenotypicTreatmentContext": {
-                                    "$push": "$$ROOT.phenotypicTreatmentContext"
-                                  }}}]
+                              {"$unwind": "$phenotypicTreatmentContext"},
+                              {'$match': condition_query},
+                              {"$group": {"_id": "$_id",
+                                          "variationID": {
+                                              "$first": "$$ROOT.variationID"
+                                          },
+                                          "b37SPDI": {
+                                              "$first": "$$ROOT.b37SPDI"
+                                          },
+                                          "b38SPDI": {
+                                              "$first": "$$ROOT.b38SPDI"
+                                          },
+                                          "evidenceLevel": {
+                                              "$first": "$$ROOT.evidenceLevel"
+                                          },
+                                          "predictedImplication": {
+                                              "$first": "$$ROOT.predictedImplication"
+                                          },
+                                          "medicationAssessed": {
+                                              "$first": "$$ROOT.medicationAssessed"
+                                          },
+                                          "phenotypicTreatmentContext": {
+                                              "$push": "$$ROOT.phenotypicTreatmentContext"
+                                          }}}]
 
     treatment_query_string = [{'$match': treatment_query},
-                    {"$unwind": "$medicationAssessed"},
-                    {'$match': treatment_query},
-                    {"$group": {  "_id": "$_id",
-                                  "variationID": {
-                                    "$first": "$$ROOT.variationID"
-                                  },
-                                  "b37SPDI": {
-                                    "$first": "$$ROOT.b37SPDI"
-                                  },
-                                  "b38SPDI": {
-                                    "$first": "$$ROOT.b38SPDI"
-                                  },
-                                  "evidenceLevel": {
-                                    "$first": "$$ROOT.evidenceLevel"
-                                  },
-                                  "predictedImplication": {
-                                    "$first": "$$ROOT.predictedImplication"
-                                  },
-                                  "medicationAssessed": {
-                                    "$push": "$$ROOT.medicationAssessed"
-                                  },
-                                  "phenotypicTreatmentContext": {
-                                    "$first": "$$ROOT.phenotypicTreatmentContext"
-                                  }}}]
+                              {"$unwind": "$medicationAssessed"},
+                              {'$match': treatment_query},
+                              {"$group": {"_id": "$_id",
+                                          "variationID": {
+                                              "$first": "$$ROOT.variationID"
+                                          },
+                                          "b37SPDI": {
+                                              "$first": "$$ROOT.b37SPDI"
+                                          },
+                                          "b38SPDI": {
+                                              "$first": "$$ROOT.b38SPDI"
+                                          },
+                                          "evidenceLevel": {
+                                              "$first": "$$ROOT.evidenceLevel"
+                                          },
+                                          "predictedImplication": {
+                                              "$first": "$$ROOT.predictedImplication"
+                                          },
+                                          "medicationAssessed": {
+                                              "$push": "$$ROOT.medicationAssessed"
+                                          },
+                                          "phenotypicTreatmentContext": {
+                                              "$first": "$$ROOT.phenotypicTreatmentContext"
+                                          }}}]
 
     query_string = []
     if condition_query['$or']:
@@ -1468,16 +1470,16 @@ def query_CIVIC_by_condition(code_list, treatment_list, query):
     if treatment_query['$or']:
         query_string.extend(treatment_query_string)
 
-    query_string.extend([{'$lookup': {'from': 'Variants', 'let': {'b37SPDI': '$b37SPDI', 'b38SPDI': '$b38SPDI'}, 
-                                 'pipeline': [{'$match': query},
-                                              {'$match': {'$expr': {'$and': [{'$or': [
-                                                                               {'$eq': ['$SPDI', '$$b37SPDI']},
-                                                                               {'$eq': ['$SPDI', '$$b38SPDI']}
-                                                                           ]}]}}},
-                                              {'$addFields': {}}],
-                                 'as': 'patientMatches'}},
-                    {'$addFields': {}},
-                    {'$match': {'patientMatches': {'$exists': True, '$not': {'$size': 0}}}}])
+    query_string.extend([{'$lookup': {'from': 'Variants', 'let': {'b37SPDI': '$b37SPDI', 'b38SPDI': '$b38SPDI'},
+                                      'pipeline': [{'$match': query},
+                                                   {'$match': {'$expr': {'$and': [{'$or': [
+                                                       {'$eq': ['$SPDI', '$$b37SPDI']},
+                                                       {'$eq': ['$SPDI', '$$b38SPDI']}
+                                                   ]}]}}},
+                                                   {'$addFields': {}}],
+                                      'as': 'patientMatches'}},
+                         {'$addFields': {}},
+                         {'$match': {'patientMatches': {'$exists': True, '$not': {'$size': 0}}}}])
 
     try:
         results = txImplication_db.aggregate(query_string)
@@ -1498,7 +1500,7 @@ def query_CIVIC_by_condition(code_list, treatment_list, query):
 
 def query_PharmGKB_by_haplotypes(normalizedHaplotypeList, treatmentCodeList, query, population=False):
     pipeline_part = [{'$match': {'$expr': {'$and': [{'$eq': ['$genotype.code', '$$mygenotypeCode']}]}}},
-                    {'$addFields': {}}]
+                     {'$addFields': {}}]
 
     if treatmentCodeList != []:
         pipeline_part.append({'$match': {'$or': []}})
@@ -1514,35 +1516,35 @@ def query_PharmGKB_by_haplotypes(normalizedHaplotypeList, treatmentCodeList, que
         pipeline_part[-1]['$match']['$or'] = or_query
         pipeline_part.append({"$unwind": "$medicationAssessed"})
         pipeline_part.append({'$match': {'$or': or_query}})
-        pipeline_part.append({"$group": { "_id": "$_id",
-                                          "variationID": {
-                                            "$first": "$$ROOT.variationID"
-                                          },
-                                          "b37SPDI": {
-                                            "$first": "$$ROOT.b37SPDI"
-                                          },
-                                          "b38SPDI": {
-                                            "$first": "$$ROOT.b38SPDI"
-                                          },
-                                          "evidenceLevel": {
-                                            "$first": "$$ROOT.evidenceLevel"
-                                          },
-                                          "predictedImplication": {
-                                            "$first": "$$ROOT.predictedImplication"
-                                          },
-                                          "genotype_code": {
-                                            "$first": {"$first": "$$ROOT.genotype.code"}
-                                          },
-                                          "genotype_system": {
-                                            "$first": {"$first": "$$ROOT.genotype.system"}
-                                          },
-                                          "genotype_display": {
-                                            "$first": {"$first": "$$ROOT.genotype.display"}
-                                          },
-                                          "medicationAssessed": {
-                                            "$push": "$$ROOT.medicationAssessed"
-                                          }}})
-    
+        pipeline_part.append({"$group": {"_id": "$_id",
+                                         "variationID": {
+                                             "$first": "$$ROOT.variationID"
+                                         },
+                                         "b37SPDI": {
+                                             "$first": "$$ROOT.b37SPDI"
+                                         },
+                                         "b38SPDI": {
+                                             "$first": "$$ROOT.b38SPDI"
+                                         },
+                                         "evidenceLevel": {
+                                             "$first": "$$ROOT.evidenceLevel"
+                                         },
+                                         "predictedImplication": {
+                                             "$first": "$$ROOT.predictedImplication"
+                                         },
+                                         "genotype_code": {
+                                             "$first": {"$first": "$$ROOT.genotype.code"}
+                                         },
+                                         "genotype_system": {
+                                             "$first": {"$first": "$$ROOT.genotype.system"}
+                                         },
+                                         "genotype_display": {
+                                             "$first": {"$first": "$$ROOT.genotype.display"}
+                                         },
+                                         "medicationAssessed": {
+                                             "$push": "$$ROOT.medicationAssessed"
+                                         }}})
+
     query['$or'] = []
 
     for haplotype in normalizedHaplotypeList:
@@ -1551,21 +1553,21 @@ def query_PharmGKB_by_haplotypes(normalizedHaplotypeList, treatmentCodeList, que
             query['$or'].append({'genotypeCode': {"$eq": haplotype['haplotype']}})
         else:
             query['$or'].append({'$or': [
-                    {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*"}},
-                    {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*"}}
-                ]})
+                {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*"}},
+                {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*"}}
+            ]})
 
     query_string = [{'$match': query},
-                   {'$lookup': {'from': 'txImplication',
-                    'localField': 'genotypeCode',
-                    'foreignField': 'genotype.code',
-                                'as': 'txImplicationMatches'}},
-                   {'$addFields': {}},
-                   {'$match': {'txImplicationMatches': {'$exists': True, '$not': {'$size': 0}}}}]
+                    {'$lookup': {'from': 'txImplication',
+                                 'localField': 'genotypeCode',
+                                 'foreignField': 'genotype.code',
+                                 'as': 'txImplicationMatches'}},
+                    {'$addFields': {}},
+                    {'$match': {'txImplicationMatches': {'$exists': True, '$not': {'$size': 0}}}}]
 
     if population:
         query_string.append({'$group': {'_id': '$patientID'}})
-             
+
     try:
         results = genotypes_db.aggregate(query_string)
         results = list(results)
@@ -1574,11 +1576,11 @@ def query_PharmGKB_by_haplotypes(normalizedHaplotypeList, treatmentCodeList, que
         results = []
 
     query_results = []
-    
+
     for item in results:
         item["UUID"] = str(uuid4())
         query_results.append(item)
-  
+
     return query_results
 
 
@@ -1612,63 +1614,63 @@ def query_PharmGKB_by_treatments(code_list, treatment_list, query):
         treatment_query['$or'] = treatment_or_query
 
     condition_query_string = [{'$match': condition_query},
-                    {"$unwind": "$phenotypicTreatmentContext"},
-                    {'$match': condition_query},
-                    {"$group": {  "_id": "$_id",
-                                  "variationID": {
-                                    "$first": "$$ROOT.variationID"
-                                  },
-                                  "evidenceLevel": {
-                                    "$first": "$$ROOT.evidenceLevel"
-                                  },
-                                  "predictedImplication": {
-                                    "$first": "$$ROOT.predictedImplication"
-                                  },
-                                  "genotype_code": {
-                                    "$first": {"$first": "$$ROOT.genotype.code"}
-                                  },
-                                  "genotype_system": {
-                                    "$first": {"$first": "$$ROOT.genotype.system"}
-                                  },
-                                  "genotype_display": {
-                                    "$first": {"$first": "$$ROOT.genotype.display"}
-                                  },
-                                  "medicationAssessed": {
-                                    "$first": "$$ROOT.medicationAssessed"
-                                  },
-                                  "phenotypicTreatmentContext": {
-                                    "$push": "$$ROOT.phenotypicTreatmentContext"
-                                  }}}]
+                              {"$unwind": "$phenotypicTreatmentContext"},
+                              {'$match': condition_query},
+                              {"$group": {"_id": "$_id",
+                                          "variationID": {
+                                              "$first": "$$ROOT.variationID"
+                                          },
+                                          "evidenceLevel": {
+                                              "$first": "$$ROOT.evidenceLevel"
+                                          },
+                                          "predictedImplication": {
+                                              "$first": "$$ROOT.predictedImplication"
+                                          },
+                                          "genotype_code": {
+                                              "$first": {"$first": "$$ROOT.genotype.code"}
+                                          },
+                                          "genotype_system": {
+                                              "$first": {"$first": "$$ROOT.genotype.system"}
+                                          },
+                                          "genotype_display": {
+                                              "$first": {"$first": "$$ROOT.genotype.display"}
+                                          },
+                                          "medicationAssessed": {
+                                              "$first": "$$ROOT.medicationAssessed"
+                                          },
+                                          "phenotypicTreatmentContext": {
+                                              "$push": "$$ROOT.phenotypicTreatmentContext"
+                                          }}}]
 
     treatment_query_string = [{'$match': treatment_query},
-                    {"$unwind": "$medicationAssessed"},
-                    {'$match': treatment_query},
-                    {"$group": {  "_id": "$_id",
-                                  "variationID": {
-                                    "$first": "$$ROOT.variationID"
-                                  },
-                                  "evidenceLevel": {
-                                    "$first": "$$ROOT.evidenceLevel"
-                                  },
-                                  "predictedImplication": {
-                                    "$first": "$$ROOT.predictedImplication"
-                                  },
-                                  "genotype_code": {
-                                    "$first": {"$first": "$$ROOT.genotype.code"}
-                                  },
-                                  "genotype_system": {
-                                    "$first": {"$first": "$$ROOT.genotype.system"}
-                                  },
-                                  "genotype_display": {
-                                    "$first": {"$first": "$$ROOT.genotype.display"}
-                                  },
-                                  "medicationAssessed": {
-                                    "$push": "$$ROOT.medicationAssessed"
-                                  },
-                                  "phenotypicTreatmentContext": {
-                                    "$first": "$$ROOT.phenotypicTreatmentContext"
-                                  }}}
-                                  ]
+                              {"$unwind": "$medicationAssessed"},
+                              {'$match': treatment_query},
+                              {"$group": {"_id": "$_id",
+                                          "variationID": {
+                                              "$first": "$$ROOT.variationID"
+                                          },
+                                          "evidenceLevel": {
+                                              "$first": "$$ROOT.evidenceLevel"
+                                          },
+                                          "predictedImplication": {
+                                              "$first": "$$ROOT.predictedImplication"
+                                          },
+                                          "genotype_code": {
+                                              "$first": {"$first": "$$ROOT.genotype.code"}
+                                          },
+                                          "genotype_system": {
+                                              "$first": {"$first": "$$ROOT.genotype.system"}
+                                          },
+                                          "genotype_display": {
+                                              "$first": {"$first": "$$ROOT.genotype.display"}
+                                          },
+                                          "medicationAssessed": {
+                                              "$push": "$$ROOT.medicationAssessed"
+                                          },
+                                          "phenotypicTreatmentContext": {
+                                              "$first": "$$ROOT.phenotypicTreatmentContext"
+                                          }}}
+                              ]
 
     query_string = []
     if condition_query['$or']:
@@ -1676,18 +1678,18 @@ def query_PharmGKB_by_treatments(code_list, treatment_list, query):
 
     if treatment_query['$or']:
         query_string.extend(treatment_query_string)
-    
+
     if 'genomicSourceClass' in query:
         query.pop('genomicSourceClass')
- 
+
     query_string.extend([
-                    {'$lookup': {'from': 'Genotypes', 'let': {'genotype_code_v': '$genotype_code'}, 
-                                 'pipeline': [{'$match': query},
-                                              {'$match': {'$expr': {'$and': [{'$eq': ['$genotypeCode', '$$genotype_code_v']}]}}},
-                                              {'$addFields': {}}],
-                                 'as': 'patientMatches'}},
-                    {'$addFields': {}},
-                    {'$match': {'patientMatches': {'$exists': True, '$not': {'$size': 0}}}}])
+        {'$lookup': {'from': 'Genotypes', 'let': {'genotype_code_v': '$genotype_code'},
+                     'pipeline': [{'$match': query},
+                                  {'$match': {'$expr': {'$and': [{'$eq': ['$genotypeCode', '$$genotype_code_v']}]}}},
+                                  {'$addFields': {}}],
+                     'as': 'patientMatches'}},
+        {'$addFields': {}},
+        {'$match': {'patientMatches': {'$exists': True, '$not': {'$size': 0}}}}])
 
     try:
         results = txImplication_db.aggregate(query_string)
@@ -1726,7 +1728,7 @@ def query_genes(gene):
     except Exception as e:
         print(f"DEBUG: Error({e}) under get_feature_coordinates(gene={gene})")
         results = []
-  
+
     return results
 
 
@@ -1741,26 +1743,26 @@ def query_genes_range(given_range):
 
     if build == 'GRCh37':
         query = {"$and": [{"build37RefSeq": {"$eq": ref_seq}},
-                      {'$or': [
-                         {"$and": [
-                             {"build37Start": {"$gte": start}},
-                             {"build37Start": {"$lte": end}}
-                         ]},
-                         {"$and": [
-                             {"build37Start": {"$lte": start}},
-                             {"build37End": {"$gte": start}}
-        ]}]}]}
+                          {'$or': [
+                              {"$and": [
+                                  {"build37Start": {"$gte": start}},
+                                  {"build37Start": {"$lte": end}}
+                              ]},
+                              {"$and": [
+                                  {"build37Start": {"$lte": start}},
+                                  {"build37End": {"$gte": start}}
+                              ]}]}]}
     else:
         query = {"$and": [{"build38RefSeq": {"$eq": ref_seq}},
-                      {'$or': [
-                         {"$and": [
-                             {"build38Start": {"$gte": start}},
-                             {"build38Start": {"$lte": end}}
-                         ]},
-                         {"$and": [
-                             {"build38Start": {"$lte": start}},
-                             {"build38End": {"$gte": start}}
-        ]}]}]}
+                          {'$or': [
+                              {"$and": [
+                                  {"build38Start": {"$gte": start}},
+                                  {"build38Start": {"$lte": end}}
+                              ]},
+                              {"$and": [
+                                  {"build38Start": {"$lte": start}},
+                                  {"build38End": {"$gte": start}}
+                              ]}]}]}
 
     query_string = [{'$match': query},
                     {'$lookup': {'from': 'Transcripts', 'let': {'geneSymbol': '$NCBIgeneSymbol'}, 'pipeline': pipeline_part,
@@ -1773,7 +1775,7 @@ def query_genes_range(given_range):
     except Exception as e:
         print(f"DEBUG: Error({e}) under find_the_gene(given_range={given_range})")
         results = []
-  
+
     return results
 
 
@@ -1787,7 +1789,7 @@ def query_transcript(transcript):
                           {'$addFields': {}}]
 
     cds_pipeline_part = [{'$match': {'$expr': {'$eq': ['$transcript', '$$refSeq']}}},
-                          {'$addFields': {}}]
+                         {'$addFields': {}}]
 
     query['transcriptRefSeq'] = {"$regex": ".*"+str(transcript).replace('*', r'\*')+".*"}
 
@@ -1811,5 +1813,5 @@ def query_transcript(transcript):
 
     if len(results) > 1:
         abort(400, "Unable to provide information on this transcript at this time")
-  
+
     return results

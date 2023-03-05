@@ -7,6 +7,7 @@ Feature Coordinate Utility Tests
 --------------------------------
 """
 
+
 def test_get_feature_coordinates_one_parameter_supplied(client):
     url = get_feature_coordinates_query('')
     response = client.get(url)

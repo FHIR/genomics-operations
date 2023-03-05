@@ -47,6 +47,7 @@ Find Population Dx Implications Tests
 -------------------------------------
 """
 
+
 def test_find_population_dx_implications_1(client):
     url = find_population_dx_implications_query('conditions=https://www.ncbi.nlm.nih.gov/medgen|C3469186&includePatientList=true')
     response = client.get(url)
@@ -69,7 +70,8 @@ def test_find_population_dx_implications_3(client):
 
 
 def test_find_population_dx_implications_4(client):
-    url = find_population_dx_implications_query('conditions=https://www.ncbi.nlm.nih.gov/medgen|C0677776,https://www.ncbi.nlm.nih.gov/medgen|C4552100,https://www.ncbi.nlm.nih.gov/medgen|C0020445&includePatientList=true')
+    url = find_population_dx_implications_query(
+        'conditions=https://www.ncbi.nlm.nih.gov/medgen|C0677776,https://www.ncbi.nlm.nih.gov/medgen|C4552100,https://www.ncbi.nlm.nih.gov/medgen|C0020445&includePatientList=true')
     response = client.get(url)
 
     compare_actual_and_expected_output(f'{FIND_POPULATION_DX_IMPLICATIONS_OUTPUT_DIR}4.json', response.json)

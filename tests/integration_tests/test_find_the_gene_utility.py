@@ -7,6 +7,7 @@ Find The Gene Utility Tests
 ---------------------------
 """
 
+
 def test_get_find_the_gene_parameter_supplied(client):
     url = find_the_gene_query('')
     response = client.get(url)

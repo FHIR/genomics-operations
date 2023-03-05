@@ -2,6 +2,7 @@ import connexion
 import flask
 import os
 
+
 def create_app():
     # App and API
     options = {
@@ -13,11 +14,11 @@ def create_app():
 
     api = connex_app.add_api('api_spec.yml')
 
-    bp = flask.Blueprint('redoc', __name__, url_prefix = api.base_path,
-            template_folder = os.path.dirname(__file__))
+    bp = flask.Blueprint('redoc', __name__, url_prefix=api.base_path,
+                         template_folder=os.path.dirname(__file__))
 
     specPath = api.base_path + api.options.openapi_spec_path
-    serveRedoc = lambda: flask.render_template('redoc.j2', openapi_spec_url = specPath)
+    def serveRedoc(): return flask.render_template('redoc.j2', openapi_spec_url=specPath)
 
     bp.add_url_rule('/docs/', __name__, serveRedoc)
 
@@ -28,6 +29,7 @@ def create_app():
     app.config['JSON_SORT_KEYS'] = False
 
     return app
+
 
 if __name__ == '__main__':
     create_app().run()
