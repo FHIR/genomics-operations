@@ -1,8 +1,7 @@
 import streamlit as st
 import pandas as pd
 import requests
-import json
-from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode
+from st_aggrid import AgGrid
 
 st.set_page_config(
     page_title="Genetic Screening",

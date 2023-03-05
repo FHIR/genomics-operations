@@ -1,6 +1,4 @@
 import pyfastx
-import requests
-import json
 
 GRCh37_ref_seq_fasta = pyfastx.Fasta('FASTA/GRCh37_latest_genomic.fna.gz')
 GRCh38_ref_seq_fasta = pyfastx.Fasta('FASTA/GRCh38_latest_genomic.fna.gz')

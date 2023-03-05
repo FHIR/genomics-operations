@@ -1,6 +1,6 @@
-from flask import jsonify
+from flask import abort, jsonify
 from collections import OrderedDict
-from .common import *
+from app import common
 
 
 def find_subject_variants(
@@ -10,16 +10,16 @@ def find_subject_variants(
 
     # Parameters
     subject = subject.strip()
-    validate_subject(subject)
+    common.validate_subject(subject)
 
-    ranges = list(map(get_range, ranges))
+    ranges = list(map(common.get_range, ranges))
 
     # Query
     query = {}
 
     # date query
     if testDateRange:
-        testDateRange = list(map(get_date, testDateRange))
+        testDateRange = list(map(common.get_date, testDateRange))
         query["testDate"] = {}
 
         for date_range in testDateRange:
@@ -44,10 +44,10 @@ def find_subject_variants(
         query["genomicSourceClass"] = {"$eq": genomicSourceClass}
 
     # Genomics Build Presence
-    genomics_build_presence = get_genomics_build_presence(query)
+    genomics_build_presence = common.get_genomics_build_presence(query)
 
     # Chromosome To Ranges
-    chromosome_to_ranges = get_chromosome_to_ranges(ranges, genomics_build_presence)
+    chromosome_to_ranges = common.get_chromosome_to_ranges(ranges, genomics_build_presence)
 
     # Result Object
     result = OrderedDict()
@@ -109,7 +109,7 @@ def find_subject_variants(
         query["genomicBuild"] = {"$in": genomic_builds}
 
         try:
-            variant_q = variants_db.aggregate([{"$match": query}])
+            variant_q = common.variants_db.aggregate([{"$match": query}])
             variant_q = list(variant_q)
         except Exception as e:
             print(f"DEBUG: Error{e} under find_subject_variants query={query}")
@@ -128,8 +128,8 @@ def find_subject_variants(
                 variant_fhir_profiles = []
 
                 for record in variant_q:
-                    ref_seq = get_ref_seq_by_chrom_and_build(record['genomicBuild'], record['CHROM'])
-                    resource = create_fhir_variant_resource(record, ref_seq, subject)
+                    ref_seq = common.get_ref_seq_by_chrom_and_build(record['genomicBuild'], record['CHROM'])
+                    resource = common.create_fhir_variant_resource(record, ref_seq, subject)
 
                     variant_fhir_profiles.append(resource)
 
@@ -145,11 +145,12 @@ def find_subject_variants(
                 if includePhasing:
                     variantIDs = [str(v['_id']) for v in variant_q]
                     sequence_phase_profiles = []
-                    sequence_phase_data = get_sequence_phase_data(subject)
+                    sequence_phase_data = common.get_sequence_phase_data(
+                        subject)
 
                     for sq_data in sequence_phase_data:
                         if sq_data["variantID1"] in variantIDs and sq_data["variantID2"] in variantIDs:
-                            sq_profile = create_sequence_phase_relationship(subject, sq_data)
+                            sq_profile = common.create_sequence_phase_relationship(subject, sq_data)
 
                             sequence_phase_profiles.append(sq_profile)
 
@@ -176,9 +177,9 @@ def find_subject_specific_variants(
 
     # Parameters
     subject = subject.strip()
-    validate_subject(subject)
+    common.validate_subject(subject)
 
-    variants = list(map(get_variant, variants))
+    variants = list(map(common.get_variant, variants))
 
     # Query
     query = {}
@@ -186,7 +187,7 @@ def find_subject_specific_variants(
 
     # date query
     if testDateRange:
-        testDateRange = list(map(get_date, testDateRange))
+        testDateRange = list(map(common.get_date, testDateRange))
         query["testDate"] = {}
 
         for date_range in testDateRange:
@@ -210,7 +211,7 @@ def find_subject_specific_variants(
         genomicSourceClass = genomicSourceClass.strip().lower()
         query["genomicSourceClass"] = {"$eq": genomicSourceClass}
 
-    genomics_build_presence = get_genomics_build_presence(query)
+    genomics_build_presence = common.get_genomics_build_presence(query)
 
     for variant in variants:
         if not variant["GRCh37"] and genomics_build_presence["GRCh37"]:
@@ -243,7 +244,7 @@ def find_subject_specific_variants(
         query["SPDI"] = {"$in": spdis}
 
         try:
-            variant_q = variants_db.aggregate([{"$match": query}])
+            variant_q = common.variants_db.aggregate([{"$match": query}])
             variant_q = list(variant_q)
         except Exception as e:
             print(f"DEBUG: Error{e} under find_subject_specific_variants query={query}")
@@ -260,8 +261,8 @@ def find_subject_specific_variants(
             variant_fhir_profiles = []
 
             for record in variant_q:
-                ref_seq = get_ref_seq_by_chrom_and_build(record['genomicBuild'], record['CHROM'])
-                resource = create_fhir_variant_resource(record, ref_seq, subject)
+                ref_seq = common.get_ref_seq_by_chrom_and_build(record['genomicBuild'], record['CHROM'])
+                resource = common.create_fhir_variant_resource(record, ref_seq, subject)
 
                 variant_fhir_profiles.append(resource)
 
@@ -289,16 +290,16 @@ def find_subject_structural_intersecting_variants(
 
     # Parameters
     subject = subject.strip()
-    validate_subject(subject)
+    common.validate_subject(subject)
 
-    ranges = list(map(get_range, ranges))
+    ranges = list(map(common.get_range, ranges))
 
     # Query
     query = {}
 
     # date query
     if testDateRange:
-        testDateRange = list(map(get_date, testDateRange))
+        testDateRange = list(map(common.get_date, testDateRange))
         query["testDate"] = {}
 
         for date_range in testDateRange:
@@ -323,10 +324,10 @@ def find_subject_structural_intersecting_variants(
         query["genomicSourceClass"] = {"$eq": genomicSourceClass}
 
     # Genomics Build Presence
-    genomics_build_presence = get_genomics_build_presence(query)
+    genomics_build_presence = common.get_genomics_build_presence(query)
 
     # Chromosome To Ranges
-    chromosome_to_ranges = get_chromosome_to_ranges(ranges, genomics_build_presence)
+    chromosome_to_ranges = common.get_chromosome_to_ranges(ranges, genomics_build_presence)
 
     # Result Object
     result = OrderedDict()
@@ -388,7 +389,7 @@ def find_subject_structural_intersecting_variants(
         query["genomicBuild"] = {"$in": genomic_builds}
 
         try:
-            variant_q = variants_db.aggregate([{"$match": query}])
+            variant_q = common.variants_db.aggregate([{"$match": query}])
             variant_q = list(variant_q)
         except Exception as e:
             print(f"DEBUG: Error{e} under find_subject_structural_intersecting_variants query={query}")
@@ -407,8 +408,8 @@ def find_subject_structural_intersecting_variants(
                 variant_fhir_profiles = []
 
                 for record in variant_q:
-                    ref_seq = get_ref_seq_by_chrom_and_build(record['genomicBuild'], record['CHROM'])
-                    resource = create_fhir_variant_resource(record, ref_seq, subject)
+                    ref_seq = common.get_ref_seq_by_chrom_and_build(record['genomicBuild'], record['CHROM'])
+                    resource = common.create_fhir_variant_resource(record, ref_seq, subject)
 
                     variant_fhir_profiles.append(resource)
 
@@ -436,16 +437,16 @@ def find_subject_structural_subsuming_variants(
 
     # Parameters
     subject = subject.strip()
-    validate_subject(subject)
+    common.validate_subject(subject)
 
-    ranges = list(map(get_range, ranges))
+    ranges = list(map(common.get_range, ranges))
 
     # Query
     query = {}
 
     # date query
     if testDateRange:
-        testDateRange = list(map(get_date, testDateRange))
+        testDateRange = list(map(common.get_date, testDateRange))
         query["testDate"] = {}
 
         for date_range in testDateRange:
@@ -470,10 +471,10 @@ def find_subject_structural_subsuming_variants(
         query["genomicSourceClass"] = {"$eq": genomicSourceClass}
 
     # Genomics Build Presence
-    genomics_build_presence = get_genomics_build_presence(query)
+    genomics_build_presence = common.get_genomics_build_presence(query)
 
     # Chromosome To Ranges
-    chromosome_to_ranges = get_chromosome_to_ranges(ranges, genomics_build_presence)
+    chromosome_to_ranges = common.get_chromosome_to_ranges(ranges, genomics_build_presence)
 
     # Result Object
     result = OrderedDict()
@@ -518,7 +519,7 @@ def find_subject_structural_subsuming_variants(
         query["genomicBuild"] = {"$in": genomic_builds}
 
         try:
-            variant_q = variants_db.aggregate([{"$match": query}])
+            variant_q = common.variants_db.aggregate([{"$match": query}])
             variant_q = list(variant_q)
         except Exception as e:
             print(f"DEBUG: Error{e} under find_subject_structural_subsuming_variants query={query}")
@@ -537,8 +538,8 @@ def find_subject_structural_subsuming_variants(
                 variant_fhir_profiles = []
 
                 for record in variant_q:
-                    ref_seq = get_ref_seq_by_chrom_and_build(record['genomicBuild'], record['CHROM'])
-                    resource = create_fhir_variant_resource(record, ref_seq, subject)
+                    ref_seq = common.get_ref_seq_by_chrom_and_build(record['genomicBuild'], record['CHROM'])
+                    resource = common.create_fhir_variant_resource(record, ref_seq, subject)
 
                     variant_fhir_profiles.append(resource)
 
@@ -565,16 +566,16 @@ def find_subject_haplotypes(
 
     # Parameters
     subject = subject.strip()
-    validate_subject(subject)
+    common.validate_subject(subject)
 
-    genes = list(map(get_gene, genes))
+    genes = list(map(common.get_gene, genes))
 
     # Query
     query = {}
 
     # date query
     if testDateRange:
-        testDateRange = list(map(get_date, testDateRange))
+        testDateRange = list(map(common.get_date, testDateRange))
         query["testDate"] = {}
 
         for date_range in testDateRange:
@@ -624,7 +625,7 @@ def find_subject_haplotypes(
             ]})
 
         try:
-            gene_q = genotypes_db.aggregate([{"$match": query}])
+            gene_q = common.genotypes_db.aggregate([{"$match": query}])
             gene_q = list(gene_q)
         except Exception as e:
             print(f"DEBUG: Error{e} under find_subject_haplotypes query={query}")
@@ -633,7 +634,8 @@ def find_subject_haplotypes(
         genotype_profiles = []
         for qresult in gene_q:
             # haplotype_profile = create_haplotype_profile(qresult, subject, "")
-            genotype_profile = create_genotype_profile(qresult, subject, [])
+            genotype_profile = common.create_genotype_profile(
+                qresult, subject, [])
 
             genotype_profiles.append(genotype_profile)
 
@@ -665,16 +667,16 @@ def find_subject_specific_haplotypes(
 
     # Parameters
     subject = subject.strip()
-    validate_subject(subject)
+    common.validate_subject(subject)
 
-    haplotypes = list(map(get_haplotype, haplotypes))
+    haplotypes = list(map(common.get_haplotype, haplotypes))
 
     # Query
     query = {}
 
     # date query
     if testDateRange:
-        testDateRange = list(map(get_date, testDateRange))
+        testDateRange = list(map(common.get_date, testDateRange))
         query["testDate"] = {}
 
         for date_range in testDateRange:
@@ -725,7 +727,7 @@ def find_subject_specific_haplotypes(
             ]
 
         try:
-            haplotype_q = genotypes_db.aggregate([{"$match": query}])
+            haplotype_q = common.genotypes_db.aggregate([{"$match": query}])
             haplotype_q = list(haplotype_q)
         except Exception as e:
             print(f"DEBUG: Error{e} under find_subject_specific_haplotypes query={query}")
@@ -742,7 +744,7 @@ def find_subject_specific_haplotypes(
             genotype_profiles = []
             for qresult in haplotype_q:
                 # haplotype_profile = create_haplotype_profile(qresult, subject, "")
-                genotype_profile = create_genotype_profile(qresult, subject, [])
+                genotype_profile = common.create_genotype_profile(qresult, subject, [])
 
                 genotype_profiles.append(genotype_profile)
 
@@ -775,35 +777,35 @@ def find_subject_tx_implications(
 
     # Parameters
     subject = subject.strip()
-    validate_subject(subject)
+    common.validate_subject(subject)
 
     if variants and ranges:
-        abort(400, f"You cannot supply both 'variants' and 'ranges'.")
+        abort(400, "You cannot supply both 'variants' and 'ranges'.")
 
     if (variants or ranges) and haplotypes:
-        abort(400, f"You cannot supply both ('variants' or 'ranges') and 'haplotypes'.")
+        abort(400, "You cannot supply both ('variants' or 'ranges') and 'haplotypes'.")
 
     if not variants and not conditions and not treatments and not haplotypes and not ranges:
         return jsonify({"resourceType": "Parameters"})
 
     normalized_haplotype_list = []
     if haplotypes:
-        normalized_haplotype_list = list(map(get_haplotype, haplotypes))
+        normalized_haplotype_list = list(map(common.get_haplotype, haplotypes))
 
     condition_code_list = []
     if conditions:
-        condition_code_list = list(map(get_condition, conditions))
+        condition_code_list = list(map(common.get_condition, conditions))
 
     treatment_code_list = []
     if treatments:
-        treatment_code_list = list(map(get_treatment, treatments))
+        treatment_code_list = list(map(common.get_treatment, treatments))
 
     # Query
     query = {}
 
     # date query
     if testDateRange:
-        testDateRange = list(map(get_date, testDateRange))
+        testDateRange = list(map(common.get_date, testDateRange))
         query["testDate"] = {}
 
         for date_range in testDateRange:
@@ -829,15 +831,15 @@ def find_subject_tx_implications(
 
     normalized_variants = []
     if ranges:
-        ranges = list(map(get_range, ranges))
-        get_lift_over_range(ranges)
-        variants = get_variants(ranges, query)
+        ranges = list(map(common.get_range, ranges))
+        common.get_lift_over_range(ranges)
+        variants = common.get_variants(ranges, query)
         if not variants:
             return jsonify({"resourceType": "Parameters"})
         normalized_variants = [{variant["BUILD"]: variant["SPDI"]} for variant in variants]
 
     if variants and not ranges:
-        normalized_variants = list(map(get_variant, variants))
+        normalized_variants = list(map(common.get_variant, variants))
 
     # Result Object
     result = OrderedDict()
@@ -846,7 +848,7 @@ def find_subject_tx_implications(
 
     if normalized_variants:
         if not ranges:
-            genomics_build_presence = get_genomics_build_presence(query)
+            genomics_build_presence = common.get_genomics_build_presence(query)
 
             for normalizedVariant in normalized_variants:
                 if not normalizedVariant["GRCh37"] and genomics_build_presence["GRCh37"]:
@@ -854,24 +856,25 @@ def find_subject_tx_implications(
                 elif not normalizedVariant["GRCh38"] and genomics_build_presence["GRCh38"]:
                     abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
 
-        query_results = query_CIVIC_by_variants(normalized_variants, condition_code_list, treatment_code_list, query)
+        query_results = common.query_CIVIC_by_variants(normalized_variants, condition_code_list, treatment_code_list, query)
 
         for res in query_results:
             if res["txImplicationMatches"]:
-                ref_seq = get_ref_seq_by_chrom_and_build(res['genomicBuild'], res['CHROM'])
+                ref_seq = common.get_ref_seq_by_chrom_and_build(res['genomicBuild'], res['CHROM'])
             for implication in res["txImplicationMatches"]:
                 parameter = OrderedDict()
                 parameter["name"] = "implications"
                 parameter["part"] = []
 
-                implication_profile = create_tx_implication_profile_civic(implication, subject, [str(res['_id'])])
+                implication_profile = common.create_tx_implication_profile_civic(implication, subject, [str(res['_id'])])
                 parameter["part"].append({
                     "name": "implication",
                     "resource": implication_profile
                 })
-                resource = create_fhir_variant_resource(res, ref_seq, subject)
+                resource = common.create_fhir_variant_resource(
+                    res, ref_seq, subject)
 
-                add_variation_id(resource, implication["variationID"])
+                common.add_variation_id(resource, implication["variationID"])
 
                 parameter["part"].append({
                     "name": "variant",
@@ -891,7 +894,7 @@ def find_subject_tx_implications(
         if genomicSourceClass:
             query.pop("genomicSourceClass")
 
-        query_results = query_PharmGKB_by_haplotypes(normalized_haplotype_list, treatment_code_list, query)
+        query_results = common.query_PharmGKB_by_haplotypes(normalized_haplotype_list, treatment_code_list, query)
         print(query_results)
         for res in query_results:
             for implication in res["txImplicationMatches"]:
@@ -899,7 +902,7 @@ def find_subject_tx_implications(
                 parameter["name"] = "implications"
                 parameter["part"] = []
 
-                implication_profile = create_tx_implication_profile_pharmgkb(implication, subject, [str(res['_id'])])
+                implication_profile = common.create_tx_implication_profile_pharmgkb(implication, subject, [str(res['_id'])])
                 parameter["part"].append({
                     "name": "implication",
                     "resource": implication_profile
@@ -912,9 +915,10 @@ def find_subject_tx_implications(
                 # "resource": haplotype_profile
                 # })
 
-                genotype_profile = create_genotype_profile(res, subject, [str(res['_id'])])
+                genotype_profile = common.create_genotype_profile(res, subject, [str(res['_id'])])
 
-                add_variation_id(genotype_profile, implication["variationID"])
+                common.add_variation_id(
+                    genotype_profile, implication["variationID"])
 
                 parameter["part"].append({
                     "name": "genotype",
@@ -931,15 +935,15 @@ def find_subject_tx_implications(
         return jsonify(result)
 
     if treatments:
-        query_results_PGKB = query_PharmGKB_by_treatments(condition_code_list, treatment_code_list, query)
-        query_results_CIViC = query_CIVIC_by_condition(condition_code_list, treatment_code_list, query)
+        query_results_PGKB = common.query_PharmGKB_by_treatments(condition_code_list, treatment_code_list, query)
+        query_results_CIViC = common.query_CIVIC_by_condition(condition_code_list, treatment_code_list, query)
 
         for res in query_results_PGKB:
             parameter = OrderedDict()
             parameter["name"] = "implications"
             parameter["part"] = []
 
-            implication_profile = create_tx_implication_profile_pharmgkb(res, subject, [str(i['_id']) for i in res["patientMatches"]])
+            implication_profile = common.create_tx_implication_profile_pharmgkb(res, subject, [str(i['_id']) for i in res["patientMatches"]])
             parameter["part"].append({
                 "name": "implication",
                 "resource": implication_profile
@@ -954,9 +958,9 @@ def find_subject_tx_implications(
                 # "resource": haplotype_profile
                 # })
 
-                genotype_profile = create_genotype_profile(genItem, subject, [str(genItem['_id'])])
+                genotype_profile = common.create_genotype_profile(genItem, subject, [str(genItem['_id'])])
 
-                add_variation_id(genotype_profile, res["variationID"])
+                common.add_variation_id(genotype_profile, res["variationID"])
 
                 genotype_profiles.append(genotype_profile)
 
@@ -976,7 +980,7 @@ def find_subject_tx_implications(
             parameter["name"] = "implications"
             parameter["part"] = []
 
-            implication_profile = create_tx_implication_profile_civic(res, subject, [str(i['_id']) for i in res["patientMatches"]])
+            implication_profile = common.create_tx_implication_profile_civic(res, subject, [str(i['_id']) for i in res["patientMatches"]])
             parameter["part"].append({
                 "name": "implication",
                 "resource": implication_profile
@@ -984,10 +988,10 @@ def find_subject_tx_implications(
 
             variant_fhir_profiles = []
             for varItem in res["patientMatches"]:
-                ref_seq = get_ref_seq_by_chrom_and_build(varItem['genomicBuild'], varItem['CHROM'])
-                resource = create_fhir_variant_resource(varItem, ref_seq, subject)
+                ref_seq = common.get_ref_seq_by_chrom_and_build(varItem['genomicBuild'], varItem['CHROM'])
+                resource = common.create_fhir_variant_resource(varItem, ref_seq, subject)
 
-                add_variation_id(resource, res["variationID"])
+                common.add_variation_id(resource, res["variationID"])
 
                 variant_fhir_profiles.append(resource)
 
@@ -1010,13 +1014,13 @@ def find_subject_tx_implications(
         return jsonify(result)
 
     if conditions:
-        query_results = query_CIVIC_by_condition(condition_code_list, treatment_code_list, query)
+        query_results = common.query_CIVIC_by_condition(condition_code_list, treatment_code_list, query)
         for res in query_results:
             parameter = OrderedDict()
             parameter["name"] = "implications"
             parameter["part"] = []
 
-            implication_profile = create_tx_implication_profile_civic(res, subject, [str(i['_id']) for i in res["patientMatches"]])
+            implication_profile = common.create_tx_implication_profile_civic(res, subject, [str(i['_id']) for i in res["patientMatches"]])
             parameter["part"].append({
                 "name": "implication",
                 "resource": implication_profile
@@ -1024,10 +1028,10 @@ def find_subject_tx_implications(
 
             variant_fhir_profiles = []
             for varItem in res["patientMatches"]:
-                ref_seq = get_ref_seq_by_chrom_and_build(varItem['genomicBuild'], varItem['CHROM'])
-                resource = create_fhir_variant_resource(varItem, ref_seq, subject)
+                ref_seq = common.get_ref_seq_by_chrom_and_build(varItem['genomicBuild'], varItem['CHROM'])
+                resource = common.create_fhir_variant_resource(varItem, ref_seq, subject)
 
-                add_variation_id(resource, res["variationID"])
+                common.add_variation_id(resource, res["variationID"])
 
                 variant_fhir_profiles.append(resource)
 
@@ -1056,24 +1060,24 @@ def find_subject_dx_implications(
 
     # Parameters
     subject = subject.strip()
-    validate_subject(subject)
+    common.validate_subject(subject)
 
     if not variants and not conditions and not ranges:
         return jsonify({"resourceType": "Parameters"})
 
     if variants and ranges:
-        abort(400, f"You cannot supply both 'variants' and 'ranges'.")
+        abort(400, "You cannot supply both 'variants' and 'ranges'.")
 
     condition_code_list = []
     if conditions:
-        condition_code_list = list(map(get_condition, conditions))
+        condition_code_list = list(map(common.get_condition, conditions))
 
     # Query
     query = {}
 
     # date query
     if testDateRange:
-        testDateRange = list(map(get_date, testDateRange))
+        testDateRange = list(map(common.get_date, testDateRange))
         query["testDate"] = {}
 
         for date_range in testDateRange:
@@ -1099,15 +1103,15 @@ def find_subject_dx_implications(
 
     normalized_variants = []
     if ranges:
-        ranges = list(map(get_range, ranges))
-        get_lift_over_range(ranges)
-        variants = get_variants(ranges, query)
+        ranges = list(map(common.get_range, ranges))
+        common.get_lift_over_range(ranges)
+        variants = common.get_variants(ranges, query)
         if not variants:
             return jsonify({"resourceType": "Parameters"})
         normalized_variants = [{variant["BUILD"]: variant["SPDI"]} for variant in variants]
 
     if variants and not ranges:
-        normalized_variants = list(map(get_variant, variants))
+        normalized_variants = list(map(common.get_variant, variants))
 
     # Result Object
     result = OrderedDict()
@@ -1116,7 +1120,7 @@ def find_subject_dx_implications(
 
     if normalized_variants:
         if not ranges:
-            genomics_build_presence = get_genomics_build_presence(query)
+            genomics_build_presence = common.get_genomics_build_presence(query)
 
             for normalizedVariant in normalized_variants:
                 if not normalizedVariant["GRCh37"] and genomics_build_presence["GRCh37"]:
@@ -1124,25 +1128,26 @@ def find_subject_dx_implications(
                 elif not normalizedVariant["GRCh38"] and genomics_build_presence["GRCh38"]:
                     abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
 
-        query_results = query_clinvar_by_variants(normalized_variants, condition_code_list, query)
+        query_results = common.query_clinvar_by_variants(normalized_variants, condition_code_list, query)
 
         for res in query_results:
             if res["dxImplicationMatches"]:
-                ref_seq = get_ref_seq_by_chrom_and_build(res['genomicBuild'], res['CHROM'])
+                ref_seq = common.get_ref_seq_by_chrom_and_build(res['genomicBuild'], res['CHROM'])
             for implication in res["dxImplicationMatches"]:
                 parameter = OrderedDict()
                 parameter["name"] = "implications"
                 parameter["part"] = []
 
-                implication_profile = create_dx_implication_profile(implication, subject, [str(res['_id'])])
+                implication_profile = common.create_dx_implication_profile(implication, subject, [str(res['_id'])])
 
                 parameter["part"].append({
                     "name": "implication",
                     "resource": implication_profile
                 })
-                resource = create_fhir_variant_resource(res, ref_seq, subject)
+                resource = common.create_fhir_variant_resource(
+                    res, ref_seq, subject)
 
-                add_variation_id(resource, implication["variationID"])
+                common.add_variation_id(resource, implication["variationID"])
 
                 parameter["part"].append({
                     "name": "variant",
@@ -1159,24 +1164,25 @@ def find_subject_dx_implications(
         return jsonify(result)
 
     if conditions:
-        query_results = query_clinvar_by_condition(condition_code_list, query)
+        query_results = common.query_clinvar_by_condition(
+            condition_code_list, query)
 
         for res in query_results:
             parameter = OrderedDict()
             parameter["name"] = "implications"
             parameter["part"] = []
 
-            implication_profile = create_dx_implication_profile(res, subject, [str(i['_id']) for i in res["patientMatches"]])
+            implication_profile = common.create_dx_implication_profile(res, subject, [str(i['_id']) for i in res["patientMatches"]])
             parameter["part"].append({
                 "name": "implication",
                 "resource": implication_profile
             })
 
             for varItem in res["patientMatches"]:
-                ref_seq = get_ref_seq_by_chrom_and_build(varItem['genomicBuild'], varItem['CHROM'])
-                resource = create_fhir_variant_resource(varItem, ref_seq, subject)
+                ref_seq = common.get_ref_seq_by_chrom_and_build(varItem['genomicBuild'], varItem['CHROM'])
+                resource = common.create_fhir_variant_resource(varItem, ref_seq, subject)
 
-                add_variation_id(resource, res["variationID"])
+                common.add_variation_id(resource, res["variationID"])
 
                 parameter["part"].append({
                     "name": "variant",
@@ -1199,18 +1205,18 @@ def find_study_metadata(
 
     # Parameters
     subject = subject.strip()
-    validate_subject(subject)
+    common.validate_subject(subject)
 
     if ranges:
-        ranges = list(map(get_range, ranges))
-        ranges = merge_ranges(ranges)
+        ranges = list(map(common.get_range, ranges))
+        ranges = common.merge_ranges(ranges)
 
     # Query
     query = {}
 
     # date query
     if testDateRange:
-        testDateRange = list(map(get_date, testDateRange))
+        testDateRange = list(map(common.get_date, testDateRange))
         query["testDate"] = {}
 
         for date_range in testDateRange:
@@ -1230,10 +1236,11 @@ def find_study_metadata(
         query["specimenID"] = {"$in": specimenIdentifiers}
 
     # Genomics Build Presence
-    genomics_build_presence = get_genomics_build_presence_tests_db(query)
+    genomics_build_presence = common.get_genomics_build_presence_tests_db(
+        query)
 
     # Chromosome To Ranges
-    chromosome_to_ranges = get_chromosome_to_ranges(ranges, genomics_build_presence)
+    chromosome_to_ranges = common.get_chromosome_to_ranges(ranges, genomics_build_presence)
 
     # Result Object
     result = OrderedDict()
@@ -1241,7 +1248,7 @@ def find_study_metadata(
     result["parameter"] = []
 
     try:
-        identified_tests = tests_db.aggregate([{"$match": query}])
+        identified_tests = common.tests_db.aggregate([{"$match": query}])
         identified_tests = list(identified_tests)
     except Exception as e:
         print(f"DEBUG: Error{e} under find_study_metadata query={query}")
@@ -1271,7 +1278,7 @@ def find_study_metadata(
         parameter["part"].append({
             "name": "genomicBuild",
             "valueCodeableConcept": {"coding": [{"system": "http://loinc.org",
-                                                 "code": f"{GENOMIC_BUILD_TO_CODE[identified_test['genomicBuild']]}",
+                                                 "code": f"{common.GENOMIC_BUILD_TO_CODE[identified_test['genomicBuild']]}",
                                                  "display": f"{identified_test['genomicBuild']}"}]}
         })
 
@@ -1280,10 +1287,10 @@ def find_study_metadata(
                                       "valueCodeableConcept": {"coding": []}
                                       })
             for dct in identified_test["dnaChangeType"]:
-                if dct.strip() in DNA_CHANGE_TYPE_TO_CODE:
+                if dct.strip() in common.DNA_CHANGE_TYPE_TO_CODE:
                     parameter["part"][-1]["valueCodeableConcept"]["coding"].append(
                         {"system": "http://sequenceontology.org",
-                         "code": f"{DNA_CHANGE_TYPE_TO_CODE[dct.strip()]}",
+                         "code": f"{common.DNA_CHANGE_TYPE_TO_CODE[dct.strip()]}",
                          "display": f"{dct.strip()}"}
                     )
 
@@ -1296,37 +1303,37 @@ def find_study_metadata(
             for chromosome_to_range in chromosome_to_ranges:
                 if region_studied_present:
                     if chromosome_to_range["PGB"]["BUILD"] == identified_test['genomicBuild']:
-                        get_intersected_regions(identified_test["studiedRegion"],
-                                                chromosome_to_range["PGB"]["BUILD"],
-                                                chromosome_to_range["CHROM"],
-                                                chromosome_to_range["PGB"]["L"],
-                                                chromosome_to_range["PGB"]["H"],
-                                                intersected_region_studied)
+                        common.get_intersected_regions(identified_test["studiedRegion"],
+                                                       chromosome_to_range["PGB"]["BUILD"],
+                                                       chromosome_to_range["CHROM"],
+                                                       chromosome_to_range["PGB"]["L"],
+                                                       chromosome_to_range["PGB"]["H"],
+                                                       intersected_region_studied)
                     elif chromosome_to_range["OGB"] and chromosome_to_range["OGB"]["BUILD"] == identified_test['genomicBuild']:
-                        get_intersected_regions(identified_test["studiedRegion"],
-                                                chromosome_to_range["OGB"]["BUILD"],
-                                                chromosome_to_range["CHROM"],
-                                                chromosome_to_range["OGB"]["L"],
-                                                chromosome_to_range["OGB"]["H"],
-                                                intersected_region_studied)
+                        common.get_intersected_regions(identified_test["studiedRegion"],
+                                                       chromosome_to_range["OGB"]["BUILD"],
+                                                       chromosome_to_range["CHROM"],
+                                                       chromosome_to_range["OGB"]["L"],
+                                                       chromosome_to_range["OGB"]["H"],
+                                                       intersected_region_studied)
                     else:
                         abort(422, f'Failed LiftOver ({chromosome_to_range["PGB"]["RefSeq"]}:{chromosome_to_range["PGB"]["L"]}-{chromosome_to_range["PGB"]["L"]})')
 
                 if uncallable_region_present:
                     if chromosome_to_range["PGB"]["BUILD"] == identified_test['genomicBuild']:
-                        get_intersected_regions(identified_test["uncallableRegion"],
-                                                chromosome_to_range["PGB"]["BUILD"],
-                                                chromosome_to_range["CHROM"],
-                                                chromosome_to_range["PGB"]["L"],
-                                                chromosome_to_range["PGB"]["H"],
-                                                intersected_uncallable_regions)
+                        common.get_intersected_regions(identified_test["uncallableRegion"],
+                                                       chromosome_to_range["PGB"]["BUILD"],
+                                                       chromosome_to_range["CHROM"],
+                                                       chromosome_to_range["PGB"]["L"],
+                                                       chromosome_to_range["PGB"]["H"],
+                                                       intersected_uncallable_regions)
                     elif chromosome_to_range["OGB"] and chromosome_to_range["OGB"]["BUILD"] == identified_test['genomicBuild']:
-                        get_intersected_regions(identified_test["uncallableRegion"],
-                                                chromosome_to_range["OGB"]["BUILD"],
-                                                chromosome_to_range["CHROM"],
-                                                chromosome_to_range["OGB"]["L"],
-                                                chromosome_to_range["OGB"]["H"],
-                                                intersected_uncallable_regions)
+                        common.get_intersected_regions(identified_test["uncallableRegion"],
+                                                       chromosome_to_range["OGB"]["BUILD"],
+                                                       chromosome_to_range["CHROM"],
+                                                       chromosome_to_range["OGB"]["L"],
+                                                       chromosome_to_range["OGB"]["H"],
+                                                       intersected_uncallable_regions)
                     else:
                         abort(422, f'Failed LiftOver ({chromosome_to_range["PGB"]["RefSeq"]}:{chromosome_to_range["PGB"]["L"]}-{chromosome_to_range["PGB"]["L"]})')
 
@@ -1366,7 +1373,7 @@ def find_population_specific_variants(
     # Parameters
     variants = list(map(lambda x: x.strip().split(","), variants))
     for i in range(len(variants)):
-        variants[i] = list(map(get_variant, variants[i]))
+        variants[i] = list(map(common.get_variant, variants[i]))
 
     # Query
     query = {}
@@ -1415,7 +1422,7 @@ def find_population_specific_variants(
             query["SPDI"] = {"$in": varList}
 
             try:
-                variant_q = variants_db.aggregate([
+                variant_q = common.variants_db.aggregate([
                     {"$match": query},
                     {'$group': {'_id': '$patientID'}}
                 ])
@@ -1440,7 +1447,7 @@ def find_population_specific_variants(
 
         parameter["part"].append({
             "name": "denominator",
-            "valueQuantity": {"value": patients_db.count_documents({})}
+            "valueQuantity": {"value": common.patients_db.count_documents({})}
         })
 
         if includePatientList:
@@ -1473,7 +1480,7 @@ def find_population_specific_variants(
 
             query["SPDI"] = {"$in": varList}
             try:
-                variant_q = variants_db.aggregate([
+                variant_q = common.variants_db.aggregate([
                     {"$match": query},
                     {'$group': {'_id': '$patientID'}}
                 ])
@@ -1489,7 +1496,7 @@ def find_population_specific_variants(
 
             parameter["part"].append({
                 "name": "denominator",
-                "valueQuantity": {"value": patients_db.count_documents({})}
+                "valueQuantity": {"value": common.patients_db.count_documents({})}
             })
 
             patients = []
@@ -1516,7 +1523,7 @@ def find_population_structural_intersecting_variants(
         ranges, genomicSourceClass=None, includePatientList=None):
 
     # Parameters
-    ranges = list(map(get_range, ranges))
+    ranges = list(map(common.get_range, ranges))
 
     # Query
     query = {}
@@ -1526,7 +1533,7 @@ def find_population_structural_intersecting_variants(
         genomicSourceClass = genomicSourceClass.strip().lower()
         query["genomicSourceClass"] = {"$eq": genomicSourceClass}
 
-    chromosome_to_ranges = get_chromosome_to_ranges(ranges, None)
+    chromosome_to_ranges = common.get_chromosome_to_ranges(ranges, None)
 
     # Result Object
     result = OrderedDict()
@@ -1578,7 +1585,7 @@ def find_population_structural_intersecting_variants(
             )
 
         try:
-            variant_q = variants_db.aggregate([
+            variant_q = common.variants_db.aggregate([
                 {"$match": query},
                 {'$group': {'_id': '$patientID'}}
             ])
@@ -1594,7 +1601,7 @@ def find_population_structural_intersecting_variants(
 
         parameter["part"].append({
             "name": "denominator",
-            "valueQuantity": {"value": patients_db.count_documents({})}
+            "valueQuantity": {"value": common.patients_db.count_documents({})}
         })
 
         if includePatientList:
@@ -1620,7 +1627,7 @@ def find_population_structural_subsuming_variants(
         ranges, genomicSourceClass=None, includePatientList=None):
 
     # Parameters
-    ranges = list(map(get_range, ranges))
+    ranges = list(map(common.get_range, ranges))
 
     # Query
     query = {}
@@ -1630,7 +1637,7 @@ def find_population_structural_subsuming_variants(
         genomicSourceClass = genomicSourceClass.strip().lower()
         query["genomicSourceClass"] = {"$eq": genomicSourceClass}
 
-    chromosome_to_ranges = get_chromosome_to_ranges(ranges, None)
+    chromosome_to_ranges = common.get_chromosome_to_ranges(ranges, None)
 
     # Result Object
     result = OrderedDict()
@@ -1665,7 +1672,7 @@ def find_population_structural_subsuming_variants(
             )
 
         try:
-            variant_q = variants_db.aggregate([
+            variant_q = common.variants_db.aggregate([
                 {"$match": query},
                 {'$group': {'_id': '$patientID'}}
             ])
@@ -1681,7 +1688,7 @@ def find_population_structural_subsuming_variants(
 
         parameter["part"].append({
             "name": "denominator",
-            "valueQuantity": {"value": patients_db.count_documents({})}
+            "valueQuantity": {"value": common.patients_db.count_documents({})}
         })
 
         if includePatientList:
@@ -1709,7 +1716,7 @@ def find_population_specific_haplotypes(
     # Parameters
     haplotypes = list(map(lambda x: x.strip().split(","), haplotypes))
     for i in range(len(haplotypes)):
-        haplotypes[i] = list(map(get_haplotype, haplotypes[i]))
+        haplotypes[i] = list(map(common.get_haplotype, haplotypes[i]))
 
     # Query
     query = {}
@@ -1766,7 +1773,7 @@ def find_population_specific_haplotypes(
                     ]
 
             try:
-                haplotype_q = genotypes_db.aggregate([
+                haplotype_q = common.genotypes_db.aggregate([
                     {"$match": query},
                     {'$group': {'_id': '$patientID'}}
                 ])
@@ -1791,7 +1798,7 @@ def find_population_specific_haplotypes(
 
         parameter["part"].append({
             "name": "denominator",
-            "valueQuantity": {"value": patients_db.count_documents({})}
+            "valueQuantity": {"value": common.patients_db.count_documents({})}
         })
 
         if includePatientList:
@@ -1826,7 +1833,7 @@ def find_population_specific_haplotypes(
                 ]
 
             try:
-                haplotype_q = genotypes_db.aggregate([
+                haplotype_q = common.genotypes_db.aggregate([
                     {"$match": query},
                     {'$group': {'_id': '$patientID'}}
                 ])
@@ -1842,7 +1849,7 @@ def find_population_specific_haplotypes(
 
             parameter["part"].append({
                 "name": "denominator",
-                "valueQuantity": {"value": patients_db.count_documents({})}
+                "valueQuantity": {"value": common.patients_db.count_documents({})}
             })
 
             patients = []
@@ -1877,19 +1884,19 @@ def find_population_tx_implications(
         return jsonify({"resourceType": "Parameters"})
 
     if variants:
-        variants = list(map(get_variant, variants))
+        variants = list(map(common.get_variant, variants))
 
     condition_code_list = []
     if conditions:
-        condition_code_list = list(map(get_condition, conditions))
+        condition_code_list = list(map(common.get_condition, conditions))
 
     normalized_haplotype_list = []
     if haplotypes:
-        normalized_haplotype_list = list(map(get_haplotype, haplotypes))
+        normalized_haplotype_list = list(map(common.get_haplotype, haplotypes))
 
     treatment_code_list = []
     if treatments:
-        treatment_code_list = list(map(get_treatment, treatments))
+        treatment_code_list = list(map(common.get_treatment, treatments))
 
     # Query
     query = {}
@@ -1905,14 +1912,14 @@ def find_population_tx_implications(
     result["parameter"] = []
 
     if variants:
-        genomics_build_presence = get_genomics_build_presence(query)
+        genomics_build_presence = common.get_genomics_build_presence(query)
         for normalizedVariant in variants:
             if not normalizedVariant["GRCh37"] and genomics_build_presence["GRCh37"]:
                 abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
             elif not normalizedVariant["GRCh38"] and genomics_build_presence["GRCh38"]:
                 abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
 
-        query_results = query_CIVIC_by_variants(variants, condition_code_list, treatment_code_list, query, True)
+        query_results = common.query_CIVIC_by_variants(variants, condition_code_list, treatment_code_list, query, True)
 
         parameter = OrderedDict()
         parameter["name"] = "implications"
@@ -1925,7 +1932,7 @@ def find_population_tx_implications(
 
         parameter["part"].append({
             "name": "denominator",
-            "valueQuantity": {"value": patients_db.count_documents({})}
+            "valueQuantity": {"value": common.patients_db.count_documents({})}
         })
 
         if includePatientList:
@@ -1950,7 +1957,7 @@ def find_population_tx_implications(
         if genomicSourceClass:
             query.pop("genomicSourceClass")
 
-        query_results = query_PharmGKB_by_haplotypes(normalized_haplotype_list, [], query, True)
+        query_results = common.query_PharmGKB_by_haplotypes(normalized_haplotype_list, [], query, True)
 
         parameter = OrderedDict()
         parameter["name"] = "implications"
@@ -1963,7 +1970,7 @@ def find_population_tx_implications(
 
         parameter["part"].append({
             "name": "denominator",
-            "valueQuantity": {"value": patients_db.count_documents({})}
+            "valueQuantity": {"value": common.patients_db.count_documents({})}
         })
 
         if includePatientList:
@@ -1985,8 +1992,8 @@ def find_population_tx_implications(
         return jsonify(result)
 
     if treatments:
-        query_results_PGKB = query_PharmGKB_by_treatments(condition_code_list, treatment_code_list, query)
-        query_results_CIViC = query_CIVIC_by_condition(condition_code_list, treatment_code_list, query)
+        query_results_PGKB = common.query_PharmGKB_by_treatments(condition_code_list, treatment_code_list, query)
+        query_results_CIViC = common.query_CIVIC_by_condition(condition_code_list, treatment_code_list, query)
 
         parameter = OrderedDict()
         parameter["name"] = "implications"
@@ -2013,7 +2020,7 @@ def find_population_tx_implications(
 
         parameter["part"].append({
             "name": "denominator",
-            "valueQuantity": {"value": patients_db.count_documents({})}
+            "valueQuantity": {"value": common.patients_db.count_documents({})}
         })
 
         if includePatientList:
@@ -2031,7 +2038,7 @@ def find_population_tx_implications(
         return jsonify(result)
 
     if conditions:
-        query_results = query_CIVIC_by_condition(condition_code_list, treatment_code_list, query)
+        query_results = common.query_CIVIC_by_condition(condition_code_list, treatment_code_list, query)
 
         parameter = OrderedDict()
         parameter["name"] = "implications"
@@ -2053,7 +2060,7 @@ def find_population_tx_implications(
 
         parameter["part"].append({
             "name": "denominator",
-            "valueQuantity": {"value": patients_db.count_documents({})}
+            "valueQuantity": {"value": common.patients_db.count_documents({})}
         })
 
         if includePatientList:
@@ -2083,15 +2090,15 @@ def find_population_dx_implications(
         return jsonify({"resourceType": "Parameters"})
 
     if variants:
-        variants = list(map(get_variant, variants))
+        variants = list(map(common.get_variant, variants))
 
     condition_code_list = []
     if conditions:
-        condition_code_list = list(map(get_condition, conditions))
+        condition_code_list = list(map(common.get_condition, conditions))
 
     normalized_haplotype_list = []
     if haplotypes:
-        normalized_haplotype_list = list(map(get_haplotype, haplotypes))
+        normalized_haplotype_list = list(map(common.get_haplotype, haplotypes))
 
     # Query
     query = {}
@@ -2107,7 +2114,7 @@ def find_population_dx_implications(
     result["parameter"] = []
 
     if variants:
-        genomics_build_presence = get_genomics_build_presence(query)
+        genomics_build_presence = common.get_genomics_build_presence(query)
 
         for normalizedVariant in variants:
             if not normalizedVariant["GRCh37"] and genomics_build_presence["GRCh37"]:
@@ -2115,7 +2122,7 @@ def find_population_dx_implications(
             elif not normalizedVariant["GRCh38"] and genomics_build_presence["GRCh38"]:
                 abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
 
-        query_results = query_clinvar_by_variants(variants, condition_code_list, query, True)
+        query_results = common.query_clinvar_by_variants(variants, condition_code_list, query, True)
 
         parameter = OrderedDict()
         parameter["name"] = "implications"
@@ -2128,7 +2135,7 @@ def find_population_dx_implications(
 
         parameter["part"].append({
             "name": "denominator",
-            "valueQuantity": {"value": patients_db.count_documents({})}
+            "valueQuantity": {"value": common.patients_db.count_documents({})}
         })
 
         if includePatientList:
@@ -2152,7 +2159,7 @@ def find_population_dx_implications(
         if genomicSourceClass:
             query.pop("genomicSourceClass")
 
-        query_results = query_PharmGKB_by_haplotypes(normalized_haplotype_list, [], query, True)
+        query_results = common.query_PharmGKB_by_haplotypes(normalized_haplotype_list, [], query, True)
 
         parameter = OrderedDict()
         parameter["name"] = "implications"
@@ -2165,7 +2172,7 @@ def find_population_dx_implications(
 
         parameter["part"].append({
             "name": "denominator",
-            "valueQuantity": {"value": patients_db.count_documents({})}
+            "valueQuantity": {"value": common.patients_db.count_documents({})}
         })
 
         if includePatientList:
@@ -2186,7 +2193,8 @@ def find_population_dx_implications(
         return jsonify(result)
 
     if conditions:
-        query_results = query_clinvar_by_condition(condition_code_list, query)
+        query_results = common.query_clinvar_by_condition(
+            condition_code_list, query)
 
         parameter = OrderedDict()
         parameter["name"] = "implications"
@@ -2207,7 +2215,7 @@ def find_population_dx_implications(
 
         parameter["part"].append({
             "name": "denominator",
-            "valueQuantity": {"value": patients_db.count_documents({})}
+            "valueQuantity": {"value": common.patients_db.count_documents({})}
         })
 
         if includePatientList:

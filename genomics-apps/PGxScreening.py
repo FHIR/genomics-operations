@@ -3,7 +3,7 @@ import pandas as pd
 import requests
 import csv
 import random
-from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode, JsCode
+from st_aggrid import GridOptionsBuilder, AgGrid, JsCode
 
 st.set_page_config(
     page_title="PGx Screening",

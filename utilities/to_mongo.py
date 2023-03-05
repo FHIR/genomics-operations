@@ -1,6 +1,5 @@
 import pymongo
 import json
-import os
 import dateutil.parser
 
 
@@ -9,7 +8,7 @@ def datetime_parser(json_dict):
         if key == 'testDate':
             try:
                 json_dict[key] = dateutil.parser.parse(value)
-            except:
+            except Exception:
                 pass
     return json_dict
 

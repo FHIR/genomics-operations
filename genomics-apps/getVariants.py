@@ -1,8 +1,7 @@
 import streamlit as st
 import pandas as pd
 import requests
-import json
-from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode
+from st_aggrid import AgGrid
 
 st.set_page_config(
     page_title="Get Variants",
@@ -42,8 +41,8 @@ def findSubjectHaplotypes(subject, geneId):
 
 st.title("Get Variants")
 st.markdown("This app illustrates [FHIR Genomics Operations](http://build.fhir.org/ig/HL7/genomics-reporting/operations.html) find-subject-variants, find-subject-intersecting-variants, \
-	and find-subject-haplotypes; and the get-feature-coordinates utility. Enter patient and gene in the sidebar and click 'run'. All overlapping simple variants, structural variants, \
-	and genotypes are returned.")
+    and find-subject-haplotypes; and the get-feature-coordinates utility. Enter patient and gene in the sidebar and click 'run'. All overlapping simple variants, structural variants, \
+    and genotypes are returned.")
 
 with st.sidebar:
     subject = st.text_input("Enter patient ID", value="HG00403")

@@ -3,7 +3,7 @@ import json
 from collections import OrderedDict
 from gene_ref_seq import _get_ref_seq_by_chrom
 from SPDI_Normalization import get_normalized_spdi
-from common import *
+from app import common
 import copy
 import pandas as pd
 import re
@@ -28,7 +28,7 @@ def add_phase_records(record):
 
 
 def add_phased_relationship_obv(patientID, test_id, specimen_id, ref_build):
-    sequence_rels = get_sequence_relation(phased_rec_map)
+    sequence_rels = common.get_sequence_relation(phased_rec_map)
     c = len(sequence_rels)
     df_func = df[(df['patientID'] == patientID)]
     for index in sequence_rels.index:
@@ -58,28 +58,28 @@ def _valid_record(record, genomic_source_class, sample_position):
     svAltRegex = re.compile("^<{1}.*>{1}$")
     if len(record.samples) < 1:
         return False
-    if not (validate_chrom_identifier(record.CHROM)):
+    if not (common.validate_chrom_identifier(record.CHROM)):
         return False
     if not hasattr(record.samples[sample_position].data, "GT"):
         return False
     if record.is_sv:
         if len(record.samples) > 1:
             return False
-        if (record.INFO['SVTYPE'][0].upper() not in list(SVs)):
+        if (record.INFO['SVTYPE'][0].upper() not in list(common.SVs)):
             return False
         if (not all(alt is None or alt.type in ['SNV', 'MNV'] or
            isinstance(alt, vcf.model._SV) or svAltRegex.match(str(alt)) or (str(alt).isalpha() or (alt == '.' and len(record.ALT) == 1))
            for alt in record.ALT)):
             return False
-        if (record.INFO['SVTYPE'][0].upper() in list(SVs - {'DUP', 'CNV'}) and
+        if (record.INFO['SVTYPE'][0].upper() in list(common.SVs - {'DUP', 'CNV'}) and
            '.' in record.samples[sample_position]["GT"] and
-                genomic_source_class.lower() == Genomic_Source_Class.GERMLINE.value.lower()):
+                genomic_source_class.lower() == common.Genomic_Source_Class.GERMLINE.value.lower()):
             return False
     else:
         if (not all(alt is None or ((alt.type in ['SNV', 'MNV'] or '*' not in str(alt)) and str(alt).isalpha()) for alt in record.ALT)):
             return False
         if ('.' in record.samples[sample_position]["GT"] and
-           genomic_source_class.lower() == Genomic_Source_Class.GERMLINE.value.lower()):
+           genomic_source_class.lower() == common.Genomic_Source_Class.GERMLINE.value.lower()):
             return False
     if (record.FILTER is not None and len(record.FILTER) != 0):
         return False
@@ -114,7 +114,7 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
         raise Exception('You must provide test_id')
     if not (specimen_id):
         raise Exception('You must provide specimen_id')
-    if genomic_source_class is not None and genomic_source_class.title() not in Genomic_Source_Class.set_():
+    if genomic_source_class is not None and genomic_source_class.title() not in common.Genomic_Source_Class.set_():
         raise Exception(
             ("Please provide a valid Genomic Source Class " +
              "('germline' or 'somatic' or 'mixed')"))
@@ -138,7 +138,7 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
         output_json["testID"] = test_id
         output_json["specimenID"] = specimen_id
         output_json["genomicBuild"] = ref_build
-        record.CHROM = extract_chrom_identifier(record.CHROM)
+        record.CHROM = common.extract_chrom_identifier(record.CHROM)
         output_json["CHROM"] = f"chr{record.CHROM}"
         output_json["POS"] = record.POS - 1
         output_json["REF"] = record.REF
@@ -175,7 +175,7 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
             output_json["ADS"] = []
 
             for index in range(0, len(record.samples[sample_position]["AD"])):
-                if record.samples[sample_position]["AD"][index] == None:
+                if record.samples[sample_position]["AD"][index] is None:
                     record.samples[sample_position]["AD"][index] = 0
 
             # Split the genotype into a list of integers. This will help find the number of alternate alleles in the VCF row
@@ -204,7 +204,7 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
         if hasattr(record.samples[sample_position].data, "DP") and record.samples[sample_position]["DP"] is not None:
             output_json["DP"] = int(record.samples[sample_position]["DP"])
 
-        ref_seq = _get_ref_seq_by_chrom(ref_build, extract_chrom_identifier(record.CHROM))
+        ref_seq = _get_ref_seq_by_chrom(ref_build, common.extract_chrom_identifier(record.CHROM))
 
         if not record.is_sv and record.ALT is not None and all(alt is not None for alt in record.ALT):
             spdi = (f'{ref_seq}:{record.POS - 1}:{record.REF}:' +
@@ -217,15 +217,15 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
             if len(record.REF) != len("".join(list(map(str, list(record.ALT))))):
                 output_json["SPDI"] = get_normalized_spdi(ref_seq, (record.POS - 1), record.REF, "".join(list(map(str, list(record.ALT)))), ref_build)
 
-        alleles = get_allelic_state(record, ratio_ad_dp)
+        alleles = common.get_allelic_state(record, ratio_ad_dp)
 
-        if (alleles['CODE'] != "" or alleles['ALLELE'] != "") and genomic_source_class.lower() == Genomic_Source_Class.GERMLINE.value.lower():
+        if (alleles['CODE'] != "" or alleles['ALLELE'] != "") and genomic_source_class.lower() == common.Genomic_Source_Class.GERMLINE.value.lower():
             output_json["allelicState"] = alleles['ALLELE']
 
         output_json["genomicSourceClass"] = genomic_source_class
         onRef = 1
 
-        extractINFOField(output_json, record, codeDict)
+        extractINFOField(output_json, record, common.codeDict)
 
         for alt in alts:
             altDict, alt_ad_index, onRef = getMultADs(output_json, record, sample_position, alt, alt_ad_index, hasAD, noRefFlag, onRef)
@@ -267,7 +267,7 @@ def getMultADs(output_json, record, sample_position, alt, alt_ad_index, hasAD, n
                 else:
                     altDict["ADS"].insert(0, {"AD": 0})
                 alt_ad_index += 1
-        except Exception as e:
+        except Exception:
             altDict["ADS"].append({"AD": 0})
             alt_ad_index += 1
     else:
@@ -323,7 +323,7 @@ def parseANN(output_json, ann, firstFlag, codeDict):
                 output_json["molecConseq"].append({"system": system,
                                                    "code": code,
                                                    "display": conseq})
-            except:
+            except Exception:
                 print("molecular consequence: " + conseq + " not represented in code table")
 
     if firstFlag:

@@ -86,8 +86,7 @@ def get_allelic_state(record, ratio_ad_dp):
                 else:
                     allelic_state = "heteroplasmic"
                     allelic_code = "LA6703-8"
-            except Exception as e:
-                general_logger.debug(e)
+            except Exception:
                 _error_log_allelicstate(record)
                 pass
         else:

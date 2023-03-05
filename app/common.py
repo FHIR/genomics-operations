@@ -387,7 +387,7 @@ def get_genomic_source_class(genomic_source_class):
     genomic_source_class = genomic_source_class.strip()
 
     if (genomic_source_class.lower() not in SUPPORTED_GENOMIC_SOURCE_CLASSES):
-        abort(400, f"Genomic Source Class must be either 'germline' or 'somatic'")
+        abort(400, "Genomic Source Class must be either 'germline' or 'somatic'")
 
     return genomic_source_class.lower()
 
@@ -988,7 +988,7 @@ def get_intersected_regions(bed_id, build, chrom, start, end, intersected_region
 
         result = list(result)
     except Exception as e:
-        print(f"DEBUG: Error under get_intersected_regions(bed_id={bed_id}, build={build}, chrom={chrom}, start={start}, end={end}, intersected_regions={intersected_regions})")
+        print(f"DEBUG: Error({e}) under get_intersected_regions(bed_id={bed_id}, build={build}, chrom={chrom}, start={start}, end={end}, intersected_regions={intersected_regions})")
         result = result
 
     if result:
