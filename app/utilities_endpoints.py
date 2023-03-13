@@ -1,12 +1,13 @@
-from flask import jsonify
+from flask import abort, jsonify
 from collections import OrderedDict
-from .common import *
+from app import common
+
 
 def get_feature_coordinates(
-    chromosome=None, gene=None, transcript=None, protein=None):
-    
+        chromosome=None, gene=None, transcript=None, protein=None):
+
     if not chromosome and not gene and not transcript and not protein:
-        abort(400, f"You must provide one parameter.")
+        abort(400, "You must provide one parameter.")
 
     if chromosome:
         if gene or transcript or protein:
@@ -15,7 +16,7 @@ def get_feature_coordinates(
         chromosome = chromosome.strip()
 
         try:
-            result = chromosomes_data.aggregate([{"$match": {"chr": {"$eq": f"chr{chromosome[3:].upper()}"}}}])
+            result = common.chromosomes_data.aggregate([{"$match": {"chr": {"$eq": f"chr{chromosome[3:].upper()}"}}}])
             result = list(result)
         except Exception as e:
             print(f"DEBUG: Error({e}) under get_feature_coordinates(chromosome={chromosome})")
@@ -40,10 +41,10 @@ def get_feature_coordinates(
 
         gene = gene.strip().upper()
 
-        if is_int(gene):
+        if common.is_int(gene):
             gene = f"HGNC:{gene}"
 
-        result = query_genes(gene)
+        result = common.query_genes(gene)
 
         output = []
 
@@ -69,7 +70,7 @@ def get_feature_coordinates(
 
             output.append(ord_dict)
 
-        return(jsonify(output))
+        return (jsonify(output))
 
     if transcript:
         if protein:
@@ -80,7 +81,7 @@ def get_feature_coordinates(
         if '.' in transcript:
             transcript = transcript.split('.')[0]
 
-        result = query_transcript(transcript)
+        result = common.query_transcript(transcript)
 
         output = []
 
@@ -118,11 +119,11 @@ def get_feature_coordinates(
             if not ord_dict['exons']:
                 ord_dict.pop('exons')
             else:
-                ord_dict['exons'] = sorted(ord_dict['exons'], key=lambda d: d['exonNumber']) 
+                ord_dict['exons'] = sorted(ord_dict['exons'], key=lambda d: d['exonNumber'])
 
             output.append(ord_dict)
 
-        return(jsonify(output))
+        return (jsonify(output))
 
     if protein:
 
@@ -132,7 +133,7 @@ def get_feature_coordinates(
             protein = protein.split('.')[0]
 
         try:
-            result = proteins_data.aggregate([{"$match": {"proteinRefSeq": {'$regex': ".*"+str(protein).replace('*', r'\*')+".*"}}}])
+            result = common.proteins_data.aggregate([{"$match": {"proteinRefSeq": {'$regex': ".*"+str(protein).replace('*', r'\*')+".*"}}}])
             result = list(result)
         except Exception as e:
             print(f"DEBUG: Error({e}) under get_feature_coordinates(protein={protein})")
@@ -152,16 +153,16 @@ def get_feature_coordinates(
         output["proteinName"] = result["proteinName"]
         output["transcript"] = result["transcript"]
 
-        return(jsonify(output))
+        return (jsonify(output))
 
 
 def find_the_gene(range=None):
     if not range:
-        abort(400, f"Range is required.")
+        abort(400, "Range is required.")
 
-    given_range = get_range(range)
+    given_range = common.get_range(range)
 
-    result = query_genes_range(given_range)
+    result = common.query_genes_range(given_range)
 
     output = []
 
@@ -187,4 +188,4 @@ def find_the_gene(range=None):
 
         output.append(ord_dict)
 
-    return(jsonify(output))
+    return (jsonify(output))

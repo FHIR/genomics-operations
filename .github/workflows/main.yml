@@ -2,9 +2,9 @@ name: CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main, dev ]
+    branches: [main, dev]
 
   workflow_dispatch:
 
@@ -21,6 +21,11 @@ jobs:
 
       - name: Install Dependencies
         run: pip install -r requirements.txt
+
+      - name: Lint with flake8
+        uses: py-actions/flake8@v2
+        with:
+          args: --extend-ignore E501,E741
 
       - name: Run Tests
         run: python -m pytest

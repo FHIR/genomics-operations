@@ -1,17 +1,17 @@
 import pymongo
 import json
-import os
 import dateutil.parser
 
 
 def datetime_parser(json_dict):
     for (key, value) in json_dict.items():
-        if key=='testDate':
+        if key == 'testDate':
             try:
                 json_dict[key] = dateutil.parser.parse(value)
-            except:
+            except Exception:
                 pass
     return json_dict
+
 
 client = pymongo.MongoClient("{MONGO_CLIENT_URL}")
 
