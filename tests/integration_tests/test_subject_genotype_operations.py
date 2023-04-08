@@ -249,6 +249,20 @@ def test_find_subject_haplotypes_4(client):
     tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_HAPLOTYPES_OUTPUT_DIR}4.json', response.json)
 
 
+def test_find_subject_haplotypes_5(client):
+    url = tu.find_subject_haplotypes_query('subject=NB6TK328&genes=http://www.genenames.org/geneId|HGNC:2625&genomicSourceClass=germline')
+    response = client.get(url)
+
+    tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_HAPLOTYPES_OUTPUT_DIR}5.json', response.json)
+
+
+def test_find_subject_haplotypes_6(client):
+    url = tu.find_subject_haplotypes_query('subject=NB6TK328&genes=http://www.genenames.org/geneId|HGNC:2625&genomicSourceClass=somatic')
+    response = client.get(url)
+
+    tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_HAPLOTYPES_OUTPUT_DIR}6.json', response.json)
+
+
 """
 Find Subject Specific Haplotypes Tests
 --------------------------------------

@@ -1,0 +1,23 @@
+{
+    "resourceType": "Parameters",
+    "parameter": [
+        {
+            "name": "haplotypes",
+            "part": [
+                {
+                    "name": "geneItem",
+                    "valueString": "HGNC:2625"
+                }
+            ]
+        },
+        {
+            "name": "genomicSourceClass",
+            "part": [
+                {
+                    "name": "Germline",
+                    "valueString": "germline"
+                }
+            ]
+        }
+    ]
+}
