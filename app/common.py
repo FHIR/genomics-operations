@@ -1272,9 +1272,9 @@ def query_clinvar_by_condition(code_list, query):
 def query_CIVIC_by_variants(normalized_variant_list, code_list, treatment_list, query, population=False):
     variant_list = []
     for item in normalized_variant_list:
-        if item["GRCh37"]:
+        if "GRCh37" in item:
             variant_list.append(item["GRCh37"])
-        if item["GRCh38"]:
+        if "GRCh38" in item:
             variant_list.append(item["GRCh38"])
 
     pipeline_part = [{'$match': {'$expr': {'$and': [{'$or': [{'$eq': ['$b37SPDI', '$$mySPDI']},
