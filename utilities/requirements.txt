@@ -1,4 +1,4 @@
-pyfastx==0.8.4
+pyfastx==1.1.0
 pymongo==4.2.0
 pyranges==0.0.115
 python_dateutil==2.8.2
