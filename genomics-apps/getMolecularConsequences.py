@@ -54,17 +54,24 @@ def findSPDI(SPDI):
 
 def computeAnnotations(SPDI):
 	# st.write("SPDI:" + SPDI)
+	# st.write(findSPDI(SPDI))
+	
+
 	SPDIList = SPDI.split(':')
-	chromosome = SPDIList[0].split('.')[0][-2]
+	chromosome = SPDIList[0].split('.')[0][-2:]
 	version = SPDIList[0].split('.')[1]
+	# version = int(version) + 1
 	version = int(version) + 1
+
 	if chromosome[0] == '0':
 		chromosome = chromosome[1]
 	chromosome = "chr" + chromosome
-	liftOver = _liftOver(chromosome, int(SPDIList[1]))
 
-	SPDI = SPDIList[0].split('.')[0] + '.' + str(version) + ":" + str(43049165) + ":" + SPDIList[2] + ":" + SPDIList[3]
-	# SPDI = SPDIList[0].split('.')[0] + '.' + str(version) + ":" + str(liftOver["pos"]) + ":" + SPDIList[2] + ":" + SPDIList[3]
+	liftOver = _liftOver(chromosome, int(SPDIList[1]))
+	# st.write(str(liftOver["pos"]))
+
+	# SPDI = SPDIList[0].split('.')[0] + '.' + str(version) + ":" + str(43049165) + ":" + SPDIList[2] + ":" + SPDIList[3]
+	SPDI = SPDIList[0].split('.')[0] + '.' + str(version) + ":" + str(liftOver["pos"]) + ":" + SPDIList[2] + ":" + SPDIList[3]
 
 	# st.write("In computeAnnotations")
 	# st.write(SPDI)
@@ -73,7 +80,7 @@ def computeAnnotations(SPDI):
 
 	# st.write(b38SPDI.json())
 
-	SPDI = SPDIList[0].split('.')[0] + '.' + str(version) + ":" + str(b38SPDI.json()["data"]["position"]) + ":" + SPDIList[2] + ":" + SPDIList[3]
+	# SPDI = SPDIList[0].split('.')[0] + '.' + str(version) + ":" + str(b38SPDI.json()["data"]["position"]) + ":" + SPDIList[2] + ":" + SPDIList[3]
 
 
 	url='https://api.ncbi.nlm.nih.gov/variation/v0/spdi/' + cleanSPDI + '/hgvs'
@@ -139,36 +146,46 @@ def findMNVs(cisVariantsID, response, cisVariantsList, convertedVariants):
 def getImplication(entry):
 	for component in entry['resource']['component']:
 		if component['code']['coding'][0]['code'] == "53037-8":
-			return component['valueCodeableConcept']['coding'][0]['display']
+			if 'coding' in component['valueCodeableConcept']:
+				return component['valueCodeableConcept']['coding'][0]['display']
+			
+			if 'text' in component['valueCodeableConcept']:
+				return component["valueCodeableConcept"]['text']
+			else:
+				return "none"
 
-def putVariant(variantList, entry, pathogenicity):
-	SPDI = ''
-	for component in entry['resource']['component']:
-		if component['code']['coding'][0]['code'] == "81252-9":
-			SPDI=k["valueCodeableConcept"]["coding"][0]["display"]
+# def putVariant(variantList, entry, pathogenicity):
+# 	SPDI = ''
+# 	for component in entry['resource']['component']:
+# 		if component['code']['coding'][0]['code'] == "81252-9":
+# 			SPDI=k["valueCodeableConcept"]["coding"][0]["display"]
 
-	for variant in variantList:
-		if variant['SPDI'] == SPDI:
-			variant['Pathogenicity'] = pathogenicity
+# 	variant["Pathogenicity"] = pathogenicity
 
 		
 
 def findPathogenicities(variantList, subject, range):
-	url='https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-dx-implications?subject=' + subject + '&ranges=' + range
-	headers={'Accept': 'application/json'}
-	response = requests.get(url, headers=headers)
+	for variant in variantList:
 
-	if response.status_code != 200:
-		st.write(range)
-		return
+		url='https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-dx-implications?subject=' + subject + '&variants=' + variant['SPDI'].replace(":", "%3A")
+		headers={'Accept': 'application/json'}
+		response = requests.get(url, headers=headers)
 
-	for parameter in response.json()['parameter']:
-		for entry in parameter["part"]:
-			pathogenicity = ''
-			if entry["name"] == "implication":
-				pathogenicity = getImplication(entry)
-			if entry["name"] == "variant":
-				putVariant(variantList, entry, pathogenicity)
+		if response.status_code != 200:
+			# st.write(range)
+			continue
+
+		if 'parameter' not in response.json():
+			continue
+
+		for parameter in response.json()['parameter']:
+			for entry in parameter["part"]:
+				pathogenicity = ''
+				if entry["name"] == "implication":
+					variant["Pathogenicity"] = getImplication(entry)
+
+				# if entry["name"] == "variant":
+				# 	putVariant(variantList, entry, pathogenicity)
 
 
 
@@ -304,11 +321,11 @@ if st.sidebar.button("Run"):
 							# "Copy Number": copyNumber,
 							"Allele Frequeny": alleleFreq})
 
-	findPathogenicities(variantList, subject, range)
+	#findPathogenicities(variantList, subject, range)
 
 	data=(pd.DataFrame(variantList))
 
-	gb = GridOptionsBuilder.from_dataframe(data)
+	gb = GridOptionsBuilder.from_dataframe(data) 
 	highlightedRows = []
 	for index, row in data.iterrows():
 		if row['SPDI'] in convertedVariants:
@@ -326,17 +343,19 @@ if st.sidebar.button("Run"):
 	st.download_button("Download table (json)",data.T.to_json(),mime="application/json")
 	st.download_button("Download table (csv)",data.to_csv(),mime="text/csv")
 
+	findPathogenicities(cisVariantsList, subject, range)
+
 	cisVariantsTable = pd.DataFrame(cisVariantsList)
 	mnvgb = GridOptionsBuilder.from_dataframe(cisVariantsTable)
 	# AgGrid(cisVariantsTable.style.format('{:.0f}').apply(colors.get, subset=['cisVariantIndex']).hide('cisVariantIndex'), \
 	# AgGrid(cisVariantsTable.style.format('{:.0f}').apply(colors.get, subset=['cisVariantIndex']), \
 	# 	enable_enterprise_modules=True, update_mode="value_changed", allow_unsafe_jscode=True, key="cisVariants")
+	if computeAnnotationsFlag:
+		st.write('Concatenated MNV Table')
 
-	st.write('Concatenated MNV Table')
+		mnvgb.configure_selection('multiple', pre_selected_rows=['0'])
+		AgGrid(cisVariantsTable, enable_enterprise_modules=True, update_mode="value_changed", allow_unsafe_jscode=True, gridOptions=mnvgb.build())
 
-	mnvgb.configure_selection('multiple', pre_selected_rows=['0'])
-	AgGrid(cisVariantsTable, enable_enterprise_modules=True, update_mode="value_changed", allow_unsafe_jscode=True, gridOptions=mnvgb.build())
-
-	st.download_button("Download table (json)",cisVariantsTable.T.to_json(),mime="application/json")
-	st.download_button("Download table (csv)",cisVariantsTable.to_csv(),mime="text/csv")
+		st.download_button("Download table (json)",cisVariantsTable.T.to_json(),mime="application/json")
+		st.download_button("Download table (csv)",cisVariantsTable.to_csv(),mime="text/csv")
 
