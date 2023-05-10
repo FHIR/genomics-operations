@@ -6,7 +6,20 @@
             "part": [
                 {
                     "name": "rangeItem",
-                    "valueString": "NC_000002.12:179400709-179483218"
+                    "valueString": "NC_000017.11:43044294-43125364"
+                },
+                {
+                    "name": "presence",
+                    "valueBoolean": false
+                }
+            ]
+        },
+        {
+            "name": "variants",
+            "part": [
+                {
+                    "name": "rangeItem",
+                    "valueString": "NC_000013.11:32315507-32400268"
                 },
                 {
                     "name": "presence",
@@ -16,7 +29,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-63922fd404908c0632ebb248",
+                        "id": "dv-6387cb189bb781b2788d1c02",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -43,7 +56,7 @@
                             ]
                         },
                         "subject": {
-                            "reference": "Patient/ABC789"
+                            "reference": "Patient/HCC1143"
                         },
                         "valueCodeableConcept": {
                             "coding": [
@@ -80,16 +93,17 @@
                                     "coding": [
                                         {
                                             "system": "http://loinc.org",
-                                            "code": "48013-7",
-                                            "display": "Genomic reference sequence ID"
+                                            "code": "48002-0",
+                                            "display": "Genomic Source Class"
                                         }
                                     ]
                                 },
                                 "valueCodeableConcept": {
                                     "coding": [
                                         {
-                                            "system": "http://www.ncbi.nlm.nih.gov/nuccore",
-                                            "code": "NC_000002.11"
+                                            "system": "http://loinc.org",
+                                            "code": "LA6684-0",
+                                            "display": "somatic"
                                         }
                                     ]
                                 }
@@ -99,15 +113,18 @@
                                     "coding": [
                                         {
                                             "system": "http://loinc.org",
-                                            "code": "82155-3",
-                                            "display": "Genomic Structural Variant copy Number"
+                                            "code": "48013-7",
+                                            "display": "Genomic reference sequence ID"
                                         }
                                     ]
                                 },
-                                "valueQuantity": {
-                                    "value": 1,
-                                    "system": "http://unitsofmeasure.org",
-                                    "code": "1"
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+                                            "code": "NC_000013.10"
+                                        }
+                                    ]
                                 }
                             },
                             {
@@ -120,7 +137,7 @@
                                         }
                                     ]
                                 },
-                                "valueString": "G"
+                                "valueString": "N"
                             },
                             {
                                 "code": {
@@ -154,10 +171,10 @@
                                 },
                                 "valueRange": {
                                     "low": {
-                                        "value": 179401194
+                                        "value": 24055052
                                     },
                                     "high": {
-                                        "value": 179483050
+                                        "value": 49362068
                                     }
                                 }
                             },
@@ -173,10 +190,10 @@
                                 },
                                 "valueRange": {
                                     "low": {
-                                        "value": 179401294
+                                        "value": 24055072
                                     },
                                     "high": {
-                                        "value": 179482950
+                                        "value": 49362048
                                     }
                                 }
                             }
