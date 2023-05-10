@@ -17,7 +17,7 @@ Enter patient and gene, and get back all overlapping simple variants, structural
 Uses:
 * get-feature-coordinates
 * find-subject-variants
-* find-subject-intersecting-variants
+* find-subject-structural-intersecting-variants
 * find-subject-haplotypes
 
 ## Genetic Screening
@@ -37,3 +37,14 @@ Select patient from dropdown. List of potential drug-gene interactions are shown
 Uses:
 * find-subject-haplotypes
 * find-subject-tx-implications
+
+## Get Molecular Consequences
+https://getmolecularconsequences.streamlit.app/
+
+Enter patient and gene, and get back all overlapping simple variants, structural variants, and genotypes. Check the compute additional annotations button to calculate annotations for variants that were previously unannotated, concatenate SNVs that are in cis into MNVs, and annotate those MNVs.
+
+Uses:
+* get-feature-coordinates
+* find-subject-variants
+* find-subject-structural-intersecting-variants
+* find-subject-haplotypes
