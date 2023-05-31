@@ -70,7 +70,9 @@ DNA_CHANGE_TYPE_TO_CODE = {
     'DUP': 'SO:0001019',
     'CNV': 'SO:0001019',
     'delins': 'SO:1000032',
-    'copy_number_variation': 'SO:0001019'
+    'copy_number_variation': 'SO:0001019',
+    'transcription_variant': 'SO:0001549',
+    'haplotype': 'SO:0001024'
 }
 
 GENOMIC_SOURCE_CLASS_TO_CODE = {
