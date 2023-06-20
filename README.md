@@ -1,7 +1,7 @@
 # HL7 FHIR Genomics Operations - Reference Implementation
 Source code for a [public reference implementation](https://fhir-gen-ops.herokuapp.com/) of [HL7 FHIR Genomics Operations](http://build.fhir.org/ig/HL7/genomics-reporting/operations.html).
 
-Please refer to [project Wiki page](https://github.com/FHIR/genomics-operations/wiki) for details of this reference implementation.
+Please refer to [project Wiki page](https://github.com/FHIR/genomics-operations/wiki) for details of this reference implementation, including how to replicate.
 
 For additional information on the operations and the reference implementation, please see our [JAMIA manuscript](https://academic.oup.com/jamia/advance-article/doi/10.1093/jamia/ocac246/6957062).
 
