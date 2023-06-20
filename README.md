@@ -42,7 +42,7 @@ The operations return the following status codes:
 
 ## Testing
 
-To run the tests, you can use the VS Code Testing functionality which should discover them automatically. You can also
+To run the [integration tests](https://github.com/FHIR/genomics-operations/tree/main/tests), you can use the VS Code Testing functionality which should discover them automatically. You can also
 run `python3 -m pytest` from the terminal to execute them all.
 
 Additionally, since the tests run against the Mongo DB database, if you need to update the test data in this repo, you
