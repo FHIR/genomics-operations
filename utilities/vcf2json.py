@@ -11,7 +11,11 @@ import re
 phased_rec_map = {}
 spr_json = []
 
+# Takes individual variant's object IDs from mongoDB after all variants are uploaded
+# to the database and uses them to determine phasing relationships
 df = pd.read_json("variants.json", lines=True)
+
+# Searches through phaseset for given VCF row
 
 
 def add_phase_records(record):
@@ -25,6 +29,8 @@ def add_phase_records(record):
         if isinstance(sample_data.PS, list):
             sample_data_ps = sample_data_ps[0]
         phased_rec_map.setdefault(sample_data_ps, []).append(record)
+
+# CODE UNUSED
 
 
 def add_phased_relationship_obv(patientID, test_id, specimen_id, ref_build):
@@ -52,6 +58,8 @@ def add_phased_relationship_obv(patientID, test_id, specimen_id, ref_build):
 
         spr_json.append(output_json)
         c -= 1
+
+# Inclusion criteria for a VCF row
 
 
 def _valid_record(record, genomic_source_class, sample_position):
@@ -95,12 +103,10 @@ def _valid_record(record, genomic_source_class, sample_position):
         return False
     return True
 
+# Check that the correct parameters were given
 
-def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
-             test_date=None, test_id=None, specimen_id=None,
-             genomic_source_class=None, ratio_ad_dp=0.99, sample_position=0):
 
-    output_json_array = []
+def checkParams(vcf_filename, ref_build, patient_id, test_date, test_id, specimen_id, genomic_source_class):
     if not (vcf_filename):
         raise Exception('You must provide vcf_filename')
     if not ref_build or ref_build not in ["GRCh37", "GRCh38"]:
@@ -118,6 +124,14 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
         raise Exception(
             ("Please provide a valid Genomic Source Class " +
              "('germline' or 'somatic' or 'mixed')"))
+
+
+def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
+             test_date=None, test_id=None, specimen_id=None,
+             genomic_source_class=None, ratio_ad_dp=0.99, sample_position=0):
+
+    output_json_array = []
+    checkParams(vcf_filename, ref_build, patient_id, test_date, test_id, specimen_id, genomic_source_class)
 
     try:
         vcf_reader = vcf.Reader(filename=vcf_filename)
@@ -284,6 +298,7 @@ def getMultADs(output_json, record, sample_position, alt, alt_ad_index, hasAD, n
 def extractINFOField(output_json, record, codeDict):
     # Info field is dict with entries: ANN (SnpEff output) and POPAF (gnomAD output)
 
+    # Process the molecular consequence and predicted molecular impact
     if 'ANN' in record.INFO:
         output_json["molecConseq"] = []
         firstFlag = True
@@ -307,15 +322,19 @@ def extractINFOField(output_json, record, codeDict):
 
 def parseANN(output_json, ann, firstFlag, codeDict):
     annList = ann.split('|')
+    # This split registers each molecular consequence given in the form of X&Y into separate molec conseq:
+    # A bit of "cheating" - this is not the highest granularity given in the data. Molec conseq is always stored in the 1 position.
     conseqList = annList[1].split('&')
 
     for conseq in conseqList:
+        # Only keep one of each molecular consequence type.
         uniqueConseq = True
         for conseqIterator in output_json["molecConseq"]:
             if conseqIterator["display"] == conseq:
                 uniqueConseq = False
 
         if uniqueConseq:
+            # Try-except loop ensures consequences are present in the SO code table
             try:
                 system = codeDict[conseq][0]
                 code = codeDict[conseq][1]
@@ -326,5 +345,6 @@ def parseANN(output_json, ann, firstFlag, codeDict):
             except Exception:
                 print("molecular consequence: " + conseq + " not represented in code table")
 
+    # We only keep the first predicted molecular impact, since it is the most important (as deemed by SnpEff)
     if firstFlag:
         output_json["predictedMolecImpact"] = annList[2]
