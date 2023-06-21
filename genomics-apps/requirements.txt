@@ -1,5 +1,5 @@
 streamlit
 pandas
 numpy
-streamlit-aggrid
+streamlit-aggrid==0.3.3
 pyliftover
