@@ -1,5 +1,5 @@
 pandas==1.2.4
 pyliftover==0.4
 Requests==2.31.0
-streamlit==1.1.0
+streamlit==1.4.0
 streamlit-aggrid==0.3.4
