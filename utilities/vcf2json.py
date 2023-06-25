@@ -7,9 +7,11 @@ from app import common
 import copy
 import pandas as pd
 import re
+import uuid
 
 phased_rec_map = {}
 spr_json = []
+molecular_cons_arr = []
 
 df = pd.read_json("variants.json", lines=True)
 
@@ -133,6 +135,8 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
             continue
         add_phase_records(record)
         output_json = OrderedDict()
+        variant_id = uuid.uuid4().hex
+        output_json["variantID"] = variant_id     # Added GUID for variants.
         output_json["patientID"] = patient_id
         output_json["testDate"] = test_date
         output_json["testID"] = test_id
@@ -225,7 +229,7 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
         output_json["genomicSourceClass"] = genomic_source_class
         onRef = 1
 
-        extractINFOField(output_json, record, common.codeDict)
+        extractINFOField(variant_id, record, common.codeDict)
 
         for alt in alts:
             altDict, alt_ad_index, onRef = getMultADs(output_json, record, sample_position, alt, alt_ad_index, hasAD, noRefFlag, onRef)
@@ -281,27 +285,32 @@ def getMultADs(output_json, record, sample_position, alt, alt_ad_index, hasAD, n
 # Processes SnpEff and SnpSift output into final json file.
 
 
-def extractINFOField(output_json, record, codeDict):
+def extractINFOField(variant_id, record, codeDict):
     # Info field is dict with entries: ANN (SnpEff output) and POPAF (gnomAD output)
-
     if 'ANN' in record.INFO:
-        output_json["molecConseq"] = []
+        # output_json["molecConseq"] = []
+        molecular_json = []
         firstFlag = True
         for ann in record.INFO['ANN']:
-            parseANN(output_json, ann, firstFlag, codeDict)
+            parseANN(molecular_json, ann, firstFlag, codeDict)
             firstFlag = False
 
     if 'POPAF' in record.INFO:
         for popAF in record.INFO['POPAF']:
             if popAF is not None:
-                output_json["popAlleleFreq"] = float(popAF)
+                molecular_json["popAlleleFreq"] = float(popAF)
 
     if 'LOF' in record.INFO:
-        output_json["funcConseq"] = []
-        output_json["funcConseq"].append({"system": r'http://sequenceontology.org/',
+        molecular_json["funcConseq"] = []
+        molecular_json["funcConseq"].append({"system": r'http://sequenceontology.org/',
                                           "code": "SO:0002054",
                                           "display": "loss_of_function_variant"})
 
+    output_json_string = json.dumps(molecular_json, indent=4)
+
+    fileOutput = open("molecularConsequences.json", "w")
+    fileOutput.write(output_json_string)
+    fileOutput.close()
 # Orders and extracts molecular consequence data from SnpEff annotations.
 
 
@@ -311,7 +320,7 @@ def parseANN(output_json, ann, firstFlag, codeDict):
 
     for conseq in conseqList:
         uniqueConseq = True
-        for conseqIterator in output_json["molecConseq"]:
+        for conseqIterator in output_json:
             if conseqIterator["display"] == conseq:
                 uniqueConseq = False
 
@@ -320,7 +329,7 @@ def parseANN(output_json, ann, firstFlag, codeDict):
                 system = codeDict[conseq][0]
                 code = codeDict[conseq][1]
 
-                output_json["molecConseq"].append({"system": system,
+                output_json.append({"system": system,
                                                    "code": code,
                                                    "display": conseq})
             except Exception:
@@ -328,3 +337,5 @@ def parseANN(output_json, ann, firstFlag, codeDict):
 
     if firstFlag:
         output_json["predictedMolecImpact"] = annList[2]
+
+
