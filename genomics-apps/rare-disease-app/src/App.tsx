@@ -4,7 +4,9 @@ import logo from './logo.svg';
 import './App.css';
 import SortableTable from "./components/SortableTable";
 import PatientInfoForm from "./components/PatientInfoForm";
+import GeneHandler from "./components/GeneHandler";
 import { ListFormat } from "typescript";
+import axios from "axios";
 
 const data = [{ 'id': 1234, 'molecular_impact': 'HIGH', 'pathogenicity': 'benign' },
 { 'id': 2345, 'molecular_impact': '', 'pathogenicity': 'likely pathogenic' },
@@ -29,7 +31,10 @@ function App() {
         <PatientInfoForm callback={handleForm} />
         <p>{patientID}</p>
       </div>
-
+      {geneList.map(function (gene) {
+        console.log(geneList)
+        return <GeneHandler patientID={patientID} gene={gene} addAnnFlag={addAnnFlag} />
+      })}
 
       <SortableTable data={data} />
     </div>

@@ -4,6 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// var cors = require('cors');
+// App.arguments(cors());
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
