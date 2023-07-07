@@ -1,9 +1,13 @@
 import { MouseEventHandler, useCallback, useState } from "react";
 
-const data = [{ 'id': 1234, 'molecular_impact': 'HIGH', 'pathogenicity': 'benign' },
-{ 'id': 2345, 'molecular_impact': '', 'pathogenicity': 'likely pathogenic' },
-{ 'id': 3456, 'molecular_impact': 'LOW', 'pathogenicity': 'benign' },
-{ 'id': 4567, 'molecular_impact': 'MED', 'pathogenicity': 'benign' },];
+const data = [{
+  spdi: "",
+  dnaChangeType: "",
+  sourceClass: "",
+  allelicState: "",
+  molecImpact: "",
+  alleleFreq: NaN,
+}];
 
 type Data = typeof data;
 
@@ -58,13 +62,16 @@ function SortButton({
 }
 
 function SortableTable({ data }: { data: Data }) {
-  const [sortKey, setSortKey] = useState<SortKeys>("id");
+  const [sortKey, setSortKey] = useState<SortKeys>("spdi");
   const [sortOrder, setSortOrder] = useState<SortOrder>("ascn");
 
   const headers: { key: SortKeys; label: string }[] = [
-    { key: "id", label: "ID" },
-    { key: "molecular_impact", label: "Molecular Impact" },
-    { key: "pathogenicity", label: "Pathogenicity" },
+    { key: "spdi", label: "SPDI" },
+    { key: "molecImpact", label: "Molecular Impact" },
+    { key: "dnaChangeType", label: "DNA Change Type" },
+    { key: "sourceClass", label: "Source Class" },
+    { key: "allelicState", label: "Allelic State" },
+    { key: "alleleFreq", label: "Allele Frequency" },
   ];
 
   const sortedData = useCallback(
@@ -101,12 +108,15 @@ function SortableTable({ data }: { data: Data }) {
       </thead>
 
       <tbody>
-        {sortedData().map((person) => {
+        {sortedData().map((variant) => {
           return (
-            <tr key={person.id}>
-              <td>{person.id}</td>
-              <td>{person.molecular_impact}</td>
-              <td>{person.pathogenicity}</td>
+            <tr key={variant.spdi}>
+              <td>{variant.spdi}</td>
+              <td>{variant.molecImpact}</td>
+              <td>{variant.dnaChangeType}</td>
+              <td>{variant.alleleFreq}</td>
+              <td>{variant.allelicState}</td>
+              <td>{variant.sourceClass}</td>
             </tr>
           );
         })}
