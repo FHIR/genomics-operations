@@ -23,23 +23,28 @@ type VariantRow = {
 }
 
 function App() {
-  const patientID = useRef<string>("")
-  const [geneList, setGeneList] = useState<string[]>([])
-  const addAnnFlag = useRef<boolean>(false)
+  const [geneButtons, setGeneButtons] = useState<{ [key: string]: (Array<VariantRow>) }>({})
 
   var geneListData: Array<{ geneName: string, geneData?: Array<VariantRow> }> = []
 
-  const handleForm = (formData: { patientID: string, geneList: Array<string>, addAnnFlag: boolean }) => {
-    // Update these state variables from within the form component
-    patientID.current = formData.patientID
-    setGeneList(formData.geneList)
-    addAnnFlag.current = formData.addAnnFlag
+  // const handleForm = (formData: { patientID: string, geneList: Array<string>, addAnnFlag: boolean }) => {
+  //   // Update these state variables from within the form component
+  //   patientID.current = formData.patientID
+  //   setGeneList(formData.geneList)
+  //   addAnnFlag.current = formData.addAnnFlag
 
-  }
+  // }
 
-  const getGeneData = (geneData: { geneName: string, geneData?: Array<VariantRow> }) => {
-    // Update these state variables from within the form component
-    geneListData = geneData
+  const getGeneData = (geneData: { geneName: string, geneData: Array<VariantRow> }) => {
+    // Update state variable from within the form component
+    // if (geneData.geneName in geneButtons) {
+    setGeneButtons((prevGeneButtons) => {
+      return ({
+        ...prevGeneButtons,
+        geneName: geneData.geneData
+      })
+    })
+    // }
   }
 
   return (
@@ -47,11 +52,13 @@ function App() {
       <div id="patientInfoForm">
         <PatientInfoForm callback={getGeneData} />
       </div>
-      {geneList.map(function (gene) {
-        console.log(patientID)
-        console.log(geneList)
-        return <GeneButton patientID={patientID.current} gene={gene} addAnnFlag={addAnnFlag.current} callback={getGeneData} />
-      })}
+      {() => {
+        if (geneButtons !== undefined && geneButtons !==) {
+          geneButtons.keys().map(function (gene) {
+            console.log(geneList)
+          })
+        }
+      }}
 
       <SortableTable data={geneTableData} />
     </div>
