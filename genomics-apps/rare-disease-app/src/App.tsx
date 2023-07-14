@@ -27,7 +27,7 @@ function App() {
   const [geneList, setGeneList] = useState<string[]>([])
   const addAnnFlag = useRef<boolean>(false)
 
-  var geneTableData: Array<VariantRow> = []
+  var geneListData: Array<{ geneName: string, geneData?: Array<VariantRow> }> = []
 
   const handleForm = (formData: { patientID: string, geneList: Array<string>, addAnnFlag: boolean }) => {
     // Update these state variables from within the form component
@@ -37,15 +37,15 @@ function App() {
 
   }
 
-  const getGeneData = (geneData: Array<VariantRow>) => {
+  const getGeneData = (geneData: { geneName: string, geneData?: Array<VariantRow> }) => {
     // Update these state variables from within the form component
-    geneTableData = geneData
+    geneListData = geneData
   }
 
   return (
     <div className="App">
       <div id="patientInfoForm">
-        <PatientInfoForm callback={handleForm} />
+        <PatientInfoForm callback={getGeneData} />
       </div>
       {geneList.map(function (gene) {
         console.log(patientID)
@@ -53,7 +53,7 @@ function App() {
         return <GeneButton patientID={patientID.current} gene={gene} addAnnFlag={addAnnFlag.current} callback={getGeneData} />
       })}
 
-      {/* <SortableTable data={geneTableData} /> */}
+      <SortableTable data={geneTableData} />
     </div>
   );
 }

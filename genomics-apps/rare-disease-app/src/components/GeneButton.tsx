@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useCallback, useState } from "react";
+import React, { MouseEventHandler, useCallback, useState, useRef } from "react";
 import axios from "axios"
 import SortableTable from "./SortableTable";
 
@@ -129,8 +129,9 @@ function GeneButton({ patientID, gene, addAnnFlag, callback }:
         callback: (geneData: Array<VariantRow>) => void
     }) {
 
-    const [APIStatus, setAPIStatus] = useState("red")
-    var range: string = ""
+    // const [APIStatus, setAPIStatus] = useState("red")
+    var APIStatus = "red"
+    const range = useRef("")
     var geneData: Array<VariantRow>
 
     console.log("In gene handler")
@@ -143,6 +144,9 @@ function GeneButton({ patientID, gene, addAnnFlag, callback }:
     }
 
     async function getFC() {
+        if (range.current != "") {
+            return
+        }
         type FeatureCoordinates = [{
             MANE: string[],
             build37Coordinates: string,
@@ -170,33 +174,37 @@ function GeneButton({ patientID, gene, addAnnFlag, callback }:
         }
         else {
             console.log(responseJson);
-            setAPIStatus("yellow")
+            // setAPIStatus("yellow")
+            APIStatus = 'yellow'
             // setArticleDict(JSON.parse(responseJson));
         }
 
-        range = responseJson[0].build38Coordinates
+        range.current = responseJson[0].build38Coordinates
     }
 
     async function getFSV() {
-        if (range != "") {
-            let url = baseURLFSV + patientID + '&ranges=' + range + '&includeVariants=true'
-            // urlAppender = urlAppender.replaceAll("/", "@")
-            // urlAppender = urlAppender.replaceAll("$", "@!abab@!")
-            // urlAppender = urlAppender.replaceAll("?", "!")
+        if (range.current == "") {
+            return
+        }
 
-            // let url = `http://127.0.0.1:5000/${urlAppender}`
-            console.log(url)
+        let url = baseURLFSV + patientID + '&ranges=' + range.current + '&includeVariants=true'
+        // urlAppender = urlAppender.replaceAll("/", "@")
+        // urlAppender = urlAppender.replaceAll("$", "@!abab@!")
+        // urlAppender = urlAppender.replaceAll("?", "!")
 
-            let response = await fetch(url)
-            var fsvResponseJson = await response.json() as FSVResponse
-            if (fsvResponseJson instanceof Error) {
-                console.log('It is an error!');
-            }
-            else {
-                console.log(fsvResponseJson.parameter[0]);
-                geneData = translateFHIRResponse(fsvResponseJson);
-                setAPIStatus("green")
-            }
+        // let url = `http://127.0.0.1:5000/${urlAppender}`
+        console.log(url)
+
+        let response = await fetch(url)
+        var fsvResponseJson = await response.json() as FSVResponse
+        if (fsvResponseJson instanceof Error) {
+            console.log('It is an error!');
+        }
+        else {
+            console.log(fsvResponseJson.parameter[0]);
+            geneData = translateFHIRResponse(fsvResponseJson);
+            // setAPIStatus("green")
+            APIStatus = 'green'
         }
     }
 
@@ -211,6 +219,7 @@ function GeneButton({ patientID, gene, addAnnFlag, callback }:
         <div>
             <button style={{ color: APIStatus }} onClick={() => {
                 if (APIStatus == 'green') {
+                    console.log("Pushed Gene Button!")
                     callback(geneData)
                 }
             }}>{gene}</button>
