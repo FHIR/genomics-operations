@@ -87,11 +87,7 @@ function translateComponents(resource: FSVVariantResource) {
             if (component.valueCodeableConcept && component.valueCodeableConcept.coding[0].display) {
                 variantRow.spdi = component.valueCodeableConcept.coding[0].display
             }
-        } else if (component.code.coding[0].code == "81258-6") {
-            if (component.valueQuantity && component.valueQuantity.value) {
-                variantRow.alleleFreq = component.valueQuantity.value
-            }
-        } else if (component.code.coding[0].code == "81258-6") {
+        } else if (component.code.coding[0].code == "92821-8") {
             if (component.valueQuantity && component.valueQuantity.value) {
                 variantRow.alleleFreq = component.valueQuantity.value
             }
