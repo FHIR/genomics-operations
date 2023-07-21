@@ -24,7 +24,7 @@ type VariantRow = {
 
 function App() {
   const [geneButtons, setGeneButtons] = useState<Array<{ geneName: string, geneData: Array<VariantRow> }>>([])
-  const [selectedGene, setSelectedGene] = useState<string>("")
+  const [selectedGene, setSelectedGene] = useState<{ geneName: string, geneData: Array<VariantRow> }>({ geneName: "None", geneData: [] })
 
   var geneListData: Array<{ geneName: string, geneData?: Array<VariantRow> }> = []
 
@@ -54,7 +54,7 @@ function App() {
     return (
       <button
         style={{ color: 'green' }}
-        onClick={() => setSelectedGene(geneDict.geneName)}>
+        onClick={() => setSelectedGene(geneDict)}>
         {geneDict.geneName}
       </button>
     );
@@ -66,19 +66,10 @@ function App() {
         <PatientInfoForm callback={getGeneData} />
       </div>
       <div>
-        {() => {
-          if (geneButtons !== undefined && geneButtons.length != 0) {
-            return (
-              <div>
-                {geneButtons.map((geneDict) => makeButton(geneDict))}
-              </div>)
-          } else {
-            return (<div></div>)
-          }
-        }}
+        {geneButtons.map((geneDict) => makeButton(geneDict))}
       </div>
-
-      <SortableTable data={geneTableData} />
+      <p>Gene Displayed: {selectedGene.geneName}</p>
+      <SortableTable data={selectedGene.geneData} />
     </div>
   );
 }
