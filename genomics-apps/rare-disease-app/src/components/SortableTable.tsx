@@ -1,6 +1,6 @@
 import { MouseEventHandler, useCallback, useState } from "react";
 
-const data = [{
+const dataHeaders = [{
   spdi: "",
   dnaChangeType: "",
   sourceClass: "",
@@ -9,7 +9,7 @@ const data = [{
   alleleFreq: NaN,
 }];
 
-type Data = typeof data;
+type Data = typeof dataHeaders;
 
 type SortKeys = keyof Data[0];
 
@@ -26,7 +26,7 @@ function sortData({
 }) {
   if (!sortKey) return tableData;
 
-  const sortedData = data.sort((a, b) => {
+  const sortedData = tableData.sort((a, b) => {
     return a[sortKey] > b[sortKey] ? 1 : -1;
   });
 
@@ -62,6 +62,9 @@ function SortButton({
 }
 
 function SortableTable({ data }: { data: Data }) {
+  console.log("In sortable table")
+  console.log(data)
+
   const [sortKey, setSortKey] = useState<SortKeys>("spdi");
   const [sortOrder, setSortOrder] = useState<SortOrder>("ascn");
 
@@ -114,9 +117,9 @@ function SortableTable({ data }: { data: Data }) {
               <td>{variant.spdi}</td>
               <td>{variant.molecImpact}</td>
               <td>{variant.dnaChangeType}</td>
-              <td>{variant.alleleFreq}</td>
-              <td>{variant.allelicState}</td>
               <td>{variant.sourceClass}</td>
+              <td>{variant.allelicState}</td>
+              <td>{variant.alleleFreq}</td>
             </tr>
           );
         })}

@@ -51,6 +51,9 @@ function App() {
   }
 
   function makeButton(geneDict: { geneName: string, geneData: Array<VariantRow> }) {
+    if (geneDict.geneName == "BRCA1") {
+      console.log(geneButtons)
+    }
     return (
       <button
         style={{ color: 'green' }}

@@ -1,6 +1,5 @@
 import { getEventListeners } from "events";
 import React from "react";
-import "./form-styles.scss";
 
 type VariantRow = {
     spdi: string,
@@ -131,7 +130,6 @@ function getGeneData({ patientID, gene, addAnnFlag, callback }:
 
     // const [APIStatus, setAPIStatus] = useState("red")
     var APIStatus = "red"
-    const range = React.useRef("")
     var geneData: Array<VariantRow>
 
     console.log("In gene handler")
@@ -143,10 +141,8 @@ function getGeneData({ patientID, gene, addAnnFlag, callback }:
         return null
     }
 
-    async function getFC() {
-        if (range.current != "") {
-            return
-        }
+    async function getFHIRResponse() {
+        let range = ""
         type FeatureCoordinates = [{
             MANE: string[],
             build37Coordinates: string,
@@ -179,15 +175,13 @@ function getGeneData({ patientID, gene, addAnnFlag, callback }:
             // setArticleDict(JSON.parse(responseJson));
         }
 
-        range.current = responseJson[0].build38Coordinates
-    }
+        range = responseJson[0].build38Coordinates
 
-    async function getFSV() {
-        if (range.current == "") {
+        if (range == "") {
             return
         }
 
-        let url = baseURLFSV + patientID + '&ranges=' + range.current + '&includeVariants=true'
+        url = baseURLFSV + patientID + '&ranges=' + range + '&includeVariants=true'
         // urlAppender = urlAppender.replaceAll("/", "@")
         // urlAppender = urlAppender.replaceAll("$", "@!abab@!")
         // urlAppender = urlAppender.replaceAll("?", "!")
@@ -195,8 +189,8 @@ function getGeneData({ patientID, gene, addAnnFlag, callback }:
         // let url = `http://127.0.0.1:5000/${urlAppender}`
         console.log(url)
 
-        let response = await fetch(url)
-        var fsvResponseJson = await response.json() as FSVResponse
+        let fsvResponse = await fetch(url)
+        var fsvResponseJson = await fsvResponse.json() as FSVResponse
         if (fsvResponseJson instanceof Error) {
             console.log('It is an error!');
         }
@@ -208,12 +202,6 @@ function getGeneData({ patientID, gene, addAnnFlag, callback }:
         }
 
         callback({ geneName: gene, geneData: geneData })
-
-    }
-
-    async function getFHIRResponse() {
-        await getFC()
-        await getFSV()
     }
 
     getFHIRResponse()
@@ -241,7 +229,7 @@ export default function PatientInfoForm({ callback }: {
 
 
 
-        alert(`Here's your data: ${JSON.stringify(data, undefined, 2)}`);
+        console.log(`Here's your data: ${JSON.stringify(data, undefined, 2)}`);
 
         data.geneList.map((gene) => {
             getGeneData({ patientID: data.patientID, gene: gene, addAnnFlag: data.addAnnFlag, callback: callback })
