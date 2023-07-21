@@ -1,11 +1,16 @@
 import React, { MouseEventHandler, useCallback, useState } from "react";
 
+type VariantRow = {
+    spdi: string,
+    dnaChangeType: string,
+    sourceClass: string,
+    allelicState: string,
+    molecImpact: string,
+    alleleFreq: number,
+}
+
 function PatientInfoForm({ callback }: {
-    callback: (formData: {
-        patientID: string;
-        geneList: Array<string>;
-        addAnnFlag: boolean;
-    }) => void
+    callback: (geneData: Array<{ geneName: string, geneData?: Array<VariantRow> }>) => void
 }) {
 
     const [patientID, setPatientID] = useState('');

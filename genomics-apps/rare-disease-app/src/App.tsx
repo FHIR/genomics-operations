@@ -23,7 +23,8 @@ type VariantRow = {
 }
 
 function App() {
-  const [geneButtons, setGeneButtons] = useState<{ [key: string]: (Array<VariantRow>) }>({})
+  const [geneButtons, setGeneButtons] = useState<Array<{ geneName: string, geneData: Array<VariantRow> }>>([])
+  const [selectedGene, setSelectedGene] = useState<string>("")
 
   var geneListData: Array<{ geneName: string, geneData?: Array<VariantRow> }> = []
 
@@ -35,16 +36,28 @@ function App() {
 
   // }
 
-  const getGeneData = (geneData: { geneName: string, geneData: Array<VariantRow> }) => {
+  const getGeneData = (newGene: { geneName: string, geneData: Array<VariantRow> }) => {
     // Update state variable from within the form component
     // if (geneData.geneName in geneButtons) {
-    setGeneButtons((prevGeneButtons) => {
-      return ({
-        ...prevGeneButtons,
-        geneName: geneData.geneData
-      })
+    let geneButtonsUpdatedTarget = geneButtons.filter(function (geneDict) {
+      return geneDict.geneName !== newGene.geneName
     })
+
+    geneButtonsUpdatedTarget.push(newGene)
+
+    setGeneButtons(geneButtonsUpdatedTarget)
+
     // }
+  }
+
+  function makeButton(geneDict: { geneName: string, geneData: Array<VariantRow> }) {
+    return (
+      <button
+        style={{ color: 'green' }}
+        onClick={() => setSelectedGene(geneDict.geneName)}>
+        {geneDict.geneName}
+      </button>
+    );
   }
 
   return (
@@ -52,13 +65,18 @@ function App() {
       <div id="patientInfoForm">
         <PatientInfoForm callback={getGeneData} />
       </div>
-      {() => {
-        if (geneButtons !== undefined && geneButtons !==) {
-          geneButtons.keys().map(function (gene) {
-            console.log(geneList)
-          })
-        }
-      }}
+      <div>
+        {() => {
+          if (geneButtons !== undefined && geneButtons.length != 0) {
+            return (
+              <div>
+                {geneButtons.map((geneDict) => makeButton(geneDict))}
+              </div>)
+          } else {
+            return (<div></div>)
+          }
+        }}
+      </div>
 
       <SortableTable data={geneTableData} />
     </div>

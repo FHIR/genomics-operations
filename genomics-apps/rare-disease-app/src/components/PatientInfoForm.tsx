@@ -126,7 +126,7 @@ function getGeneData({ patientID, gene, addAnnFlag, callback }:
         patientID: string,
         gene: string,
         addAnnFlag: boolean,
-        callback: (geneData: { geneName: string, geneData?: Array<VariantRow> }) => void
+        callback: (geneData: { geneName: string, geneData: Array<VariantRow> }) => void
     }) {
 
     // const [APIStatus, setAPIStatus] = useState("red")
@@ -220,7 +220,7 @@ function getGeneData({ patientID, gene, addAnnFlag, callback }:
 }
 
 export default function PatientInfoForm({ callback }: {
-    callback: (geneData: { geneName: string, geneData?: Array<VariantRow> }) => void
+    callback: (geneData: { geneName: string, geneData: Array<VariantRow> }) => void
 }) {
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
