@@ -38,16 +38,20 @@ function App() {
 
   const getGeneData = (newGene: { geneName: string, geneData: Array<VariantRow> }) => {
     // Update state variable from within the form component
-    // if (geneData.geneName in geneButtons) {
-    let geneButtonsUpdatedTarget = geneButtons.filter(function (geneDict) {
-      return geneDict.geneName !== newGene.geneName
+    setGeneButtons((prevGeneButtons) => {
+      let geneButtonsUpdatedTarget = prevGeneButtons.filter(function (geneDict) {
+        return geneDict.geneName !== newGene.geneName
+      })
+
+      geneButtonsUpdatedTarget.push(newGene)
+
+      console.log("In get gene data for gene ", newGene.geneName)
+      console.log("geneButtons is ", geneButtons)
+      console.log("geneButtons Updated target is", geneButtonsUpdatedTarget)
+
+      return geneButtonsUpdatedTarget
     })
 
-    geneButtonsUpdatedTarget.push(newGene)
-
-    setGeneButtons(geneButtonsUpdatedTarget)
-
-    // }
   }
 
   function makeButton(geneDict: { geneName: string, geneData: Array<VariantRow> }) {
