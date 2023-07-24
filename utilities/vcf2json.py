@@ -296,31 +296,18 @@ def getMultADs(output_json, record, sample_position, alt, alt_ad_index, hasAD, n
 
 def extractINFOField(variant_id, patient_id, record, codeDict, mol_output, output_json):
     # Info field is dict with entries: ANN (SnpEff output) and POPAF (gnomAD output)
-    molecular_json = OrderedDict()
-    molecular_json["patient_id"] = patient_id
-    molecular_json["variant_id"] = variant_id
     if 'ANN' in record.INFO:
-
-        molecular_json["transcriptRefSeq"] = ""
-        molecular_json["MANE"] = False
-        molecular_json["source"] = "snpEff"
-        molecular_json["cHGVS"] = ""
-        molecular_json["pHGVS"] = ""
-        molecular_json["featureConsequence"] = []
-
-        firstFlag = True
         count = 3
-
         for ann in record.INFO['ANN']:
             annList = ann.split('|')
             isMane = False
+
             if annList[6] in transcript_map:
                 mane = transcript_map[annList[6]]
-                if(mane == 0):
-                    molecular_json["MANE"] = "False"
+                if(mane == 0 or mane == None):
+                    isMane = False
                 else:
                     isMane = True
-                    molecular_json["MANE"] = "True"
 
             # Checking if MANE or not, If MANE is true for first MolecularConsequences then
             # only one Value is added and others are ignored
@@ -330,40 +317,27 @@ def extractINFOField(variant_id, patient_id, record, codeDict, mol_output, outpu
 
             if(count!=0):
                 if(count == 3 and isMane == True):
-                    parseANN(molecular_json, annList, firstFlag, codeDict, isMane)
+                    additionInMolecularConseq(variant_id, patient_id, record, codeDict, mol_output, annList, isMane)
                     break
                 elif(count == 2 and isMane == True):
-                    parseANN(molecular_json, annList, firstFlag, codeDict, isMane)
+                    additionInMolecularConseq(variant_id, patient_id, record, codeDict, mol_output, annList, isMane)
                     break
                 elif(count == 1 and isMane == True):
-                    parseANN(molecular_json, annList, firstFlag, codeDict, isMane)
+                    additionInMolecularConseq(variant_id, patient_id, record, codeDict, mol_output, annList, isMane)
                     break
-                elif(count == 1 and isMane == False):
-                    break
-                else:
-                    parseANN(molecular_json, annList, firstFlag, codeDict, isMane)
-                    count -=1
-
-            firstFlag = False
+                elif(count != 1):
+                    additionInMolecularConseq(variant_id, patient_id, record, codeDict, mol_output, annList, isMane)
+                    count -= 1
 
     if 'POPAF' in record.INFO:
-        for popAF in record.INFO['POPAF']:
-            if popAF is not None:
-                output_json["popAlleleFreq"] = float(popAF)
+                for popAF in record.INFO['POPAF']:
+                    if popAF is not None:
+                        output_json["popAlleleFreq"] = float(popAF)
 
-    if 'LOF' in record.INFO:
-        molecular_json["funcConseq"] = []
-        molecular_json["funcConseq"].append({"system": r'http://sequenceontology.org/',
-                                          "code": "SO:0002054",
-                                          "display": "loss_of_function_variant"})
-
-    mol_output.append(molecular_json)
 # Orders and extracts molecular consequence data from SnpEff annotations.
 
-
-def parseANN(molecular_json, annList, firstFlag, codeDict, isMane):
+def parseANN(molecular_json, annList, firstFlag, codeDict):
     conseqList = annList[1].split('&')
-
     molecular_json["transcriptRefSeq"] = annList[6]
     molecular_json["cHGVS"] = annList[6] + ":" + annList[9]
 
@@ -390,4 +364,30 @@ def parseANN(molecular_json, annList, firstFlag, codeDict, isMane):
     if firstFlag:
         molecular_json["Impact"] = annList[2]
 
-# df = pd.read_json("convertedVCF.json", orient = str)
+def additionInMolecularConseq(variant_id, patient_id, record, codeDict, mol_output, annList, isMane):
+    molecular_json = OrderedDict()
+    molecular_json["patient_id"] = patient_id
+    molecular_json["variant_id"] = variant_id
+
+    molecular_json["transcriptRefSeq"] = ""
+    molecular_json["MANE"] = isMane
+    molecular_json["source"] = "snpEff"
+    molecular_json["cHGVS"] = ""
+    molecular_json["pHGVS"] = ""
+    molecular_json["featureConsequence"] = []
+
+    firstFlag = True
+
+    parseANN(molecular_json, annList, firstFlag, codeDict)
+
+    firstFlag = False
+
+    if 'LOF' in record.INFO:
+        molecular_json["funcConseq"] = []
+        molecular_json["funcConseq"].append({"system": r'http://sequenceontology.org/',
+                                                     "code": "SO:0002054",
+                                                     "display": "loss_of_function_variant"})
+
+    mol_output.append(molecular_json)
+
+df = pd.read_json("convertedVCF.json", orient = str)
