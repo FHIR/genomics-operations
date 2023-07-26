@@ -40,13 +40,18 @@ type FSVVariantResource = {
     resourceType: string,
     status: string,
     subject: { reference: string },
-    valueCodeableConcept: FHIRCoding,
+    valueCodeableConcept: { coding: FHIRCoding },
     text?: string,
+}
+
+type PhaseRelationshipResource = {
+    valueCodeableConcept: { coding: FHIRCoding },
+    derivedFrom: Array<{ reference: string }>
 }
 
 type FSVParameter = {
     name: string,
-    resource?: FSVVariantResource,
+    resource?: FSVVariantResource | PhaseRelationshipResource,
     valueString?: string,
     valueBoolean?: boolean,
 }
@@ -100,18 +105,59 @@ function translateComponents(resource: FSVVariantResource) {
     return variantRow
 }
 
-function translateFHIRResponse(response: FSVResponse) {
+function parsePhaseRelationship(param: FSVParameter, addAnnFlag: boolean) {
+    if (param.resource?.valueCodeableConcept.coding[0].code != 'Cis') {
+        return
+    }
+
+    let resource = param.resource as PhaseRelationshipResource
+    let derivedFromIDs: Array<string> = []
+
+    resource.derivedFrom.map((idEntry) => {
+        derivedFromIDs.push(idEntry.reference.split('/')[1])
+    })
+
+    return derivedFromIDs
+}
+
+function findMNVs(response: FSVResponse, cisVariantsIDs: Array<Array<string>>, mnvData: Array<{
+    mnvSPDI: string,
+    molecImpact: string,
+    snvSPDIs: Array<string>
+}>) {
+
+
+    return mnvData
+}
+
+function translateFHIRResponse(response: FSVResponse, addAnnFlag: boolean) {
     let geneTable: Array<VariantRow> = []
     let paramArray = response.parameter[0].part;
+    let cisVariantsIDs: Array<Array<string>> = []
+    let mnvData: Array<{
+        mnvSPDI: string,
+        molecImpact: string,
+        snvSPDIs: Array<string>
+    }> = []
     paramArray.map((param) => {
         //If the part is not a variant resource, return
-        if (param.name != 'variant' || param.resource == null) {
+        if (param.name == 'sequencePhaseRelationship' && addAnnFlag) {
+            let derivedFromIDs = parsePhaseRelationship(param, addAnnFlag)
+            if (derivedFromIDs) {
+                cisVariantsIDs.push(derivedFromIDs)
+            }
+            return
+        } else if (param.name != 'variant' || param.resource == null) {
             return
         }
 
-        let variantRow: VariantRow = translateComponents(param.resource)
+        let variantRow: VariantRow = translateComponents(param.resource as FSVVariantResource)
         geneTable.push(variantRow)
     })
+
+    if (addAnnFlag) {
+        findMNVs(response, cisVariantsIDs, mnvData)
+    }
 
     return geneTable
 }
@@ -177,7 +223,7 @@ function getGeneData({ patientID, gene, addAnnFlag, callback }:
             return
         }
 
-        url = baseURLFSV + patientID + '&ranges=' + range + '&includeVariants=true'
+        url = baseURLFSV + patientID + '&ranges=' + range + '&includeVariants=true' + '&includePhasing=true'
         // urlAppender = urlAppender.replaceAll("/", "@")
         // urlAppender = urlAppender.replaceAll("$", "@!abab@!")
         // urlAppender = urlAppender.replaceAll("?", "!")
@@ -192,7 +238,7 @@ function getGeneData({ patientID, gene, addAnnFlag, callback }:
         }
         else {
             console.log(fsvResponseJson.parameter[0]);
-            geneData = translateFHIRResponse(fsvResponseJson);
+            geneData = translateFHIRResponse(fsvResponseJson, addAnnFlag);
             // setAPIStatus("green")
             APIStatus = 'green'
         }
