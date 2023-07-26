@@ -120,12 +120,79 @@ function parsePhaseRelationship(param: FSVParameter, addAnnFlag: boolean) {
     return derivedFromIDs
 }
 
+function computeAnnotations(SPDI: string) {
+    return "TODO"
+}
+
 function findMNVs(response: FSVResponse, cisVariantsIDs: Array<Array<string>>, mnvData: Array<{
     mnvSPDI: string,
     molecImpact: string,
     snvSPDIs: Array<string>
 }>) {
+    cisVariantsIDs.map((IDList) => {
+        let SPDIList: Array<string> = []
+        let SPDIDictList: Array<{ SPDI: string, chromosome: string, position: string, refAllele: string, altAllele: string }> = []
+        response.parameter[0].part.map((param) => {
+            // Return if not variant profile
+            if (param.name != 'variant' || param.resource == null) {
+                return
+            }
+            // Typecast resource as variant resource
+            let resource = param.resource as FSVVariantResource
 
+            // Return if id is not part of an identified mnv
+            if (!IDList.includes(resource.id)) {
+                return
+            }
+
+            resource.component.map((component) => {
+                // Return if not spdi component
+                if (component.code.coding[0].code != '81252-9' || !component.valueCodeableConcept || !component.valueCodeableConcept.coding[0].display) {
+                    return
+                }
+
+                // Return if already parsed
+                if (SPDIList.includes(component.valueCodeableConcept.coding[0].display)) {
+                    return
+                }
+
+                let SPDIString = component.valueCodeableConcept.coding[0].display
+                SPDIList.push(SPDIString)
+                let SPDIStringList = SPDIString.split(':')
+                SPDIDictList.push({
+                    SPDI: SPDIString,
+                    chromosome: SPDIStringList[0],
+                    position: SPDIStringList[1],
+                    refAllele: SPDIStringList[2],
+                    altAllele: SPDIStringList[3],
+                })
+            })
+        })
+
+        // Sort the spdis based on position
+        SPDIDictList.sort(function (a, b) {
+            if (a.position < b.position) return -1;
+            if (a.position > b.position) return 1;
+            return 0;
+        });
+
+        let refAllele = ""
+        let altAllele = ""
+
+        SPDIDictList.map((SPDIDict) => {
+            refAllele += SPDIDict.refAllele
+            altAllele += SPDIDict.altAllele
+        })
+
+        let mnvSPDI = SPDIDictList[0].chromosome + ":" + SPDIDictList[0].position +
+            ":" + refAllele + ":" + altAllele
+
+        mnvData.push({
+            mnvSPDI: mnvSPDI,
+            snvSPDIs: [SPDIDictList[0].SPDI, SPDIDictList[1].SPDI],
+            molecImpact: computeAnnotations(mnvSPDI)
+        })
+    })
 
     return mnvData
 }
