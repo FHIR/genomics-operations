@@ -121,7 +121,20 @@ function parsePhaseRelationship(param: FSVParameter, addAnnFlag: boolean) {
 }
 
 function computeAnnotations(SPDI: string) {
-    return "TODO"
+    let SPDIList = SPDI.split(':')
+    let chromosome = SPDIList[0].split('.')[0].slice(-2)
+    let version_string = SPDIList[0].split('.')[1]
+
+    let version = +version_string + 1
+
+    if (chromosome[0] == '0') {
+        chromosome = chromosome[1]
+    }
+    chromosome = "chr" + chromosome
+
+    // Call variation services all equivalent
+    // Take [1] entry
+    // Send to hgvs
 }
 
 function findMNVs(response: FSVResponse, cisVariantsIDs: Array<Array<string>>, mnvData: Array<{
