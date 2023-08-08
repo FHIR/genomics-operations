@@ -10,10 +10,7 @@ import re
 import uuid
 
 phased_rec_map = {}
-spr_json = []
-molecular_cons_arr = []
 transcript_map = {}
-
 
 def add_phase_records(record):
     if (record.samples[0].phased is False):
@@ -28,7 +25,7 @@ def add_phase_records(record):
         phased_rec_map.setdefault(sample_data_ps, []).append(record)
 
 
-def add_phased_relationship_obv(patientID, test_id, specimen_id, ref_build):
+def add_phased_relationship_obv(patientID, test_id, specimen_id, ref_build, phase_data, df):
     sequence_rels = common.get_sequence_relation(phased_rec_map)
     c = len(sequence_rels)
     df_func = df[(df['patientID'] == patientID)]
@@ -49,13 +46,8 @@ def add_phased_relationship_obv(patientID, test_id, specimen_id, ref_build):
         output_json['variantID1'] = str(df_copy.iloc[0]['variantID'])
         output_json['variantID2'] = str(df_copy.iloc[1]['variantID'])
         output_json['phase'] = relation
-        spr_json.append(output_json)
+        phase_data.append(output_json)
         c -= 1
-
-    output_json_string = json.dumps(spr_json, indent=4)
-    fileOutput = open("phaseData.json", "w")
-    fileOutput.write(output_json_string)
-    fileOutput.close()
 
 
 def _valid_record(record, genomic_source_class, sample_position):
@@ -102,10 +94,9 @@ def _valid_record(record, genomic_source_class, sample_position):
 
 def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
              test_date=None, test_id=None, specimen_id=None,
-             genomic_source_class=None, ratio_ad_dp=0.99, sample_position=0):
-    # Fetching all Trnascripts data and storing it in transcript_map
+             genomic_source_class=None, ratio_ad_dp=0.99, sample_position=0, variants_data = None, molecular_output = None):
+    # Fetching all Transcripts data and storing it in transcript_map
     common.query_genes(transcript_map)
-    mol_output = []
     output_json_array = []
     if not (vcf_filename):
         raise Exception('You must provide vcf_filename')
@@ -233,24 +224,15 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
         output_json["genomicSourceClass"] = genomic_source_class
         onRef = 1
 
-        extractINFOField(variant_id, patient_id, record, common.codeDict, mol_output, output_json)
+        extractINFOField(variant_id, patient_id, record, common.codeDict, molecular_output, output_json)
 
         for alt in alts:
             altDict, alt_ad_index, onRef = getMultADs(output_json, record, sample_position, alt, alt_ad_index, hasAD, noRefFlag, onRef)
+            variants_data.append(altDict)
             output_json_array.append(altDict)
 
-    output = json.dumps(mol_output, indent=4)
-    fileOutput = open("molecularConsequences.json", "w")
-    fileOutput.write(output)
-    fileOutput.close()
-
-    output_json_string = json.dumps(output_json_array, indent=4)
-
-    fileOutput = open("convertedVCF.json", "w")
-    fileOutput.write(output_json_string)
-    fileOutput.close()
-
-    return output_json_array
+    with open("convertedVCF.json", "w") as f:
+        f.write(json.dumps(output_json_array, indent=4))
 
 # getMultADs finds the allele reads for each decomposed alternate allele in the VCF row.
 
@@ -304,7 +286,7 @@ def extractINFOField(variant_id, patient_id, record, codeDict, mol_output, outpu
 
             if annList[6] in transcript_map:
                 mane = transcript_map[annList[6]]
-                if(mane == 0 or mane == None):
+                if(mane == 0):
                     isMane = False
                 else:
                     isMane = True
@@ -312,7 +294,8 @@ def extractINFOField(variant_id, patient_id, record, codeDict, mol_output, outpu
             # Checking if MANE or not, If MANE is true for first MolecularConsequences then
             # only one Value is added and others are ignored
             # If MANE is true for 2nd MolecularConsequence add first and second only.
-            # If MANE is True for 3rd MolecularConsequences add first, second and third only.
+            # If MANE is true for 3rd MolecularConsequences add first, second and third only.
+            # If MANE is false for 3rd and true for other then we will add that and break.
             # If no MANE Present only 2 MolecularConsequences are added.
 
             if(count!=0):
@@ -389,5 +372,3 @@ def additionInMolecularConseq(variant_id, patient_id, record, codeDict, mol_outp
                                                      "display": "loss_of_function_variant"})
 
     mol_output.append(molecular_json)
-
-df = pd.read_json("convertedVCF.json", orient = str)
