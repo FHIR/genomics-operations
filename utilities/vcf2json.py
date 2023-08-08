@@ -9,10 +9,10 @@ import pandas as pd
 import re
 import uuid
 
-phased_rec_map = {}
-transcript_map = {}
+# phased_rec_map = {}
+# transcript_map = {}
 
-def add_phase_records(record):
+def add_phase_records(record, phased_rec_map):
     if (record.samples[0].phased is False):
         return
     sample_data = record.samples[0].data
@@ -25,7 +25,7 @@ def add_phase_records(record):
         phased_rec_map.setdefault(sample_data_ps, []).append(record)
 
 
-def add_phased_relationship_obv(patientID, test_id, specimen_id, ref_build, phase_data, df):
+def add_phased_relationship_obv(patientID, test_id, specimen_id, ref_build, phase_data, df, phased_rec_map):
     sequence_rels = common.get_sequence_relation(phased_rec_map)
     c = len(sequence_rels)
     df_func = df[(df['patientID'] == patientID)]
@@ -94,9 +94,10 @@ def _valid_record(record, genomic_source_class, sample_position):
 
 def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
              test_date=None, test_id=None, specimen_id=None,
-             genomic_source_class=None, ratio_ad_dp=0.99, sample_position=0, variants_data = None, molecular_output = None):
-    # Fetching all Transcripts data and storing it in transcript_map
-    common.query_genes(transcript_map)
+             genomic_source_class=None, ratio_ad_dp=0.99, sample_position=0,
+             transcript_map = None, variants_data = None, molecular_output = None,
+             phased_rec_map = None):
+
     output_json_array = []
     if not (vcf_filename):
         raise Exception('You must provide vcf_filename')
@@ -128,7 +129,7 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
     for record in vcf_reader:
         if not _valid_record(record, genomic_source_class, sample_position):
             continue
-        add_phase_records(record)
+        add_phase_records(record, phased_rec_map)
         output_json = OrderedDict()
         variant_id = uuid.uuid4().hex
         output_json["variantID"] = variant_id     # Added GUID for variants.
@@ -224,7 +225,7 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
         output_json["genomicSourceClass"] = genomic_source_class
         onRef = 1
 
-        extractINFOField(variant_id, patient_id, record, common.codeDict, molecular_output, output_json)
+        extractINFOField(variant_id, patient_id, record, common.codeDict, molecular_output, output_json, transcript_map)
 
         for alt in alts:
             altDict, alt_ad_index, onRef = getMultADs(output_json, record, sample_position, alt, alt_ad_index, hasAD, noRefFlag, onRef)
@@ -276,7 +277,7 @@ def getMultADs(output_json, record, sample_position, alt, alt_ad_index, hasAD, n
 # Processes SnpEff and SnpSift output into final json file.
 
 
-def extractINFOField(variant_id, patient_id, record, codeDict, mol_output, output_json):
+def extractINFOField(variant_id, patient_id, record, codeDict, mol_output, output_json, transcript_map):
     # Info field is dict with entries: ANN (SnpEff output) and POPAF (gnomAD output)
     if 'ANN' in record.INFO:
         count = 3
