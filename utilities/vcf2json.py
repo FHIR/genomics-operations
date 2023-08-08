@@ -9,9 +9,6 @@ import pandas as pd
 import re
 import uuid
 
-# phased_rec_map = {}
-# transcript_map = {}
-
 def add_phase_records(record, phased_rec_map):
     if (record.samples[0].phased is False):
         return
