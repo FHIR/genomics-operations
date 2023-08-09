@@ -74,7 +74,17 @@ function App() {
     );
   }
 
-  function displayMNVData()
+  function displaySNVData() {
+    if (selectedGene.geneData.length > 0) {
+      return <SortableTable data={selectedGene.geneData} />
+    }
+  }
+
+  function displayMNVData() {
+    if (selectedGene.mnvData.length > 0) {
+      return <MNVTable data={selectedGene.mnvData} />
+    }
+  }
 
   return (
     <div className="App">
@@ -85,10 +95,8 @@ function App() {
         {geneButtons.map((geneDict) => makeButton(geneDict))}
       </div>
       <p>Gene Displayed: {selectedGene.geneName}</p>
-      <SortableTable data={selectedGene.geneData} />
-      {if (selectedGene.mnvData) {
-        <MNVTable data={selectedGene.mnvData} />
-      }}
+      <div>{displaySNVData()}</div>
+      <div>{displayMNVData()}</div>
     </div>
   );
 }
