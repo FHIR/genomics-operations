@@ -10,6 +10,12 @@ type VariantRow = {
     alleleFreq: number,
 }
 
+type MNVRow = {
+    mnvSPDI: string,
+    molecImpact: string,
+    snvSPDIs: Array<string>
+}
+
 type FSVResponse = {
     parameter: Array<{
         name: string,
@@ -120,17 +126,120 @@ function parsePhaseRelationship(param: FSVParameter, addAnnFlag: boolean) {
     return derivedFromIDs
 }
 
-function computeAnnotations(SPDI: string) {
-    let SPDIList = SPDI.split(':')
-    let chromosome = SPDIList[0].split('.')[0].slice(-2)
-    let version_string = SPDIList[0].split('.')[1]
-
-    let version = +version_string + 1
-
-    if (chromosome[0] == '0') {
-        chromosome = chromosome[1]
+async function computeAnnotations(SPDI: string) {
+    type SPDISeqInfo = {
+        seq_id: string,
+        position: number,
+        deleted_sequence: string,
+        inserted_sequence: string,
+        warnings?: [
+          {
+            reason: string,
+            message: string
+          }
+        ]
     }
-    chromosome = "chr" + chromosome
+    type AllEquivSPDIResponse = {data?: {
+        spdis: [SPDISeqInfo, SPDISeqInfo],
+        errors: {
+          error: {
+            code: number,
+            message: string,
+            errors: [
+              {
+                reason: string,
+                message: string
+              }
+            ]
+          }
+        },
+        warnings: [
+          {
+            reason: string,
+            message: string
+          }
+        ]
+      }
+    }
+    type HGVSResponse = {
+        data: {
+          hgvs: string
+          warnings: [
+            {
+              reason: string,
+              message: string
+            }
+          ]
+        }
+    }
+    type vepResponse = [
+        {
+            seq_region_name: string,
+            transcript_consequences: [
+                {
+                    impact: string
+                }
+            ]
+        }
+
+    ]
+    var url = `/spdi/${SPDI.replace(":", "%3A")}/all_equivalent_contextual`
+
+    var response = await fetch(url)
+    var responseJson = await response.json() as AllEquivSPDIResponse
+    if (responseJson instanceof Error) {
+        console.log('It is an error!');
+    }
+    else {
+        console.log(responseJson);
+    }
+
+    let b38SeqID: string = ""
+    let b38Pos: number = -1
+    if (responseJson.data) {
+        b38SeqID = responseJson.data.spdis[1].seq_id
+        b38Pos = responseJson.data.spdis[1].position
+    }
+
+    if (b38SeqID == "" || b38Pos == -1) {
+        console.log("Error retrieving SPDI info")
+        return ""
+    }
+
+    var SPDIList = SPDI.split(":")
+    let b38SPDI = b38SeqID + ":" + b38Pos + ":" + SPDIList[2] + ":" + SPDIList[3]
+
+    var url = 'https://api.ncbi.nlm.nih.gov/variation/v0/spdi/'+ b38SPDI.replace(":", "%3A") + '/hgvs'
+
+    var response = await fetch(url)
+    var HGVSResponseJson = await response.json() as HGVSResponse
+    if (HGVSResponseJson instanceof Error) {
+        console.log('Error getting HGVS');
+    }
+    else {
+        console.log(HGVSResponseJson);
+        var HGVS = HGVSResponseJson.data.hgvs
+    }
+
+    var response = await fetch(url)
+    var vepResponseJson = await response.json() as vepResponse
+    if (vepResponseJson instanceof Error) {
+        console.log('Error getting vep response');
+    }
+    else {
+        console.log(vepResponseJson);
+    }
+
+    let molecImpact = ""
+
+    vepResponseJson[0].transcript_consequences.map((dict) => {
+        if ("impact" in dict && molecImpact == "") {
+            molecImpact = "Computed: " + dict.impact
+        }
+    })
+
+
+    return molecImpact
 
     // Call variation services all equivalent
     // Take [1] entry
@@ -142,7 +251,7 @@ function findMNVs(response: FSVResponse, cisVariantsIDs: Array<Array<string>>, m
     molecImpact: string,
     snvSPDIs: Array<string>
 }>) {
-    cisVariantsIDs.map((IDList) => {
+    cisVariantsIDs.map(async (IDList) => {
         let SPDIList: Array<string> = []
         let SPDIDictList: Array<{ SPDI: string, chromosome: string, position: string, refAllele: string, altAllele: string }> = []
         response.parameter[0].part.map((param) => {
@@ -203,7 +312,7 @@ function findMNVs(response: FSVResponse, cisVariantsIDs: Array<Array<string>>, m
         mnvData.push({
             mnvSPDI: mnvSPDI,
             snvSPDIs: [SPDIDictList[0].SPDI, SPDIDictList[1].SPDI],
-            molecImpact: computeAnnotations(mnvSPDI)
+            molecImpact: await computeAnnotations(mnvSPDI)
         })
     })
 
@@ -214,11 +323,7 @@ function translateFHIRResponse(response: FSVResponse, addAnnFlag: boolean) {
     let geneTable: Array<VariantRow> = []
     let paramArray = response.parameter[0].part;
     let cisVariantsIDs: Array<Array<string>> = []
-    let mnvData: Array<{
-        mnvSPDI: string,
-        molecImpact: string,
-        snvSPDIs: Array<string>
-    }> = []
+    let mnvData: Array<MNVRow> = []
     paramArray.map((param) => {
         //If the part is not a variant resource, return
         if (param.name == 'sequencePhaseRelationship' && addAnnFlag) {
@@ -239,7 +344,7 @@ function translateFHIRResponse(response: FSVResponse, addAnnFlag: boolean) {
         findMNVs(response, cisVariantsIDs, mnvData)
     }
 
-    return geneTable
+    return {geneTable: geneTable, mnvData: mnvData}
 }
 
 function getGeneData({ patientID, gene, addAnnFlag, callback }:
@@ -247,12 +352,13 @@ function getGeneData({ patientID, gene, addAnnFlag, callback }:
         patientID: string,
         gene: string,
         addAnnFlag: boolean,
-        callback: (geneData: { geneName: string, geneData: Array<VariantRow> }) => void
+        callback: (geneData: { geneName: string, geneData: Array<VariantRow>, mnvData: Array<MNVRow> }) => void
     }) {
 
     // const [APIStatus, setAPIStatus] = useState("red")
     var APIStatus = "red"
     var geneData: Array<VariantRow>
+    var mnvData: Array<MNVRow>
 
     console.log("In gene handler")
     console.log("Gene:" + gene)
@@ -318,19 +424,21 @@ function getGeneData({ patientID, gene, addAnnFlag, callback }:
         }
         else {
             console.log(fsvResponseJson.parameter[0]);
-            geneData = translateFHIRResponse(fsvResponseJson, addAnnFlag);
+            let tableData = await translateFHIRResponse(fsvResponseJson, addAnnFlag);
+            geneData = tableData.geneTable
+            mnvData = tableData.mnvData
             // setAPIStatus("green")
             APIStatus = 'green'
         }
 
-        callback({ geneName: gene, geneData: geneData })
+        callback({ geneName: gene, geneData: geneData, mnvData: mnvData })
     }
 
     getFHIRResponse()
 }
 
 export default function PatientInfoForm({ callback }: {
-    callback: (geneData: { geneName: string, geneData: Array<VariantRow> }) => void
+    callback: (geneData: { geneName: string, geneData: Array<VariantRow>, mnvData: Array<MNVRow> }) => void
 }) {
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -352,7 +460,6 @@ export default function PatientInfoForm({ callback }: {
 
 
         console.log(`Here's your data: ${JSON.stringify(data, undefined, 2)}`);
-
         data.geneList.map((gene) => {
             getGeneData({ patientID: data.patientID, gene: gene, addAnnFlag: data.addAnnFlag, callback: callback })
         })

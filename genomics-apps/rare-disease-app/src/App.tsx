@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import SortableTable from "./components/SortableTable";
 import PatientInfoForm from "./components/PatientInfoForm";
+import MNVTable from "./components/MNVTable";
 import GeneButton from "./components/GeneButton";
 import { ListFormat } from "typescript";
 import axios from "axios";
@@ -22,9 +23,15 @@ type VariantRow = {
   alleleFreq: number,
 }
 
+type MNVRow = {
+  mnvSPDI: string,
+  molecImpact: string,
+  snvSPDIs: Array<string>
+}
+
 function App() {
-  const [geneButtons, setGeneButtons] = useState<Array<{ geneName: string, geneData: Array<VariantRow> }>>([])
-  const [selectedGene, setSelectedGene] = useState<{ geneName: string, geneData: Array<VariantRow> }>({ geneName: "None", geneData: [] })
+  const [geneButtons, setGeneButtons] = useState<Array<{ geneName: string, geneData: Array<VariantRow>, mnvData: Array<MNVRow> }>>([])
+  const [selectedGene, setSelectedGene] = useState<{ geneName: string, geneData: Array<VariantRow>, mnvData: Array<MNVRow> }>({ geneName: "None", geneData: [], mnvData: [] })
 
   var geneListData: Array<{ geneName: string, geneData?: Array<VariantRow> }> = []
 
@@ -36,7 +43,7 @@ function App() {
 
   // }
 
-  const getGeneData = (newGene: { geneName: string, geneData: Array<VariantRow> }) => {
+  const getGeneData = (newGene: { geneName: string, geneData: Array<VariantRow>, mnvData: Array<MNVRow> }) => {
     // Update state variable from within the form component
     setGeneButtons((prevGeneButtons) => {
       let geneButtonsUpdatedTarget = prevGeneButtons.filter(function (geneDict) {
@@ -54,7 +61,7 @@ function App() {
 
   }
 
-  function makeButton(geneDict: { geneName: string, geneData: Array<VariantRow> }) {
+  function makeButton(geneDict: { geneName: string, geneData: Array<VariantRow>, mnvData: Array<MNVRow> }) {
     if (geneDict.geneName == "BRCA1") {
       console.log(geneButtons)
     }
@@ -67,6 +74,8 @@ function App() {
     );
   }
 
+  function displayMNVData()
+
   return (
     <div className="App">
       <div id="patientInfoForm">
@@ -77,6 +86,9 @@ function App() {
       </div>
       <p>Gene Displayed: {selectedGene.geneName}</p>
       <SortableTable data={selectedGene.geneData} />
+      {if (selectedGene.mnvData) {
+        <MNVTable data={selectedGene.mnvData} />
+      }}
     </div>
   );
 }
