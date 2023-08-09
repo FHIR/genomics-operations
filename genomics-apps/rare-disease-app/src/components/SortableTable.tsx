@@ -1,4 +1,5 @@
 import { MouseEventHandler, useCallback, useState } from "react";
+import "../component-stylesheets/VariantTable.css"
 
 const dataHeaders = [{
   spdi: "",

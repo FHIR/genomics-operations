@@ -5,6 +5,7 @@ import './App.css';
 import SortableTable from "./components/SortableTable";
 import PatientInfoForm from "./components/PatientInfoForm";
 import MNVTable from "./components/MNVTable";
+import LoadingSpinner from "./components/Spinner";
 import GeneButton from "./components/GeneButton";
 import { ListFormat } from "typescript";
 import axios from "axios";
@@ -32,16 +33,9 @@ type MNVRow = {
 function App() {
   const [geneButtons, setGeneButtons] = useState<Array<{ geneName: string, geneData: Array<VariantRow>, mnvData: Array<MNVRow> }>>([])
   const [selectedGene, setSelectedGene] = useState<{ geneName: string, geneData: Array<VariantRow>, mnvData: Array<MNVRow> }>({ geneName: "None", geneData: [], mnvData: [] })
+  const [genesToLoad, setGenesToLoad] = useState<Array<string>>([])
 
   var geneListData: Array<{ geneName: string, geneData?: Array<VariantRow> }> = []
-
-  // const handleForm = (formData: { patientID: string, geneList: Array<string>, addAnnFlag: boolean }) => {
-  //   // Update these state variables from within the form component
-  //   patientID.current = formData.patientID
-  //   setGeneList(formData.geneList)
-  //   addAnnFlag.current = formData.addAnnFlag
-
-  // }
 
   const getGeneData = (newGene: { geneName: string, geneData: Array<VariantRow>, mnvData: Array<MNVRow> }) => {
     // Update state variable from within the form component
@@ -59,6 +53,19 @@ function App() {
       return geneButtonsUpdatedTarget
     })
 
+    setGenesToLoad((prevGenesToLoad) => {
+      let newGenesToLoad = prevGenesToLoad.filter(function (geneName) {
+        return geneName !== newGene.geneName
+      })
+
+      return newGenesToLoad
+    })
+
+  }
+
+  const setSpinnerInfo = (genesToLoad: Array<string>) => {
+    // Update state variable from within the form component
+    setGenesToLoad(genesToLoad)
   }
 
   function makeButton(geneDict: { geneName: string, geneData: Array<VariantRow>, mnvData: Array<MNVRow> }) {
@@ -67,11 +74,17 @@ function App() {
     }
     return (
       <button
-        style={{ color: 'green' }}
+        className="geneButton"
         onClick={() => setSelectedGene(geneDict)}>
         {geneDict.geneName}
       </button>
     );
+  }
+
+  function displaySpinner() {
+    if(genesToLoad.length > 0) {
+      return <LoadingSpinner/>
+    }
   }
 
   function displaySNVData() {
@@ -88,15 +101,20 @@ function App() {
 
   return (
     <div className="App">
-      <div id="patientInfoForm">
-        <PatientInfoForm callback={getGeneData} />
+      <div className="sidebar">
+        <div id="patientInfoForm">
+          <PatientInfoForm callback={getGeneData} setSpinnerInfo={setSpinnerInfo}/>
+        </div>
+        <div>{displaySpinner()}</div>
+        <div className="geneButtonContainer">
+          {geneButtons.map((geneDict) => makeButton(geneDict))}
+        </div>
       </div>
-      <div>
-        {geneButtons.map((geneDict) => makeButton(geneDict))}
+      <div className="variantTables">
+        <p>Gene Displayed: {selectedGene.geneName}</p>
+        <div>{displaySNVData()}</div>
+        <div>{displayMNVData()}</div>
       </div>
-      <p>Gene Displayed: {selectedGene.geneName}</p>
-      <div>{displaySNVData()}</div>
-      <div>{displayMNVData()}</div>
     </div>
   );
 }

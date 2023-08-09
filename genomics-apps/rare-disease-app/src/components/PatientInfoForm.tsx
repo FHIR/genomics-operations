@@ -1,5 +1,6 @@
 import { getEventListeners } from "events";
 import React from "react";
+import "../component-stylesheets/PatientInfoForm.css"
 
 type VariantRow = {
     spdi: string,
@@ -437,8 +438,9 @@ function getGeneData({ patientID, gene, addAnnFlag, callback }:
     getFHIRResponse()
 }
 
-export default function PatientInfoForm({ callback }: {
-    callback: (geneData: { geneName: string, geneData: Array<VariantRow>, mnvData: Array<MNVRow> }) => void
+export default function PatientInfoForm({ callback, setSpinnerInfo }: {
+    callback: (geneData: { geneName: string, geneData: Array<VariantRow>, mnvData: Array<MNVRow> }) => void,
+    setSpinnerInfo: (geneNames: Array<string>) => void
 }) {
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -453,11 +455,11 @@ export default function PatientInfoForm({ callback }: {
 
         const data = {
             patientID: elements.patientID.value,
-            geneList: elements.geneList.value.split(","),
+            geneList: elements.geneList.value.replaceAll(" ", "").split(","),
             addAnnFlag: elements.addAnnFlag.checked,
         };
 
-
+        setSpinnerInfo(data.geneList)
 
         console.log(`Here's your data: ${JSON.stringify(data, undefined, 2)}`);
         data.geneList.map((gene) => {
@@ -468,16 +470,18 @@ export default function PatientInfoForm({ callback }: {
 
     return (
         <form onSubmit={handleSubmit}>
-            <label htmlFor="patientID">Patient ID</label>
-            <input id="patientID" type="text" />
+            <div className="title">Submit Patient Info</div>
+            <label htmlFor="patientID" className="inputLabel">Enter Patient ID:</label>
+            <input id="patientID" type="text" placeholder="HG00403" className="input" />
+            <p></p>
+            <label htmlFor="geneList" className="inputLabel">Enter genes to study:</label>
+            <input id="geneList" type="text" placeholder="BRCA1, BRCA2" className="input"/>
 
-            <label htmlFor="geneList">Gene List</label>
-            <input id="geneList" type="text" />
-
+            <p></p>
             <input id="addAnnFlag" type="checkbox" />
             <label htmlFor="addAnnFlag">Compute Additional Annotations</label>
 
-            <button type="submit">Submit</button>
+            <button type="submit" className="submit">Submit</button>
         </form>
     );
 }
