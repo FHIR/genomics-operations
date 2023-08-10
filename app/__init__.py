@@ -1,5 +1,6 @@
 import connexion
 import flask
+from flask_cors import CORS
 import os
 
 
@@ -24,6 +25,13 @@ def create_app():
 
     app = connex_app.app
     app.register_blueprint(bp)
+
+    # Allow CORS for all domains on all routes
+    CORS(app, resources={
+        r"/subject-operations/.*": {"origins": "*"},
+        r"/population-operations/.*": {"origins": "*"},
+        r"/utilities/.*": {"origins": "*"}
+    })
 
     # Avoid sorting the output JSON
     app.config['JSON_SORT_KEYS'] = False
