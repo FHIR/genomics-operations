@@ -184,7 +184,9 @@ async function computeAnnotations(SPDI: string) {
         }
 
     ]
-    var url = `/spdi/${SPDI.replace(":", "%3A")}/all_equivalent_contextual`
+
+    console.log("In compute annotations")
+    var url = `https://api.ncbi.nlm.nih.gov/variation/v0/spdi/${SPDI.replace(":", "%3A")}/all_equivalent_contextual`
 
     var response = await fetch(url)
     var responseJson = await response.json() as AllEquivSPDIResponse
@@ -210,7 +212,7 @@ async function computeAnnotations(SPDI: string) {
     var SPDIList = SPDI.split(":")
     let b38SPDI = b38SeqID + ":" + b38Pos + ":" + SPDIList[2] + ":" + SPDIList[3]
 
-    var url = 'https://api.ncbi.nlm.nih.gov/variation/v0/spdi/'+ b38SPDI.replace(":", "%3A") + '/hgvs'
+    var url = `https://api.ncbi.nlm.nih.gov/variation/v0/spdi/${b38SPDI.replace(":", "%3A")}/hgvs`
 
     var response = await fetch(url)
     var HGVSResponseJson = await response.json() as HGVSResponse
@@ -219,8 +221,10 @@ async function computeAnnotations(SPDI: string) {
     }
     else {
         console.log(HGVSResponseJson);
-        var HGVS = HGVSResponseJson.data.hgvs
     }
+
+    var HGVS = HGVSResponseJson.data.hgvs
+    url = `https://rest.ensembl.org/vep/human/hgvs/${HGVS}?content-type=application/json`
 
     var response = await fetch(url)
     var vepResponseJson = await response.json() as vepResponse
@@ -252,6 +256,7 @@ function findMNVs(response: FSVResponse, cisVariantsIDs: Array<Array<string>>, m
     molecImpact: string,
     snvSPDIs: Array<string>
 }>) {
+    console.log("In findMNVs")
     cisVariantsIDs.map(async (IDList) => {
         let SPDIList: Array<string> = []
         let SPDIDictList: Array<{ SPDI: string, chromosome: string, position: string, refAllele: string, altAllele: string }> = []
@@ -326,13 +331,14 @@ function translateFHIRResponse(response: FSVResponse, addAnnFlag: boolean) {
     let cisVariantsIDs: Array<Array<string>> = []
     let mnvData: Array<MNVRow> = []
     paramArray.map((param) => {
-        //If the part is not a variant resource, return
         if (param.name == 'sequencePhaseRelationship' && addAnnFlag) {
+            console.log("Parsing phase relationship")
             let derivedFromIDs = parsePhaseRelationship(param, addAnnFlag)
             if (derivedFromIDs) {
                 cisVariantsIDs.push(derivedFromIDs)
             }
             return
+        //If the part is not a variant resource, return
         } else if (param.name != 'variant' || param.resource == null) {
             return
         }
@@ -425,7 +431,7 @@ function getGeneData({ patientID, gene, addAnnFlag, callback }:
         }
         else {
             console.log(fsvResponseJson.parameter[0]);
-            let tableData = await translateFHIRResponse(fsvResponseJson, addAnnFlag);
+            let tableData = translateFHIRResponse(fsvResponseJson, addAnnFlag);
             geneData = tableData.geneTable
             mnvData = tableData.mnvData
             // setAPIStatus("green")

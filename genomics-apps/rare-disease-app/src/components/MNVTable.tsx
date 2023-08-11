@@ -67,6 +67,7 @@ function MNVTable({ data }: { data: Data }) {
 
   const headers: { key: SortKeys; label: string }[] = [
     { key: "mnvSPDI", label: "MNV SPDI" },
+    { key: "snvSPDIs", label: "SNV SPDIs"},
     { key: "molecImpact", label: "Molecular Impact" },
   ];
 
@@ -107,6 +108,8 @@ function MNVTable({ data }: { data: Data }) {
         {sortedData().map((variant) => {
           return (
             <tr key={variant.mnvSPDI}>
+              <td>{variant.mnvSPDI}</td>
+              <td>{variant.snvSPDIs}</td>
               <td>{variant.molecImpact}</td>
             </tr>
           );
