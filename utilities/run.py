@@ -4,7 +4,6 @@ import os
 import common
 import pandas as pd
 from tqdm import tqdm
-from collections import OrderedDict
 
 
 def exrtractData(csv_file_path, variants_data, molecular_output, phase_output):
@@ -14,7 +13,7 @@ def exrtractData(csv_file_path, variants_data, molecular_output, phase_output):
         common.query_genes(transcript_map)
 
         df = pd.read_csv(csv_file_path)
-        for _, row in tqdm(df.iterrows(), total=len(df), desc= "Processing Data"):
+        for _, row in tqdm(df.iterrows(), total=len(df), desc="Processing Data"):
             phased_rec_map = {}
             vcf2json.vcf2json(row['vcf_filename'],
                               row['ref_build'],
@@ -26,7 +25,7 @@ def exrtractData(csv_file_path, variants_data, molecular_output, phase_output):
                               row['ratio_ad_dp'],
                               row['sample_position'], transcript_map, variants_data, molecular_output, phased_rec_map)
 
-            file = pd.read_json("convertedVCF.json", orient = str)
+            file = pd.read_json("convertedVCF.json", orient=str)
 
             vcf2json.add_phased_relationship_obv(row['patient_id'],
                                                  row['test_id'],
@@ -35,6 +34,7 @@ def exrtractData(csv_file_path, variants_data, molecular_output, phase_output):
 
     except Exception as e:
         print("Error with csv file:", e)
+
 
 def run_vcf2json():
     variants_data = []
@@ -52,11 +52,9 @@ def run_vcf2json():
             f.write(json.dumps(data, indent=4))
 
     # Deletion of convertedVCF.JSON file
-    try :
-        os.remove("convertedVCF.json")
-    except:
-        print("Error! can't delete vcf file.")
+    os.remove("convertedVCF.json")
 
     print("Data Generated.")
+
 
 run_vcf2json()

@@ -2,7 +2,6 @@ from enum import Enum
 import re
 import pandas as pd
 import pymongo
-import json
 
 utilities_data_client_uri = "mongodb+srv://download:download@cluster0.8ianr.mongodb.net/UtilitiesData"
 utilities_client = pymongo.MongoClient(utilities_data_client_uri)
@@ -107,6 +106,7 @@ def get_allelic_state(record, ratio_ad_dp):
         'FREQUENCY': allelic_frequency
     }
 
+
 # got this function from https://github.com/elimuinformatics/vcf2fhir/blob/master/vcf2fhir/common.py
 def get_sequence_relation(phased_rec_map):
     Relation_table = pd.DataFrame(columns=['POS1', 'POS2', 'Relation'])
@@ -118,7 +118,7 @@ def get_sequence_relation(phased_rec_map):
                 continue
             prev_data = prev_record.samples[0].data
             record_data = record.samples[0].data
-            if(prev_data.PS == record_data.PS):
+            if (prev_data.PS == record_data.PS):
                 if prev_data.GT == record_data.GT:
                     Relation_table = Relation_table.append(
                         {
@@ -140,15 +140,17 @@ def get_sequence_relation(phased_rec_map):
             prev_record = record
     return Relation_table
 
+
 def query_genes(transcript_map):
 
     query_string = [{'$match': {}},  # Match all documents
-                {'$project': {'_id': 0, 'ncbiGeneSymbol' : 0, 'featureType' : 0, 'build37RefSeq' : 0, 'build37Start' : 0,
-                              'build37End' : 0, 'build38RefSeq' : 0, 'build38Start' : 0, 'build38End' : 0}}]
+                    {'$project': {'_id': 0, 'ncbiGeneSymbol': 0, 'featureType': 0, 'build37RefSeq': 0, 'build37Start': 0,
+                                  'build37End': 0, 'build38RefSeq': 0, 'build38Start': 0, 'build38End': 0}}]
 
     result = list(transcript_data.aggregate(query_string))
     for res in result:
         transcript_map[res['transcriptRefSeq']] = res['MANE']
+
 
 def _error_log_allelicstate(record):
     pass
