@@ -1,4 +1,5 @@
 import json
+import os
 
 FIND_SUBJECT_VARIANTS_URL = "/subject-operations/genotype-operations/$find-subject-variants"
 FIND_SUBJECT_VARIANTS_OUTPUT_DIR = "tests/expected_outputs/find_subject_variants/"
@@ -121,6 +122,11 @@ def find_the_gene_query(query):
 
 
 def compare_actual_and_expected_output(filename, actual_json):
+    if 'OVERWRITE_TEST_EXPECTED_DATA' in os.environ:
+        with open(filename, 'w') as expected_output_file:
+            json.dump(actual_json, expected_output_file, indent=4)
+        return
+
     with open(filename) as expected_output_file:
         expected_json = json.load(expected_output_file)
         assert actual_json == expected_json

@@ -7,13 +7,13 @@
                 {
                     "name": "numerator",
                     "valueQuantity": {
-                        "value": 101
+                        "value": 103
                     }
                 },
                 {
                     "name": "denominator",
                     "valueQuantity": {
-                        "value": 1090
+                        "value": 1110
                     }
                 },
                 {
@@ -419,6 +419,14 @@
                 {
                     "name": "subject",
                     "valueString": "PH900"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "clop10"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "clop6"
                 }
             ]
         }

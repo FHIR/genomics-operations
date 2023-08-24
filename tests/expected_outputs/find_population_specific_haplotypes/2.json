@@ -11,18 +11,22 @@
                 {
                     "name": "numerator",
                     "valueQuantity": {
-                        "value": 1012
+                        "value": 1032
                     }
                 },
                 {
                     "name": "denominator",
                     "valueQuantity": {
-                        "value": 1090
+                        "value": 1110
                     }
                 },
                 {
                     "name": "subject",
                     "valueString": "HG00406"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "L2345"
                 },
                 {
                     "name": "subject",
@@ -4067,6 +4071,82 @@
                 {
                     "name": "subject",
                     "valueString": "XYZ345"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "clop1"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "clop10"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "clop2"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "clop3"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "clop4"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "clop6"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "clop7"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "clop8"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "clop9"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "tacro1"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "tacro10"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "tacro2"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "tacro3"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "tacro4"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "tacro5"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "tacro6"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "tacro7"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "tacro8"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "tacro9"
                 }
             ]
         }

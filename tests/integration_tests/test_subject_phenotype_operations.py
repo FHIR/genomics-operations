@@ -50,6 +50,13 @@ def test_find_subject_tx_implications_5(client):
     tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_TX_IMPLICATIONS_OUTPUT_DIR}5.json', response.json)
 
 
+def test_find_subject_tx_implications_6(client):
+    url = tu.find_subject_tx_implications_query('subject=CA12345&ranges=NC_000007.13:140413127-140624729')
+    response = client.get(url)
+
+    tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_TX_IMPLICATIONS_OUTPUT_DIR}6.json', response.json)
+
+
 """
 Find Subject Dx Implications Tests
 ----------------------------------

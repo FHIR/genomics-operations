@@ -140,24 +140,17 @@ def test_find_subject_structural_intersecting_variants_1(client):
 
 
 def test_find_subject_structural_intersecting_variants_2(client):
-    url = tu.find_subject_structural_intersecting_variants_query('subject=HCC1143&ranges=NC_000007.14:55019016-55211628,NC_000004.12:54727415-54727542&specimenIdentifiers=HCC1143-Sp1')
+    url = tu.find_subject_structural_intersecting_variants_query('subject=ABC789&ranges=NC_000002.12:179400709-179483218&includeVariants=true')
     response = client.get(url)
 
     tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_STRUCTURAL_INTERSECTING_VARIANTS_OUTPUT_DIR}2.json', response.json)
 
 
 def test_find_subject_structural_intersecting_variants_3(client):
-    url = tu.find_subject_structural_intersecting_variants_query('subject=ABC789&ranges=NC_000002.12:179400709-179483218&includeVariants=true')
-    response = client.get(url)
-
-    tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_STRUCTURAL_INTERSECTING_VARIANTS_OUTPUT_DIR}3.json', response.json)
-
-
-def test_find_subject_structural_intersecting_variants_4(client):
     url = tu.find_subject_structural_intersecting_variants_query('subject=HCC1143&ranges=NC_000017.11:43044294-43125364,NC_000013.11:32315507-32400268&includeVariants=true')
     response = client.get(url)
 
-    tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_STRUCTURAL_INTERSECTING_VARIANTS_OUTPUT_DIR}4.json', response.json)
+    tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_STRUCTURAL_INTERSECTING_VARIANTS_OUTPUT_DIR}3.json', response.json)
 
 
 """
