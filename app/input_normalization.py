@@ -79,8 +79,10 @@ def process_NC_HGVS(NC_HGVS):
     parsed_variant = parsed_variant_dict['parsed']
     print(f"parsed: {parsed_variant_dict['parsed']}")
 
+    transcripts = b38hgvsAssemblyMapper.relevant_transcripts(parsed_variant)
+    relevantTranscript = next((tr for tr in transcripts if tr.startswith("NM_")))
     var_c = b38hgvsAssemblyMapper.g_to_c(
-        parsed_variant, b38hgvsAssemblyMapper.relevant_transcripts(parsed_variant)[0])
+        parsed_variant, relevantTranscript)
 
     projected_variant_dict = project_variant(var_c)
     print(
