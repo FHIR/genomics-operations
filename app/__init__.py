@@ -2,9 +2,13 @@ import connexion
 import flask
 from flask_cors import CORS
 import os
+from .fasta import download_fasta
 
 
 def create_app():
+    # First ensure we have the fasta files locally
+    download_fasta()
+
     # App and API
     options = {
         'swagger_url': '/',
