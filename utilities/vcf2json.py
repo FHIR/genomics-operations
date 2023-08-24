@@ -3,22 +3,13 @@ import json
 from collections import OrderedDict
 from gene_ref_seq import _get_ref_seq_by_chrom
 from SPDI_Normalization import get_normalized_spdi
-from app import common
+import common
 import copy
-import pandas as pd
 import re
-
-phased_rec_map = {}
-spr_json = []
-
-# Takes individual variant's object IDs from mongoDB after all variants are uploaded
-# to the database and uses them to determine phasing relationships
-df = pd.read_json("variants.json", lines=True)
-
-# Searches through phaseset for given VCF row
+import uuid
 
 
-def add_phase_records(record):
+def add_phase_records(record, phased_rec_map):
     if (record.samples[0].phased is False):
         return
     sample_data = record.samples[0].data
@@ -30,10 +21,8 @@ def add_phase_records(record):
             sample_data_ps = sample_data_ps[0]
         phased_rec_map.setdefault(sample_data_ps, []).append(record)
 
-# CODE UNUSED
 
-
-def add_phased_relationship_obv(patientID, test_id, specimen_id, ref_build):
+def add_phased_relationship_obv(patientID, test_id, specimen_id, ref_build, phase_data, df, phased_rec_map):
     sequence_rels = common.get_sequence_relation(phased_rec_map)
     c = len(sequence_rels)
     df_func = df[(df['patientID'] == patientID)]
@@ -47,19 +36,15 @@ def add_phased_relationship_obv(patientID, test_id, specimen_id, ref_build):
 
         df_copy = df_func[((df_func['testID'] == test_id) & (df_func['specimenID'] == specimen_id) & (
             df_func['genomicBuild'] == ref_build)) & ((df_func['POS'] == pos1-1) | (df_func['POS'] == pos2-1))]
-
         if len(df_copy) != 2:
             c -= 1
             continue
 
-        output_json['variantID1'] = str(df_copy.iloc[0]['_id']['$oid'])
-        output_json['variantID2'] = str(df_copy.iloc[1]['_id']['$oid'])
+        output_json['variantID1'] = str(df_copy.iloc[0]['variantID'])
+        output_json['variantID2'] = str(df_copy.iloc[1]['variantID'])
         output_json['phase'] = relation
-
-        spr_json.append(output_json)
+        phase_data.append(output_json)
         c -= 1
-
-# Inclusion criteria for a VCF row
 
 
 def _valid_record(record, genomic_source_class, sample_position):
@@ -103,10 +88,14 @@ def _valid_record(record, genomic_source_class, sample_position):
         return False
     return True
 
-# Check that the correct parameters were given
 
+def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
+             test_date=None, test_id=None, specimen_id=None,
+             genomic_source_class=None, ratio_ad_dp=0.99, sample_position=0,
+             transcript_map=None, variants_data=None, molecular_output=None,
+             phased_rec_map=None):
 
-def checkParams(vcf_filename, ref_build, patient_id, test_date, test_id, specimen_id, genomic_source_class):
+    output_json_array = []
     if not (vcf_filename):
         raise Exception('You must provide vcf_filename')
     if not ref_build or ref_build not in ["GRCh37", "GRCh38"]:
@@ -125,14 +114,6 @@ def checkParams(vcf_filename, ref_build, patient_id, test_date, test_id, specime
             ("Please provide a valid Genomic Source Class " +
              "('germline' or 'somatic' or 'mixed')"))
 
-
-def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
-             test_date=None, test_id=None, specimen_id=None,
-             genomic_source_class=None, ratio_ad_dp=0.99, sample_position=0):
-
-    output_json_array = []
-    checkParams(vcf_filename, ref_build, patient_id, test_date, test_id, specimen_id, genomic_source_class)
-
     try:
         vcf_reader = vcf.Reader(filename=vcf_filename)
     except FileNotFoundError:
@@ -145,8 +126,10 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
     for record in vcf_reader:
         if not _valid_record(record, genomic_source_class, sample_position):
             continue
-        add_phase_records(record)
+        add_phase_records(record, phased_rec_map)
         output_json = OrderedDict()
+        variant_id = uuid.uuid4().hex
+        output_json["variantID"] = variant_id     # Added GUID for variants.
         output_json["patientID"] = patient_id
         output_json["testDate"] = test_date
         output_json["testID"] = test_id
@@ -239,19 +222,15 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
         output_json["genomicSourceClass"] = genomic_source_class
         onRef = 1
 
-        extractINFOField(output_json, record, common.codeDict)
+        extractINFOField(variant_id, patient_id, record, common.codeDict, molecular_output, output_json, transcript_map)
 
         for alt in alts:
             altDict, alt_ad_index, onRef = getMultADs(output_json, record, sample_position, alt, alt_ad_index, hasAD, noRefFlag, onRef)
+            variants_data.append(altDict)
             output_json_array.append(altDict)
 
-    output_json_string = json.dumps(output_json_array, indent=4)
-
-    fileOutput = open("convertedVCF.json", "w")
-    fileOutput.write(output_json_string)
-    fileOutput.close()
-
-    return output_json_array
+    with open("convertedVCF.json", "w") as f:
+        f.write(json.dumps(output_json_array, indent=4))
 
 # getMultADs finds the allele reads for each decomposed alternate allele in the VCF row.
 
@@ -295,56 +274,101 @@ def getMultADs(output_json, record, sample_position, alt, alt_ad_index, hasAD, n
 # Processes SnpEff and SnpSift output into final json file.
 
 
-def extractINFOField(output_json, record, codeDict):
+def extractINFOField(variant_id, patient_id, record, codeDict, mol_output, output_json, transcript_map):
     # Info field is dict with entries: ANN (SnpEff output) and POPAF (gnomAD output)
-
-    # Process the molecular consequence and predicted molecular impact
     if 'ANN' in record.INFO:
-        output_json["molecConseq"] = []
-        firstFlag = True
+        count = 3
         for ann in record.INFO['ANN']:
-            parseANN(output_json, ann, firstFlag, codeDict)
-            firstFlag = False
+            annList = ann.split('|')
+            isMane = False
+
+            if annList[6] in transcript_map:
+                mane = transcript_map[annList[6]]
+                if (mane == 0):
+                    isMane = False
+                else:
+                    isMane = True
+
+            # Checking if MANE or not, If MANE is true for first MolecularConsequences then
+            # only one Value is added and others are ignored
+            # If MANE is true for 2nd MolecularConsequence add first and second only.
+            # If MANE is true for 3rd MolecularConsequences add first, second and third only.
+            # If MANE is false for 3rd and true for other then we will add that and break.
+            # If no MANE Present only 2 MolecularConsequences are added.
+
+            if (count != 0):
+                if (count == 3 and isMane):
+                    additionInMolecularConseq(variant_id, patient_id, record, codeDict, mol_output, annList, isMane)
+                    break
+                elif (count == 2 and isMane):
+                    additionInMolecularConseq(variant_id, patient_id, record, codeDict, mol_output, annList, isMane)
+                    break
+                elif (count == 1 and isMane):
+                    additionInMolecularConseq(variant_id, patient_id, record, codeDict, mol_output, annList, isMane)
+                    break
+                elif (count != 1):
+                    additionInMolecularConseq(variant_id, patient_id, record, codeDict, mol_output, annList, isMane)
+                    count -= 1
 
     if 'POPAF' in record.INFO:
         for popAF in record.INFO['POPAF']:
             if popAF is not None:
                 output_json["popAlleleFreq"] = float(popAF)
 
-    if 'LOF' in record.INFO:
-        output_json["funcConseq"] = []
-        output_json["funcConseq"].append({"system": r'http://sequenceontology.org/',
-                                          "code": "SO:0002054",
-                                          "display": "loss_of_function_variant"})
-
 # Orders and extracts molecular consequence data from SnpEff annotations.
 
 
-def parseANN(output_json, ann, firstFlag, codeDict):
-    annList = ann.split('|')
-    # This split registers each molecular consequence given in the form of X&Y into separate molec conseq:
-    # A bit of "cheating" - this is not the highest granularity given in the data. Molec conseq is always stored in the 1 position.
+def parseANN(molecular_json, annList, firstFlag, codeDict):
     conseqList = annList[1].split('&')
+    molecular_json["transcriptRefSeq"] = annList[6]
+    molecular_json["cHGVS"] = annList[6] + ":" + annList[9]
+
+    if (annList[10] != ""):
+        molecular_json["pHGVS"] = annList[10]
 
     for conseq in conseqList:
-        # Only keep one of each molecular consequence type.
         uniqueConseq = True
-        for conseqIterator in output_json["molecConseq"]:
+        for conseqIterator in molecular_json["featureConsequence"]:
             if conseqIterator["display"] == conseq:
                 uniqueConseq = False
 
         if uniqueConseq:
-            # Try-except loop ensures consequences are present in the SO code table
             try:
                 system = codeDict[conseq][0]
                 code = codeDict[conseq][1]
+                molecular_json["featureConsequence"].append({"system": system,
+                                                             "code": code,
+                                                             "display": conseq})
 
-                output_json["molecConseq"].append({"system": system,
-                                                   "code": code,
-                                                   "display": conseq})
             except Exception:
-                print("molecular consequence: " + conseq + " not represented in code table")
+                print("feature consequence: " + conseq + " not represented in code table")
 
-    # We only keep the first predicted molecular impact, since it is the most important (as deemed by SnpEff)
     if firstFlag:
-        output_json["predictedMolecImpact"] = annList[2]
+        molecular_json["Impact"] = annList[2]
+
+
+def additionInMolecularConseq(variant_id, patient_id, record, codeDict, mol_output, annList, isMane):
+    molecular_json = OrderedDict()
+    molecular_json["patient_id"] = patient_id
+    molecular_json["variant_id"] = variant_id
+
+    molecular_json["transcriptRefSeq"] = ""
+    molecular_json["MANE"] = isMane
+    molecular_json["source"] = "snpEff"
+    molecular_json["cHGVS"] = ""
+    molecular_json["pHGVS"] = ""
+    molecular_json["featureConsequence"] = []
+
+    firstFlag = True
+
+    parseANN(molecular_json, annList, firstFlag, codeDict)
+
+    firstFlag = False
+
+    if 'LOF' in record.INFO:
+        molecular_json["funcConseq"] = []
+        molecular_json["funcConseq"].append({"system": r'http://sequenceontology.org/',
+                                             "code": "SO:0002054",
+                                             "display": "loss_of_function_variant"})
+
+    mol_output.append(molecular_json)

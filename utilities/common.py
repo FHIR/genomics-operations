@@ -1,5 +1,12 @@
 from enum import Enum
 import re
+import pandas as pd
+import pymongo
+
+utilities_data_client_uri = "mongodb+srv://download:download@cluster0.8ianr.mongodb.net/UtilitiesData"
+utilities_client = pymongo.MongoClient(utilities_data_client_uri)
+utilities_db = utilities_client.UtilitiesData
+transcript_data = utilities_db.Transcripts
 
 GERMLINE = 'Germline'
 SOMATIC = 'Somatic'
@@ -98,6 +105,51 @@ def get_allelic_state(record, ratio_ad_dp):
         'CODE': allelic_code,
         'FREQUENCY': allelic_frequency
     }
+
+
+# got this function from https://github.com/elimuinformatics/vcf2fhir/blob/master/vcf2fhir/common.py
+def get_sequence_relation(phased_rec_map):
+    Relation_table = pd.DataFrame(columns=['POS1', 'POS2', 'Relation'])
+    for key in phased_rec_map:
+        prev_record = None
+        for record in phased_rec_map[key]:
+            if prev_record is None:
+                prev_record = record
+                continue
+            prev_data = prev_record.samples[0].data
+            record_data = record.samples[0].data
+            if (prev_data.PS == record_data.PS):
+                if prev_data.GT == record_data.GT:
+                    Relation_table = Relation_table.append(
+                        {
+                            'POS1': prev_record.POS,
+                            'POS2': record.POS,
+                            'Relation': 'CIS'
+                        },
+                        ignore_index=True
+                    )
+                else:
+                    Relation_table = Relation_table.append(
+                        {
+                            'POS1': prev_record.POS,
+                            'POS2': record.POS,
+                            'Relation': 'TRANS'
+                        },
+                        ignore_index=True
+                    )
+            prev_record = record
+    return Relation_table
+
+
+def query_genes(transcript_map):
+
+    query_string = [{'$match': {}},  # Match all documents
+                    {'$project': {'_id': 0, 'ncbiGeneSymbol': 0, 'featureType': 0, 'build37RefSeq': 0, 'build37Start': 0,
+                                  'build37End': 0, 'build38RefSeq': 0, 'build38Start': 0, 'build38End': 0}}]
+
+    result = list(transcript_data.aggregate(query_string))
+    for res in result:
+        transcript_map[res['transcriptRefSeq']] = res['MANE']
 
 
 def _error_log_allelicstate(record):
