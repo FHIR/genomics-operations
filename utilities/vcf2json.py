@@ -349,8 +349,8 @@ def parseANN(molecular_json, annList, firstFlag, codeDict):
 
 def additionInMolecularConseq(variant_id, patient_id, record, codeDict, mol_output, annList, isMane):
     molecular_json = OrderedDict()
-    molecular_json["patient_id"] = patient_id
-    molecular_json["variant_id"] = variant_id
+    molecular_json["patientID"] = patient_id
+    molecular_json["variantID"] = variant_id
 
     molecular_json["transcriptRefSeq"] = ""
     molecular_json["MANE"] = isMane
@@ -366,8 +366,8 @@ def additionInMolecularConseq(variant_id, patient_id, record, codeDict, mol_outp
     firstFlag = False
 
     if 'LOF' in record.INFO:
-        molecular_json["funcConseq"] = []
-        molecular_json["funcConseq"].append({"system": r'http://sequenceontology.org/',
+        molecular_json["functionalEffect"] = []
+        molecular_json["functionalEffect"].append({"system": r'http://sequenceontology.org/',
                                              "code": "SO:0002054",
                                              "display": "loss_of_function_variant"})
 
