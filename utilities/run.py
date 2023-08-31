@@ -6,7 +6,7 @@ import pandas as pd
 from tqdm import tqdm
 
 
-def exrtractData(csv_file_path, variants_data, molecular_output, phase_output):
+def extractData(csv_file_path, variants_data, molecular_output, phase_output):
     try:
         # Fetching all Transcripts data and storing it in transcript_map
         transcript_map = {}
@@ -40,7 +40,7 @@ def run_vcf2json():
     variants_data = []
     molecular_output = []
     phase_output = []
-    exrtractData("vcfData.csv", variants_data, molecular_output, phase_output)
+    extractData("vcfData.csv", variants_data, molecular_output, phase_output)
 
     files_to_write = [
         ("variantsData.json", variants_data),
