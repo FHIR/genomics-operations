@@ -16,7 +16,7 @@ def download_fasta():
             if not Path(filepath).is_file():
                 urlretrieve('https://ftp.ncbi.nlm.nih.gov/refseq/H_sapiens/annotation/' + build + '_latest/refseq_identifiers/' + filename, filepath)
 
-            # Build indexes
-            init_fasta()
-    except Exception as error:
-        print(error)
+        # Build indexes
+        init_fasta()
+    except Exception as err:
+        print(f"Unexpected {err=}, {type(err)=}")
