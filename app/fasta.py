@@ -1,5 +1,6 @@
 from pathlib import Path
 from urllib.request import urlretrieve
+from utilities.SPDI_Normalization import init_fasta
 
 
 def download_fasta():
@@ -16,8 +17,6 @@ def download_fasta():
                 urlretrieve('https://ftp.ncbi.nlm.nih.gov/refseq/H_sapiens/annotation/' + build + '_latest/refseq_identifiers/' + filename, filepath)
 
             # Build indexes
-            # Disable this for now
-            # if not Path(filepath + '.fxi').is_file():
-            #     Fasta(filepath)
+            init_fasta()
     except Exception as error:
         print(error)

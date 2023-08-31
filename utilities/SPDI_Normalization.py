@@ -22,6 +22,11 @@ def get_fasta(file):
         return fasta_cache[file]
 
 
+def init_fasta():
+    get_fasta(BUILD37_FILE)
+    get_fasta(BUILD38_FILE)
+
+
 def get_normalized_spdi(ref_seq, pos, ref, alt, build):
     if build == 'GRCh37':
         GRCh37_ref_seq_fasta = get_fasta(BUILD37_FILE)
