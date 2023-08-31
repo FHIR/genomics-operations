@@ -13,7 +13,11 @@ BUILD38_FILE = 'FASTA/GRCh38_latest_genomic.fna.gz'
 def get_fasta(file):
     with fasta_lock:
         if file not in fasta_cache:
-            fasta = pyfastx.Fasta(file)
+            try:
+                fasta = pyfastx.Fasta(file)
+            except Exception as err:
+                print(f"Unexpected {err=}, {type(err)=}")
+                raise
             fasta_cache[file] = fasta
         return fasta_cache[file]
 
