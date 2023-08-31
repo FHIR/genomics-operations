@@ -368,7 +368,7 @@ def additionInMolecularConseq(variant_id, patient_id, record, codeDict, mol_outp
     if 'LOF' in record.INFO:
         molecular_json["functionalEffect"] = []
         molecular_json["functionalEffect"].append({"system": r'http://sequenceontology.org/',
-                                             "code": "SO:0002054",
-                                             "display": "loss_of_function_variant"})
+                                                   "code": "SO:0002054",
+                                                   "display": "loss_of_function_variant"})
 
     mol_output.append(molecular_json)
