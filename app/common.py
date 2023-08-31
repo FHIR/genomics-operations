@@ -174,7 +174,7 @@ def get_variant(variant):
     variant = variant.lstrip()
 
     if variant.count(":") == 1:  # HGVS expression
-        SPDIs = hgvs_2_contextual_SPDIs(variant)
+        SPDIs = normalize(variant)
         if not SPDIs:
             abort(400, f'Cannot normalize variant: {variant}')
         elif not SPDIs["GRCh37"] and not SPDIs["GRCh38"]:
@@ -183,7 +183,7 @@ def get_variant(variant):
             normalized_variant = {"variant": variant, "GRCh37": SPDIs["GRCh37"], "GRCh38": SPDIs["GRCh38"]}
 
     elif variant.count(":") == 3:  # SPDI expression
-        SPDIs = SPDI_2_contextual_SPDIs(variant)
+        SPDIs = normalize(variant)
         if not SPDIs:
             abort(400, f'Cannot normalize variant: {variant}')
         elif not SPDIs["GRCh37"] and not SPDIs["GRCh38"]:
@@ -977,14 +977,6 @@ def get_intersected_regions(bed_id, build, chrom, start, end, intersected_region
         for csePair in result:
             ref_seq = get_ref_seq_by_chrom_and_build(build, csePair["Chromosome"])
             intersected_regions.append(f'{ref_seq}:{max(start, csePair["Start"])}-{min(end, csePair["End"])}')
-
-
-def hgvs_2_contextual_SPDIs(hgvs):
-    return normalize(hgvs)
-
-
-def SPDI_2_contextual_SPDIs(spdi):
-    return normalize(spdi)
 
 
 def query_clinvar_by_variants(normalized_variant_list, code_list, query, population=False):
