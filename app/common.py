@@ -716,10 +716,11 @@ def create_tx_implication_profile_civic(implication, subject, vids):
                                                                            "code": f"{ptc['code']}",
                                                                            "display": f"{ptc['display']}"}]}})
 
-    resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
-                                                       "code": "93044-6",
-                                                       "display": "Level of evidence"}]},
-                                  "valueCodeableConcept": {"text": f"{implication['evidenceLevel']}"}})
+    if 'evidenceLevel' in implication:
+        resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
+                                                           "code": "93044-6",
+                                                           "display": "Level of evidence"}]},
+                                      "valueCodeableConcept": {"text": f"{implication['evidenceLevel']}"}})
 
     for med in implication['medicationAssessed']:
         resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
