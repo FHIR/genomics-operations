@@ -4,6 +4,8 @@
 .pytest_cache
 __pycache__
 .venv
-utilities/FASTA
-/data
 secrets.env
+/data
+/seqrepo
+/tmp
+/utilities/FASTA

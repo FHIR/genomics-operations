@@ -1330,6 +1330,64 @@ paths:
             type: string
             example: "NM_001127510.3:c.145A>T"
 
+  /utilities/normalize-variant-hgvs:
+    get:
+      summary: "Normalize Variant HGVS"
+      operationId: "app.utilities_endpoints.normalize_variant_hgvs"
+      tags:
+        - "Operations Utilities (not part of balloted HL7 Operations)"
+      responses:
+        "200":
+          description: "Returns a normalized variant in both GRCh37 and GRCh38."
+          content:
+            application/json:
+              schema:
+                type: object
+      parameters:
+        - name: variant
+          in: query
+          required: true
+          description: "Variant."
+          schema:
+            type: string
+            example: "NM_021960.4:c.740C>T"
+
+  /utilities/seqfetcher/1/sequence/{acc}:
+    get:
+      summary: "Seqfetcher"
+      operationId: "app.utilities_endpoints.seqfetcher"
+      tags:
+        - "Operations Utilities (not part of balloted HL7 Operations)"
+      responses:
+        "200":
+          description: "Returns RefSeq subsequence"
+          content:
+            text/plain:
+              schema:
+                type: string
+      parameters:
+        - name: acc
+          in: path
+          required: true
+          description: Accession
+          schema:
+            type: string
+            example: "NC_000001.10"
+        - name: start
+          in: query
+          required: true
+          description: Subsequence start index
+          schema:
+            type: integer
+            example: 10000
+        - name: end
+          in: query
+          required: true
+          description: Subsequence end index
+          schema:
+            type: integer
+            example: 10010
+
   /utilities/normalize-hla:
     get:
       description: >
