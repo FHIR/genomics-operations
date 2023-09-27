@@ -745,7 +745,7 @@ def create_molecular_consequence_profile(molecular_consequence, subject, vids):
 
     for feature_consequence in molecular_consequence["featureConsequence"]:
         resource["component"].append({"code": {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                                           "code": "SO:0001537",
+                                                           "code": "feature-consequence",
                                                            "display": "Feature Consequence"}]},
                                       "valueCodeableConcept": {"coding": [{"system": f"{feature_consequence['system']}",
                                                                            "code": f"{feature_consequence['code']}",
@@ -753,7 +753,7 @@ def create_molecular_consequence_profile(molecular_consequence, subject, vids):
 
     if 'impact' in molecular_consequence:
         resource["component"].append({"code": {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                                           "code": "SO:0001536",
+                                                           "code": "functional-effect",
                                                            "display": "Functional Effectt"}]},
                                       "valueCodeableConcept": {"text": f"{molecular_consequence['impact']}"}})
 
@@ -1958,7 +1958,7 @@ def query_molecular_consequences_by_variants(normalized_variant_list, feature_co
         results = variants_db.aggregate(query_string)
         results = list(results)
     except Exception as e:
-        print(f"{e}")
+        print(f"DEBUG: Error {e} under query_molecular_consequences_by_variants query={query}")
         results = []
 
     query_results = []

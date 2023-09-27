@@ -1277,10 +1277,10 @@ def find_subject_molecular_consequences(
 
         for res in query_results:
             if res["molecularConsequenceMatches"]:
-                # ref_seq = common.get_ref_seq_by_chrom_and_build(res['genomicBuild'], res['CHROM'])
+                result["parameter"].append([])
                 for molecular_consequence in res["molecularConsequenceMatches"]:
                     parameter = OrderedDict()
-                    parameter["name"] = "Molecular Consequence"
+                    parameter["name"] = "consequence"
                     parameter["part"] = []
 
                     molecular_consequence_profile = common.create_molecular_consequence_profile(molecular_consequence, subject, [str(res['variantID'])])
@@ -1288,20 +1288,13 @@ def find_subject_molecular_consequences(
                         "name": "Molecular Consequence",
                         "resource": molecular_consequence_profile
                     })
-                    # resource = common.create_fhir_variant_resource(
-                    #     res, ref_seq, subject)
 
-                    # parameter["part"].append({
-                    #     "name": "variant",
-                    #     "resource": resource
-                    # })
-
-                    result["parameter"].append(parameter)
+                    result["parameter"][0].append(parameter)
 
         if not result["parameter"]:
             result.pop("parameter")
         else:
-            result["parameter"] = sorted(result["parameter"], key=lambda d: d['part'][0]['resource']['id'])
+            result["parameter"] = sorted(result["parameter"][0], key=lambda d: d['part'][0]['resource']['id'])
 
         return jsonify(result)
 

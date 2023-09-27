@@ -714,11 +714,11 @@ paths:
               - "somatic"
           description: Enables an App to limit results to those that are 'germline' or 'somatic'. Default is to include variants irrespective of genomic source class.
 
-  /subject-operations/phenotype-operations/$find-subject-molecular-consequences:
+  /subject-operations/phenotype-operations/$find-subject-molecular-consequence:
     get:
       description: >
         Retrieves molecular consequences of a DNA variant. Generally, the operation will be called with 'subject' and 'ranges' parameters, which will return molecular consequences for patient variants in supplied ranges. Another common pattern is to call the operation with 'subject', 'ranges', and 'featureConsequences' parameters, which will limit the return to only those molecular consequences having supplied features. For other combinations of input parameters, the operation returns molecular consequences satisfying all parameters.
-      summary: "Find Subject Molecular Consequences"
+      summary: "Find Subject Molecular Consequence"
       operationId: "app.endpoints.find_subject_molecular_consequences"
       tags:
         - "Subject Phenotype Operations"
@@ -763,7 +763,7 @@ paths:
               - "NC_000019.9:11200138-11244496"
           style: "form"
           explode: false
-        - name: featureConsequence
+        - name: featureConsequences
           in: query
           description: List of consequences sought. Must be in token or codesystem|code format. (These will generally be coded with Sequence Ontology codes under SO:0001537)
           schema:
