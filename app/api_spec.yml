@@ -102,7 +102,7 @@ paths:
             type: boolean
             default: false
           description: Include sequence phase relationships in response if set to true.
-  
+
   /subject-operations/genotype-operations/$find-subject-specific-variants:
     get:
       description: >
@@ -177,7 +177,7 @@ paths:
               - "germline"
               - "somatic"
           description: Enables an App to limit results to those that are 'germline' or 'somatic'. Default is to include variants irrespective of genomic source class.
-  
+
   /subject-operations/genotype-operations/$find-subject-structural-intersecting-variants:
     get:
       description: >
@@ -262,7 +262,7 @@ paths:
             type: boolean
             default: false
           description: Include variants in response if set to true.
-  
+
   /subject-operations/genotype-operations/$find-subject-structural-subsuming-variants:
     get:
       description: >
@@ -346,7 +346,7 @@ paths:
             type: boolean
             default: false
           description: Include variants in response if set to true.
-  
+
   /subject-operations/genotype-operations/$find-subject-haplotypes:
     get:
       description: >
@@ -422,7 +422,7 @@ paths:
               - "germline"
               - "somatic"
           description: Enables an App to limit results to those that are 'germline' or 'somatic'. Default is to include variants irrespective of genomic source class.
-  
+
   /subject-operations/genotype-operations/$find-subject-specific-haplotypes:
     get:
       description: >
@@ -497,7 +497,7 @@ paths:
               - "germline"
               - "somatic"
           description: Enables an App to limit results to those that are 'germline' or 'somatic'. Default is to include variants irrespective of genomic source class.
-  
+
   /subject-operations/phenotype-operations/$find-subject-tx-implications:
     get:
       description: |-
@@ -614,7 +614,7 @@ paths:
               - "germline"
               - "somatic"
           description: Enables an App to limit results to those that are 'germline' or 'somatic'. Default is to include variants irrespective of genomic source class.
-  
+
   /subject-operations/phenotype-operations/$find-subject-dx-implications:
     get:
       description: |-
@@ -713,7 +713,7 @@ paths:
               - "germline"
               - "somatic"
           description: Enables an App to limit results to those that are 'germline' or 'somatic'. Default is to include variants irrespective of genomic source class.
-  
+
   /subject-operations/metadata-operations/$find-study-metadata:
     get:
       description: |-
@@ -1147,6 +1147,7 @@ paths:
             type: string
             pattern: '^\s*[Nn][Pp]_\d{4,10}(\.)?(\d{1,2})?\s*$'
           example: "NP_000005.3"
+
   /utilities/find-the-gene:
     get:
       summary: "Find The Gene"
@@ -1170,6 +1171,42 @@ paths:
             pattern: '^\s*[Nn][Cc]_\d{4,10}(\.)(\d{1,2}):\d{1,10}-\d{1,10}\s*$'
             example: "NC_000001.11:11794399-11794400"
 
+  /utilities/seqfetcher/1/sequence/{ref_seq}:
+    get:
+      summary: "Seqfetcher"
+      operationId: "app.utilities_endpoints.seqfetcher"
+      tags:
+        - "Seqfetcher Utility"
+      responses:
+        '200':
+          description: "Returns RefSeq subsequence"
+          content:
+            text/plain:
+              schema:
+                type: string
+      parameters:
+        - name: ref_seq
+          in: path
+          required: true
+          description: RefSeq
+          schema:
+            type: string
+            example: "NC_000001.10"
+        - name: start
+          in: query
+          required: true
+          description: Subsequence start index
+          schema:
+            type: integer
+            example: 1
+        - name: end
+          in: query
+          required: true
+          description: Subsequence end index
+          schema:
+            type: integer
+            example: 2
+
 tags:
   - name: Subject Genotype Operations
   - name: Subject Phenotype Operations
@@ -1178,7 +1215,7 @@ tags:
   - name: Population Phenotype Operations
   - name: Feature Coordinates Utility
     description: This utility returns genomic feature coordinates and other annotations. All data are from <a href="https://www.ncbi.nlm.nih.gov/genome/guide/human/">NCBI Human Genome Resources</a>. For chromosomes, build 37 and build 38 reference sequences are returned. For genes, genomic coordinates are returned, along with a list of transcripts. MANE transcript is flagged. For transcripts, genomic coordinates are returned, along with the gene name and composite exons, along with exon coordinates. For proteins, the corresponding transcript is returned.
-  
+
   - name: Find The Gene Utility
     description: This utility returns all genes that intersect with a provided genomic region.
 
