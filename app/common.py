@@ -714,7 +714,7 @@ def create_molecular_consequence_profile(molecular_consequence, subject, vids):
                         "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/molecular-consequence"]}
     resource["status"] = "final"
     resource["category"] = [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                                         "code": "laboratory"}]}]
+                                         "code": "laboratory"}, {"system": "http://terminology.hl7.org/CodeSystem/v2-0074", "code": "GE"}]}]
     resource["code"] = {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
                                    "code": "molecular-consequences"}]}
     resource["subject"] = {"reference": f"Patient/{subject}"}
