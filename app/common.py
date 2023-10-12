@@ -716,7 +716,7 @@ def create_tx_implication_profile_civic(implication, subject, vids):
                                                                            "code": f"{ptc['code']}",
                                                                            "display": f"{ptc['display']}"}]}})
 
-    if 'evidenceLevel' in implication:
+    if 'evidenceLevel' in implication and implication['evidenceLevel']:
         resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
                                                            "code": "93044-6",
                                                            "display": "Level of evidence"}]},
