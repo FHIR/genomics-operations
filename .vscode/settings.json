@@ -7,7 +7,7 @@
     "editor.bracketPairColorization.enabled": true,
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
-    "python.formatting.provider": "autopep8",
+    "python.formatting.provider": "none",
     "python.formatting.autopep8Args": [
         "--max-line-length=200"
     ],
@@ -20,5 +20,8 @@
         "."
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    }
 }
