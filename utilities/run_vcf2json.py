@@ -6,14 +6,14 @@ import pandas as pd
 from tqdm import tqdm
 
 
-def exrtractData(csv_file_path, variants_data, molecular_output, phase_output):
+def extractData(csv_file_path, variants_data, molecular_output, phase_output):
     try:
         # Fetching all Transcripts data and storing it in transcript_map
         transcript_map = {}
         common.query_genes(transcript_map)
 
         df = pd.read_csv(csv_file_path)
-        for _, row in tqdm(df.iterrows(), total=len(df), desc="Processing Data"):
+        for _, row in tqdm(df.iterrows(), total=len(df)-1, desc="Processing Data"):
             phased_rec_map = {}
             vcf2json.vcf2json(row['vcf_filename'],
                               row['ref_build'],
@@ -40,7 +40,7 @@ def run_vcf2json():
     variants_data = []
     molecular_output = []
     phase_output = []
-    exrtractData("vcfData.csv", variants_data, molecular_output, phase_output)
+    extractData("vcfData.csv", variants_data, molecular_output, phase_output)
 
     files_to_write = [
         ("variantsData.json", variants_data),
