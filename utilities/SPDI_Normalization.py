@@ -1,13 +1,33 @@
 import pyfastx
+from threading import Lock
 
-GRCh37_ref_seq_fasta = pyfastx.Fasta('FASTA/GRCh37_latest_genomic.fna.gz')
-GRCh38_ref_seq_fasta = pyfastx.Fasta('FASTA/GRCh38_latest_genomic.fna.gz')
+
+# Fasta file handles cache
+fasta_cache = {}
+fasta_lock = Lock()
+
+BUILD37_FILE = 'FASTA/GRCh37_latest_genomic.fna.gz'
+BUILD38_FILE = 'FASTA/GRCh38_latest_genomic.fna.gz'
+
+
+def get_fasta(file):
+    with fasta_lock:
+        if file not in fasta_cache:
+            try:
+                fasta = pyfastx.Fasta(file)
+            except Exception as err:
+                print(f"Unexpected {err=}, {type(err)=}")
+                raise
+            fasta_cache[file] = fasta
+        return fasta_cache[file]
 
 
 def get_normalized_spdi(ref_seq, pos, ref, alt, build):
     if build == 'GRCh37':
+        GRCh37_ref_seq_fasta = get_fasta(BUILD37_FILE)
         ref_seq_fasta = GRCh37_ref_seq_fasta[ref_seq]
     elif build == 'GRCh38':
+        GRCh38_ref_seq_fasta = get_fasta(BUILD38_FILE)
         ref_seq_fasta = GRCh38_ref_seq_fasta[ref_seq]
 
     # Step 0

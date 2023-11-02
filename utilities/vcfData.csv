@@ -1,0 +1,2 @@
+vcf_filename,ref_build,patient_id,test_date,test_id,specimen_id,genomic_source_class,ratio_ad_dp,sample_position
+TCGA_DD_A1EH.vcf,GRCh37,TCGA-DD-A1EH,2022-01-20,TCGA-DD-A1EH-T1,TCGA-DD-A1EH-Sp1,somatic,0.99,0

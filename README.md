@@ -22,7 +22,7 @@ All operations return a JSON output. However, if an invalid request is submitted
 ```javascript
 {
   "type": string,
-  "title": tring,
+  "title": string,
   "detail": string,
   "status": int
 }
