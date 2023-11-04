@@ -2,9 +2,9 @@ import os
 import subprocess
 import sys
 
-fileFolderPath = "C:\\snpEff\\simple\\38"
-outputFolderPath = "C:\\snpEff\\output"
-snpEffPath = "C:\\snpEff"
+vcfFileFolderPath = "C:\\snpEff\\simple\\38" # Path where VCF file is present
+outputFolderPath = "C:\\snpEff\\output"      # Here, output will generate
+snpEffPath = "C:\\snpEff"                    # Path of snpEff folder
 databasePath = "C:\\snpEff\\gnomad.exomes.r2.1.1.sites.liftover_grch38.vcf.bgz"
 
 genome = 'GRCh38.p13'
@@ -22,9 +22,9 @@ else:
 
 os.chdir(snpEffPath)
 
-for vcfFile in os.listdir(fileFolderPath):
+for vcfFile in os.listdir(vcfFileFolderPath):
     print('in file: ' + vcfFile)
-    filePath = fileFolderPath + '\\' + vcfFile
+    filePath = vcfFileFolderPath + '\\' + vcfFile
     outputPath = outputFolderPath + '\\' + vcfFile
     snpEffCmd = ['java', '-jar', snpEffJarPath] + ['-o', 'vcf'] + [genome, filePath]
 
