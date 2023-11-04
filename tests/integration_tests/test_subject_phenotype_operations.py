@@ -57,6 +57,20 @@ def test_find_subject_tx_implications_6(client):
     tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_TX_IMPLICATIONS_OUTPUT_DIR}6.json', response.json)
 
 
+def test_find_subject_tx_implications_7(client):
+    url = tu.find_subject_tx_implications_query('subject=TCGA-DD-A1EH&ranges=NC_000001.11:20000000-40000000')
+    response = client.get(url)
+
+    tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_TX_IMPLICATIONS_OUTPUT_DIR}7.json', response.json)
+
+
+def test_find_subject_tx_implications_8(client):
+    url = tu.find_subject_tx_implications_query('subject=TCGA-DD-A1EH&variants=NC_000001.10:27106893::T&conditions=https://disease-ontology.org|684')
+    response = client.get(url)
+
+    tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_TX_IMPLICATIONS_OUTPUT_DIR}8.json', response.json)
+
+
 """
 Find Subject Dx Implications Tests
 ----------------------------------
