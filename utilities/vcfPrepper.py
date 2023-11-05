@@ -2,9 +2,9 @@ import os
 import subprocess
 import sys
 
-vcfFileFolderPath = "C:\\snpEff\\simple\\38" # Path where VCF file is present
-outputFolderPath = "C:\\snpEff\\output"      # Here, output will generate
-snpEffPath = "C:\\snpEff"                    # Path of snpEff folder
+vcfFileFolderPath = "C:\\snpEff\\simple\\38"  # Path where VCF file is present
+outputFolderPath = "C:\\snpEff\\output"  # Here, output will generate
+snpEffPath = "C:\\snpEff"  # Path of snpEff folder
 databasePath = "C:\\snpEff\\gnomad.exomes.r2.1.1.sites.liftover_grch38.vcf.bgz"
 
 genome = 'GRCh38.p13'
