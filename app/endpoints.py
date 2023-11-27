@@ -1003,7 +1003,7 @@ def find_subject_tx_implications(
                 implication_profile = common.create_tx_implication_profile_civic(
                     implication, subject, [str(res["_id"])]
                 )
-                impl_parameter["resource"] = {
+                impl_parameter = {
                     "name": "implication",
                     "resource": implication_profile,
                 }
@@ -1014,16 +1014,16 @@ def find_subject_tx_implications(
                 common.add_variation_id(resource, implication["variationID"])
 
                 var_parameter = OrderedDict()
-                var_parameter["resource"] = {"name": "variant", "resource": resource}
+                var_parameter = {"name": "variant", "resource": resource}
 
                 result["parameter"].append(var_parameter)
 
         if not result["parameter"]:
             result.pop("parameter")
-        else:
-            result["parameter"] = sorted(
-                result["parameter"], key=lambda d: d["part"][0]["resource"]["id"]
-            )
+        # else:
+        #   result["parameter"] = sorted(
+        #       result["parameter"], key=lambda d: d["part"][0]["resource"]["id"]
+        #    )
 
         return jsonify(result)
 
@@ -1042,7 +1042,7 @@ def find_subject_tx_implications(
                 implication_profile = common.create_tx_implication_profile_pharmgkb(
                     implication, subject, [str(res["_id"])]
                 )
-                impl_parameter["resource"] = {
+                impl_parameter = {
                     "name": "implication",
                     "resource": implication_profile,
                 }
@@ -1063,20 +1063,19 @@ def find_subject_tx_implications(
 
                 common.add_variation_id(genotype_profile, implication["variationID"])
 
-                var_parameter["resource"] = {
+                var_parameter = {
                     "name": "genotype",
                     "resource": genotype_profile,
                 }
-                print(var_parameter)
 
                 result["parameter"].append(var_parameter)
 
         if not result["parameter"]:
             result.pop("parameter")
-        else:
-            result["parameter"] = sorted(
-                result["parameter"], key=lambda d: d["part"][0]["resource"]["id"]
-            )
+        # else:
+        #    result["parameter"] = sorted(
+        #        result["parameter"], key=lambda d: d["part"][0]["resource"]["id"]
+        #    )
 
         return jsonify(result)
 
@@ -1094,7 +1093,7 @@ def find_subject_tx_implications(
             implication_profile = common.create_tx_implication_profile_pharmgkb(
                 res, subject, [str(i["_id"]) for i in res["patientMatches"]]
             )
-            impl_parameter["resource"] = {
+            impl_parameter = {
                 "name": "implication",
                 "resource": implication_profile,
             }
@@ -1134,7 +1133,7 @@ def find_subject_tx_implications(
             implication_profile = common.create_tx_implication_profile_civic(
                 res, subject, [str(i["_id"]) for i in res["patientMatches"]]
             )
-            impl_parameter["resource"] = {
+            impl_parameter = {
                 "name": "implication",
                 "resource": implication_profile,
             }
@@ -1160,16 +1159,16 @@ def find_subject_tx_implications(
 
             for resource in variant_fhir_profiles:
                 var_parameter = OrderedDict()
-                var_parameter["resource"] = {"name": "variant", "resource": resource}
+                var_parameter = {"name": "variant", "resource": resource}
 
             result["parameter"].append(var_parameter)
 
         if not result["parameter"]:
             result.pop("parameter")
-        else:
-            result["parameter"] = sorted(
-                result["parameter"], key=lambda d: d["part"][0]["resource"]["id"]
-            )
+        # else:
+        #    result["parameter"] = sorted(
+        #        result["parameter"], key=lambda d: d["part"][0]["resource"]["id"]
+        #    )
 
         return jsonify(result)
 
@@ -1183,7 +1182,7 @@ def find_subject_tx_implications(
             implication_profile = common.create_tx_implication_profile_civic(
                 res, subject, [str(i["_id"]) for i in res["patientMatches"]]
             )
-            impl_parameter["resource"] = {
+            impl_parameter = {
                 "name": "implication",
                 "resource": implication_profile,
             }
@@ -1210,16 +1209,16 @@ def find_subject_tx_implications(
 
             for resource in variant_fhir_profiles:
                 var_parameter = OrderedDict()
-                var_parameter["resource"] = {"name": "variant", "resource": resource}
+                var_parameter = {"name": "variant", "resource": resource}
 
             result["parameter"].append(var_parameter)
 
         if not result["parameter"]:
             result.pop("parameter")
-        else:
-            result["parameter"] = sorted(
-                result["parameter"], key=lambda d: d["part"][0]["resource"]["id"]
-            )
+        # else:
+        #    result["parameter"] = sorted(
+        #        result["parameter"], key=lambda d: d["part"][0]["resource"]["id"]
+        #    )
 
         return jsonify(result)
 
@@ -1350,10 +1349,10 @@ def find_subject_dx_implications(
 
         if not result["parameter"]:
             result.pop("parameter")
-        else:
-            result["parameter"] = sorted(
-                result["parameter"], key=lambda d: d["part"][0]["resource"]["id"]
-            )
+        # else:
+        #    result["parameter"] = sorted(
+        #        result["parameter"], key=lambda d: d["part"][0]["resource"]["id"]
+        #    )
 
         return jsonify(result)
 
@@ -1381,18 +1380,16 @@ def find_subject_dx_implications(
 
                 common.add_variation_id(resource, res["variationID"])
                 var_parameter = OrderedDict()
-                var_parameter["resource"] = {"name": "variant",
-                                             "resource": resource}
+                var_parameter["resource"] = {"name": "variant", "resource": resource}
 
                 result["parameter"].append(var_parameter)
 
-
         if not result["parameter"]:
             result.pop("parameter")
-        else:
-            result["parameter"] = sorted(
-                result["parameter"], key=lambda d: d["part"][0]["resource"]["id"]
-            )
+        # else:
+        #    result["parameter"] = sorted(
+        #        result["parameter"], key=lambda d: d["part"][0]["resource"]["id"]
+        #    )
 
         return jsonify(result)
 
