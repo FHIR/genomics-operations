@@ -882,9 +882,6 @@ def find_subject_tx_implications(
 
         if not result["parameter"]:
             result.pop("parameter")
-        # else:
-        #    result["parameter"] = sorted(result["parameter"], key=lambda d: d['part'][0]['resource']['id'])
-
         return jsonify(result)
 
     if haplotypes:
@@ -922,8 +919,6 @@ def find_subject_tx_implications(
 
         if not result["parameter"]:
             result.pop("parameter")
-        # else:
-        #    result["parameter"] = sorted(result["parameter"], key=lambda d: d['part'][0]['resource']['id'])
 
         return jsonify(result)
 
@@ -995,9 +990,6 @@ def find_subject_tx_implications(
 
         if not result["parameter"]:
             result.pop("parameter")
-        # else:
-        #    result["parameter"] = sorted(result["parameter"], key=lambda d: d['part'][0]['resource']['id'])
-
         return jsonify(result)
 
     if conditions:
@@ -1032,8 +1024,6 @@ def find_subject_tx_implications(
 
         if not result["parameter"]:
             result.pop("parameter")
-        # else:
-        #    result["parameter"] = sorted(result["parameter"], key=lambda d: d['part'][0]['resource']['id'])
 
         return jsonify(result)
 
@@ -1133,12 +1123,10 @@ def find_subject_dx_implications(
                     "name": "variant",
                     "resource": resource
                 }
-                parameter["part"].append(variant_param)
+                result["parameter"].append(variant_param)
 
         if not result["parameter"]:
             result.pop("parameter")
-        # else:
-        #    result["parameter"] = sorted(result["parameter"], key=lambda d: d['part'][0]['resource']['id'])
 
         return jsonify(result)
 
@@ -1168,8 +1156,6 @@ def find_subject_dx_implications(
 
         if not result["parameter"]:
             result.pop("parameter")
-        # else:
-        #    result["parameter"] = sorted(result["parameter"], key=lambda d: d['part'][0]['resource']['id'])
 
         return jsonify(result)
 
