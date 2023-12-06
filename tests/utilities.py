@@ -131,4 +131,4 @@ def compare_actual_and_expected_output(filename, actual_json):
     with open(filename) as expected_output_file:
         expected_json = json.load(expected_output_file)
         diff = deepdiff.DeepDiff(actual_json, expected_json, ignore_order=True)
-        assert len(diff) == 0
+        assert diff == {}
