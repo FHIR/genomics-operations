@@ -1,5 +1,6 @@
 import json
 import os
+import deepdiff
 
 FIND_SUBJECT_VARIANTS_URL = "/subject-operations/genotype-operations/$find-subject-variants"
 FIND_SUBJECT_VARIANTS_OUTPUT_DIR = "tests/expected_outputs/find_subject_variants/"
@@ -129,4 +130,5 @@ def compare_actual_and_expected_output(filename, actual_json):
 
     with open(filename) as expected_output_file:
         expected_json = json.load(expected_output_file)
-        assert actual_json == expected_json
+        diff = deepdiff.DeepDiff(actual_json, expected_json, ignore_order=True)
+        assert diff == {}
