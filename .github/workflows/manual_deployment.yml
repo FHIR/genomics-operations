@@ -43,10 +43,10 @@ jobs:
             exit 1
           fi
 
+          # Fetch the target branch from a fork when not using ${action_repo}
           if [[ -n "${{ github.event.inputs.repo }}" && "${{ github.event.inputs.repo }}" != "${action_repo}" ]]; then
             git remote add fork "${{ github.event.inputs.repo }}"
             git fetch fork "${{ inputs.branch }}"
-            git reset --hard fork/${{ inputs.branch }}
           fi
 
       - uses: akhileshns/heroku-deploy@v3.12.12
@@ -54,5 +54,5 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ inputs.environment == 'prod' && secrets.HEROKU_APP_NAME || secrets.HEROKU_DEV_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
-          dontuseforce: false # Force push to Heroku
-          branch: main
+          dontuseforce: false # Always force push to Heroku
+          branch: ${{ inputs.branch }}
