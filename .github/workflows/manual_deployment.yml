@@ -46,12 +46,8 @@ jobs:
           if [[ -n "${{ github.event.inputs.repo }}" && "${{ github.event.inputs.repo }}" != "${action_repo}" ]]; then
             git remote add fork "${{ github.event.inputs.repo }}"
             git fetch fork "${{ inputs.branch }}"
-            if [ "${{ inputs.branch }}" == "main" ]; then
-              git reset --hard fork/main
-            fi
+            git reset --hard fork/${{ inputs.branch }}
           fi
-
-          git switch "${{ inputs.branch }}"
 
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
@@ -59,3 +55,4 @@ jobs:
           heroku_app_name: ${{ inputs.environment == 'prod' && secrets.HEROKU_APP_NAME || secrets.HEROKU_DEV_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
           dontuseforce: false # Force push to Heroku
+          branch: main
