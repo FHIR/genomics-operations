@@ -58,3 +58,4 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ inputs.environment == 'prod' && secrets.HEROKU_APP_NAME || secrets.HEROKU_DEV_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          dontuseforce: false # Force push to Heroku
