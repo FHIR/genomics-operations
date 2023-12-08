@@ -47,6 +47,10 @@ jobs:
           if [[ -n "${{ github.event.inputs.repo }}" && "${{ github.event.inputs.repo }}" != "${action_repo}" ]]; then
             git remote add fork "${{ github.event.inputs.repo }}"
             git fetch fork "${{ inputs.branch }}"
+
+            # Overwrite the local branch if it already exists
+            git checkout "${{ inputs.branch }}"
+            git reset --hard "fork/${{ inputs.branch }}"
           fi
 
       - uses: akhileshns/heroku-deploy@v3.12.14
