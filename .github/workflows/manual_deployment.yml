@@ -53,6 +53,7 @@ jobs:
             git reset --hard "fork/${{ inputs.branch }}"
           else
             git fetch origin "${{ inputs.branch }}"
+            git checkout "${{ inputs.branch }}"
           fi
 
       - uses: akhileshns/heroku-deploy@v3.12.14
