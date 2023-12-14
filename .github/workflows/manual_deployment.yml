@@ -51,6 +51,8 @@ jobs:
             # Overwrite the local branch if it already exists
             git checkout "${{ inputs.branch }}"
             git reset --hard "fork/${{ inputs.branch }}"
+          else
+            git fetch origin "${{ inputs.branch }}"
           fi
 
       - uses: akhileshns/heroku-deploy@v3.12.14
