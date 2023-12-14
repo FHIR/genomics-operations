@@ -1,0 +1,65 @@
+name: Manual Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Environment
+        required: true
+        default: dev
+        options:
+          - dev
+          - prod
+      branch:
+        type: string
+        description: Branch
+        required: true
+        default: main
+      repo:
+        type: string
+        description: Repository
+        required: true
+        default: https://github.com/FHIR/genomics-operations
+
+jobs:
+  run:
+    name: Run
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Switch to the desired code
+        run: |
+          echo "Environment is '${{ inputs.environment }}'"
+          echo "Branch '${{ inputs.branch }}'"
+          echo "Repo '${{ inputs.repo }}'"
+
+          action_repo="https://github.com/${{ github.repository }}"
+
+          if [[ ${{ inputs.environment }} == "prod" && ( ${{ inputs.branch }} != "main" || "${action_repo}" != "${{ github.event.inputs.repo }}" ) ]]; then
+            echo "::error title=Invalid repo / branch::Production deployments are only allowed from the main branch of the current repo"
+            exit 1
+          fi
+
+          # Fetch the target branch from a fork when not using ${action_repo}
+          if [[ -n "${{ github.event.inputs.repo }}" && "${{ github.event.inputs.repo }}" != "${action_repo}" ]]; then
+            git remote add fork "${{ github.event.inputs.repo }}"
+            git fetch fork "${{ inputs.branch }}"
+
+            # Overwrite the local branch if it already exists
+            git checkout "${{ inputs.branch }}"
+            git reset --hard "fork/${{ inputs.branch }}"
+          else
+            git fetch origin "${{ inputs.branch }}"
+            git checkout "${{ inputs.branch }}"
+          fi
+
+      - uses: akhileshns/heroku-deploy@v3.12.14
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ inputs.environment == 'prod' && secrets.HEROKU_APP_NAME || secrets.HEROKU_DEV_APP_NAME }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          dontuseforce: false # Always force push to Heroku
+          branch: ${{ inputs.branch }}
