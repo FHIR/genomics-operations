@@ -544,7 +544,6 @@ paths:
             items:
               type: string
               pattern: '^\s*[Nn][A-Za-z]_\d{4,10}(\.)(\d{1,2}):\d{1,10}-\d{1,10}\s*$'
-            example:
           style: "form"
           explode: false
         - name: haplotypes
