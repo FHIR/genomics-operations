@@ -845,6 +845,7 @@ def find_subject_tx_implications(
     result = OrderedDict()
     result["resourceType"] = "Parameters"
     result["parameter"] = []
+    id_list = []
 
     if normalized_variants:
         if not ranges:
@@ -874,11 +875,14 @@ def find_subject_tx_implications(
                     res, ref_seq, subject)
 
                 common.add_variation_id(resource, implication["variationID"])
-                variant_param = {
-                    "name": "variant",
-                    "resource": resource
-                }
-                result["parameter"].append(variant_param)
+                var_id = resource['id']
+                if var_id not in id_list:
+                    variant_param = {
+                        "name": "variant",
+                        "resource": resource
+                    }
+                    result["parameter"].append(variant_param)
+                    id_list.append(var_id)
 
         if not result["parameter"]:
             result.pop("parameter")
@@ -911,11 +915,14 @@ def find_subject_tx_implications(
 
                 common.add_variation_id(
                     genotype_profile, implication["variationID"])
-                geno_param = {
-                    "name": "genotype",
-                    "resource": genotype_profile
-                }
-                result["parameter"].append(geno_param)
+                geno_id = genotype_profile['id']
+                if geno_id not in id_list:
+                    geno_param = {
+                        "name": "genotype",
+                        "resource": genotype_profile
+                    }
+                    result["parameter"].append(geno_param)
+                    id_list.append(geno_id)
 
         if not result["parameter"]:
             result.pop("parameter")
@@ -954,11 +961,14 @@ def find_subject_tx_implications(
                 genotype_profiles = sorted(genotype_profiles, key=lambda d: d['id'])
 
             for genotype_profile in genotype_profiles:
-                geno_param = {
-                    "name": "genotype",
-                    "resource": genotype_profile
-                }
-                result["parameter"].append(geno_param)
+                geno_id = genotype_profile['id']
+                if geno_id not in id_list:
+                    geno_param = {
+                        "name": "genotype",
+                        "resource": genotype_profile
+                    }
+                    result["parameter"].append(geno_param)
+                    id_list.append(geno_id)
 
         for res in query_results_CIViC:
 
@@ -982,11 +992,14 @@ def find_subject_tx_implications(
                 variant_fhir_profiles = sorted(variant_fhir_profiles, key=lambda d: d['id'])
 
             for resource in variant_fhir_profiles:
-                variant_param = {
-                    "name": "variant",
-                    "resource": resource
-                }
-                result["parameter"].append(variant_param)
+                var_id = resource['id']
+                if var_id not in id_list:
+                    variant_param = {
+                        "name": "variant",
+                        "resource": resource
+                    }
+                    result["parameter"].append(variant_param)
+                    id_list.append(var_id)
 
         if not result["parameter"]:
             result.pop("parameter")
@@ -1016,11 +1029,14 @@ def find_subject_tx_implications(
                 variant_fhir_profiles = sorted(variant_fhir_profiles, key=lambda d: d['id'])
 
             for resource in variant_fhir_profiles:
-                variant_param = {
-                    "name": "variant",
-                    "resource": resource
-                }
-                result["parameter"].append(variant_param)
+                var_id = resource['id']
+                if var_id not in id_list:
+                    variant_param = {
+                        "name": "variant",
+                        "resource": resource
+                    }
+                    result["parameter"].append(variant_param)
+                    id_list.append(var_id)
 
         if not result["parameter"]:
             result.pop("parameter")
@@ -1091,6 +1107,7 @@ def find_subject_dx_implications(
     result = OrderedDict()
     result["resourceType"] = "Parameters"
     result["parameter"] = []
+    id_list = []
 
     if normalized_variants:
         if not ranges:
@@ -1119,11 +1136,15 @@ def find_subject_dx_implications(
                 resource = common.create_fhir_variant_resource(
                     res, ref_seq, subject)
                 common.add_variation_id(resource, implication["variationID"])
-                variant_param = {
-                    "name": "variant",
-                    "resource": resource
-                }
-                result["parameter"].append(variant_param)
+
+                var_id = resource['id']
+                if var_id not in id_list:
+                    id_list.append(var_id)
+                    variant_param = {
+                        "name": "variant",
+                        "resource": resource
+                    }
+                    result["parameter"].append(variant_param)
 
         if not result["parameter"]:
             result.pop("parameter")
@@ -1148,11 +1169,14 @@ def find_subject_dx_implications(
                 resource = common.create_fhir_variant_resource(varItem, ref_seq, subject)
 
                 common.add_variation_id(resource, res["variationID"])
-                variant_param = {
-                    "name": "variant",
-                    "resource": resource
-                }
-                result["parameter"].append(variant_param)
+                var_id = resource['id']
+                if var_id not in id_list:
+                    id_list.append(var_id)
+                    variant_param = {
+                        "name": "variant",
+                        "resource": resource
+                    }
+                    result["parameter"].append(variant_param)
 
         if not result["parameter"]:
             result.pop("parameter")
