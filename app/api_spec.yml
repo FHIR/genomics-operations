@@ -88,13 +88,13 @@ paths:
           in: query
           schema:
             type: string
-            pattern: '^\s*((?i:germline)|(?i:somatic))\s*$'
+            pattern: '^\s*(germline|Germline|GERMLINE|somatic|Somatic|SOMATIC)\s*$'
           description: Enables an App to limit results to those that are 'germline' or 'somatic'. Default is to include variants irrespective of genomic source class.
         - name: includeVariants
           in: query
           schema:
             type: boolean
-            default: false
+            default: true
           description: Include variants in response if set to true.
         - name: includePhasing
           in: query
@@ -199,7 +199,7 @@ paths:
           schema:
             format: PatientID
             type: string
-            example: 'HCC1143'
+            example: 'ABC789'
           required: true
           description: The subject of interest.
         - name: ranges
@@ -212,8 +212,7 @@ paths:
               type: string
               pattern: '^\s*[Nn][A-Za-z]_\d{4,10}(\.)(\d{1,2}):\d{1,10}-\d{1,10}\s*$'
             example:
-              - "NC_000007.14:55019016-55211628"
-              - "NC_000004.12:54727415-54727542"
+              - "NC_000002.12:179400709-179483218"
           style: "form"
           explode: false
         - name: testIdentifiers
@@ -260,7 +259,7 @@ paths:
           in: query
           schema:
             type: boolean
-            default: false
+            default: true
           description: Include variants in response if set to true.
   
   /subject-operations/genotype-operations/$find-subject-structural-subsuming-variants:
@@ -344,7 +343,7 @@ paths:
           in: query
           schema:
             type: boolean
-            default: false
+            default: true
           description: Include variants in response if set to true.
   
   /subject-operations/genotype-operations/$find-subject-haplotypes:
@@ -444,7 +443,7 @@ paths:
           schema:
             format: PatientID
             type: string
-            example: 'NB6TK328'
+            example: 'XYZ123'
           required: true
           description: The subject of interest.
         - name: haplotypes
@@ -456,7 +455,7 @@ paths:
             items:
               type: string
             example:
-              - "HLA-B*27"
+              - "CYP2C19"
           style: "form"
           explode: false
         - name: testIdentifiers
@@ -475,8 +474,6 @@ paths:
             items:
               type: string
               pattern: '^\s*(eq|ne|lt|gt|ge|le|sa|eb)(((18|19|20)[0-9]{2}-(0?[13578]|1[02])-(0?[1-9]|[12][0-9]|3[01]))|((18|19|20)[0-9]{2}-(0?[469]|11)-(0?[1-9]|[12][0-9]|30))|((18|19|20)[0-9]{2}-(0?[2])-(0?[1-9]|1[0-9]|2[0-8]))|((((18|19|20)(04|08|[2468][048]|[13579][26]))|2000)-(0?[2])-29))\s*$'
-            example:
-              - "ge2010-01-01"
           description: Supply a date range. Only results generated during this range will be returned.
           style: "form"
           explode: true
@@ -523,7 +520,7 @@ paths:
           schema:
             format: PatientID
             type: string
-            example: 'NB6TK328'
+            example: 'CA12345'
           required: true
           description: The subject of interest.
         - name: variants
@@ -533,6 +530,9 @@ paths:
             type: array
             items:
               type: string
+            example:
+              - "NM_002524.5:c.182A>C"
+              - "NM_001354609.2:c.1799T>A"
           style: "form"
           explode: false
         - name: ranges
@@ -543,8 +543,6 @@ paths:
             items:
               type: string
               pattern: '^\s*[Nn][A-Za-z]_\d{4,10}(\.)(\d{1,2}):\d{1,10}-\d{1,10}\s*$'
-            example:
-              - "NC_000019.9:11200138-11244496"
           style: "form"
           explode: false
         - name: haplotypes
@@ -563,8 +561,6 @@ paths:
             type: array
             items:
               type: string
-            example:
-              - "http://www.nlm.nih.gov/research/umls/rxnorm|704"
           style: "form"
           explode: false
         - name: conditions
@@ -574,6 +570,8 @@ paths:
             type: array
             items:
               type: string
+            example: 
+              - "https://disease-ontology.org|3908"
           style: "form"
           explode: false
         - name: testIdentifiers
@@ -592,8 +590,6 @@ paths:
             items:
               type: string
               pattern: '^\s*(eq|ne|lt|gt|ge|le|sa|eb)(((18|19|20)[0-9]{2}-(0?[13578]|1[02])-(0?[1-9]|[12][0-9]|3[01]))|((18|19|20)[0-9]{2}-(0?[469]|11)-(0?[1-9]|[12][0-9]|30))|((18|19|20)[0-9]{2}-(0?[2])-(0?[1-9]|1[0-9]|2[0-8]))|((((18|19|20)(04|08|[2468][048]|[13579][26]))|2000)-(0?[2])-29))\s*$'
-            example:
-              - "ge2010-01-01"
           description: Supply a date range. Only results generated during this range will be returned.
           style: "form"
           explode: true
@@ -660,8 +656,6 @@ paths:
             items:
               type: string
               pattern: '^\s*[Nn][A-Za-z]_\d{4,10}(\.)(\d{1,2}):\d{1,10}-\d{1,10}\s*$'
-            example:
-              - "NC_000019.9:11200138-11244496"
           style: "form"
           explode: false
         - name: conditions
@@ -1108,10 +1102,11 @@ paths:
 
   /utilities/get-feature-coordinates:
     get:
+      description: 'This utility returns genomic feature coordinates and other annotations. All data are from <a href="https://www.ncbi.nlm.nih.gov/genome/guide/human/">NCBI Human Genome Resources</a>. For chromosomes, build 37 and build 38 reference sequences are returned. For genes, genomic coordinates are returned, along with a list of transcripts. MANE transcript is flagged. For transcripts, genomic coordinates are returned, along with the gene name and composite exons, along with exon coordinates. For proteins, the corresponding transcript is returned.'
       summary: "Get Feature Coordinates"
       operationId: "app.utilities_endpoints.get_feature_coordinates"
       tags:
-        - "Feature Coordinates Utility"
+        - "Operations Utilities (not part of balloted HL7 Operations)"
       responses:
         '200':
           description: ""
@@ -1125,7 +1120,7 @@ paths:
           description: Valid entries include chr1..chr22, chrX, chrY, chrM.
           schema:
             type: string
-            pattern: '^\s*(?i:chr)([1-9]|1[0-9]|2[0-2]|[XxYyMm])\s*$'
+            pattern: '^\s*\b(chr|Chr|CHR)([1-9]|1[0-9]|2[0-2]|[XxYyMm])\s*$'
           example: "chr1"
         - name: gene
           in: query
@@ -1149,10 +1144,12 @@ paths:
           example: "NP_000005.3"
   /utilities/find-the-gene:
     get:
+      description: |-
+        This utility returns all genes that intersect with a provided genomic region.
       summary: "Find The Gene"
       operationId: "app.utilities_endpoints.find_the_gene"
       tags:
-        - "Find The Gene Utility"
+        - "Operations Utilities (not part of balloted HL7 Operations)"
       responses:
         '200':
           description: "Returns all genes that intersect with a provided genomic region."
@@ -1176,9 +1173,4 @@ tags:
   - name: Subject Metadata Operations
   - name: Population Genotype Operations
   - name: Population Phenotype Operations
-  - name: Feature Coordinates Utility
-    description: This utility returns genomic feature coordinates and other annotations. All data are from <a href="https://www.ncbi.nlm.nih.gov/genome/guide/human/">NCBI Human Genome Resources</a>. For chromosomes, build 37 and build 38 reference sequences are returned. For genes, genomic coordinates are returned, along with a list of transcripts. MANE transcript is flagged. For transcripts, genomic coordinates are returned, along with the gene name and composite exons, along with exon coordinates. For proteins, the corresponding transcript is returned.
-  
-  - name: Find The Gene Utility
-    description: This utility returns all genes that intersect with a provided genomic region.
-
+  - name: Operations Utilities (not part of balloted HL7 Operations)
