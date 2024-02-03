@@ -595,9 +595,9 @@ def find_subject_haplotypes(
         query["specimenID"] = {"$in": specimenIdentifiers}
 
     # Genomic Source Class Query
-    # if genomicSourceClass:
-    #     genomicSourceClass = genomicSourceClass.strip().lower()
-    #     query["genomicSourceClass"] = {"$eq": genomicSourceClass}
+    if genomicSourceClass:
+        genomicSourceClass = genomicSourceClass.strip().lower()
+        query["genomicSourceClass"] = {"$eq": genomicSourceClass}
 
     # Result Object
     result = OrderedDict()
@@ -653,6 +653,13 @@ def find_subject_haplotypes(
                 "resource": genotype_profile
             })
 
+        result["parameter"].append(parameter)
+
+    # Add genomic source class option to result object
+    if genomicSourceClass:
+        parameter = OrderedDict()
+        parameter["name"] = "genomicSourceClass"
+        parameter["part"] = [{"name": genomicSourceClass.capitalize(), "valueString": genomicSourceClass}]
         result["parameter"].append(parameter)
 
     if not result["parameter"]:
