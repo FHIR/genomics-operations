@@ -40,8 +40,8 @@ def findSubjectHaplotypes(subject, geneId):
 
 
 st.title("Get Variants")
-st.markdown("This app illustrates [FHIR Genomics Operations](http://build.fhir.org/ig/HL7/genomics-reporting/operations.html) find-subject-variants, find-subject-intersecting-variants, \
-    and find-subject-haplotypes; and the get-feature-coordinates utility. Enter patient and gene in the sidebar and click 'run'. All overlapping simple variants, structural variants, \
+st.markdown("This app illustrates [FHIR Genomics Operations](http://build.fhir.org/ig/HL7/genomics-reporting/operations.html) **find-subject-variants**, **find-subject-intersecting-variants**, \
+    and **find-subject-haplotypes**; and the **get-feature-coordinates** utility. Enter patient and gene in the sidebar and click 'run'. All overlapping simple variants, structural variants, \
     and genotypes are returned.")
 
 with st.sidebar:
