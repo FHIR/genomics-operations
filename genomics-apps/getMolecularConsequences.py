@@ -199,8 +199,8 @@ def findPathogenicities(variantList, subject, range):
 
 
 st.title("Get Molecular Consequences")
-st.markdown("This app illustrates [FHIR Genomics Operations](http://build.fhir.org/ig/HL7/genomics-reporting/operations.html) find-subject-variants, find-subject-intersecting-variants, \
-and find-subject-haplotypes; and the get-feature-coordinates utility. Enter patient and gene in the sidebar and click 'run'. All overlapping simple variants, structural variants, \
+st.markdown("This app illustrates [FHIR Genomics Operations](http://build.fhir.org/ig/HL7/genomics-reporting/operations.html) **find-subject-variants**, **find-subject-intersecting-variants**, \
+and **find-subject-haplotypes**; and the **get-feature-coordinates** utility. Enter patient and gene in the sidebar and click 'run'. All overlapping simple variants, structural variants, \
 and genotypes are returned. Check the compute additional annotations button to calculate annotations for variants that were previously unannotated, concatenate SNVs that are \
 in cis into MNVs, and annotate those MNVs.")
 
