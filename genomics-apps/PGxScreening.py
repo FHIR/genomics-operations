@@ -51,8 +51,8 @@ def getMedicationList(subject):
 
 
 st.title("PGx Screening")
-st.markdown("This app illustrates [FHIR Genomics Operations](http://build.fhir.org/ig/HL7/genomics-reporting/operations.html) find-subject-haplotypes and \
-     find-subject-tx-implications. Select patient from dropdown. List of potential drug-gene interactions are shown in right column. \
+st.markdown("This app illustrates [FHIR Genomics Operations](http://build.fhir.org/ig/HL7/genomics-reporting/operations.html) **find-subject-haplotypes** and \
+     **find-subject-tx-implications**. Select patient from dropdown. List of potential drug-gene interactions are shown in right column. \
      The patient's med list is shown in left column, where those meds with PGx interactions are flagged.")
 
 
@@ -89,23 +89,22 @@ except KeyError:
 
 if count > 0:
     for i in implications["parameter"]:
-        for j in i["part"]:
-            if j["name"] == "implication":
-                # get evidenceLevel, medicationCode, medicationName, implication
-                for l in j["resource"]["component"]:
-                    if l["code"]["coding"][0]["code"] == "93044-6":
-                        evidenceLevel.append(l["valueCodeableConcept"]["text"])
-                    elif l["code"]["coding"][0]["code"] == "51963-7":
-                        medicationCode.append(l["valueCodeableConcept"]["coding"][0]["code"])
-                        medicationName.append(l["valueCodeableConcept"]["coding"][0]["display"])
-                    elif l["code"]["coding"][0]["code"] == "predicted-therapeutic-implication":
-                        implication.append(l["valueCodeableConcept"]["text"])
-            elif j["name"] == "genotype":
-                # get genotype, PharmGKBID
-                genotype.append(j["resource"]["valueCodeableConcept"]["coding"][0]["code"])
-                for l in j["resource"]["component"]:
-                    if l["code"]["coding"][0]["code"] == "81252-9":
-                        PharmGKBID.append("https://www.pharmgkb.org/gene/"+l["valueCodeableConcept"]["coding"][0]["code"])
+        if i["name"] == "implication":
+            # get evidenceLevel, medicationCode, medicationName, implication
+            for l in i["resource"]["component"]:
+                if l["code"]["coding"][0]["code"] == "93044-6":
+                    evidenceLevel.append(l["valueCodeableConcept"]["text"])
+                elif l["code"]["coding"][0]["code"] == "51963-7":
+                    medicationCode.append(l["valueCodeableConcept"]["coding"][0]["code"])
+                    medicationName.append(l["valueCodeableConcept"]["coding"][0]["display"])
+                elif l["code"]["coding"][0]["code"] == "predicted-therapeutic-implication":
+                    implication.append(l["valueCodeableConcept"]["text"])
+        elif i["name"] == "genotype":
+            # get genotype, PharmGKBID
+            genotype.append(i["resource"]["valueCodeableConcept"]["coding"][0]["code"])
+            for l in i["resource"]["component"]:
+                if l["code"]["coding"][0]["code"] == "81252-9":
+                    PharmGKBID.append("https://www.pharmgkb.org/gene/"+l["valueCodeableConcept"]["coding"][0]["code"])
 
 with col2:
     inxData = (pd.DataFrame({
@@ -153,3 +152,4 @@ with col1:
                         )
     go = gb.build()
     AgGrid(data, gridOptions=go, allow_unsafe_jscode=True, enable_enterprise_modules=True, update_mode="value_changed")
+
