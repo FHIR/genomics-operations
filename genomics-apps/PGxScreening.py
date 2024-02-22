@@ -152,4 +152,3 @@ with col1:
                         )
     go = gb.build()
     AgGrid(data, gridOptions=go, allow_unsafe_jscode=True, enable_enterprise_modules=True, update_mode="value_changed")
-
