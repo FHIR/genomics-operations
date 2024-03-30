@@ -1,0 +1,21 @@
+###PGS CATALOG SCORING FILE - see https://www.pgscatalog.org/downloads/#dl_ftp_scoring for additional information
+#format_version=2.0
+##POLYGENIC SCORE (PGS) INFORMATION
+#pgs_id=PGS002272
+#pgs_name=GRS6_COVID
+#trait_reported=COVID-19 infection
+#trait_mapped=COVID-19
+#trait_efo=MONDO_0100096
+#genome_build=GRCh38
+#variants_number=6
+#weight_type=log(OR)
+##SOURCE INFORMATION
+#pgp_id=PGP000302
+#citation=Horowitz JE et al. Nat Genet (2022). doi:10.1038/s41588-021-01006-7
+rsID	chr_name	chr_position	effect_allele	effect_weight	locus_name	OR
+rs73064425	3	45859597	T	0.7608058290337602	LZTFL1	2.14
+rs2531743	3	45796808	G	-0.08664780672567217	SLC6A20	0.917
+rs143334143	6	31153649	A	0.6151856390902335	CCHCR1	1.85
+rs9411378	9	133270015	A	0.1570037488096647	ABO	1.17
+rs2109069	19	4719431	A	0.3074846997479607	DPP9	1.36
+rs2236757	21	33252612	A	0.2468600779315258	IFNAR2	1.28

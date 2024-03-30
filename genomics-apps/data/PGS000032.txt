@@ -1,0 +1,35 @@
+###PGS CATALOG SCORING FILE - see https://www.pgscatalog.org/downloads/#dl_ftp_scoring for additional information
+#format_version=2.0
+##POLYGENIC SCORE (PGS) INFORMATION
+#pgs_id=PGS000032
+#pgs_name=GRSB
+#trait_reported=Type 2 diabetes (based on SNPs involved in β-cell function)
+#trait_mapped=type 2 diabetes mellitus
+#trait_efo=MONDO_0005148
+#weight_type=NR
+#genome_build=NR
+#variants_number=20
+##SOURCE INFORMATION
+#pgp_id=PGP000020
+#citation=Vassy JL et al. Diabetes (2014). doi:10.2337/db13-1663
+rsID	chr_name	effect_allele	effect_weight
+rs10830963	11	G	0.0414
+rs10203174	2	C	0.0569
+rs6819243	4	T	0.0294
+rs7903146	10	T	0.1399
+rs11717195	3	T	0.0492
+rs1552224	11	A	0.0374
+rs3802177	8	G	0.0531
+rs10758593	9	A	0.0253
+rs10278336	7	A	0.0374
+rs17168486	7	T	0.0374
+rs2075423	1	G	0.0294
+rs4402960	3	T	0.0531
+rs4502156	15	T	0.0212
+rs7756992	6	G	0.0607
+rs11257655	10	T	0.0334
+rs1496653	3	A	0.0374
+rs163184	11	G	0.0374
+rs10811661	9	T	0.0755
+rs1111875	10	C	0.0374
+rs5215	11	C	0.0294

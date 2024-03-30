@@ -1,0 +1,16 @@
+###PGS CATALOG SCORING FILE - see https://www.pgscatalog.org/downloads/#dl_ftp_scoring for additional information
+#format_version=2.0
+##POLYGENIC SCORE (PGS) INFORMATION
+#pgs_id=TESTPGS
+#pgs_name=TESTPGS
+#genome_build=GRCh37
+#variants_number=6
+#weight_type=log(OR)
+##SOURCE INFORMATION
+canonical_SPDI	effect_weight
+NC_000019.9:11210927:C:A	0.0123
+NC_000019.9:11233940:A:G	-1.23
+NC_000019.9:11243208:C:AG	0.8765
+NC_000019.9:11242043:G:G	-0.05
+NC_000019.9:11243223:CTACTA:CTA	0.567
+NC_000019.9:11210927:C:C	0.254

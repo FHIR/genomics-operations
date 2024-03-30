@@ -1,0 +1,21 @@
+###PGS CATALOG SCORING FILE - see https://www.pgscatalog.org/downloads/#dl_ftp_scoring for additional information
+#format_version=2.0
+##POLYGENIC SCORE (PGS) INFORMATION
+#pgs_id=PGS000162
+#pgs_name=cGRS_Thyroid
+#trait_reported=Thyroid cancer
+#trait_mapped=thyroid carcinoma
+#trait_efo=EFO_0002892
+#weight_type=Odds Ratio over expected risk
+#genome_build=NR
+#variants_number=6
+##SOURCE INFORMATION
+#pgp_id=PGP000075
+#citation=Shi Z et al. Cancer Med (2019). doi:10.1002/cam4.2143
+rsID	chr_name	chr_position	effect_allele	effect_weight	allelefrequency_effect	variant_description	OR
+rs12129938	1	233412561	A	0.845340932	0.78	Score calculated as product of dosage times weight across all variants	1.32
+rs966423	2	218310340	C	1.0321727	0.41	Score calculated as product of dosage times weight across all variants	1.34
+rs6793295	3	169518455	T	0.901765871	0.73	Score calculated as product of dosage times weight across all variants	1.23
+rs7902587	10	105694301	T	1.301120902	0.1	Score calculated as product of dosage times weight across all variants	1.41
+rs944289	14	36649246	T	0.923022056	0.59	Score calculated as product of dosage times weight across all variants	1.37
+rs7267944	20	37947434	C	1.213626098	0.18	Score calculated as product of dosage times weight across all variants	1.39
