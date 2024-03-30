@@ -48,3 +48,14 @@ Uses:
 * find-subject-variants
 * find-subject-structural-intersecting-variants
 * find-subject-haplotypes
+
+## Get Polygenic Score
+https://polygenicscore.streamlit.app/
+
+This proof-of-concept app demonstrates the computation of a polygenic score, using FHIR Genomics Operations to access a person's entire genome.
+Select patient and polygenic model in the sidebar, optionally adjust standard deviation threshold, and click 'Run'.
+
+Uses:
+* find-subject-variants
+* find-subject-specific-variants
+* find-study-metadata
