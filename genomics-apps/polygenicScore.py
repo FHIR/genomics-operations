@@ -200,7 +200,7 @@ if st.sidebar.button("Run"):
 
     st.subheader(f"{polygenicModelID} ({phenotype}): {alert}")
 
-    st.write(f"\
+    st.markdown(f"\
         **Polygenic score (raw):** {rawScore:.4f}  \n\
         **Population mean:** {populationMean:.4f}  \n\
         **Population standard deviation:** {populationStDev:.4f}  \n\
