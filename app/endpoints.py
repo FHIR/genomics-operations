@@ -862,32 +862,26 @@ def find_subject_tx_implications(
             if res["txImplicationMatches"]:
                 ref_seq = common.get_ref_seq_by_chrom_and_build(res['genomicBuild'], res['CHROM'])
             for implication in res["txImplicationMatches"]:
-                parameter = OrderedDict()
-                parameter["name"] = "implications"
-                parameter["part"] = []
 
                 implication_profile = common.create_tx_implication_profile_civic(implication, subject, [str(res['_id'])])
-                parameter["part"].append({
+                impl_param = {
                     "name": "implication",
                     "resource": implication_profile
-                })
+                }
+                result["parameter"].append(impl_param)
+
                 resource = common.create_fhir_variant_resource(
                     res, ref_seq, subject)
 
                 common.add_variation_id(resource, implication["variationID"])
-
-                parameter["part"].append({
+                variant_param = {
                     "name": "variant",
                     "resource": resource
-                })
-
-                result["parameter"].append(parameter)
+                }
+                result["parameter"].append(variant_param)
 
         if not result["parameter"]:
             result.pop("parameter")
-        else:
-            result["parameter"] = sorted(result["parameter"], key=lambda d: d['part'][0]['resource']['id'])
-
         return jsonify(result)
 
     if haplotypes:
@@ -898,15 +892,13 @@ def find_subject_tx_implications(
         print(query_results)
         for res in query_results:
             for implication in res["txImplicationMatches"]:
-                parameter = OrderedDict()
-                parameter["name"] = "implications"
-                parameter["part"] = []
 
                 implication_profile = common.create_tx_implication_profile_pharmgkb(implication, subject, [str(res['_id'])])
-                parameter["part"].append({
+                impl_param = {
                     "name": "implication",
                     "resource": implication_profile
-                })
+                }
+                result["parameter"].append(impl_param)
 
                 # haplotype_profile = create_haplotype_profile(res, subject, res["UUID"])
 
@@ -919,18 +911,14 @@ def find_subject_tx_implications(
 
                 common.add_variation_id(
                     genotype_profile, implication["variationID"])
-
-                parameter["part"].append({
+                geno_param = {
                     "name": "genotype",
                     "resource": genotype_profile
-                })
-
-                result["parameter"].append(parameter)
+                }
+                result["parameter"].append(geno_param)
 
         if not result["parameter"]:
             result.pop("parameter")
-        else:
-            result["parameter"] = sorted(result["parameter"], key=lambda d: d['part'][0]['resource']['id'])
 
         return jsonify(result)
 
@@ -939,15 +927,13 @@ def find_subject_tx_implications(
         query_results_CIViC = common.query_CIVIC_by_condition(condition_code_list, treatment_code_list, query)
 
         for res in query_results_PGKB:
-            parameter = OrderedDict()
-            parameter["name"] = "implications"
-            parameter["part"] = []
 
             implication_profile = common.create_tx_implication_profile_pharmgkb(res, subject, [str(i['_id']) for i in res["patientMatches"]])
-            parameter["part"].append({
+            impl_param = {
                 "name": "implication",
                 "resource": implication_profile
-            })
+            }
+            result["parameter"].append(impl_param)
             genotype_profiles = []
             for genItem in res["patientMatches"]:
 
@@ -968,23 +954,20 @@ def find_subject_tx_implications(
                 genotype_profiles = sorted(genotype_profiles, key=lambda d: d['id'])
 
             for genotype_profile in genotype_profiles:
-                parameter["part"].append({
+                geno_param = {
                     "name": "genotype",
                     "resource": genotype_profile
-                })
-
-            result["parameter"].append(parameter)
+                }
+                result["parameter"].append(geno_param)
 
         for res in query_results_CIViC:
-            parameter = OrderedDict()
-            parameter["name"] = "implications"
-            parameter["part"] = []
 
             implication_profile = common.create_tx_implication_profile_civic(res, subject, [str(i['_id']) for i in res["patientMatches"]])
-            parameter["part"].append({
+            impl_param = {
                 "name": "implication",
                 "resource": implication_profile
-            })
+            }
+            result["parameter"].append(impl_param)
 
             variant_fhir_profiles = []
             for varItem in res["patientMatches"]:
@@ -999,32 +982,26 @@ def find_subject_tx_implications(
                 variant_fhir_profiles = sorted(variant_fhir_profiles, key=lambda d: d['id'])
 
             for resource in variant_fhir_profiles:
-                parameter["part"].append({
+                variant_param = {
                     "name": "variant",
                     "resource": resource
-                })
-
-            result["parameter"].append(parameter)
+                }
+                result["parameter"].append(variant_param)
 
         if not result["parameter"]:
             result.pop("parameter")
-        else:
-            result["parameter"] = sorted(result["parameter"], key=lambda d: d['part'][0]['resource']['id'])
-
         return jsonify(result)
 
     if conditions:
         query_results = common.query_CIVIC_by_condition(condition_code_list, treatment_code_list, query)
         for res in query_results:
-            parameter = OrderedDict()
-            parameter["name"] = "implications"
-            parameter["part"] = []
 
             implication_profile = common.create_tx_implication_profile_civic(res, subject, [str(i['_id']) for i in res["patientMatches"]])
-            parameter["part"].append({
+            impl_param = {
                 "name": "implication",
                 "resource": implication_profile
-            })
+            }
+            result['parameter'].append(impl_param)
 
             variant_fhir_profiles = []
             for varItem in res["patientMatches"]:
@@ -1039,17 +1016,14 @@ def find_subject_tx_implications(
                 variant_fhir_profiles = sorted(variant_fhir_profiles, key=lambda d: d['id'])
 
             for resource in variant_fhir_profiles:
-                parameter["part"].append({
+                variant_param = {
                     "name": "variant",
                     "resource": resource
-                })
-
-            result["parameter"].append(parameter)
+                }
+                result["parameter"].append(variant_param)
 
         if not result["parameter"]:
             result.pop("parameter")
-        else:
-            result["parameter"] = sorted(result["parameter"], key=lambda d: d['part'][0]['resource']['id'])
 
         return jsonify(result)
 
@@ -1134,32 +1108,25 @@ def find_subject_dx_implications(
             if res["dxImplicationMatches"]:
                 ref_seq = common.get_ref_seq_by_chrom_and_build(res['genomicBuild'], res['CHROM'])
             for implication in res["dxImplicationMatches"]:
-                parameter = OrderedDict()
-                parameter["name"] = "implications"
-                parameter["part"] = []
 
                 implication_profile = common.create_dx_implication_profile(implication, subject, [str(res['_id'])])
-
-                parameter["part"].append({
+                impl_param = {
                     "name": "implication",
                     "resource": implication_profile
-                })
+                }
+                result["parameter"].append(impl_param)
+
                 resource = common.create_fhir_variant_resource(
                     res, ref_seq, subject)
-
                 common.add_variation_id(resource, implication["variationID"])
-
-                parameter["part"].append({
+                variant_param = {
                     "name": "variant",
                     "resource": resource
-                })
-
-                result["parameter"].append(parameter)
+                }
+                result["parameter"].append(variant_param)
 
         if not result["parameter"]:
             result.pop("parameter")
-        else:
-            result["parameter"] = sorted(result["parameter"], key=lambda d: d['part'][0]['resource']['id'])
 
         return jsonify(result)
 
@@ -1168,33 +1135,27 @@ def find_subject_dx_implications(
             condition_code_list, query)
 
         for res in query_results:
-            parameter = OrderedDict()
-            parameter["name"] = "implications"
-            parameter["part"] = []
 
             implication_profile = common.create_dx_implication_profile(res, subject, [str(i['_id']) for i in res["patientMatches"]])
-            parameter["part"].append({
+            impl_param = {
                 "name": "implication",
                 "resource": implication_profile
-            })
+            }
+            result["parameter"].append(impl_param)
 
             for varItem in res["patientMatches"]:
                 ref_seq = common.get_ref_seq_by_chrom_and_build(varItem['genomicBuild'], varItem['CHROM'])
                 resource = common.create_fhir_variant_resource(varItem, ref_seq, subject)
 
                 common.add_variation_id(resource, res["variationID"])
-
-                parameter["part"].append({
+                variant_param = {
                     "name": "variant",
                     "resource": resource
-                })
-
-            result["parameter"].append(parameter)
+                }
+                result["parameter"].append(variant_param)
 
         if not result["parameter"]:
             result.pop("parameter")
-        else:
-            result["parameter"] = sorted(result["parameter"], key=lambda d: d['part'][0]['resource']['id'])
 
         return jsonify(result)
 

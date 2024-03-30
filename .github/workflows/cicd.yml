@@ -1,0 +1,47 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main, dev]
+
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Lint with flake8
+        uses: py-actions/flake8@v2
+        with:
+          args: --extend-ignore E501,E741
+
+      - name: Run Tests
+        run: python -m pytest
+
+  deploy:
+    name: Deploy to dev
+    runs-on: ubuntu-latest
+
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && always() && contains(join(needs.*.result, ','), 'success') }}
+    needs: [test]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: akhileshns/heroku-deploy@v3.12.14
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_DEV_APP_NAME }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}

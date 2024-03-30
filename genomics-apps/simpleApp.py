@@ -19,7 +19,7 @@ def findSubjectVariants(subject, range):
 
 
 st.title("Simple App")
-st.markdown("This is a simple app illustrating the use of [FHIR Genomics Operations](http://build.fhir.org/ig/HL7/genomics-reporting/operations.html). Enter patient and genomic range in the sidebar and click 'run'. Raw output from find-subject-variants is shown in left column, and tabular output is shown in right column.")
+st.markdown("This is a simple app illustrating the use of [FHIR Genomics Operations](http://build.fhir.org/ig/HL7/genomics-reporting/operations.html). Enter patient and genomic range in the sidebar and click 'run'. Raw output from **find-subject-variants** is shown in left column, and tabular output is shown in right column.")
 
 with st.sidebar:
     subject = st.text_input("Enter patient ID", value="HG00403")

@@ -40,7 +40,7 @@ evidenceList = []
 variantList = []
 
 st.title("Genetic Screening")
-st.markdown("This app illustrates [FHIR Genomics Operations](http://build.fhir.org/ig/HL7/genomics-reporting/operations.html) find-population-dx-implications and find-subject-dx-implications. Select a condition from dropdown. The population is screened for this condition, and each associated variant in each patient is returned.")
+st.markdown("This app illustrates [FHIR Genomics Operations](http://build.fhir.org/ig/HL7/genomics-reporting/operations.html) **find-population-dx-implications** and **find-subject-dx-implications**. Select a condition from dropdown. The population is screened for this condition, and each associated variant in each patient is returned.")
 
 condition = st.selectbox("", (
     'Hemochromatosis',
@@ -69,7 +69,6 @@ elif condition == "Peutz-Jeghers syndrome":
 elif condition == "Hemochromatosis":
     conditionCode = "https://www.ncbi.nlm.nih.gov/medgen|C3469186"
 
-
 for i in findPopulationDxImplications(conditionCode)["parameter"][0]["part"]:
     if i["name"] == "subject":
         resultList.append(i["valueString"])
@@ -78,39 +77,36 @@ for i in resultList:
     patient = i
     variants = []
     dxImplications = findSubjectDxImplications(i, conditionCode)
+
     for j in dxImplications["parameter"]:
+        if j["name"] == "variant":
+            # extract variant
+            for l in j["resource"]["component"]:
+                if l["code"]["coding"][0]["code"] == "81252-9":
+                    variant = l["valueCodeableConcept"]["coding"][0]["display"]
+                    if variant in variants:
+                        variant = ""
+                    else:
+                        variants.append(variant)
+        elif j["name"] == "implication":
+            # extract condition, clinical significance, evidence
+            for l in j["resource"]["component"]:
+                if l["code"]["coding"][0]["code"] == "53037-8":
+                    try:
+                        clinSig = l["valueCodeableConcept"]["coding"][0]["display"]
+                    except KeyError:
+                        clinSig = l["valueCodeableConcept"]["text"]
+                elif l["code"]["coding"][0]["code"] == "81259-4":
+                    condition = l["valueCodeableConcept"]["coding"][0]["display"]
+                elif l["code"]["coding"][0]["code"] == "93044-6":
+                    evidence = l["valueCodeableConcept"]["text"]
 
-        for k in j["part"]:
-
-            if k["name"] == "variant":
-                # extract variant
-                for l in k["resource"]["component"]:
-                    if l["code"]["coding"][0]["code"] == "81252-9":
-                        variant = l["valueCodeableConcept"]["coding"][0]["display"]
-                        if variant in variants:
-                            variant = ""
-                        else:
-                            variants.append(variant)
-
-            elif k["name"] == "implication":
-                # extract condition, clinical significance, evidence
-                for l in k["resource"]["component"]:
-                    if l["code"]["coding"][0]["code"] == "53037-8":
-                        try:
-                            clinSig = l["valueCodeableConcept"]["coding"][0]["display"]
-                        except KeyError:
-                            clinSig = l["valueCodeableConcept"]["text"]
-                    elif l["code"]["coding"][0]["code"] == "81259-4":
-                        condition = l["valueCodeableConcept"]["coding"][0]["display"]
-                    elif l["code"]["coding"][0]["code"] == "93044-6":
-                        evidence = l["valueCodeableConcept"]["text"]
-
-        if variant != "":
-            patientList.append(patient)
-            variantList.append(variant)
-            clinSigList.append(clinSig)
-            conditionList.append(condition)
-            evidenceList.append(evidence)
+    if variant != "":
+        patientList.append(patient)
+        variantList.append(variant)
+        clinSigList.append(clinSig)
+        conditionList.append(condition)
+        evidenceList.append(evidence)
 
 
 data = (pd.DataFrame({
@@ -120,6 +116,10 @@ data = (pd.DataFrame({
     'Clinical Significance': clinSigList,
     'Evidence': evidenceList}))
 data_t = data.T
+
+AgGrid(data, enable_enterprise_modules=True, update_mode="value_changed", allow_unsafe_jscode=True)
+
+st.download_button("Download table", data_t.to_json())
 
 AgGrid(data, enable_enterprise_modules=True, update_mode="value_changed", allow_unsafe_jscode=True)
 

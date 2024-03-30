@@ -7,17 +7,18 @@
     "editor.bracketPairColorization.enabled": true,
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
-    "python.formatting.provider": "autopep8",
-    "python.formatting.autopep8Args": [
-        "--max-line-length=200"
-    ],
-    "python.linting.flake8Enabled": true,
-    "python.linting.flake8Args": [
-        "--extend-ignore",
-        "E501,E741"
-    ],
     "python.testing.pytestArgs": [
         "."
+    ],
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.autopep8",
+    },
+    "autopep8.args": [
+        "--max-line-length=200"
+    ],
+    "flake8.args": [
+        "--extend-ignore",
+        "E501,E741"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true
