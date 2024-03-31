@@ -173,7 +173,7 @@ with st.sidebar:
         if item not in unique_pgs_id_list:
             unique_pgs_id_list.append(item)
     polygenicModelID = st.selectbox("Select polygenic model", unique_pgs_id_list)
-    riskThreshold = st.slider("**Select StDev threshold for high risk**",max_value=3.0,value=1.0,step=0.1)
+    riskThreshold = st.slider("Select StDev threshold for high risk",max_value=3.0,value=1.0,step=0.1)
     st.image("genomics-apps/data/normalDistribution.png",width=300)
 
 if st.sidebar.button("Run"):
@@ -189,23 +189,18 @@ if st.sidebar.button("Run"):
             populationStDev = float(polygenicPopulationStatistics[2][itemCount])
         itemCount = itemCount + 1
     polygenicRisk = (rawScore - populationMean) / (populationStDev + 0.0000001)
+
+    st.subheader(f"{polygenicModelID} ({phenotype})")
     if polygenicRisk > riskThreshold:
-        alert = ":red[**HIGH RISK**]"
-        prefix = ":red"
+        st.image("data/highRisk.png", width=300)
     else:
-        alert = ":green[**AVERAGE RISK**]"
-        prefix = ":green"
-
-
-
-    st.subheader(f"{polygenicModelID} ({phenotype}): {alert}")
+        st.image("data/averageRisk.png", width=300)
 
     st.markdown(f"\
         **Polygenic score (raw):** {rawScore:.4f}  \n\
         **Population mean:** {populationMean:.4f}  \n\
         **Population standard deviation:** {populationStDev:.4f}  \n\
-        {prefix}[**{polygenicRisk:.2f}**] standard deviations above the mean.")
-
+        **{polygenicRisk:.2f}** standard deviations above the mean.")
 
     with st.expander("Allele-based scores"):
         st.table(data=polygenicRawScore["scores"])
