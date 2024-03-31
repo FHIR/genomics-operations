@@ -192,9 +192,9 @@ if st.sidebar.button("Run"):
 
     st.subheader(f"{polygenicModelID} ({phenotype})")
     if polygenicRisk > riskThreshold:
-        st.image("data/highRisk.png", width=300)
+        st.image("genomics-apps/data/highRisk.png", width=300)
     else:
-        st.image("data/averageRisk.png", width=300)
+        st.image("genomics-apps/data/averageRisk.png", width=300)
 
     st.markdown(f"\
         **Polygenic score (raw):** {rawScore:.4f}  \n\
