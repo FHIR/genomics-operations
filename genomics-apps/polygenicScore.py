@@ -168,11 +168,14 @@ polygenicPopulationStatistics = populatePolygenicPopulationStatistics()
 
 with st.sidebar:
     subject = st.selectbox("Select patient", ["HG00403","HG00406","HG02657","NA18498","NA18499","NA18870","NA18871","NA19190","NA19210","NA19238","NA19239","NA19240"])
-    unique_pgs_id_list = []
+    unique_pgs_list = []
+    itemCount = 0
     for item in polygenicScoreModels[0]:
-        if item not in unique_pgs_id_list:
-            unique_pgs_id_list.append(item)
-    polygenicModelID = st.selectbox("Select polygenic model", unique_pgs_id_list)
+        itemDisplay = item + " (" + polygenicScoreModels[1][itemCount] + ")"
+        if itemDisplay not in unique_pgs_list:
+            unique_pgs_list.append(itemDisplay)
+        itemCount = itemCount + 1
+    polygenicModelID = st.selectbox("Select polygenic model", unique_pgs_list).split(" ")[0]
     riskThreshold = st.slider("Select StDev threshold for high risk",max_value=3.0,value=1.0,step=0.1)
     st.image("genomics-apps/data/normalDistribution.png",width=300)
 
@@ -180,7 +183,6 @@ if st.sidebar.button("Run"):
     polygenicRawScore = getPolygenicRawScore(subject, polygenicModelID)
     rawScore = float(polygenicRawScore["rawScore"])
     polygenicModelID = polygenicRawScore["polygenicModelID"]
-    phenotype = polygenicRawScore["phenotype"]
 
     itemCount = 0
     for item in polygenicPopulationStatistics[0]:
@@ -190,7 +192,6 @@ if st.sidebar.button("Run"):
         itemCount = itemCount + 1
     polygenicRisk = (rawScore - populationMean) / (populationStDev + 0.0000001)
 
-    st.subheader(f"{polygenicModelID} ({phenotype})")
     if polygenicRisk > riskThreshold:
         st.image("genomics-apps/data/highRisk.png", width=300)
     else:
