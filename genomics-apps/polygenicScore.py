@@ -17,7 +17,7 @@ st.markdown("This proof-of-concept app demonstrates the computation of a polygen
 with st.expander("SIMPLIFICATIONS..."):
     st.markdown("\
         :one: **Wildtype:** We assume wildtype if no variant has been reported at a position within the studied region(s).  \n\
-        :two: **Missing Data:** Imputation / statistical approaches for missing data are deferred for now. We currently assume wildtype for polymorphisms outside the studied region(s).  \n\
+        :two: **Missing Data:** Imputation / statistical approaches for missing data are pending. We currently assume wildtype for polymorphisms outside the studied region(s).  \n\
         :three: **Ancestry:** No ancestry considerations are yet factored in.  \n\
         :four: **Normalization:** Alleles are normalized to [canonical SPDI](https://www.ncbi.nlm.nih.gov/variation/notation/) to enhance search.  \n\
         :five: **Performance:** Proof-of-concept code is not optimized for performance.  \n\
