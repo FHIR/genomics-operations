@@ -1159,6 +1159,105 @@ def find_subject_dx_implications(
 
         return jsonify(result)
 
+def find_subject_molecular_consequences(
+        subject, variants=None, ranges=None, featureConsequence=None, testIdentifiers=None, testDateRange=None,
+        specimenIdentifiers=None, genomicSourceClass=None):
+
+    # Parameters
+    subject = subject.strip()
+    common.validate_subject(subject)
+
+    if variants and ranges:
+        abort(400, "You cannot supply both 'variants' and 'ranges'.")
+
+    if not variants and not ranges:
+        abort(400, "You must supply either 'variants' or 'ranges'.")
+
+    normalized_feature_consequence_list = []
+    if featureConsequence:
+        normalized_feature_consequence_list = list(map(common.get_feature_consequence, featureConsequence))
+
+    # Query
+    query = {}
+
+    # date query
+    if testDateRange:
+        testDateRange = list(map(common.get_date, testDateRange))
+        query["testDate"] = {}
+
+        for date_range in testDateRange:
+            query["testDate"][date_range['OPERATOR']] = date_range['DATE']
+
+    # Subject Query
+    query["patientID"] = {"$eq": subject}
+
+    # testIdentifiers query
+    if testIdentifiers:
+        testIdentifiers = list(map(str.strip, testIdentifiers))
+        query["testID"] = {"$in": testIdentifiers}
+
+    # specimenIdentifiers query
+    if specimenIdentifiers:
+        specimenIdentifiers = list(map(str.strip, specimenIdentifiers))
+        query["specimenID"] = {"$in": specimenIdentifiers}
+
+    # Genomic Source Class Query
+    if genomicSourceClass:
+        genomicSourceClass = genomicSourceClass.strip().lower()
+        query["genomicSourceClass"] = {"$eq": genomicSourceClass}
+
+    normalized_variants = []
+    if ranges:
+        ranges = list(map(common.get_range, ranges))
+        common.get_lift_over_range(ranges)
+        variants = common.get_variants(ranges, query)
+        if not variants:
+            return jsonify({"resourceType": "Parameters"})
+        normalized_variants = [{variant["BUILD"]: variant["SPDI"]} for variant in variants]
+
+    if variants and not ranges:
+        normalized_variants = list(map(common.get_variant, variants))
+
+    # Result Object
+    result = OrderedDict()
+    result["resourceType"] = "Parameters"
+    result["parameter"] = []
+
+    if normalized_variants:
+        if not ranges:
+            genomics_build_presence = common.get_genomics_build_presence(query)
+
+            for normalizedVariant in normalized_variants:
+                if not normalizedVariant["GRCh37"] and genomics_build_presence["GRCh37"]:
+                    abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
+                elif not normalizedVariant["GRCh38"] and genomics_build_presence["GRCh38"]:
+                    abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
+
+        query_results = common.query_molecular_consequences_by_variants(normalized_variants, normalized_feature_consequence_list, query)
+
+        for res in query_results:
+            if res["molecularConsequenceMatches"]:
+                result["parameter"].append([])
+                for molecular_consequence in res["molecularConsequenceMatches"]:
+                    parameter = OrderedDict()
+                    parameter["name"] = "consequence"
+                    parameter["part"] = []
+
+                    molecular_consequence_profile = common.create_molecular_consequence_profile(molecular_consequence, subject, [str(res['_id'])])
+                    parameter["part"].append({
+                        "name": "Molecular Consequence",
+                        "resource": molecular_consequence_profile
+                    })
+
+                    result["parameter"][0].append(parameter)
+
+        if not result["parameter"]:
+            result.pop("parameter")
+        else:
+            result["parameter"] = sorted(result["parameter"][0], key=lambda d: d['part'][0]['resource']['id'])
+
+        return jsonify(result)
+
 
 def find_study_metadata(
         subject, testIdentifiers=None, testDateRange=None,
