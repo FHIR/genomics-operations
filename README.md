@@ -3,13 +3,11 @@ Source code for a [public reference implementation](https://fhir-gen-ops.herokua
 
 Please refer to [project Wiki page](https://github.com/FHIR/genomics-operations/wiki) for details of this reference implementation, including how to replicate.
 
-For additional information on the operations and the reference implementation, please see our [JAMIA manuscript](https://academic.oup.com/jamia/advance-article/doi/10.1093/jamia/ocac246/6957062).
+For additional information on the operations and the reference implementation, please see 
 
-Issues (bugs, enhancements, etc) can be entered [here](https://github.com/FHIR/genomics-operations/issues). (Legacy issues are [here](https://docs.google.com/spreadsheets/d/1xPRDB2lvMPTImPHLwUvSboILZLG6jH1LHVXoOfgak9U/edit#gid=0)). Contact info@elimu.io for other comments.
+hi there!!
 
-## Use Case
-
-A common use case driving the operations is the notion of an application (e.g. a SMART-ON-FHIR clinical genomics App, a clinical decision support application, an EHR screen) needing specific genotype or phenotype information, for a patient or a population. Applications have diverse needs, such as matching a cancer patient to available clinical trials based on identified somatic variants; screening for actionable hereditary conditions; identifying a risk for adverse medication reactions based on pharmacogenomic variants; updating a patient's risk as knowledge of their variants evolves; and more. A goal for FHIR Genomics operations is to ultimately support any and all of these clinical scenarios.
+cer patient to available clinical trials based on identified somatic variants; screening for actionable hereditary conditions; identifying a risk for adverse medication reactions based on pharmacogenomic variants; updating a patient's risk as knowledge of their variants evolves; and more. A goal for FHIR Genomics operations is to ultimately support any and all of these clinical scenarios.
 
 ## Scope
 
