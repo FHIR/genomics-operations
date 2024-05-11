@@ -743,7 +743,6 @@ def create_molecular_consequence_profile(molecular_consequence, subject, vids):
     return resource
 
 
-
 def create_tx_implication_profile_civic(implication, subject, vids):
     resource = OrderedDict()
     resource["resourceType"] = "Observation"
@@ -1873,6 +1872,7 @@ def query_transcript(transcript):
         abort(400, "Unable to provide information on this transcript at this time")
 
     return results
+
 
 def query_molecular_consequences_by_variants(normalized_variant_list, feature_consequence_list, query):
     variant_list = []

@@ -1159,6 +1159,7 @@ def find_subject_dx_implications(
 
         return jsonify(result)
 
+
 def find_subject_molecular_consequences(
         subject, variants=None, ranges=None, featureConsequence=None, testIdentifiers=None, testDateRange=None,
         specimenIdentifiers=None, genomicSourceClass=None):
