@@ -122,3 +122,17 @@ def test_find_subject_dx_implications_5(client):
     response = client.get(url)
 
     tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_DX_IMPLICATIONS_OUTPUT_DIR}5.json', response.json)
+
+
+"""
+Find Subject Molecular Consequences Tests
+----------------------------------
+"""
+
+def test_find_subject_molecular_consequences_1(client):
+    url = tu.find_subject_molecular_consequences_query('subject=TCGA-DD-A1EH&variants=NM_178349.2:c.118G>T')
+    response = client.get(url)
+
+    tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_MOLEC_CONSEQ_OUTPUT_DIR}1.json', response.json)
+
+

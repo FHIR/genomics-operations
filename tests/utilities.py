@@ -27,6 +27,9 @@ FIND_SUBJECT_TX_IMPLICATIONS_OUTPUT_DIR = "tests/expected_outputs/find_subject_t
 FIND_SUBJECT_DX_IMPLICATIONS_URL = "/subject-operations/phenotype-operations/$find-subject-dx-implications"
 FIND_SUBJECT_DX_IMPLICATIONS_OUTPUT_DIR = "tests/expected_outputs/find_subject_dx_implications/"
 
+FIND_SUBJECT_MOLEC_CONSEQ_URL = "/subject-operations/phenotype-operations/$find-subject-molecular-consequences"
+FIND_SUBJECT_MOLEC_CONSEQ_OUTPUT_DIR = "tests/expected_outputs/find_subject_molecular_consequences/"
+
 FIND_STUDY_METADATA_URL = "/subject-operations/metadata-operations/$find-study-metadata"
 FIND_STUDY_METADATA_OUTPUT_DIR = "tests/expected_outputs/find_study_metadata/"
 
@@ -85,6 +88,10 @@ def find_subject_tx_implications_query(query):
 
 def find_subject_dx_implications_query(query):
     return f"{FIND_SUBJECT_DX_IMPLICATIONS_URL}?{query}"
+
+
+def find_subject_molecular_consequences_query(query):
+    return f"{FIND_SUBJECT_MOLEC_CONSEQ_URL}?{query}"
 
 
 def find_study_metadata_query(query):
