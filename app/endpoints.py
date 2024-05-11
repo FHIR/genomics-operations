@@ -1234,6 +1234,7 @@ def find_subject_molecular_consequences(
                     abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
 
         query_results = common.query_molecular_consequences_by_variants(normalized_variants, normalized_feature_consequence_list, query)
+        print(query_results)
 
         for res in query_results:
             if res["molecularConsequenceMatches"]:
@@ -1241,20 +1242,21 @@ def find_subject_molecular_consequences(
                 for molecular_consequence in res["molecularConsequenceMatches"]:
                     parameter = OrderedDict()
                     parameter["name"] = "consequence"
-                    parameter["part"] = []
-
                     molecular_consequence_profile = common.create_molecular_consequence_profile(molecular_consequence, subject, [str(res['_id'])])
-                    parameter["part"].append({
-                        "name": "Molecular Consequence",
-                        "resource": molecular_consequence_profile
-                    })
-
+                    parameter["resource"] = molecular_consequence_profile
                     result["parameter"][0].append(parameter)
+                ref_seq = common.get_ref_seq_by_chrom_and_build(res['genomicBuild'], res['CHROM'])
+                resource = common.create_fhir_variant_resource(res, ref_seq, subject)
+                variant_param = {
+                    "name": "variant",
+                    "resource": resource
+                }
+                result["parameter"].append(variant_param)
 
         if not result["parameter"]:
             result.pop("parameter")
-        else:
-            result["parameter"] = sorted(result["parameter"][0], key=lambda d: d['part'][0]['resource']['id'])
+        # else:
+        #     result["parameter"] = sorted(result["parameter"][0], key=lambda d: d['part'][0]['resource']['id'])
 
         return jsonify(result)
 
