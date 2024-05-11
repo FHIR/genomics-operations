@@ -135,4 +135,3 @@ def test_find_subject_molecular_consequences_1(client):
     response = client.get(url)
 
     tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_MOLEC_CONSEQ_OUTPUT_DIR}1.json', response.json)
-    
