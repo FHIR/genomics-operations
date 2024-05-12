@@ -1235,7 +1235,6 @@ def find_subject_molecular_consequences(
                     abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
 
         query_results = common.query_molecular_consequences_by_variants(normalized_variants, normalized_feature_consequence_list, query)
-        print(query_results)
 
         for res in query_results:
             if res["molecularConsequenceMatches"]:

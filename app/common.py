@@ -1948,7 +1948,6 @@ def query_molecular_consequences_by_variants(normalized_variant_list, feature_co
     query_results = []
 
     for item in results:
-        # item["UUID"] = str(uuid4())
         query_results.append(item)
 
     return query_results
