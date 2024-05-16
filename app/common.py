@@ -689,6 +689,60 @@ def create_dx_implication_profile(implication, subject, vids):
     return resource
 
 
+def create_molecular_consequence_profile(molecular_consequence, subject, vids):
+    resource = OrderedDict()
+    resource["resourceType"] = "Observation"
+    resource["id"] = "dv-" + str(molecular_consequence['_id'])
+    resource["meta"] = {"profile": [
+                        "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/molecular-consequence"]}
+    resource["status"] = "final"
+    resource["category"] = [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                                         "code": "laboratory"}, {"system": "http://terminology.hl7.org/CodeSystem/v2-0074", "code": "GE"}]}]
+    resource["code"] = {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                   "code": "molecular-consequences"}]}
+    resource["subject"] = {"reference": f"Patient/{subject}"}
+    if len(vids) > 0:
+        resource["derivedFrom"] = []
+        for vid in vids:
+            resource["derivedFrom"].append({"reference": f"Observation/dv-{vid}"})
+
+    resource["component"] = []
+
+    if 'cHGVS' in molecular_consequence:
+        resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
+                                                           "code": "48004-6",
+                                                           "display": "DNA change (c.HGVS)"}]},
+                                      "valueCodeableConcept": {"text": f"{molecular_consequence['cHGVS']}"}})
+
+    if 'transcriptRefSeq' in molecular_consequence:
+        resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
+                                                           "code": "51958-7",
+                                                           "display": "Reference Transcript"}]},
+                                      "valueCodeableConcept": {"text": f"{molecular_consequence['transcriptRefSeq']}"}})
+
+    if 'pHGVS' in molecular_consequence:
+        resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
+                                                           "code": "48005-3",
+                                                           "display": "Protein (Amino Acid) Change - pHGVS"}]},
+                                      "valueCodeableConcept": {"text": f"{molecular_consequence['pHGVS']}"}})
+
+    for feature_consequence in molecular_consequence["featureConsequence"]:
+        resource["component"].append({"code": {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                                           "code": "feature-consequence",
+                                                           "display": "Feature Consequence"}]},
+                                      "valueCodeableConcept": {"coding": [{"system": f"{feature_consequence['system']}",
+                                                                           "code": f"{feature_consequence['code']}",
+                                                                           "display": f"{feature_consequence['display']}"}]}})
+
+    if 'impact' in molecular_consequence:
+        resource["component"].append({"code": {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                                           "code": "functional-effect",
+                                                           "display": "Functional Effectt"}]},
+                                      "valueCodeableConcept": {"text": f"{molecular_consequence['impact']}"}})
+
+    return resource
+
+
 def create_tx_implication_profile_civic(implication, subject, vids):
     resource = OrderedDict()
     resource["resourceType"] = "Observation"
@@ -1818,3 +1872,82 @@ def query_transcript(transcript):
         abort(400, "Unable to provide information on this transcript at this time")
 
     return results
+
+
+def query_molecular_consequences_by_variants(normalized_variant_list, feature_consequence_list, query):
+    variant_list = []
+    for item in normalized_variant_list:
+        if "GRCh37" in item:
+            variant_list.append(item["GRCh37"])
+        if "GRCh38" in item:
+            variant_list.append(item["GRCh38"])
+
+    pipeline_part = [{'$match': {'$expr': {'$and': [{'$or': [{'$eq': ['$variantID', '$$myvariant_id']}]}]}}},
+                     {'$addFields': {}}]
+
+    if feature_consequence_list != []:
+        pipeline_part.append({'$match': {'$or': []}})
+        or_query = []
+
+        for feature_consequence in feature_consequence_list:
+            if feature_consequence['isSystem']:
+                or_query.append({'$and': [{'featureConsequence.code': {'$eq': feature_consequence['feature_consequence']}}, {'featureConsequence.system': {'$eq': feature_consequence['system']}}]})
+            else:
+                or_query.append({'$or': [
+                    {'featureConsequence.code': {'$regex': ".*"+str(feature_consequence['feature_consequence']).replace('*', r'\*')+".*"}},
+                    {'featureConsequence.display': {'$regex': ".*"+str(feature_consequence['feature_consequence']).replace('*', r'\*')+".*"}}
+                ]})
+        pipeline_part[-1]['$match']['$or'] = or_query
+        pipeline_part.append({"$unwind": "$featureConsequence"})
+        pipeline_part.append({'$match': {'$or': or_query}})
+        pipeline_part.append({"$group": {
+            "patientID": {
+                "$first": "$$ROOT.patientID"
+            },
+            "variantID": {
+                "$first": "$$ROOT.variantID"
+            },
+            "transcriptRefSeq": {
+                "$first": "$$ROOT.transcriptRefSeq"
+            },
+            "MANE": {
+                "$first": "$$ROOT.MANE"
+            },
+            "source": {
+                "$first": "$$ROOT.source"
+            },
+            "cHGVS": {
+                "$first": "$$ROOT.cHGVS"
+            },
+            "pHGVS": {
+                "$first": "$$ROOT.pHGVS"
+            },
+            "featureConsequence": {
+                "$push": "$$ROOT.featureConsequence"
+            },
+            "impact": {
+                "$first": "$$ROOT.impact"
+            }
+        }})
+
+    query['SPDI'] = {'$in': variant_list}
+
+    query_string = [{'$match': query},
+                    {'$lookup': {'from': 'MolecConseq', 'let': {'myvariant_id': '$_id'}, 'pipeline': pipeline_part,
+                                 'as': 'molecularConsequenceMatches'}},
+                    {'$addFields': {}},
+                    {'$match': {'molecularConsequenceMatches': {'$exists': True, '$not': {'$size': 0}}}}]
+
+    try:
+        results = variants_db.aggregate(query_string)
+        results = list(results)
+    except Exception as e:
+        print(f"DEBUG: Error {e} under query_molecular_consequences_by_variants query={query}")
+        results = []
+
+    query_results = []
+
+    for item in results:
+        query_results.append(item)
+
+    return query_results

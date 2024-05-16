@@ -40,8 +40,8 @@ def add_phased_relationship_obv(patientID, test_id, specimen_id, ref_build, phas
             c -= 1
             continue
 
-        output_json['variantID1'] = str(df_copy.iloc[0]['variantID'])
-        output_json['variantID2'] = str(df_copy.iloc[1]['variantID'])
+        output_json['variantID1'] = str(df_copy.iloc[0]['_id'])
+        output_json['variantID2'] = str(df_copy.iloc[1]['_id'])
         output_json['phase'] = relation
         phase_data.append(output_json)
         c -= 1
@@ -129,7 +129,7 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
         add_phase_records(record, phased_rec_map)
         output_json = OrderedDict()
         variant_id = uuid.uuid4().hex
-        output_json["variantID"] = variant_id     # Added GUID for variants.
+        output_json["_id"] = variant_id     # Added GUID for variants.
         output_json["patientID"] = patient_id
         output_json["testDate"] = test_date
         output_json["testID"] = test_id
