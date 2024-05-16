@@ -1255,8 +1255,6 @@ def find_subject_molecular_consequences(
 
         if not result["parameter"]:
             result.pop("parameter")
-        # else:
-        #     result["parameter"] = sorted(result["parameter"][0], key=lambda d: d['part'][0]['resource']['id'])
 
         return jsonify(result)
 
