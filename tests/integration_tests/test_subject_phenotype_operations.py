@@ -131,7 +131,7 @@ Find Subject Molecular Consequences Tests
 
 
 def test_find_subject_molecular_consequences_1(client):
-    url = tu.find_subject_molecular_consequences_query('subject=TCGA-DD-A1EH&variants=NM_178349.2:c.118G>T')
+    url = tu.find_subject_molecular_consequences_query('subject=TCGA-DD-A1EH&variants=NC_000001.10:152785039:G:T')
     response = client.get(url)
 
     tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_MOLEC_CONSEQ_OUTPUT_DIR}1.json', response.json)
