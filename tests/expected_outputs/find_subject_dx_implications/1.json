@@ -35,7 +35,7 @@
                 },
                 "derivedFrom": [
                     {
-                        "reference": "Observation/dv-6387ccb86f163bcb733ae503"
+                        "reference": "Observation/dv-47e768d210124003ac7d6eec303cbf3e"
                     }
                 ],
                 "component": [
@@ -100,7 +100,7 @@
             "name": "variant",
             "resource": {
                 "resourceType": "Observation",
-                "id": "dv-6387ccb86f163bcb733ae503",
+                "id": "dv-47e768d210124003ac7d6eec303cbf3e",
                 "meta": {
                     "profile": [
                         "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -231,6 +231,23 @@
                             "coding": [
                                 {
                                     "system": "http://loinc.org",
+                                    "code": "81258-6",
+                                    "display": "Sample VAF"
+                                }
+                            ]
+                        },
+                        "valueQuantity": {
+                            "value": 0.5,
+                            "unit": "relative frequency of a particular allele in the specimen",
+                            "system": "http://unitsofmeasure.org",
+                            "code": "1"
+                        }
+                    },
+                    {
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
                                     "code": "69547-8",
                                     "display": "Genomic Ref allele [ID]"
                                 }
@@ -284,38 +301,6 @@
                             "low": {
                                 "value": 161333381
                             }
-                        }
-                    },
-                    {
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                    "code": "molecular-consequence"
-                                }
-                            ]
-                        },
-                        "valueCodeableConcept": {
-                            "coding": [
-                                {
-                                    "system": "http://www.sequenceontology.org/",
-                                    "code": "SO:0001624",
-                                    "display": "3_prime_UTR_variant"
-                                },
-                                {
-                                    "system": "http://www.sequenceontology.org/",
-                                    "code": "SO:0001632",
-                                    "display": "downstream_gene_variant"
-                                },
-                                {
-                                    "system": "http://www.sequenceontology.org/",
-                                    "code": "SO:0001792",
-                                    "display": "non_coding_transcript_exon_variant"
-                                }
-                            ]
-                        },
-                        "interpretation": {
-                            "text": "PREDICTED IMPACT MODIFIER"
                         }
                     }
                 ]

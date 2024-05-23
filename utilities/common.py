@@ -55,14 +55,17 @@ def extract_chrom_identifier(chrom):
     return chrom
 
 
-def get_allelic_state(record, ratio_ad_dp):
+def get_allelic_state(record, ratio_ad_dp, sample_position):
     allelic_state = ''
     allelic_code = ''
-    allelic_frequency = None
-    # Using  the first sample
-    sample = record.samples[0]
+    try:
+        allelic_frequency = float(record.aaf[0])
+    except ZeroDivisionError:
+        allelic_frequency = 0
+    sample = record.samples[sample_position]
     alleles = sample.gt_alleles
     if record.CHROM != 'M':
+        # gt_type: hom_ref = 0; het = 1; hom_alt = 2; uncalled = None
         if len(alleles) >= 2 and sample.gt_type == 1:
             allelic_state = 'heterozygous'
             allelic_code = 'LA6706-1'
@@ -77,27 +80,12 @@ def get_allelic_state(record, ratio_ad_dp):
     elif (sample.gt_type is not None and
           len(alleles) == 1 and
           alleles[0] == '1'):
-        if hasattr(sample.data, 'AD') and hasattr(sample.data, 'DP'):
-            try:
-                if (isinstance(sample.data.AD, list) and
-                   len(sample.data.AD) > 0):
-                    ratio = float(
-                        sample.data.AD[0]) / float(sample.data.DP)
-                    allelic_frequency = ratio
-                else:
-                    ratio = float(sample.data.AD) / float(sample.data.DP)
-                    allelic_frequency = ratio
-                if ratio > ratio_ad_dp:
-                    allelic_state = "homoplasmic"
-                    allelic_code = "LA6704-6"
-                else:
-                    allelic_state = "heteroplasmic"
-                    allelic_code = "LA6703-8"
-            except Exception:
-                _error_log_allelicstate(record)
-                pass
+        if allelic_frequency > ratio_ad_dp:
+            allelic_state = "homoplasmic"
+            allelic_code = "LA6704-6"
         else:
-            _error_log_allelicstate(record)
+            allelic_state = "heteroplasmic"
+            allelic_code = "LA6703-8"
     else:
         _error_log_allelicstate(record)
     return {
@@ -124,7 +112,7 @@ def get_sequence_relation(phased_rec_map):
                         {
                             'POS1': prev_record.POS,
                             'POS2': record.POS,
-                            'Relation': 'CIS'
+                            'Relation': 'Cis'
                         },
                         ignore_index=True
                     )
@@ -133,7 +121,7 @@ def get_sequence_relation(phased_rec_map):
                         {
                             'POS1': prev_record.POS,
                             'POS2': record.POS,
-                            'Relation': 'TRANS'
+                            'Relation': 'Trans'
                         },
                         ignore_index=True
                     )

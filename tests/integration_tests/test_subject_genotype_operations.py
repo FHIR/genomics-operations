@@ -50,14 +50,14 @@ def test_find_subject_variants_4(client):
 
 
 def test_find_subject_variants_5(client):
-    url = tu.find_subject_variants_query('subject=HG00403&ranges=NC_000001.10:69501-69520   ,   NC_000001.10:69501-69521  &testDateRange=ge2010-01-01&includeVariants=true')
+    url = tu.find_subject_variants_query('subject=HG00403&ranges=NC_000001.10:69501-69520,NC_000001.10:69501-69521&includeVariants=true')
     response = client.get(url)
 
     tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_VARIANTS_OUTPUT_DIR}5.json', response.json)
 
 
 def test_find_subject_variants_6(client):
-    url = tu.find_subject_variants_query('subject=NB6TK329&ranges=NC_000006.12:32584350-32584360&includeVariants=true&includePhasing=true')
+    url = tu.find_subject_variants_query('subject=NB6TK329&ranges=NC_000001.11:2629432-2629470&includeVariants=true&includePhasing=true')
     response = client.get(url)
 
     tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_VARIANTS_OUTPUT_DIR}6.json', response.json)

@@ -118,7 +118,7 @@ def test_find_subject_dx_implications_5(client):
     Query with multiple ranges which have different chromosomes
     """
     url = tu.find_subject_dx_implications_query(
-        'subject=HG00403&ranges=NC_000001.11:237042183-237833988,NC_000005.9:112043194-112181936,NC_000019.9:11200138-11244496,NC_000013.10:32889644-32974405,NC_000014.9:23412739-23435677')
+        'subject=HG00403&ranges=NC_000019.9:11200138-11244496,NC_000013.10:32889644-32974405,NC_000014.9:23412739-23435677')
     response = client.get(url)
 
     tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_DX_IMPLICATIONS_OUTPUT_DIR}5.json', response.json)

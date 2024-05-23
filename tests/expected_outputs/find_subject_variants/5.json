@@ -16,7 +16,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6387cb82fbdf92361e09ee89",
+                        "id": "dv-1124ba6c130946a7841d3d19fd213e63",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -139,6 +139,23 @@
                                     "coding": [
                                         {
                                             "system": "http://loinc.org",
+                                            "code": "81258-6",
+                                            "display": "Sample VAF"
+                                        }
+                                    ]
+                                },
+                                "valueQuantity": {
+                                    "value": 1.0,
+                                    "unit": "relative frequency of a particular allele in the specimen",
+                                    "system": "http://unitsofmeasure.org",
+                                    "code": "1"
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
                                             "code": "69547-8",
                                             "display": "Genomic Ref allele [ID]"
                                         }
@@ -192,28 +209,6 @@
                                     "low": {
                                         "value": 69510
                                     }
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                            "code": "molecular-consequence"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://www.sequenceontology.org/",
-                                            "code": "SO:0001583",
-                                            "display": "missense_variant"
-                                        }
-                                    ]
-                                },
-                                "interpretation": {
-                                    "text": "PREDICTED IMPACT MODERATE"
                                 }
                             },
                             {
@@ -252,7 +247,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6387cb82fbdf92361e09ee89",
+                        "id": "dv-1124ba6c130946a7841d3d19fd213e63",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -375,6 +370,23 @@
                                     "coding": [
                                         {
                                             "system": "http://loinc.org",
+                                            "code": "81258-6",
+                                            "display": "Sample VAF"
+                                        }
+                                    ]
+                                },
+                                "valueQuantity": {
+                                    "value": 1.0,
+                                    "unit": "relative frequency of a particular allele in the specimen",
+                                    "system": "http://unitsofmeasure.org",
+                                    "code": "1"
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
                                             "code": "69547-8",
                                             "display": "Genomic Ref allele [ID]"
                                         }
@@ -428,28 +440,6 @@
                                     "low": {
                                         "value": 69510
                                     }
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                            "code": "molecular-consequence"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://www.sequenceontology.org/",
-                                            "code": "SO:0001583",
-                                            "display": "missense_variant"
-                                        }
-                                    ]
-                                },
-                                "interpretation": {
-                                    "text": "PREDICTED IMPACT MODERATE"
                                 }
                             },
                             {
