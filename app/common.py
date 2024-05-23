@@ -601,17 +601,9 @@ def create_fhir_variant_resource(record, ref_seq, subject):
             inner_end = record['END'] - abs(record['CIEND'][0])
             outer_end = record['END'] + abs(record['CIEND'][1])
 
-        resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
-                                                               "code": "81301-4",
-                                                               "display": "Variant outer start-end"}]},
-                                          "valueRange": {"low": {"value": outer_start},
-                                                         "high": {"value": outer_end}}})
+        resource["component"].append({"code": {"coding": [{"system": "http://loinc.org", "code": "81301-4", "display": "Variant outer start-end"}]}, "valueRange": {"low": {"value": outer_start}, "high": {"value": outer_end}}})
 
-        resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
-                                                           "code": "81302-2",
-                                                           "display": "Variant inner start-end"}]},
-                                      "valueRange": {"low": {"value": inner_start},
-                                                     "high": {"value": inner_end}}})
+        resource["component"].append({"code": {"coding": [{"system": "http://loinc.org", "code": "81302-2", "display": "Variant inner start-end"}]}, "valueRange": {"low": {"value": inner_start}, "high": {"value": inner_end}}})
 
     # Variant population allele frequency
     if 'popAlleleFreq' in record:
