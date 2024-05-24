@@ -4,17 +4,17 @@ from collections import OrderedDict
 from gene_ref_seq import _get_ref_seq_by_chrom
 from SPDI_Normalization import get_normalized_spdi
 import common
-import copy
 import re
 import uuid
 
 
-def add_phase_records(record, phased_rec_map):
-    if (record.samples[0].phased is False):
+def add_phase_records(record, phased_rec_map, sample_position):
+    if (record.samples[sample_position].phased is False):
         return
-    sample_data = record.samples[0].data
+    sample_data = record.samples[sample_position].data
     if (sample_data.GT is not None and
-       len(sample_data.GT.split('|')) >= 2 and
+       len(sample_data.GT.split('|')) == 2 and
+       sample_data.GT.split('|')[0] != sample_data.GT.split('|')[1] and
        'PS' in sample_data._fields):
         sample_data_ps = sample_data.PS
         if isinstance(sample_data.PS, list):
@@ -58,13 +58,13 @@ def _valid_record(record, genomic_source_class, sample_position):
     if record.is_sv:
         if len(record.samples) > 1:
             return False
-        if (record.INFO['SVTYPE'][0].upper() not in list(common.SVs)):
+        if (record.INFO['SVTYPE'].upper() not in list(common.SVs)):
             return False
         if (not all(alt is None or alt.type in ['SNV', 'MNV'] or
            isinstance(alt, vcf.model._SV) or svAltRegex.match(str(alt)) or (str(alt).isalpha() or (alt == '.' and len(record.ALT) == 1))
            for alt in record.ALT)):
             return False
-        if (record.INFO['SVTYPE'][0].upper() in list(common.SVs - {'DUP', 'CNV'}) and
+        if (record.INFO['SVTYPE'].upper() in list(common.SVs - {'DUP', 'CNV'}) and
            '.' in record.samples[sample_position]["GT"] and
                 genomic_source_class.lower() == common.Genomic_Source_Class.GERMLINE.value.lower()):
             return False
@@ -124,152 +124,112 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
         patient_id = vcf_reader.samples[sample_position]
 
     for record in vcf_reader:
+        # high level logic flow:
+        #  - get a VCF row using the pyvcf reader
+        #  - validate that it is a record we parse
+        #  - update the record if it contains multiple ALT alleles
+        #  - for each ALT allele in a record, output_json
+        #  - write output_json (which is used to compute phase data)
         if not _valid_record(record, genomic_source_class, sample_position):
             continue
-        add_phase_records(record, phased_rec_map)
-        output_json = OrderedDict()
-        variant_id = uuid.uuid4().hex
-        output_json["_id"] = variant_id     # Added GUID for variants.
-        output_json["patientID"] = patient_id
-        output_json["testDate"] = test_date
-        output_json["testID"] = test_id
-        output_json["specimenID"] = specimen_id
-        output_json["genomicBuild"] = ref_build
-        record.CHROM = common.extract_chrom_identifier(record.CHROM)
-        output_json["CHROM"] = f"chr{record.CHROM}"
-        output_json["POS"] = record.POS - 1
-        output_json["REF"] = record.REF
-        output_json["END"] = (record.POS - 1 + len(record.REF))
 
-        alts = record.ALT
-        noRefFlag = 0
+        # Convert multi-ALT record to single-ALT record where genotype only includes one of the ALT alleles
+        # (example of VCF row that is converted: chr1 236539074 . G A,C 912.77 PASS AC=1 GT:AD:DP 0/2:1,19,9:29)
+        # (example of VCF row that is not converted: chr1 236539077 . G A,C 912.77 PASS AC=1 GT:PS:AD:DP 1/2:123:1,19,9:29)
+        multiALT = False
+        if len(record.ALT) > 1:
+            multiALT = True
+            if record.samples[sample_position]["GT"] in ["0/1", "0|1", "1/0", "1|0"]:
+                record.ALT = [record.ALT[0]]
+                GT = record.samples[sample_position]["GT"]
+            elif record.samples[sample_position]["GT"] in ["0/2", "0|2", "2/0", "2|0"]:
+                record.ALT = [record.ALT[1]]
+                GT = record.samples[sample_position]["GT"].replace("2", "1")
+            elif record.samples[sample_position]["GT"] in ["1/1", "1|1"]:
+                record.ALT = [record.ALT[1]]
+            elif record.samples[sample_position]["GT"] in ["2/2", "2|2"]:
+                record.ALT = [record.ALT[1]]
+                GT = record.samples[sample_position]["GT"].replace("2", "1")
 
-        if record.FILTER is None:
-            output_json["FILTER"] = '.'
-        elif isinstance(record.FILTER, list) and len(record.FILTER) == 0:
-            output_json["FILTER"] = 'PASS'
-
-        if 'SVTYPE' in record.INFO and record.INFO['SVTYPE'] is not None:
-            output_json["SVTYPE"] = record.INFO['SVTYPE']
-            if record.INFO['SVTYPE'] == 'INS':
-                output_json["POS"] = record.POS
-        if 'CIPOS' in record.INFO and record.INFO['CIPOS'] is not None:
-            output_json["CIPOS"] = record.INFO['CIPOS']
-        if 'CIEND' in record.INFO and record.INFO['CIEND'] is not None:
-            output_json["CIEND"] = record.INFO['CIEND']
-        if 'END' in record.INFO and record.INFO['END'] is not None:
-            output_json["END"] = record.INFO['END']
-
-        hasAD = False
-        alt_ad_index = 1
-        output_json["GT"] = record.samples[sample_position]["GT"]
-        if hasattr(record.samples[sample_position].data, "PS") and record.samples[sample_position]["PS"] is not None:
-            output_json["PS"] = record.samples[sample_position]["PS"]
-        if hasattr(record.samples[sample_position].data, "CN") and record.samples[sample_position]["CN"] is not None:
-            output_json["CN"] = record.samples[sample_position]["CN"]
-        if hasattr(record.samples[sample_position].data, "AD") and record.samples[sample_position]["AD"] is not None:
-            hasAD = True
-            output_json["ADS"] = []
-
-            for index in range(0, len(record.samples[sample_position]["AD"])):
-                if record.samples[sample_position]["AD"][index] is None:
-                    record.samples[sample_position]["AD"][index] = 0
-
-            # Split the genotype into a list of integers. This will help find the number of alternate alleles in the VCF row
-            genotypeList = re.split(r'\D+', record.samples[sample_position]["GT"])
-
-            for index in range(0, len(genotypeList)):
-                if genotypeList[index] == (None or ''):
-                    genotypeList[index] = 0
-                else:
-                    genotypeList[index] = int(genotypeList[index])
-
-            # altNumber is the number of alternate alleles in the VCF row
-            altNumber = max(genotypeList)
-
-            # VCF row contains refAD count followed by AD counts for each alt allele
-            if len(record.samples[sample_position]["AD"]) == altNumber + 1:
-                output_json["ADS"].append({"AD": int(record.samples[sample_position]["AD"][0])})
-
-            # VCF row contains only alt allele AD counts
+        # Create output record for each remaining ALT allele.
+        for i, alt in enumerate(record.ALT):
+            output_json = OrderedDict()
+            if not multiALT:
+                add_phase_records(record, phased_rec_map, sample_position)
+            output_json["_id"] = uuid.uuid4().hex
+            output_json["patientID"] = patient_id
+            output_json["testDate"] = test_date
+            output_json["testID"] = test_id
+            output_json["specimenID"] = specimen_id
+            output_json["genomicBuild"] = ref_build
+            record.CHROM = common.extract_chrom_identifier(record.CHROM)
+            output_json["CHROM"] = f"chr{record.CHROM}"
+            output_json["POS"] = record.POS - 1
+            output_json["REF"] = record.REF
+            # populate ALT
+            if len(record.ALT) > 1:
+                output_json["ALT"] = str(record.ALT[i])
             else:
-                output_json["ADS"].append({"AD": 0})
-                noRefFlag = 1
-                # The alt allele ADs start at 0, since there is no reference AD count taking that slot in the VCF row
-                alt_ad_index = 0
+                output_json["ALT"] = str(record.ALT[0])
 
-        if hasattr(record.samples[sample_position].data, "DP") and record.samples[sample_position]["DP"] is not None:
-            output_json["DP"] = int(record.samples[sample_position]["DP"])
+            output_json["END"] = (record.POS - 1 + len(record.REF))
+            if record.FILTER is None:
+                output_json["FILTER"] = '.'
+            elif isinstance(record.FILTER, list) and len(record.FILTER) == 0:
+                output_json["FILTER"] = 'PASS'
+            if 'SVTYPE' in record.INFO and record.INFO['SVTYPE'] is not None:
+                output_json["SVTYPE"] = record.INFO['SVTYPE']
+                if record.INFO['SVTYPE'] == 'INS':
+                    output_json["POS"] = record.POS
+            if 'CIPOS' in record.INFO and record.INFO['CIPOS'] is not None:
+                output_json["CIPOS"] = record.INFO['CIPOS']
+            if 'CIEND' in record.INFO and record.INFO['CIEND'] is not None:
+                output_json["CIEND"] = record.INFO['CIEND']
+            if 'END' in record.INFO and record.INFO['END'] is not None:
+                output_json["END"] = record.INFO['END']
+            if hasattr(record.samples[sample_position].data, "PS") and record.samples[sample_position]["PS"] is not None:
+                output_json["PS"] = record.samples[sample_position]["PS"]
+            if hasattr(record.samples[sample_position].data, "CN") and record.samples[sample_position]["CN"] is not None:
+                output_json["CN"] = record.samples[sample_position]["CN"]
+            # populate GT, allelicFrequency. We are currently setting them to null for multiALT VCF rows
+            output_json["GT"] = record.samples[sample_position]["GT"]
+            try:
+                output_json["allelicFrequency"] = float(record.aaf[0])
+            except ZeroDivisionError:
+                output_json["allelicFrequency"] = 0
+            if multiALT:
+                output_json["GT"] = None
+                output_json["allelicFrequency"] = 0
+                if len(record.ALT) == 1:
+                    output_json["GT"] = GT
+            output_json["genomicSourceClass"] = genomic_source_class
+            # populate SPDI
+            ref_seq = _get_ref_seq_by_chrom(ref_build, common.extract_chrom_identifier(record.CHROM))
 
-        ref_seq = _get_ref_seq_by_chrom(ref_build, common.extract_chrom_identifier(record.CHROM))
+            if not record.is_sv and output_json["ALT"] is not None:
+                spdi = (f'{ref_seq}:{record.POS - 1}:{record.REF}:{output_json["ALT"]}')
+                # Calculate SPDI directly for SNVs and MNVs
+                if (alt.type in ['SNV', 'MNV']):
+                    output_json["SPDI"] = spdi
 
-        if not record.is_sv and record.ALT is not None and all(alt is not None for alt in record.ALT):
-            spdi = (f'{ref_seq}:{record.POS - 1}:{record.REF}:' +
-                    f'{"".join(list(map(str, list(record.ALT))))}')
-            # Calculate SPDI directly for SNVs and MNVs
-            if (all(alt is not None and alt.type in ['SNV', 'MNV'] for alt in record.ALT)):
-                output_json["SPDI"] = spdi
+                # Calculate SPDI using SPDI_Normalization logic
+                if len(record.REF) != len(output_json["ALT"]):
+                    output_json["SPDI"] = get_normalized_spdi(ref_seq, (record.POS - 1), record.REF, output_json["ALT"], ref_build)
+            # populate allelicState
+            alleles = common.get_allelic_state(record, ratio_ad_dp, sample_position)
 
-            # Calculate SPDI using NCBI API for InDel
-            if len(record.REF) != len("".join(list(map(str, list(record.ALT))))):
-                output_json["SPDI"] = get_normalized_spdi(ref_seq, (record.POS - 1), record.REF, "".join(list(map(str, list(record.ALT)))), ref_build)
+            if (alleles['CODE'] != "" or alleles['ALLELE'] != "") and genomic_source_class.lower() == common.Genomic_Source_Class.GERMLINE.value.lower():
+                output_json["allelicState"] = alleles['ALLELE']
 
-        alleles = common.get_allelic_state(record, ratio_ad_dp)
-
-        if (alleles['CODE'] != "" or alleles['ALLELE'] != "") and genomic_source_class.lower() == common.Genomic_Source_Class.GERMLINE.value.lower():
-            output_json["allelicState"] = alleles['ALLELE']
-
-        output_json["genomicSourceClass"] = genomic_source_class
-        onRef = 1
-
-        extractINFOField(variant_id, patient_id, record, common.codeDict, molecular_output, output_json, transcript_map)
-
-        for alt in alts:
-            altDict, alt_ad_index, onRef = getMultADs(output_json, record, sample_position, alt, alt_ad_index, hasAD, noRefFlag, onRef)
-            variants_data.append(altDict)
-            output_json_array.append(altDict)
+            # extractINFOField gathers molecular consequences.  We are currently skipping multiALT VCF rows
+            if not multiALT:
+                extractINFOField(output_json["_id"], patient_id, record, common.codeDict, molecular_output, output_json, transcript_map)
+            variants_data.append(output_json)
+            output_json_array.append(output_json)
 
     with open("convertedVCF.json", "w") as f:
         f.write(json.dumps(output_json_array, indent=4))
 
-# getMultADs finds the allele reads for each decomposed alternate allele in the VCF row.
-
-
-def getMultADs(output_json, record, sample_position, alt, alt_ad_index, hasAD, noRefFlag, onRef):
-    altDict = OrderedDict()
-    if alt:
-        if "ALT" in output_json:
-            del output_json["ALT"]
-
-        for key, value in output_json.items():
-            altDict[key] = copy.deepcopy(value)
-            if key == 'REF':
-                altDict["ALT"] = f"{alt}"
-
-        try:
-            if hasAD and noRefFlag == 0:
-                if record.samples[sample_position]["AD"][alt_ad_index] != '.' and record.samples[sample_position]["AD"][alt_ad_index] is not None:
-                    altDict["ADS"].append({"AD": int(record.samples[sample_position]["AD"][alt_ad_index])})
-                else:
-                    altDict["ADS"].append({"AD": 0})
-                alt_ad_index += 1
-            elif noRefFlag == 1:
-                # If there is no reference AD, set initial AD to 0 and insert new ADs instead of appending
-                if record.samples[sample_position]["AD"][alt_ad_index] != '.' and record.samples[sample_position]["AD"][alt_ad_index] is not None:
-                    altDict["ADS"].insert(0, {"AD": int(record.samples[sample_position]["AD"][alt_ad_index])})
-                else:
-                    altDict["ADS"].insert(0, {"AD": 0})
-                alt_ad_index += 1
-        except Exception:
-            altDict["ADS"].append({"AD": 0})
-            alt_ad_index += 1
-    else:
-        if "ALT" in output_json:
-            del output_json["ALT"]
-        for key, value in output_json.items():
-            altDict[key] = copy.deepcopy(value)
-
-    return altDict, alt_ad_index, onRef
 
 # Processes SnpEff and SnpSift output into final json file.
 

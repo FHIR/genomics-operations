@@ -16,7 +16,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-6387cb189bb781b2788d1c7d",
+                        "id": "dv-0f15914530fc4551a067c0b5369e79e5",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"

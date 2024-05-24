@@ -540,9 +540,7 @@ def create_fhir_variant_resource(record, ref_seq, subject):
     # Allelic Frequency
     if ('SVTYPE' not in record):
         try:
-            ad = float(record["ADS"][1]["AD"])
-            dp = float(record["DP"])
-            allelic_frequency = ad/dp
+            allelic_frequency = record["allelicFrequency"]
             resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
                                                                "code": "81258-6",
                                                                "display": "Sample VAF"}]},
@@ -594,39 +592,18 @@ def create_fhir_variant_resource(record, ref_seq, subject):
 
     # Variant Outer/Inner Start and End
     if 'SVTYPE' in record:
-        if 'CIPOS' in record and 'CIEND' in record:
-            inner_start = record['POS'] + record['CIPOS'][1]
-            inner_end = record['END'] - abs(record['CIEND'][0])
+        inner_start = outer_start = record['POS']
+        inner_end = outer_end = record['END']
+        if 'CIPOS' in record:
+            inner_start = record['POS'] + abs(record['CIPOS'][1])
             outer_start = record['POS'] - abs(record['CIPOS'][0])
-            outer_end = record['END'] + record['CIEND'][1]
+        if 'CIEND' in record:
+            inner_end = record['END'] - abs(record['CIEND'][0])
+            outer_end = record['END'] + abs(record['CIEND'][1])
 
-            resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
-                                                               "code": "81301-4",
-                                                               "display": "Variant outer start-end"}]},
-                                          "valueRange": {"low": {"value": outer_start},
-                                                         "high": {"value": outer_end}}})
-        else:
-            inner_start = record['POS']
-            inner_end = record['END']
+        resource["component"].append({"code": {"coding": [{"system": "http://loinc.org", "code": "81301-4", "display": "Variant outer start-end"}]}, "valueRange": {"low": {"value": outer_start}, "high": {"value": outer_end}}})
 
-        resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
-                                                           "code": "81302-2",
-                                                           "display": "Variant inner start-end"}]},
-                                      "valueRange": {"low": {"value": inner_start},
-                                                     "high": {"value": inner_end}}})
-
-    # Variant Molecular Consequence and Predicted Impact
-    if 'molecConseq' in record:
-        resource["component"].append({"code": {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                                           "code": "molecular-consequence"}]},
-                                      "valueCodeableConcept": {"coding": record['molecConseq']},
-                                      "interpretation": {"text": "PREDICTED IMPACT " + record['predictedMolecImpact'].upper()}})
-
-    # Variant Loss of Function
-    if 'funcConseq' in record:
-        resource["component"].append({"code": {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                                           "code": "functional-effect"}]},
-                                      "valueCodeableConcept": {"coding": record['funcConseq']}})
+        resource["component"].append({"code": {"coding": [{"system": "http://loinc.org", "code": "81302-2", "display": "Variant inner start-end"}]}, "valueRange": {"low": {"value": inner_start}, "high": {"value": inner_end}}})
 
     # Variant population allele frequency
     if 'popAlleleFreq' in record:
