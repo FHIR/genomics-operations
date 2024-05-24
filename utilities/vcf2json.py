@@ -152,8 +152,7 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
                 GT = record.samples[sample_position]["GT"].replace("2", "1")
 
         # Create output record for each remaining ALT allele.
-        i = 0
-        for alt in record.ALT:
+        for i, alt in enumerate(record.ALT):
             output_json = OrderedDict()
             if not multiALT:
                 add_phase_records(record, phased_rec_map, sample_position)
@@ -227,7 +226,6 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
                 extractINFOField(output_json["_id"], patient_id, record, common.codeDict, molecular_output, output_json, transcript_map)
             variants_data.append(output_json)
             output_json_array.append(output_json)
-            i = i + 1
 
     with open("convertedVCF.json", "w") as f:
         f.write(json.dumps(output_json_array, indent=4))
