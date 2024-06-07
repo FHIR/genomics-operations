@@ -111,6 +111,8 @@ OPERATOR_CODE_TO_OPERATOR = {
 }
 
 SUPPORTED_GENE_SYSTEM_URLS = r'^https?:\/\/www\.genenames.org\/geneId$'
+# SUPPORTED_FEATURE_CONSEQUENCE_SYSTEM_URLS = r'^http?:\/\/www\.sequenceontology.org\/$'
+SUPPORTED_FEATURE_CONSEQUENCE_SYSTEM_URLS = 'http://sequenceontology.org'
 
 SUPPORTED_DATE_FORMAT = '%Y-%m-%d'
 
@@ -232,6 +234,23 @@ def get_gene(gene):
             abort(400, f'gene ({gene}) is not in the correct format(codesystem|code)')
 
     return gene_return
+
+
+def get_feature_consequence(feature_consequence):
+    feature_consequence = feature_consequence.strip()
+    feature_consequence_return = {'isSystem': False, 'feature_consequence': feature_consequence, 'system': None}
+    if "|" in feature_consequence:
+        # if feature_consequence.count("|") == 1 and (re.match(SUPPORTED_FEATURE_CONSEQUENCE_SYSTEM_URLS, feature_consequence.rsplit('|')[0])):
+        if feature_consequence.count("|") == 1 and feature_consequence.rsplit('|')[0] == 'http://sequenceontology.org':
+            feature_consequence_system_url = feature_consequence.rsplit("|")[0]
+            feature_consequence = feature_consequence.rsplit("|")[1]
+            feature_consequence_return['isSystem'] = True
+            feature_consequence_return['feature_consequence'] = feature_consequence
+            feature_consequence_return['system'] = feature_consequence_system_url
+        else:
+            abort(400, f'feature_consequence ({feature_consequence}) is not in the correct format(codesystem|code)')
+
+    return feature_consequence_return
 
 
 def get_haplotype(haplotype):
@@ -1859,8 +1878,7 @@ def query_molecular_consequences_by_variants(normalized_variant_list, feature_co
         if "GRCh38" in item:
             variant_list.append(item["GRCh38"])
 
-    pipeline_part = [{'$match': {'$expr': {'$and': [{'$or': [{'$eq': ['$variantID', '$$myvariant_id']}]}]}}},
-                     {'$addFields': {}}]
+    pipeline_part = [{'$match': {'$expr': {'$and': [{'$or': [{'$eq': ['$variantID', '$$myvariant_id']}]}]}}}]
 
     if feature_consequence_list != []:
         pipeline_part.append({'$match': {'$or': []}})
@@ -1875,46 +1893,13 @@ def query_molecular_consequences_by_variants(normalized_variant_list, feature_co
                     {'featureConsequence.display': {'$regex': ".*"+str(feature_consequence['feature_consequence']).replace('*', r'\*')+".*"}}
                 ]})
         pipeline_part[-1]['$match']['$or'] = or_query
-        pipeline_part.append({"$unwind": "$featureConsequence"})
-        pipeline_part.append({'$match': {'$or': or_query}})
-        pipeline_part.append({"$group": {
-            "patientID": {
-                "$first": "$$ROOT.patientID"
-            },
-            "variantID": {
-                "$first": "$$ROOT.variantID"
-            },
-            "transcriptRefSeq": {
-                "$first": "$$ROOT.transcriptRefSeq"
-            },
-            "MANE": {
-                "$first": "$$ROOT.MANE"
-            },
-            "source": {
-                "$first": "$$ROOT.source"
-            },
-            "cHGVS": {
-                "$first": "$$ROOT.cHGVS"
-            },
-            "pHGVS": {
-                "$first": "$$ROOT.pHGVS"
-            },
-            "featureConsequence": {
-                "$push": "$$ROOT.featureConsequence"
-            },
-            "impact": {
-                "$first": "$$ROOT.impact"
-            }
-        }})
 
     query['SPDI'] = {'$in': variant_list}
 
     query_string = [{'$match': query},
                     {'$lookup': {'from': 'MolecConseq', 'let': {'myvariant_id': '$_id'}, 'pipeline': pipeline_part,
                                  'as': 'molecularConsequenceMatches'}},
-                    {'$addFields': {}},
                     {'$match': {'molecularConsequenceMatches': {'$exists': True, '$not': {'$size': 0}}}}]
-
     try:
         results = variants_db.aggregate(query_string)
         results = list(results)

@@ -52,6 +52,8 @@ def run_vcf2json():
             f.write(json.dumps(data, indent=4))
 
     # Deletion of convertedVCF.JSON file
+    # Note that this generates an error if there is no phase data. We should
+    # fix this, but in the mean time, ignore the error and just load the the variant and molecular consequence files.
     os.remove("convertedVCF.json")
 
     print("Data Generated.")

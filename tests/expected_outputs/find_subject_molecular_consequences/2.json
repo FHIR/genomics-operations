@@ -1,0 +1,313 @@
+{
+  "resourceType": "Parameters",
+  "parameter": [
+    [
+      {
+        "name": "consequence",
+        "resource": {
+          "resourceType": "Observation",
+          "id": "dv-666319b7b66532ba5a99b4a3",
+          "meta": {
+            "profile": [
+              "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/molecular-consequence"
+            ]
+          },
+          "status": "final",
+          "category": [
+            {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                  "code": "laboratory"
+                },
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                  "code": "GE"
+                }
+              ]
+            }
+          ],
+          "code": {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                "code": "molecular-consequences"
+              }
+            ]
+          },
+          "subject": {
+            "reference": "Patient/NA19240"
+          },
+          "derivedFrom": [
+            {
+              "reference": "Observation/dv-92ee36e45955474c9a8fe16b69086e83"
+            }
+          ],
+          "component": [
+            {
+              "code": {
+                "coding": [
+                  {
+                    "system": "http://loinc.org",
+                    "code": "48004-6",
+                    "display": "DNA change (c.HGVS)"
+                  }
+                ]
+              },
+              "valueCodeableConcept": {
+                "text": ""
+              }
+            },
+            {
+              "code": {
+                "coding": [
+                  {
+                    "system": "http://loinc.org",
+                    "code": "51958-7",
+                    "display": "Reference Transcript"
+                  }
+                ]
+              },
+              "valueCodeableConcept": {
+                "text": ""
+              }
+            },
+            {
+              "code": {
+                "coding": [
+                  {
+                    "system": "http://loinc.org",
+                    "code": "48005-3",
+                    "display": "Protein (Amino Acid) Change - pHGVS"
+                  }
+                ]
+              },
+              "valueCodeableConcept": {
+                "text": ""
+              }
+            },
+            {
+              "code": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                    "code": "feature-consequence",
+                    "display": "Feature Consequence"
+                  }
+                ]
+              },
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://sequenceontology.org",
+                    "code": "SO:0001589",
+                    "display": "frameshift_variant"
+                  }
+                ]
+              }
+            },
+            {
+              "code": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                    "code": "functional-effect",
+                    "display": "Functional Effectt"
+                  }
+                ]
+              },
+              "valueCodeableConcept": {
+                "text": "HIGH"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    {
+      "name": "variant",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "dv-92ee36e45955474c9a8fe16b69086e83",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "69548-6",
+              "display": "Genetic variant assessment"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NA19240"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA9633-4",
+              "display": "present"
+            }
+          ]
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48002-0",
+                  "display": "Genomic Source Class"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA6683-2",
+                  "display": "germline"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48013-7",
+                  "display": "Genomic reference sequence ID"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+                  "code": "NC_000003.11"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "53034-5",
+                  "display": "Allelic state"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA6706-1",
+                  "display": "heterozygous"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81252-9",
+                  "display": "Discrete genetic variant"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
+                  "code": "NC_000003.11:37050303:G:A",
+                  "display": "NC_000003.11:37050303:G:A"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69547-8",
+                  "display": "Genomic Ref allele [ID]"
+                }
+              ]
+            },
+            "valueString": "G"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69551-0",
+                  "display": "Genomic Alt allele [ID]"
+                }
+              ]
+            },
+            "valueString": "A"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92822-6",
+                  "display": "Genomic coord system"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA30100-4",
+                  "display": "0-based interval counting"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81254-5",
+                  "display": "Variant exact start-end"
+                }
+              ]
+            },
+            "valueRange": {
+              "low": {
+                "value": 37050303
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
