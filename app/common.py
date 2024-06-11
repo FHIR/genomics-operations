@@ -733,7 +733,7 @@ def create_molecular_consequence_profile(molecular_consequence, subject, vids):
     if 'impact' in molecular_consequence:
         resource["component"].append({"code": {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
                                                            "code": "functional-effect",
-                                                           "display": "Functional Effectt"}]},
+                                                           "display": "Functional Effect"}]},
                                       "valueCodeableConcept": {"text": f"{molecular_consequence['impact']}"}})
 
     return resource

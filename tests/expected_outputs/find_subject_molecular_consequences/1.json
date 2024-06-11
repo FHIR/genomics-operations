@@ -1,129 +1,127 @@
 {
     "resourceType": "Parameters",
     "parameter": [
-        [
-            {
-                "name": "consequence",
-                "resource": {
-                    "resourceType": "Observation",
-                    "id": "dv-665f9fd66ee6113688ebd5b4",
-                    "meta": {
-                        "profile": [
-                            "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/molecular-consequence"
+        {
+            "name": "consequence",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "dv-665f9fd66ee6113688ebd5b4",
+                "meta": {
+                    "profile": [
+                        "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/molecular-consequence"
+                    ]
+                },
+                "status": "final",
+                "category": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                                "code": "laboratory"
+                            },
+                            {
+                                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                                "code": "GE"
+                            }
                         ]
-                    },
-                    "status": "final",
-                    "category": [
+                    }
+                ],
+                "code": {
+                    "coding": [
                         {
+                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                            "code": "molecular-consequences"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/TCGA-DD-A1EH"
+                },
+                "derivedFrom": [
+                    {
+                        "reference": "Observation/dv-86ab0ee2a6d940c08534ed2db6019d69"
+                    }
+                ],
+                "component": [
+                    {
+                        "code": {
                             "coding": [
                                 {
-                                    "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                                    "code": "laboratory"
-                                },
+                                    "system": "http://loinc.org",
+                                    "code": "48004-6",
+                                    "display": "DNA change (c.HGVS)"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "text": "NM_178349.2:c.118G>T"
+                        }
+                    },
+                    {
+                        "code": {
+                            "coding": [
                                 {
-                                    "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
-                                    "code": "GE"
+                                    "system": "http://loinc.org",
+                                    "code": "51958-7",
+                                    "display": "Reference Transcript"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "text": "NM_178349.2"
+                        }
+                    },
+                    {
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "48005-3",
+                                    "display": "Protein (Amino Acid) Change - pHGVS"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "text": "p.Val40Phe"
+                        }
+                    },
+                    {
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                    "code": "feature-consequence",
+                                    "display": "Feature Consequence"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "http://sequenceontology.org",
+                                    "code": "SO:0001583",
+                                    "display": "missense_variant"
                                 }
                             ]
                         }
-                    ],
-                    "code": {
-                        "coding": [
-                            {
-                                "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                "code": "molecular-consequences"
-                            }
-                        ]
                     },
-                    "subject": {
-                        "reference": "Patient/TCGA-DD-A1EH"
-                    },
-                    "derivedFrom": [
-                        {
-                            "reference": "Observation/dv-86ab0ee2a6d940c08534ed2db6019d69"
+                    {
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                    "code": "functional-effect",
+                                    "display": "Functional Effect"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "text": "MODERATE"
                         }
-                    ],
-                    "component": [
-                        {
-                            "code": {
-                                "coding": [
-                                    {
-                                        "system": "http://loinc.org",
-                                        "code": "48004-6",
-                                        "display": "DNA change (c.HGVS)"
-                                    }
-                                ]
-                            },
-                            "valueCodeableConcept": {
-                                "text": "NM_178349.2:c.118G>T"
-                            }
-                        },
-                        {
-                            "code": {
-                                "coding": [
-                                    {
-                                        "system": "http://loinc.org",
-                                        "code": "51958-7",
-                                        "display": "Reference Transcript"
-                                    }
-                                ]
-                            },
-                            "valueCodeableConcept": {
-                                "text": "NM_178349.2"
-                            }
-                        },
-                        {
-                            "code": {
-                                "coding": [
-                                    {
-                                        "system": "http://loinc.org",
-                                        "code": "48005-3",
-                                        "display": "Protein (Amino Acid) Change - pHGVS"
-                                    }
-                                ]
-                            },
-                            "valueCodeableConcept": {
-                                "text": "p.Val40Phe"
-                            }
-                        },
-                        {
-                            "code": {
-                                "coding": [
-                                    {
-                                        "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                        "code": "feature-consequence",
-                                        "display": "Feature Consequence"
-                                    }
-                                ]
-                            },
-                            "valueCodeableConcept": {
-                                "coding": [
-                                    {
-                                        "system": "http://sequenceontology.org",
-                                        "code": "SO:0001583",
-                                        "display": "missense_variant"
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "code": {
-                                "coding": [
-                                    {
-                                        "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                        "code": "functional-effect",
-                                        "display": "Functional Effectt"
-                                    }
-                                ]
-                            },
-                            "valueCodeableConcept": {
-                                "text": "MODERATE"
-                            }
-                        }
-                    ]
-                }
+                    }
+                ]
             }
-        ],
+        },
         {
             "name": "variant",
             "resource": {
