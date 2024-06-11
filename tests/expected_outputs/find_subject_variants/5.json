@@ -16,7 +16,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-1124ba6c130946a7841d3d19fd213e63",
+                        "id": "dv-a19d3986a732490eb7a56a9dacf55175",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -247,7 +247,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-1124ba6c130946a7841d3d19fd213e63",
+                        "id": "dv-a19d3986a732490eb7a56a9dacf55175",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"

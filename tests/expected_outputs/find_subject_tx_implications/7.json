@@ -35,7 +35,7 @@
                 },
                 "derivedFrom": [
                     {
-                        "reference": "Observation/dv-88caba1c34f74b6bbc482df53025a69a"
+                        "reference": "Observation/dv-b2687130589f4abb85d77e215ebaa551"
                     }
                 ],
                 "component": [
@@ -100,7 +100,7 @@
             "name": "variant",
             "resource": {
                 "resourceType": "Observation",
-                "id": "dv-88caba1c34f74b6bbc482df53025a69a",
+                "id": "dv-b2687130589f4abb85d77e215ebaa551",
                 "meta": {
                     "profile": [
                         "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -207,6 +207,23 @@
                             "coding": [
                                 {
                                     "system": "http://loinc.org",
+                                    "code": "81258-6",
+                                    "display": "Sample VAF"
+                                }
+                            ]
+                        },
+                        "valueQuantity": {
+                            "value": 0,
+                            "unit": "relative frequency of a particular allele in the specimen",
+                            "system": "http://unitsofmeasure.org",
+                            "code": "1"
+                        }
+                    },
+                    {
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
                                     "code": "69547-8",
                                     "display": "Genomic Ref allele [ID]"
                                 }
@@ -299,7 +316,7 @@
                 },
                 "derivedFrom": [
                     {
-                        "reference": "Observation/dv-dd9754abe5954342896ff349289ca20d"
+                        "reference": "Observation/dv-cf0f01397a134be8a7d1551655b7c3c6"
                     }
                 ],
                 "component": [
@@ -364,7 +381,7 @@
             "name": "variant",
             "resource": {
                 "resourceType": "Observation",
-                "id": "dv-dd9754abe5954342896ff349289ca20d",
+                "id": "dv-cf0f01397a134be8a7d1551655b7c3c6",
                 "meta": {
                     "profile": [
                         "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -464,6 +481,23 @@
                                     "code": "NCT05023655"
                                 }
                             ]
+                        }
+                    },
+                    {
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "81258-6",
+                                    "display": "Sample VAF"
+                                }
+                            ]
+                        },
+                        "valueQuantity": {
+                            "value": 0,
+                            "unit": "relative frequency of a particular allele in the specimen",
+                            "system": "http://unitsofmeasure.org",
+                            "code": "1"
                         }
                     },
                     {

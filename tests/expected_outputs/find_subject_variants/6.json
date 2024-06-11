@@ -16,225 +16,7 @@
                     "name": "variant",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "dv-4ec96bcf13fb410ca3d50aa2bd5ef547",
-                        "meta": {
-                            "profile": [
-                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
-                            ]
-                        },
-                        "status": "final",
-                        "category": [
-                            {
-                                "coding": [
-                                    {
-                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                                        "code": "laboratory"
-                                    }
-                                ]
-                            }
-                        ],
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "69548-6",
-                                    "display": "Genetic variant assessment"
-                                }
-                            ]
-                        },
-                        "subject": {
-                            "reference": "Patient/NB6TK329"
-                        },
-                        "valueCodeableConcept": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "LA9633-4",
-                                    "display": "present"
-                                }
-                            ]
-                        },
-                        "component": [
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "48002-0",
-                                            "display": "Genomic Source Class"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "LA6683-2",
-                                            "display": "germline"
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "48013-7",
-                                            "display": "Genomic reference sequence ID"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://www.ncbi.nlm.nih.gov/nuccore",
-                                            "code": "NC_000001.11"
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "53034-5",
-                                            "display": "Allelic state"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "LA6706-1",
-                                            "display": "heterozygous"
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "81252-9",
-                                            "display": "Discrete genetic variant"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
-                                            "code": "NC_000001.11:2629463:T:G",
-                                            "display": "NC_000001.11:2629463:T:G"
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "81258-6",
-                                            "display": "Sample VAF"
-                                        }
-                                    ]
-                                },
-                                "valueQuantity": {
-                                    "value": 0.5,
-                                    "unit": "relative frequency of a particular allele in the specimen",
-                                    "system": "http://unitsofmeasure.org",
-                                    "code": "1"
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "69547-8",
-                                            "display": "Genomic Ref allele [ID]"
-                                        }
-                                    ]
-                                },
-                                "valueString": "T"
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "69551-0",
-                                            "display": "Genomic Alt allele [ID]"
-                                        }
-                                    ]
-                                },
-                                "valueString": "G"
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "92822-6",
-                                            "display": "Genomic coord system"
-                                        }
-                                    ]
-                                },
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "LA30100-4",
-                                            "display": "0-based interval counting"
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "81254-5",
-                                            "display": "Variant exact start-end"
-                                        }
-                                    ]
-                                },
-                                "valueRange": {
-                                    "low": {
-                                        "value": 2629463
-                                    }
-                                }
-                            },
-                            {
-                                "code": {
-                                    "coding": [
-                                        {
-                                            "system": "http://loinc.org",
-                                            "code": "92821-8",
-                                            "display": "Population allele frequency"
-                                        }
-                                    ]
-                                },
-                                "valueQuantity": {
-                                    "value": 0.600482,
-                                    "system": "http://unitsofmeasure.org",
-                                    "code": "1"
-                                }
-                            }
-                        ]
-                    }
-                },
-                {
-                    "name": "variant",
-                    "resource": {
-                        "resourceType": "Observation",
-                        "id": "dv-7f6cca5c01d4459f99009704f18578fc",
+                        "id": "dv-0ff7e9652c4a466ea69b705261adc0f8",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
@@ -449,10 +231,228 @@
                     }
                 },
                 {
+                    "name": "variant",
+                    "resource": {
+                        "resourceType": "Observation",
+                        "id": "dv-2d4c28cebcc840dd98e7a62890cde178",
+                        "meta": {
+                            "profile": [
+                                "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
+                            ]
+                        },
+                        "status": "final",
+                        "category": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                                        "code": "laboratory"
+                                    }
+                                ]
+                            }
+                        ],
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "69548-6",
+                                    "display": "Genetic variant assessment"
+                                }
+                            ]
+                        },
+                        "subject": {
+                            "reference": "Patient/NB6TK329"
+                        },
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "LA9633-4",
+                                    "display": "present"
+                                }
+                            ]
+                        },
+                        "component": [
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "48002-0",
+                                            "display": "Genomic Source Class"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "LA6683-2",
+                                            "display": "germline"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "48013-7",
+                                            "display": "Genomic reference sequence ID"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+                                            "code": "NC_000001.11"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "53034-5",
+                                            "display": "Allelic state"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "LA6706-1",
+                                            "display": "heterozygous"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "81252-9",
+                                            "display": "Discrete genetic variant"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
+                                            "code": "NC_000001.11:2629463:T:G",
+                                            "display": "NC_000001.11:2629463:T:G"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "81258-6",
+                                            "display": "Sample VAF"
+                                        }
+                                    ]
+                                },
+                                "valueQuantity": {
+                                    "value": 0.5,
+                                    "unit": "relative frequency of a particular allele in the specimen",
+                                    "system": "http://unitsofmeasure.org",
+                                    "code": "1"
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69547-8",
+                                            "display": "Genomic Ref allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "T"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "69551-0",
+                                            "display": "Genomic Alt allele [ID]"
+                                        }
+                                    ]
+                                },
+                                "valueString": "G"
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "92822-6",
+                                            "display": "Genomic coord system"
+                                        }
+                                    ]
+                                },
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "LA30100-4",
+                                            "display": "0-based interval counting"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "81254-5",
+                                            "display": "Variant exact start-end"
+                                        }
+                                    ]
+                                },
+                                "valueRange": {
+                                    "low": {
+                                        "value": 2629463
+                                    }
+                                }
+                            },
+                            {
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://loinc.org",
+                                            "code": "92821-8",
+                                            "display": "Population allele frequency"
+                                        }
+                                    ]
+                                },
+                                "valueQuantity": {
+                                    "value": 0.600482,
+                                    "system": "http://unitsofmeasure.org",
+                                    "code": "1"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
                     "name": "sequencePhaseRelationship",
                     "resource": {
                         "resourceType": "Observation",
-                        "id": "sid-664b8d2673e77ec972b69b75",
+                        "id": "sid-666243c731064e36481992ea",
                         "meta": {
                             "profile": [
                                 "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/sequence-phase-relationship"
@@ -492,10 +492,10 @@
                         },
                         "derivedFrom": [
                             {
-                                "reference": "Observation/dv-7f6cca5c01d4459f99009704f18578fc"
+                                "reference": "Observation/dv-0ff7e9652c4a466ea69b705261adc0f8"
                             },
                             {
-                                "reference": "Observation/dv-4ec96bcf13fb410ca3d50aa2bd5ef547"
+                                "reference": "Observation/dv-2d4c28cebcc840dd98e7a62890cde178"
                             }
                         ]
                     }

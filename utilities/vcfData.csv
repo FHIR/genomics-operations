@@ -1,2 +1,4 @@
 vcf_filename,ref_build,patient_id,test_date,test_id,specimen_id,genomic_source_class,ratio_ad_dp,sample_position
-TL-22-QXE2CRTE.soma.freebayes.snpEff.snpSift.vcf,GRCh37,MRN1234,5/15/2023,MRN1234-1,A2,somatic,0.99,1
+HCC1143-T1.WGS.GRCh38.vcf,GRCh38,HCC1143,2/3/2020,HCC1143-T1,HCC1143-Sp1,somatic,0.99,1
+HCC1143-T2.vcf,GRCh37,HCC1143,2/17/2020,HCC1143-T2,HCC1143-Sp1,somatic,0.99,0
+HCC1143a-T1.WGS.GRCh38.vcf,GRCh38,HCC1143a,2/3/2020,HCC1143a-T1,HCC1143a-Sp1,somatic,0.99,1

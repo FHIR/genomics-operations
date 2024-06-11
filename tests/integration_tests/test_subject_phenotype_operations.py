@@ -135,3 +135,17 @@ def test_find_subject_molecular_consequences_1(client):
     response = client.get(url)
 
     tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_MOLEC_CONSEQ_OUTPUT_DIR}1.json', response.json)
+
+
+def test_find_subject_molecular_consequences_2(client):
+    url = tu.find_subject_molecular_consequences_query('subject=NA19240&variants=NC_000003.11:37050303:G:A&featureConsequences=http://sequenceontology.org|SO:0001589')
+    response = client.get(url)
+
+    tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_MOLEC_CONSEQ_OUTPUT_DIR}2.json', response.json)
+
+
+def test_find_subject_molecular_consequences_3(client):
+    url = tu.find_subject_molecular_consequences_query('subject=NA19240&variants=NC_000003.11:37050303:G:A&featureConsequences=http://sequenceontology.org|SO:0001589a')
+    response = client.get(url)
+
+    tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_MOLEC_CONSEQ_OUTPUT_DIR}3.json', response.json)

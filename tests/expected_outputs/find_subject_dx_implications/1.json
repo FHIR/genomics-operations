@@ -35,7 +35,7 @@
                 },
                 "derivedFrom": [
                     {
-                        "reference": "Observation/dv-47e768d210124003ac7d6eec303cbf3e"
+                        "reference": "Observation/dv-aad8639bd558470a9ca8612eae011065"
                     }
                 ],
                 "component": [
@@ -100,7 +100,7 @@
             "name": "variant",
             "resource": {
                 "resourceType": "Observation",
-                "id": "dv-47e768d210124003ac7d6eec303cbf3e",
+                "id": "dv-aad8639bd558470a9ca8612eae011065",
                 "meta": {
                     "profile": [
                         "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"

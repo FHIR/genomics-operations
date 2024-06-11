@@ -1161,7 +1161,7 @@ def find_subject_dx_implications(
 
 
 def find_subject_molecular_consequences(
-        subject, variants=None, ranges=None, featureConsequence=None, testIdentifiers=None, testDateRange=None,
+        subject, variants=None, ranges=None, featureConsequences=None, testIdentifiers=None, testDateRange=None,
         specimenIdentifiers=None, genomicSourceClass=None):
 
     # Parameters
@@ -1175,8 +1175,8 @@ def find_subject_molecular_consequences(
         abort(400, "You must supply either 'variants' or 'ranges'.")
 
     normalized_feature_consequence_list = []
-    if featureConsequence:
-        normalized_feature_consequence_list = list(map(common.get_feature_consequence, featureConsequence))
+    if featureConsequences:
+        normalized_feature_consequence_list = list(map(common.get_feature_consequence, featureConsequences))
 
     # Query
     query = {}
@@ -1238,13 +1238,12 @@ def find_subject_molecular_consequences(
 
         for res in query_results:
             if res["molecularConsequenceMatches"]:
-                result["parameter"].append([])
                 for molecular_consequence in res["molecularConsequenceMatches"]:
                     parameter = OrderedDict()
                     parameter["name"] = "consequence"
                     molecular_consequence_profile = common.create_molecular_consequence_profile(molecular_consequence, subject, [str(res['_id'])])
                     parameter["resource"] = molecular_consequence_profile
-                    result["parameter"][0].append(parameter)
+                    result["parameter"].append(parameter)
                 ref_seq = common.get_ref_seq_by_chrom_and_build(res['genomicBuild'], res['CHROM'])
                 resource = common.create_fhir_variant_resource(res, ref_seq, subject)
                 variant_param = {
