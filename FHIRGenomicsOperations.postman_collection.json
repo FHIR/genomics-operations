@@ -3,7 +3,8 @@
 		"_postman_id": "e28d19b3-f53d-413c-8692-69f658646741",
 		"name": "FHIRGenomicsOperations",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "8256147"
+		"_exporter_id": "8256147",
+		"_collection_link": "https://crimson-crater-424865.postman.co/workspace/My-Workspace~f83b8d59-4041-4daf-8360-4f753d67bb63/collection/8256147-e28d19b3-f53d-413c-8692-69f658646741?action=share&source=collection_link&creator=8256147"
 	},
 	"item": [
 		{
@@ -485,7 +486,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-structural-intersecting-variants?subject=HCC1143&ranges=NC_000007.14:55019016-55211628,NC_000004.12:54727415-54727542&specimenIdentifiers=HCC1143-Sp1",
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-structural-intersecting-variants?subject=HCC1143&ranges=NC_000007.14:116672195-116798386&specimenIdentifiers=HCC1143-Sp1",
 							"protocol": "https",
 							"host": [
 								"fhir-gen-ops",
@@ -504,7 +505,7 @@
 								},
 								{
 									"key": "ranges",
-									"value": "NC_000007.14:55019016-55211628,NC_000004.12:54727415-54727542"
+									"value": "NC_000007.14:116672195-116798386"
 								},
 								{
 									"key": "includeVariants",
@@ -1098,7 +1099,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-tx-implications?conditions=https://disease-ontology.org|3908,https://disease-ontology.org|1324,https://disease-ontology.org|3910&subject=CA12345&variants=NM_001354609.2:c.1799T>A",
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-tx-implications?subject=TCGA-DD-A1EH&variants=NC_000001.10:27106893::T&conditions=https://disease-ontology.org|684&ranges=NC_000001.10:27106890-27106900",
 							"protocol": "https",
 							"host": [
 								"fhir-gen-ops",
@@ -1112,41 +1113,20 @@
 							],
 							"query": [
 								{
-									"key": "treatments",
-									"value": "http://www.nlm.nih.gov/research/umls/rxnorm|337525,http://www.nlm.nih.gov/research/umls/rxnorm|1147220,http://www.nlm.nih.gov/research/umls/rxnorm|1721560",
-									"disabled": true
-								},
-								{
-									"key": "conditions",
-									"value": "https://disease-ontology.org|3908,https://disease-ontology.org|1324,https://disease-ontology.org|3910"
-								},
-								{
-									"key": "testIdentifiers",
-									"value": "TL000016660-ASM",
-									"disabled": true
-								},
-								{
-									"key": "specimenIdentifiers",
-									"value": "GS000016660-ASM",
-									"disabled": true
-								},
-								{
-									"key": "genomicSourceClass",
-									"value": "germline",
-									"disabled": true
-								},
-								{
-									"key": "testDateRange",
-									"value": "ge2014-01-01",
-									"disabled": true
-								},
-								{
 									"key": "subject",
-									"value": "CA12345"
+									"value": "TCGA-DD-A1EH"
 								},
 								{
 									"key": "variants",
-									"value": "NM_001354609.2:c.1799T>A"
+									"value": "NC_000001.10:27106893::T"
+								},
+								{
+									"key": "conditions",
+									"value": "https://disease-ontology.org|684"
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000001.10:27106890-27106900"
 								}
 							]
 						}
@@ -1209,6 +1189,68 @@
 								{
 									"key": "treatments",
 									"value": "http://www.nlm.nih.gov/research/umls/rxnorm|704"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tx implications based on range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-tx-implications?subject=CA12345&ranges=NC_000007.13:140413127-140624729",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"phenotype-operations",
+								"$find-subject-tx-implications"
+							],
+							"query": [
+								{
+									"key": "treatments",
+									"value": "http://www.nlm.nih.gov/research/umls/rxnorm|337525,http://www.nlm.nih.gov/research/umls/rxnorm|1147220,http://www.nlm.nih.gov/research/umls/rxnorm|1721560",
+									"disabled": true
+								},
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "testDateRange",
+									"value": "ge2014-01-01",
+									"disabled": true
+								},
+								{
+									"key": "variants",
+									"value": "NM_001354609.2:c.1799T>A",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "CA12345"
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000007.13:140413127-140624729"
 								}
 							]
 						}
@@ -1421,7 +1463,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-dx-implications?subject=huC30902&variants=NC_000001.10:161333381:C:T",
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-dx-implications?subject=huC30902&conditions=https://www.ncbi.nlm.nih.gov/medgen|C1708353",
 							"protocol": "https",
 							"host": [
 								"fhir-gen-ops",
@@ -1455,17 +1497,17 @@
 									"disabled": true
 								},
 								{
+									"key": "variants",
+									"value": "NC_000001.10:161333381:C:T",
+									"disabled": true
+								},
+								{
 									"key": "subject",
 									"value": "huC30902"
 								},
 								{
 									"key": "conditions",
-									"value": "https://www.ncbi.nlm.nih.gov/medgen|C1708353",
-									"disabled": true
-								},
-								{
-									"key": "variants",
-									"value": "NC_000001.10:161333381:C:T"
+									"value": "https://www.ncbi.nlm.nih.gov/medgen|C1708353"
 								}
 							]
 						}
@@ -1704,6 +1746,177 @@
 									"key": "variants",
 									"value": "NC_000001.10:161333381:C:T",
 									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "find-subject-molecular-consequences",
+			"item": [
+				{
+					"name": "find-subject-molecular-consequences",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-molecular-consequences?subject=HG00403&ranges=NC_000001.10:86852500-86852800&featureConsequences=http://sequenceontology.org|SO:0001575",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"phenotype-operations",
+								"$find-subject-molecular-consequences"
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "HG00403"
+								},
+								{
+									"key": "variants",
+									"value": "NM_031475.3:c.2217C>T",
+									"disabled": true
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000001.10:86852500-86852800"
+								},
+								{
+									"key": "featureConsequences",
+									"value": "http://sequenceontology.org|SO:0001575"
+								},
+								{
+									"key": "variants",
+									"value": "NC_000001.11:6451987:C:T",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ALK, BRAF, EGFR consequences",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-molecular-consequences?subject=HG00403&ranges=NC_000002.12:29190991-29921589,NC_000007.14:140713327-140924929,NC_000007.14:55019016-55211628",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"phenotype-operations",
+								"$find-subject-molecular-consequences"
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "HG00403"
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000002.12:29190991-29921589,NC_000007.14:140713327-140924929,NC_000007.14:55019016-55211628"
+								},
+								{
+									"key": "featureConsequences",
+									"value": "http://sequenceontology.org|SO:0001583",
+									"disabled": true
+								},
+								{
+									"key": "variants",
+									"value": "NM_178349.2:c.118G>T",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ALK, BRAF, EGFR splice site consequences",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-molecular-consequences?subject=HG00403&ranges=NC_000002.12:29190991-29921589,NC_000007.14:140713327-140924929&featureConsequences=http://sequenceontology.org|SO:0001624",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"phenotype-operations",
+								"$find-subject-molecular-consequences"
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "HG00403"
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000002.12:29190991-29921589,NC_000007.14:140713327-140924929"
+								},
+								{
+									"key": "featureConsequences",
+									"value": "http://sequenceontology.org|SO:0001624"
+								},
+								{
+									"key": "variants",
+									"value": "NM_178349.2:c.118G>T",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Molecular consequences of NC_000001.10:86852620:A:G",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-molecular-consequences?subject=HG00403&variants=NC_000001.10:86852620:A:G",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"subject-operations",
+								"phenotype-operations",
+								"$find-subject-molecular-consequences"
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "HG00403"
+								},
+								{
+									"key": "variants",
+									"value": "NM_178349.2:c.118G>T",
+									"disabled": true
+								},
+								{
+									"key": "variants",
+									"value": "NC_000001.10:86852620:A:G"
 								}
 							]
 						}
@@ -2080,6 +2293,38 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "CYP2D6 whole gene deletion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/genotype-operations/$find-population-structural-subsuming-variants?ranges=NC_000022.10:42522500-42526812&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"genotype-operations",
+								"$find-population-structural-subsuming-variants"
+							],
+							"query": [
+								{
+									"key": "ranges",
+									"value": "NC_000022.10:42522500-42526812"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -2396,7 +2641,7 @@
 					"response": []
 				},
 				{
-					"name": "Population tx implications of lung cancer with NRAS and BRAF oncogenic mutations",
+					"name": "Population tx implications of NSCLC",
 					"request": {
 						"method": "GET",
 						"header": [],
