@@ -1,5 +1,7 @@
-from flask import abort, jsonify
 from collections import OrderedDict
+
+from flask import abort, jsonify
+
 from app import common
 
 
@@ -862,8 +864,13 @@ def find_subject_tx_implications(
             if res["txImplicationMatches"]:
                 ref_seq = common.get_ref_seq_by_chrom_and_build(res['genomicBuild'], res['CHROM'])
             for implication in res["txImplicationMatches"]:
-
                 implication_profile = common.create_tx_implication_profile_civic(implication, subject, [str(res['_id'])])
+                if "variationID" in implication:
+                    implication_profile["identifier"] = []
+                    for var_id in implication["variationID"]:
+                        implication_profile["identifier"].append(
+                            {"system": f'{var_id["system"]}', "value": f'{var_id["code"]}'})
+
                 impl_param = {
                     "name": "implication",
                     "resource": implication_profile
@@ -873,7 +880,6 @@ def find_subject_tx_implications(
                 resource = common.create_fhir_variant_resource(
                     res, ref_seq, subject)
 
-                common.add_variation_id(resource, implication["variationID"])
                 variant_param = {
                     "name": "variant",
                     "resource": resource
@@ -894,6 +900,12 @@ def find_subject_tx_implications(
             for implication in res["txImplicationMatches"]:
 
                 implication_profile = common.create_tx_implication_profile_pharmgkb(implication, subject, [str(res['_id'])])
+                if "variationID" in implication:
+                    implication_profile["identifier"] = []
+                    for var_id in implication["variationID"]:
+                        implication_profile["identifier"].append(
+                            {"system": f'{var_id["system"]}', "value": f'{var_id["code"]}'})
+
                 impl_param = {
                     "name": "implication",
                     "resource": implication_profile
@@ -909,8 +921,6 @@ def find_subject_tx_implications(
 
                 genotype_profile = common.create_genotype_profile(res, subject, [str(res['_id'])])
 
-                common.add_variation_id(
-                    genotype_profile, implication["variationID"])
                 geno_param = {
                     "name": "genotype",
                     "resource": genotype_profile
@@ -929,6 +939,12 @@ def find_subject_tx_implications(
         for res in query_results_PGKB:
 
             implication_profile = common.create_tx_implication_profile_pharmgkb(res, subject, [str(i['_id']) for i in res["patientMatches"]])
+            if "variationID" in res:
+                implication_profile["identifier"] = []
+                for var_id in res["variationID"]:
+                    implication_profile["identifier"].append(
+                        {"system": f'{var_id["system"]}', "value": f'{var_id["code"]}'})
+
             impl_param = {
                 "name": "implication",
                 "resource": implication_profile
@@ -946,8 +962,6 @@ def find_subject_tx_implications(
 
                 genotype_profile = common.create_genotype_profile(genItem, subject, [str(genItem['_id'])])
 
-                common.add_variation_id(genotype_profile, res["variationID"])
-
                 genotype_profiles.append(genotype_profile)
 
             if genotype_profiles:
@@ -963,6 +977,12 @@ def find_subject_tx_implications(
         for res in query_results_CIViC:
 
             implication_profile = common.create_tx_implication_profile_civic(res, subject, [str(i['_id']) for i in res["patientMatches"]])
+            if "variationID" in res:
+                implication_profile["identifier"] = []
+                for var_id in res["variationID"]:
+                    implication_profile["identifier"].append(
+                        {"system": f'{var_id["system"]}', "value": f'{var_id["code"]}'})
+
             impl_param = {
                 "name": "implication",
                 "resource": implication_profile
@@ -973,8 +993,6 @@ def find_subject_tx_implications(
             for varItem in res["patientMatches"]:
                 ref_seq = common.get_ref_seq_by_chrom_and_build(varItem['genomicBuild'], varItem['CHROM'])
                 resource = common.create_fhir_variant_resource(varItem, ref_seq, subject)
-
-                common.add_variation_id(resource, res["variationID"])
 
                 variant_fhir_profiles.append(resource)
 
@@ -997,6 +1015,12 @@ def find_subject_tx_implications(
         for res in query_results:
 
             implication_profile = common.create_tx_implication_profile_civic(res, subject, [str(i['_id']) for i in res["patientMatches"]])
+            if "variationID" in res:
+                implication_profile["identifier"] = []
+                for var_id in res["variationID"]:
+                    implication_profile["identifier"].append(
+                        {"system": f'{var_id["system"]}', "value": f'{var_id["code"]}'})
+
             impl_param = {
                 "name": "implication",
                 "resource": implication_profile
@@ -1007,8 +1031,6 @@ def find_subject_tx_implications(
             for varItem in res["patientMatches"]:
                 ref_seq = common.get_ref_seq_by_chrom_and_build(varItem['genomicBuild'], varItem['CHROM'])
                 resource = common.create_fhir_variant_resource(varItem, ref_seq, subject)
-
-                common.add_variation_id(resource, res["variationID"])
 
                 variant_fhir_profiles.append(resource)
 
@@ -1110,6 +1132,12 @@ def find_subject_dx_implications(
             for implication in res["dxImplicationMatches"]:
 
                 implication_profile = common.create_dx_implication_profile(implication, subject, [str(res['_id'])])
+                if "variationID" in implication:
+                    implication_profile["identifier"] = []
+                    for var_id in implication["variationID"]:
+                        implication_profile["identifier"].append(
+                            {"system": f'{var_id["system"]}', "value": f'{var_id["code"]}'})
+
                 impl_param = {
                     "name": "implication",
                     "resource": implication_profile
@@ -1118,7 +1146,6 @@ def find_subject_dx_implications(
 
                 resource = common.create_fhir_variant_resource(
                     res, ref_seq, subject)
-                common.add_variation_id(resource, implication["variationID"])
                 variant_param = {
                     "name": "variant",
                     "resource": resource
@@ -1137,6 +1164,12 @@ def find_subject_dx_implications(
         for res in query_results:
 
             implication_profile = common.create_dx_implication_profile(res, subject, [str(i['_id']) for i in res["patientMatches"]])
+            if "variationID" in res:
+                implication_profile["identifier"] = []
+                for var_id in res["variationID"]:
+                    implication_profile["identifier"].append(
+                        {"system": f'{var_id["system"]}', "value": f'{var_id["code"]}'})
+
             impl_param = {
                 "name": "implication",
                 "resource": implication_profile
@@ -1147,7 +1180,6 @@ def find_subject_dx_implications(
                 ref_seq = common.get_ref_seq_by_chrom_and_build(varItem['genomicBuild'], varItem['CHROM'])
                 resource = common.create_fhir_variant_resource(varItem, ref_seq, subject)
 
-                common.add_variation_id(resource, res["variationID"])
                 variant_param = {
                     "name": "variant",
                     "resource": resource
