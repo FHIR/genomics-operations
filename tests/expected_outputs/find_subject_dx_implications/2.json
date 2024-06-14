@@ -5,311 +5,6 @@
             "name": "implication",
             "resource": {
                 "resourceType": "Observation",
-                "id": "dv-62fab6f25932091e78c68d2f",
-                "meta": {
-                    "profile": [
-                        "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/diagnostic-implication"
-                    ]
-                },
-                "status": "final",
-                "category": [
-                    {
-                        "coding": [
-                            {
-                                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                                "code": "laboratory"
-                            }
-                        ]
-                    }
-                ],
-                "code": {
-                    "coding": [
-                        {
-                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                            "code": "diagnostic-implication"
-                        }
-                    ]
-                },
-                "subject": {
-                    "reference": "Patient/huC30902"
-                },
-                "derivedFrom": [
-                    {
-                        "reference": "Observation/dv-aad8639bd558470a9ca8612eae011065"
-                    }
-                ],
-                "component": [
-                    {
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "53037-8",
-                                    "display": "Genetic variation clinical significance"
-                                }
-                            ]
-                        },
-                        "valueCodeableConcept": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "LA26333-7",
-                                    "display": "Uncertain significance"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "81259-4",
-                                    "display": "predicted phenotype"
-                                }
-                            ]
-                        },
-                        "valueCodeableConcept": {
-                            "coding": [
-                                {
-                                    "system": "https://www.ncbi.nlm.nih.gov/medgen",
-                                    "code": "C1708353",
-                                    "display": "Hereditary pheochromocytoma-paraganglioma"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "93044-6",
-                                    "display": "Level of evidence"
-                                }
-                            ]
-                        },
-                        "valueCodeableConcept": {
-                            "text": "criteria provided, single submitter"
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            "name": "variant",
-            "resource": {
-                "resourceType": "Observation",
-                "id": "dv-aad8639bd558470a9ca8612eae011065",
-                "meta": {
-                    "profile": [
-                        "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
-                    ]
-                },
-                "status": "final",
-                "category": [
-                    {
-                        "coding": [
-                            {
-                                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                                "code": "laboratory"
-                            }
-                        ]
-                    }
-                ],
-                "code": {
-                    "coding": [
-                        {
-                            "system": "http://loinc.org",
-                            "code": "69548-6",
-                            "display": "Genetic variant assessment"
-                        }
-                    ]
-                },
-                "subject": {
-                    "reference": "Patient/huC30902"
-                },
-                "valueCodeableConcept": {
-                    "coding": [
-                        {
-                            "system": "http://loinc.org",
-                            "code": "LA9633-4",
-                            "display": "present"
-                        }
-                    ]
-                },
-                "component": [
-                    {
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "48002-0",
-                                    "display": "Genomic Source Class"
-                                }
-                            ]
-                        },
-                        "valueCodeableConcept": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "LA6683-2",
-                                    "display": "germline"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "48013-7",
-                                    "display": "Genomic reference sequence ID"
-                                }
-                            ]
-                        },
-                        "valueCodeableConcept": {
-                            "coding": [
-                                {
-                                    "system": "http://www.ncbi.nlm.nih.gov/nuccore",
-                                    "code": "NC_000001.10"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "53034-5",
-                                    "display": "Allelic state"
-                                }
-                            ]
-                        },
-                        "valueCodeableConcept": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "LA6706-1",
-                                    "display": "heterozygous"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "81252-9",
-                                    "display": "Discrete genetic variant"
-                                }
-                            ]
-                        },
-                        "valueCodeableConcept": {
-                            "coding": [
-                                {
-                                    "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
-                                    "code": "NC_000001.10:161333381:C:T",
-                                    "display": "NC_000001.10:161333381:C:T"
-                                },
-                                {
-                                    "system": "http://www.ncbi.nlm.nih.gov/clinvar",
-                                    "code": "873683"
-                                },
-                                {
-                                    "system": "http://www.ncbi.nlm.nih.gov/clinvar/scv",
-                                    "code": "SCV001252233.1"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "81258-6",
-                                    "display": "Sample VAF"
-                                }
-                            ]
-                        },
-                        "valueQuantity": {
-                            "value": 0.5,
-                            "unit": "relative frequency of a particular allele in the specimen",
-                            "system": "http://unitsofmeasure.org",
-                            "code": "1"
-                        }
-                    },
-                    {
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "69547-8",
-                                    "display": "Genomic Ref allele [ID]"
-                                }
-                            ]
-                        },
-                        "valueString": "C"
-                    },
-                    {
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "69551-0",
-                                    "display": "Genomic Alt allele [ID]"
-                                }
-                            ]
-                        },
-                        "valueString": "T"
-                    },
-                    {
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "92822-6",
-                                    "display": "Genomic coord system"
-                                }
-                            ]
-                        },
-                        "valueCodeableConcept": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "LA30100-4",
-                                    "display": "0-based interval counting"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://loinc.org",
-                                    "code": "81254-5",
-                                    "display": "Variant exact start-end"
-                                }
-                            ]
-                        },
-                        "valueRange": {
-                            "low": {
-                                "value": 161333381
-                            }
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            "name": "implication",
-            "resource": {
-                "resourceType": "Observation",
                 "id": "dv-62fab6475932091e78bff0a1",
                 "meta": {
                     "profile": [
@@ -397,6 +92,16 @@
                         "valueCodeableConcept": {
                             "text": "criteria provided, single submitter"
                         }
+                    }
+                ],
+                "identifier": [
+                    {
+                        "system": "http://www.ncbi.nlm.nih.gov/clinvar",
+                        "value": "44641"
+                    },
+                    {
+                        "system": "http://www.ncbi.nlm.nih.gov/clinvar/scv",
+                        "value": "SCV000351450.3"
                     }
                 ]
             }
@@ -519,14 +224,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000001.10:17380496:G:T",
                                     "display": "NC_000001.10:17380496:G:T"
-                                },
-                                {
-                                    "system": "http://www.ncbi.nlm.nih.gov/clinvar",
-                                    "code": "44641"
-                                },
-                                {
-                                    "system": "http://www.ncbi.nlm.nih.gov/clinvar/scv",
-                                    "code": "SCV000351450.3"
                                 }
                             ]
                         }
@@ -622,6 +319,313 @@
                             "value": 0.973659,
                             "system": "http://unitsofmeasure.org",
                             "code": "1"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "implication",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "dv-62fab6f25932091e78c68d2f",
+                "meta": {
+                    "profile": [
+                        "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/diagnostic-implication"
+                    ]
+                },
+                "status": "final",
+                "category": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                                "code": "laboratory"
+                            }
+                        ]
+                    }
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                            "code": "diagnostic-implication"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/huC30902"
+                },
+                "derivedFrom": [
+                    {
+                        "reference": "Observation/dv-aad8639bd558470a9ca8612eae011065"
+                    }
+                ],
+                "component": [
+                    {
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "53037-8",
+                                    "display": "Genetic variation clinical significance"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "LA26333-7",
+                                    "display": "Uncertain significance"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "81259-4",
+                                    "display": "predicted phenotype"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "https://www.ncbi.nlm.nih.gov/medgen",
+                                    "code": "C1708353",
+                                    "display": "Hereditary pheochromocytoma-paraganglioma"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "93044-6",
+                                    "display": "Level of evidence"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "text": "criteria provided, single submitter"
+                        }
+                    }
+                ],
+                "identifier": [
+                    {
+                        "system": "http://www.ncbi.nlm.nih.gov/clinvar",
+                        "value": "873683"
+                    },
+                    {
+                        "system": "http://www.ncbi.nlm.nih.gov/clinvar/scv",
+                        "value": "SCV001252233.1"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "variant",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "dv-aad8639bd558470a9ca8612eae011065",
+                "meta": {
+                    "profile": [
+                        "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/variant"
+                    ]
+                },
+                "status": "final",
+                "category": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                                "code": "laboratory"
+                            }
+                        ]
+                    }
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "69548-6",
+                            "display": "Genetic variant assessment"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/huC30902"
+                },
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "LA9633-4",
+                            "display": "present"
+                        }
+                    ]
+                },
+                "component": [
+                    {
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "48002-0",
+                                    "display": "Genomic Source Class"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "LA6683-2",
+                                    "display": "germline"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "48013-7",
+                                    "display": "Genomic reference sequence ID"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+                                    "code": "NC_000001.10"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "53034-5",
+                                    "display": "Allelic state"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "LA6706-1",
+                                    "display": "heterozygous"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "81252-9",
+                                    "display": "Discrete genetic variant"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
+                                    "code": "NC_000001.10:161333381:C:T",
+                                    "display": "NC_000001.10:161333381:C:T"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "81258-6",
+                                    "display": "Sample VAF"
+                                }
+                            ]
+                        },
+                        "valueQuantity": {
+                            "value": 0.5,
+                            "unit": "relative frequency of a particular allele in the specimen",
+                            "system": "http://unitsofmeasure.org",
+                            "code": "1"
+                        }
+                    },
+                    {
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "69547-8",
+                                    "display": "Genomic Ref allele [ID]"
+                                }
+                            ]
+                        },
+                        "valueString": "C"
+                    },
+                    {
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "69551-0",
+                                    "display": "Genomic Alt allele [ID]"
+                                }
+                            ]
+                        },
+                        "valueString": "T"
+                    },
+                    {
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "92822-6",
+                                    "display": "Genomic coord system"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "LA30100-4",
+                                    "display": "0-based interval counting"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "code": "81254-5",
+                                    "display": "Variant exact start-end"
+                                }
+                            ]
+                        },
+                        "valueRange": {
+                            "low": {
+                                "value": 161333381
+                            }
                         }
                     }
                 ]

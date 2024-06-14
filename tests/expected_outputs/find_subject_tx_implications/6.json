@@ -107,6 +107,16 @@
                             "text": "Does Not Support Resistance"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "86"
+                    }
                 ]
             }
         },
@@ -188,14 +198,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "86"
                                 }
                             ]
                         }
@@ -385,6 +387,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "99"
+                    }
                 ]
             }
         },
@@ -466,14 +478,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "99"
                                 }
                             ]
                         }
@@ -663,6 +667,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1410"
+                    }
                 ]
             }
         },
@@ -744,14 +758,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1410"
                                 }
                             ]
                         }
@@ -941,6 +947,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1699"
+                    }
                 ]
             }
         },
@@ -1022,14 +1038,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1699"
                                 }
                             ]
                         }
@@ -1219,6 +1227,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1749"
+                    }
                 ]
             }
         },
@@ -1300,14 +1318,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1749"
                                 }
                             ]
                         }
@@ -1497,6 +1507,16 @@
                             "text": "Supports Resistance"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "2115"
+                    }
                 ]
             }
         },
@@ -1578,14 +1598,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "2115"
                                 }
                             ]
                         }
@@ -1775,6 +1787,16 @@
                             "text": "Supports Resistance"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "2117"
+                    }
                 ]
             }
         },
@@ -1856,14 +1878,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "2117"
                                 }
                             ]
                         }
@@ -2053,6 +2067,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1398"
+                    }
                 ]
             }
         },
@@ -2134,14 +2158,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1398"
                                 }
                             ]
                         }
@@ -2331,6 +2347,16 @@
                             "text": "Does Not Support Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1405"
+                    }
                 ]
             }
         },
@@ -2412,14 +2438,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1405"
                                 }
                             ]
                         }
@@ -2609,6 +2627,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "6045"
+                    }
                 ]
             }
         },
@@ -2690,14 +2718,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "6045"
                                 }
                             ]
                         }
@@ -2887,6 +2907,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "5962"
+                    }
                 ]
             }
         },
@@ -2968,14 +2998,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "5962"
                                 }
                             ]
                         }
@@ -3165,6 +3187,16 @@
                             "text": "Supports Resistance"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "126"
+                    }
                 ]
             }
         },
@@ -3246,14 +3278,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "126"
                                 }
                             ]
                         }
@@ -3443,6 +3467,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1698"
+                    }
                 ]
             }
         },
@@ -3524,14 +3558,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1698"
                                 }
                             ]
                         }
@@ -3721,6 +3747,16 @@
                             "text": "Supports Resistance"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "2115"
+                    }
                 ]
             }
         },
@@ -3802,14 +3838,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "2115"
                                 }
                             ]
                         }
@@ -3999,6 +4027,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "3757"
+                    }
                 ]
             }
         },
@@ -4080,14 +4118,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "3757"
                                 }
                             ]
                         }
@@ -4277,6 +4307,16 @@
                             "text": "Does Not Support Resistance"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "816"
+                    }
                 ]
             }
         },
@@ -4358,14 +4398,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "816"
                                 }
                             ]
                         }
@@ -4555,6 +4587,16 @@
                             "text": "Supports Resistance"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "2118"
+                    }
                 ]
             }
         },
@@ -4636,14 +4678,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "2118"
                                 }
                             ]
                         }
@@ -4833,6 +4867,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1409"
+                    }
                 ]
             }
         },
@@ -4914,14 +4958,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1409"
                                 }
                             ]
                         }
@@ -5111,6 +5147,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "5958"
+                    }
                 ]
             }
         },
@@ -5192,14 +5238,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "5958"
                                 }
                             ]
                         }
@@ -5389,6 +5427,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "5959"
+                    }
                 ]
             }
         },
@@ -5470,14 +5518,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "5959"
                                 }
                             ]
                         }
@@ -5667,6 +5707,16 @@
                             "text": "Does Not Support Resistance"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "86"
+                    }
                 ]
             }
         },
@@ -5748,14 +5798,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "86"
                                 }
                             ]
                         }
@@ -5945,6 +5987,16 @@
                             "text": "Supports Resistance"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "90"
+                    }
                 ]
             }
         },
@@ -6026,14 +6078,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "90"
                                 }
                             ]
                         }
@@ -6223,6 +6267,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "3750"
+                    }
                 ]
             }
         },
@@ -6304,14 +6358,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "3750"
                                 }
                             ]
                         }
@@ -6501,6 +6547,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "3777"
+                    }
                 ]
             }
         },
@@ -6582,14 +6638,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "3777"
                                 }
                             ]
                         }
@@ -6779,6 +6827,16 @@
                             "text": "Does Not Support Resistance"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "994"
+                    }
                 ]
             }
         },
@@ -6860,14 +6918,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "994"
                                 }
                             ]
                         }
@@ -7057,6 +7107,16 @@
                             "text": "Supports Resistance"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "91"
+                    }
                 ]
             }
         },
@@ -7138,14 +7198,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "91"
                                 }
                             ]
                         }
@@ -7335,6 +7387,16 @@
                             "text": "Does Not Support Resistance"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "816"
+                    }
                 ]
             }
         },
@@ -7416,14 +7478,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "816"
                                 }
                             ]
                         }
@@ -7613,6 +7667,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1591"
+                    }
                 ]
             }
         },
@@ -7694,14 +7758,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1591"
                                 }
                             ]
                         }
@@ -7891,6 +7947,16 @@
                             "text": "Supports Resistance"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "3827"
+                    }
                 ]
             }
         },
@@ -7972,14 +8038,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "3827"
                                 }
                             ]
                         }
@@ -8169,6 +8227,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1141"
+                    }
                 ]
             }
         },
@@ -8250,14 +8318,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1141"
                                 }
                             ]
                         }
@@ -8447,6 +8507,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "2135"
+                    }
                 ]
             }
         },
@@ -8528,14 +8598,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "2135"
                                 }
                             ]
                         }
@@ -8725,6 +8787,16 @@
                             "text": "Does Not Support Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1406"
+                    }
                 ]
             }
         },
@@ -8806,14 +8878,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1406"
                                 }
                             ]
                         }
@@ -9003,6 +9067,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "5960"
+                    }
                 ]
             }
         },
@@ -9084,14 +9158,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "5960"
                                 }
                             ]
                         }
@@ -9281,6 +9347,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "9018"
+                    }
                 ]
             }
         },
@@ -9362,14 +9438,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "9018"
                                 }
                             ]
                         }
@@ -9559,6 +9627,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "757"
+                    }
                 ]
             }
         },
@@ -9640,14 +9718,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "757"
                                 }
                             ]
                         }
@@ -9837,6 +9907,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1414"
+                    }
                 ]
             }
         },
@@ -9918,14 +9998,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1414"
                                 }
                             ]
                         }
@@ -10115,6 +10187,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1579"
+                    }
                 ]
             }
         },
@@ -10196,14 +10278,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1579"
                                 }
                             ]
                         }
@@ -10393,6 +10467,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "3755"
+                    }
                 ]
             }
         },
@@ -10474,14 +10558,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "3755"
                                 }
                             ]
                         }
@@ -10671,6 +10747,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "3787"
+                    }
                 ]
             }
         },
@@ -10752,14 +10838,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "3787"
                                 }
                             ]
                         }
@@ -10949,6 +11027,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "7583"
+                    }
                 ]
             }
         },
@@ -11030,14 +11118,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "7583"
                                 }
                             ]
                         }
@@ -11267,6 +11347,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1430"
+                    }
                 ]
             }
         },
@@ -11348,14 +11438,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1430"
                                 }
                             ]
                         }
@@ -11565,6 +11647,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "3758"
+                    }
                 ]
             }
         },
@@ -11646,14 +11738,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "3758"
                                 }
                             ]
                         }
@@ -11863,6 +11947,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "5903"
+                    }
                 ]
             }
         },
@@ -11944,14 +12038,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "5903"
                                 }
                             ]
                         }
@@ -12161,6 +12247,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "6178"
+                    }
                 ]
             }
         },
@@ -12242,14 +12338,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "6178"
                                 }
                             ]
                         }
@@ -12459,6 +12547,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1428"
+                    }
                 ]
             }
         },
@@ -12540,14 +12638,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1428"
                                 }
                             ]
                         }
@@ -12777,6 +12867,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "7260"
+                    }
                 ]
             }
         },
@@ -12858,14 +12958,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "7260"
                                 }
                             ]
                         }
@@ -13095,6 +13187,16 @@
                             "text": "Supports Resistance"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "2121"
+                    }
                 ]
             }
         },
@@ -13176,14 +13278,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "2121"
                                 }
                             ]
                         }
@@ -13393,6 +13487,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1589"
+                    }
                 ]
             }
         },
@@ -13474,14 +13578,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1589"
                                 }
                             ]
                         }
@@ -13691,6 +13787,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "96"
+                    }
                 ]
             }
         },
@@ -13772,14 +13878,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "96"
                                 }
                             ]
                         }
@@ -14009,6 +14107,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "7612"
+                    }
                 ]
             }
         },
@@ -14090,14 +14198,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "7612"
                                 }
                             ]
                         }
@@ -14307,6 +14407,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "6940"
+                    }
                 ]
             }
         },
@@ -14388,14 +14498,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "6940"
                                 }
                             ]
                         }
@@ -14605,6 +14707,16 @@
                             "text": "Does Not Support Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1413"
+                    }
                 ]
             }
         },
@@ -14686,14 +14798,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1413"
                                 }
                             ]
                         }
@@ -14923,6 +15027,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "98"
+                    }
                 ]
             }
         },
@@ -15004,14 +15118,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "98"
                                 }
                             ]
                         }
@@ -15221,6 +15327,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "7264"
+                    }
                 ]
             }
         },
@@ -15302,14 +15418,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "7264"
                                 }
                             ]
                         }
@@ -15539,6 +15647,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1902"
+                    }
                 ]
             }
         },
@@ -15620,14 +15738,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1902"
                                 }
                             ]
                         }
@@ -15857,6 +15967,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "5906"
+                    }
                 ]
             }
         },
@@ -15938,14 +16058,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "5906"
                                 }
                             ]
                         }
@@ -16155,6 +16267,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "97"
+                    }
                 ]
             }
         },
@@ -16236,14 +16358,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "97"
                                 }
                             ]
                         }
@@ -16453,6 +16567,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "89"
+                    }
                 ]
             }
         },
@@ -16534,14 +16658,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "89"
                                 }
                             ]
                         }
@@ -16751,6 +16867,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1421"
+                    }
                 ]
             }
         },
@@ -16832,14 +16958,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1421"
                                 }
                             ]
                         }
@@ -17049,6 +17167,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "5904"
+                    }
                 ]
             }
         },
@@ -17130,14 +17258,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "5904"
                                 }
                             ]
                         }
@@ -17347,6 +17467,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "95"
+                    }
                 ]
             }
         },
@@ -17428,14 +17558,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "95"
                                 }
                             ]
                         }
@@ -17645,6 +17767,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "6975"
+                    }
                 ]
             }
         },
@@ -17726,14 +17858,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "6975"
                                 }
                             ]
                         }
@@ -17943,6 +18067,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "5961"
+                    }
                 ]
             }
         },
@@ -18024,14 +18158,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "5961"
                                 }
                             ]
                         }
@@ -18241,6 +18367,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "9851"
+                    }
                 ]
             }
         },
@@ -18322,14 +18458,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "9851"
                                 }
                             ]
                         }
@@ -18559,6 +18687,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1408"
+                    }
                 ]
             }
         },
@@ -18640,14 +18778,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1408"
                                 }
                             ]
                         }
@@ -18857,6 +18987,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "3017"
+                    }
                 ]
             }
         },
@@ -18938,14 +19078,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "3017"
                                 }
                             ]
                         }
@@ -19155,6 +19287,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "5902"
+                    }
                 ]
             }
         },
@@ -19236,14 +19378,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "5902"
                                 }
                             ]
                         }
@@ -19473,6 +19607,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "8506"
+                    }
                 ]
             }
         },
@@ -19554,14 +19698,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "8506"
                                 }
                             ]
                         }
@@ -19771,6 +19907,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "8507"
+                    }
                 ]
             }
         },
@@ -19852,14 +19998,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "8507"
                                 }
                             ]
                         }
@@ -20069,6 +20207,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "1005"
+                    }
                 ]
             }
         },
@@ -20150,14 +20298,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "1005"
                                 }
                             ]
                         }
@@ -20367,6 +20507,16 @@
                             "text": "Supports Resistance"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "3739"
+                    }
                 ]
             }
         },
@@ -20448,14 +20598,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "3739"
                                 }
                             ]
                         }
@@ -20685,6 +20827,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "6123"
+                    }
                 ]
             }
         },
@@ -20766,14 +20918,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "6123"
                                 }
                             ]
                         }
@@ -20983,6 +21127,16 @@
                             "text": "Does Not Support Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "6124"
+                    }
                 ]
             }
         },
@@ -21064,14 +21218,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "6124"
                                 }
                             ]
                         }
@@ -21281,6 +21427,16 @@
                             "text": "Supports Sensitivity/Response"
                         }
                     }
+                ],
+                "identifier": [
+                    {
+                        "system": "https://civicdb.org/variant",
+                        "value": "12"
+                    },
+                    {
+                        "system": "https://civicdb.org/evidence",
+                        "value": "6938"
+                    }
                 ]
             }
         },
@@ -21362,14 +21518,6 @@
                                     "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
                                     "code": "NC_000007.14:140753335:A:T",
                                     "display": "NC_000007.14:140753335:A:T"
-                                },
-                                {
-                                    "system": "https://civicdb.org/variant",
-                                    "code": "12"
-                                },
-                                {
-                                    "system": "https://civicdb.org/evidence",
-                                    "code": "6938"
                                 }
                             ]
                         }
