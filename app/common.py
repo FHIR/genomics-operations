@@ -730,11 +730,17 @@ def create_molecular_consequence_profile(molecular_consequence, subject, vids):
                                                                            "code": f"{feature_consequence['code']}",
                                                                            "display": f"{feature_consequence['display']}"}]}})
 
+    if 'functionalEffect' in molecular_consequence:
+        for functionalEffect in molecular_consequence["functionalEffect"]:
+            resource["component"].append({"code": {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                                                               "code": "functional-effect",
+                                                               "display": "Functional Effect"}]},
+                                          "valueCodeableConcept": {"coding": [{"system": f"{functionalEffect['system']}",
+                                                                               "code": f"{functionalEffect['code']}",
+                                                                               "display": f"{functionalEffect['display']}"}]}})
+
     if 'impact' in molecular_consequence:
-        resource["component"].append({"code": {"coding": [{"system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                                           "code": "functional-effect",
-                                                           "display": "Functional Effect"}]},
-                                      "valueCodeableConcept": {"text": f"{molecular_consequence['impact']}"}})
+        resource["interpretation"] = [{"text": molecular_consequence['impact']}]
 
     return resource
 

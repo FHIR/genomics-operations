@@ -116,8 +116,19 @@
                             ]
                         },
                         "valueCodeableConcept": {
-                            "text": "HIGH"
+                            "coding": [
+                                {
+                                    "system": "http://sequenceontology.org",
+                                    "code": "SO:0002054",
+                                    "display": "loss_of_function_variant"
+                                }
+                            ]
                         }
+                    }
+                ],
+                "interpretation": [
+                    {
+                        "text": "HIGH"
                     }
                 ]
             }

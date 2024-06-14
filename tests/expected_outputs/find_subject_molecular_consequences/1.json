@@ -104,20 +104,11 @@
                                 }
                             ]
                         }
-                    },
+                    }
+                ],
+                "interpretation": [
                     {
-                        "code": {
-                            "coding": [
-                                {
-                                    "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
-                                    "code": "functional-effect",
-                                    "display": "Functional Effect"
-                                }
-                            ]
-                        },
-                        "valueCodeableConcept": {
-                            "text": "MODERATE"
-                        }
+                        "text": "MODERATE"
                     }
                 ]
             }
