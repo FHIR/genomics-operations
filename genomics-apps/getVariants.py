@@ -11,28 +11,28 @@ st.set_page_config(
 )
 
 
-@st.cache
+@st.cache_data
 def getFeatureCoordinates(gene):
     url = 'https://fhir-gen-ops.herokuapp.com/utilities/get-feature-coordinates?gene='+gene
     headers = {'Accept': 'application/json'}
     return requests.get(url, headers=headers)
 
 
-@st.cache
+@st.cache_data
 def findSubjectVariants(subject, range):
     url = 'https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-variants?subject='+subject+'&ranges='+range+'&includeVariants=true'
     headers = {'Accept': 'application/json'}
     return requests.get(url, headers=headers)
 
 
-@st.cache
+@st.cache_data
 def findSubjectStructuralIntersectingVariants(subject, range):
     url = 'https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-structural-intersecting-variants?subject='+subject+'&ranges='+range+'&includeVariants=true'
     headers = {'Accept': 'application/json'}
     return requests.get(url, headers=headers)
 
 
-@st.cache
+@st.cache_data
 def findSubjectHaplotypes(subject, geneId):
     url = 'https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-haplotypes?subject='+subject+'&genes='+geneId
     headers = {'Accept': 'application/json'}

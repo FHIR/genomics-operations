@@ -13,7 +13,7 @@ st.set_page_config(
 )
 
 
-@st.cache
+@st.cache_data
 def findSubjectHaplotypes(subject):
     # CYP2B6, CYP2C9, CYP2C19, CYP2D6, CYP3A5, NUDT15, SLCO1B1, TPMP, UGT1A1
     url = 'https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-haplotypes?subject='+subject + \
@@ -23,7 +23,7 @@ def findSubjectHaplotypes(subject):
     return r.json()
 
 
-@st.cache
+@st.cache_data
 def findSubjectTxImplications(subject, haplotypes):
     url = 'https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-tx-implications?subject='+subject+'&haplotypes='+haplotypes
     headers = {'Accept': 'application/json'}
@@ -90,7 +90,8 @@ except KeyError:
 if count > 0:
     for i in implications["parameter"]:
         if i["name"] == "implication":
-            # get evidenceLevel, medicationCode, medicationName, implication
+            # get PharmGKBID, evidenceLevel, medicationCode, medicationName, implication
+            PharmGKBID.append("https://www.pharmgkb.org/gene/"+i["resource"]["identifier"][0]["value"])
             for l in i["resource"]["component"]:
                 if l["code"]["coding"][0]["code"] == "93044-6":
                     evidenceLevel.append(l["valueCodeableConcept"]["text"])
@@ -100,11 +101,8 @@ if count > 0:
                 elif l["code"]["coding"][0]["code"] == "predicted-therapeutic-implication":
                     implication.append(l["valueCodeableConcept"]["text"])
         elif i["name"] == "genotype":
-            # get genotype, PharmGKBID
+            # get genotype
             genotype.append(i["resource"]["valueCodeableConcept"]["coding"][0]["code"])
-            for l in i["resource"]["component"]:
-                if l["code"]["coding"][0]["code"] == "81252-9":
-                    PharmGKBID.append("https://www.pharmgkb.org/gene/"+l["valueCodeableConcept"]["coding"][0]["code"])
 
 with col2:
     inxData = (pd.DataFrame({
@@ -117,15 +115,16 @@ with col2:
     if count == 0:
         st.write('### No PGx data')
     else:
-        gb = GridOptionsBuilder.from_dataframe(inxData)
-        gb.configure_column("PharmGKB",
-                            cellRenderer=JsCode("""
-                function (params)
-                {return "<a target='_blank' href=" + params.value + ">" + params.value + "</a>"}
-                """).js_code
-                            )
-        go = gb.build()
-        AgGrid(inxData, gridOptions=go, allow_unsafe_jscode=True, editable=True, enable_enterprise_modules=True, update_mode="value_changed")
+        # gb = GridOptionsBuilder.from_dataframe(inxData)
+        # gb.configure_column("PharmGKB",
+        #                     cellRenderer=JsCode("""
+        #         function (params)
+        #         {return "<a target='_blank' href=" + params.value + ">" + params.value + "</a>"}
+        #         """).js_code
+        #                     )
+        # go = gb.build()
+        # AgGrid(inxData, gridOptions=go, allow_unsafe_jscode=True, editable=True, enable_enterprise_modules=True, update_mode="value_changed")
+        AgGrid(inxData, allow_unsafe_jscode=True, editable=True, enable_enterprise_modules=True, update_mode="value_changed")
     inxData_t = inxData.T
     st.download_button("Download table (json)", inxData_t.to_json())
     st.download_button("Download table (csv)", inxData.to_csv())
@@ -137,7 +136,8 @@ with col1:
     for i in getMedicationList(subject):
         for j in medicationCode:
             if str(j) == str(i["ing"]):
-                inx = '<a target="_blank" href="https://api.pharmgkb.org/v1/infobutton?mainSearchCriteria.v.c='+str(i["ing"])+'">'+'🧬'+'</a>'
+                # inx = '<a target="_blank" href="https://api.pharmgkb.org/v1/infobutton?mainSearchCriteria.v.c='+str(i["ing"])+'">'+'🧬'+'</a>'
+                inx = '🧬'
                 break
             else:
                 inx = ""

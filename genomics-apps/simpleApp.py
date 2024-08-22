@@ -11,7 +11,7 @@ st.set_page_config(
 )
 
 
-@st.cache
+@st.cache_data
 def findSubjectVariants(subject, range):
     url = 'https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-variants?subject='+subject+'&ranges='+range+'&includeVariants=true'
     headers = {'Accept': 'application/json'}

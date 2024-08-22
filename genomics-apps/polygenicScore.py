@@ -31,14 +31,14 @@ with st.expander("SIMPLIFICATIONS..."):
             :arrow_forward: *population mean* and *standard deviation* are based on Operations reference implementation population.")
 
 
-@st.cache
+@st.cache_data
 def findSubjectVariants(subject, range):
     url = 'https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-variants?subject='+subject+'&ranges='+range+'&includeVariants=true'
     headers = {'Accept': 'application/json'}
     return requests.get(url, headers=headers)
 
 
-@st.cache
+@st.cache_data
 def findSubjectSpecificVariants(subject, variant):
     url = 'https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-specific-variants?subject='+subject+'&variants='+variant+'&includeVariants=true'
     # url = 'https://fhir-gen-ops-dev-ca42373833b6.herokuapp.com/subject-operations/genotype-operations/$find-subject-specific-variants?subject='+subject+'&variants='+variant+'&includeVariants=true'
@@ -46,7 +46,7 @@ def findSubjectSpecificVariants(subject, variant):
     return requests.get(url, headers=headers)
 
 
-@st.cache
+@st.cache_data
 def getPolygenicScoreMetadata(pgs_id):
     url = 'https://www.pgscatalog.org/rest/score/'+pgs_id
     headers = {'Accept': 'application/json'}
