@@ -7,7 +7,7 @@
                 {
                     "name": "numerator",
                     "valueQuantity": {
-                        "value": 6
+                        "value": 18
                     }
                 },
                 {
@@ -38,7 +38,55 @@
                 },
                 {
                     "name": "subject",
-                    "valueString": "NA19210"
+                    "valueString": "NA18870"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NA18871"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NA19190"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NA19238"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NA19239"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NA19240"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NB6TK329"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "cancer-patient-jenny-m"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "huC30902"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "m123"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "m5123"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "m6123"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "m7123"
                 }
             ]
         }
