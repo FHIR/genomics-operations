@@ -12,11 +12,9 @@ gene_ranges = {
     "ACTA2": {"range": "NC_000010.10:90694830-90751154",
               "disease": "Aortic aneurysm, familial thoracic 6"},
     "TMEM43": {"range": "NC_000003.11:14166551-14185180",
-               "disease": "Arrhythmogenic right ventricular cardiomyopathy,\
-                           type 5"},
+               "disease": "Arrhythmogenic right ventricular cardiomyopathy, type 5"},
     "DSP": {"range": "NC_000006.11:7541903-7586947",
-            "disease": "Arrhythmogenic right ventricular cardiomyopathy,\
-                        type 8"},
+            "disease": "Arrhythmogenic right ventricular cardiomyopathy,type 8"},
     "PKP2": {"range": "NC_000012.11:32943688-33049711",
              "disease": "Arrhythmogenic right ventricular cardiomyopathy,\
                          type 9"},
@@ -194,8 +192,7 @@ def fetch_patient_info(subject):
             patient_id = j["id"]
             name, dob, gender = "", "", ""
             marital_status, contact, address = "", "", ""
-            if j["identifier"][0]["type"]["coding"][0]["display"] == \
-               "Medical record number":
+            if j["identifier"][0]["type"]["coding"][0]["display"] == "Medical record number":
                 subject_id = j["identifier"][0]["value"]
             name = j["name"][0]["given"][0]
             dob = j["birthDate"]
@@ -258,8 +255,7 @@ def fetch_medication(patient_id):
     if "entry" in data:
         for i in data["entry"]:
             j = i["resource"]
-            if j["resourceType"] == "MedicationRequest" and \
-               j["status"] == "active":
+            if j["resourceType"] == "MedicationRequest" and j["status"] == "active":
                 medication = j["medicationCodeableConcept"]["coding"][0]["display"]
                 start_date = j["authoredOn"].split("T")[0]
 
@@ -314,16 +310,12 @@ def fetch_variants(subject, gene):
                         for comp in j["resource"]["component"]:
                             if comp["code"]["coding"][0]["display"] ==\
                                "Discrete genetic variant":
-                                variant_name = comp["valueCodeableConcept"][
-                                    "coding"][0]["display"]
-                            elif comp["code"]["coding"][0]["display"] ==\
-                                    "Allelic state":
-                                allelic_state = comp["valueCodeableConcept"][
-                                    "coding"][0]["display"]
+                                variant_name = comp["valueCodeableConcept"]["coding"][0]["display"]
+                            elif comp["code"]["coding"][0]["display"] == "Allelic state":
+                                allelic_state = comp["valueCodeableConcept"]["coding"][0]["display"]
                             elif comp["code"]["coding"][0]["display"] ==\
                                     "Population allele frequency":
-                                pop_allele_freq = comp["valueQuantity"][
-                                    "value"]
+                                pop_allele_freq = comp["valueQuantity"]["value"]
                         variants.append({
                             "Gene": gene,
                             "Disease Name": gene_ranges[gene]["disease"],
@@ -367,8 +359,7 @@ def fetch_molecular_consequences(subject, gene):
                     }
 
                 if molecular_consq[variant_id]["Impact"]:
-                    current_priority_index = priority.index(molecular_consq[
-                        variant_id]["Impact"])
+                    current_priority_index = priority.index(molecular_consq[variant_id]["Impact"])
                 else:
                     current_priority_index = len(priority)
 
@@ -387,26 +378,20 @@ def fetch_molecular_consequences(subject, gene):
                     for component in j["component"]:
                         if component["code"]["coding"][0]["display"] == \
                            "Feature Consequence":
-                            feature_consequence = component[
-                                "valueCodeableConcept"]["coding"][0]["display"]
-                            molecular_consq[variant_id][
-                                "Feature consequence"].add(feature_consequence)
+                            feature_consequence = component["valueCodeableConcept"]["coding"][0]["display"]
+                            molecular_consq[variant_id]["Feature consequence"].add(feature_consequence)
                         elif component["code"]["coding"][0]["display"] == \
                                 "Functional Effect":
-                            functional_effect = component[
-                                "valueCodeableConcept"]["coding"][0]["display"]
-                            molecular_consq[variant_id][
-                                "Functional effect"] = functional_effect
+                            functional_effect = component["valueCodeableConcept"]["coding"][0]["display"]
+                            molecular_consq[variant_id]["Functional effect"] = functional_effect
 
         final_list = []
         for variant_id, details in molecular_consq.items():
             combined_feature_consq = ";".join(details["Feature consequence"])
-            molecular_consq_str = f"{details['Impact']}/{
-                combined_feature_consq}"
+            molecular_consq_str = f"{details['Impact']}/{combined_feature_consq}"
 
             if details["Functional effect"]:
-                molecular_consq_str = f"{details['Impact']}/{
-                    combined_feature_consq}/{details['Functional effect']}"
+                molecular_consq_str = f"{details['Impact']}/{combined_feature_consq}/{details['Functional effect']}"
 
             final_list.append({
                 "Variant ID": variant_id,
@@ -463,19 +448,15 @@ def fetch_clinical_significance(subject, gene):
                     if component["code"]["coding"][0]["display"] == \
                        "Genetic variation clinical significance":
                         if "coding" in component["valueCodeableConcept"]:
-                            clinical_sig = component["valueCodeableConcept"][
-                                "coding"][0]["display"]
+                            clinical_sig = component["valueCodeableConcept"]["coding"][0]["display"]
                         else:
-                            clinical_sig = component["valueCodeableConcept"][
-                                "text"]
+                            clinical_sig = component["valueCodeableConcept"]["text"]
                         level_of_evidence = get_level_of_evidence(components)
-                        clinical_sig_with_evidence = f"{clinical_sig} {
-                            level_of_evidence}"
+                        clinical_sig_with_evidence = f"{clinical_sig} {level_of_evidence}"
                         if variant_id not in variants_dict:
                             variants_dict[variant_id] = []
 
-                        variants_dict[variant_id].append(
-                            clinical_sig_with_evidence)
+                        variants_dict[variant_id].append(clinical_sig_with_evidence)
 
         # Extract clinical_sig and evidence_list
         clinical_sig_lists = []
@@ -561,8 +542,7 @@ def decorate_conditions(condition_df, df_final, selected_genes):
     for idx, condition_row in condition_df.iterrows():
         snomed_code = condition_row["Snomed Code"]
 
-        matching_rows = valueset_df[valueset_df["ValueSetMember"]
-                                    == snomed_code]
+        matching_rows = valueset_df[valueset_df["ValueSetMember"] == snomed_code]
         if not matching_rows.empty:
             gene_list = matching_rows["Gene"].str.split(', ')\
                 .explode().unique()
@@ -572,28 +552,24 @@ def decorate_conditions(condition_df, df_final, selected_genes):
                 for gene in relevant_genes:
                     gene_variants = df_final[df_final["Gene"] == gene]
                     for i, variant_row in gene_variants.iterrows():
-                        clinical_significance = variant_row.get(
-                            "Clinical Significance", "")
+                        clinical_significance = variant_row.get("Clinical Significance", "")
                         if isinstance(clinical_significance, str):
-                            if (("Pathogenic" in clinical_significance or
-                                 "Likely pathogenic" in clinical_significance)
-                                and ("3 stars" in clinical_significance or
-                                     "4 stars" in clinical_significance)):
+                            if (("Pathogenic" in clinical_significance or "Likely pathogenic" in clinical_significance)
+                                    and ("3 stars" in clinical_significance or "4 stars" in clinical_significance)):
                                 should_flag = True
                                 break
                     if should_flag:
                         break
             # Add DNA icon to the Condition column only if should_flag is True
             if should_flag:
-                condition_df.at[idx, "Condition"] = f"🧬 {condition_df.at[
-                    idx, 'Condition']}"
+                condition_df.at[idx, "Condition"] = f"🧬 {condition_df.at[idx, 'Condition']}"
     return condition_df
 
 
 # Streamlit app
 st.set_page_config(
     page_title="Mendelian Screening",
-    page_icon="🏂",
+    page_icon="🧬",
     layout="wide",
     initial_sidebar_state="expanded")
 
@@ -714,10 +690,8 @@ if st.sidebar.button("Run"):
 
             for gene in selected_genes:
                 variants = fetch_variants(subject, gene)
-                molecular_consequence = fetch_molecular_consequences(subject,
-                                                                     gene)
-                clinical_significance = fetch_clinical_significance(subject,
-                                                                    gene)
+                molecular_consequence = fetch_molecular_consequences(subject, gene)
+                clinical_significance = fetch_clinical_significance(subject, gene)
 
                 if variants:
                     all_variants.extend(variants)
@@ -744,16 +718,14 @@ if st.sidebar.button("Run"):
                 if not df_molecular_consq.empty and \
                    'Variant ID' in df_variants.columns and \
                    'Variant ID' in df_molecular_consq.columns:
-                    df_merged = pd.merge(df_variants, df_molecular_consq,
-                                         how="left", on="Variant ID")
+                    df_merged = pd.merge(df_variants, df_molecular_consq, how="left", on="Variant ID")
                 else:
                     df_merged = df_variants
 
                 if not df_clinical_sig.empty and \
                    'Variant ID' in df_merged.columns and \
                    'Variant ID' in df_clinical_sig.columns:
-                    df_final = pd.merge(df_merged, df_clinical_sig,
-                                        how="left", on="Variant ID")
+                    df_final = pd.merge(df_merged, df_clinical_sig, how="left", on="Variant ID")
                 else:
                     df_final = df_merged
 
@@ -779,9 +751,7 @@ if st.sidebar.button("Run"):
                 )
 
                 # Update the conditions based on pathogenic variant
-                updated_condition_df = decorate_conditions(condition_df,
-                                                           df_final,
-                                                           selected_genes)
+                updated_condition_df = decorate_conditions(condition_df, df_final, selected_genes)
 
                 # Drop the 'Snomed Code' column
                 updated_condition_df = updated_condition_df.drop(
