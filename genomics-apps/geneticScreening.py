@@ -42,7 +42,7 @@ variantList = []
 st.title("Genetic Screening")
 st.markdown("This app illustrates [FHIR Genomics Operations](http://build.fhir.org/ig/HL7/genomics-reporting/operations.html) **find-population-dx-implications** and **find-subject-dx-implications**. Select a condition from dropdown. The population is screened for this condition, and each associated variant in each patient is returned.")
 
-condition = st.selectbox("", (
+condition = st.selectbox("Select condition", (
     'Hemochromatosis',
     'Familial hypercholesterolemia',
     'Hereditary Breast and Ovarian Cancer Syndrome',
