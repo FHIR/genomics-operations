@@ -535,7 +535,7 @@ def fetch_clinical_significance(subject, gene):
 # Decorating conditions based on pathogenic variants
 def decorate_conditions(condition_df, df_final, selected_genes):
     # Reading the Excel file
-    valueset_df = pd.read_excel(r"data/conditions.xlsx")
+    valueset_df = pd.read_excel(r"genomics-apps/data/conditions.xlsx")
     # Convert ValueSetMember to string for comparison
     valueset_df["ValueSetMember"] = valueset_df["ValueSetMember"].astype(str)
 
