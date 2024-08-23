@@ -4,6 +4,7 @@ import requests
 import csv
 import random
 from st_aggrid import GridOptionsBuilder, AgGrid, JsCode
+from pathlib import Path
 
 st.set_page_config(
     page_title="PGx Screening",
@@ -32,7 +33,7 @@ def findSubjectTxImplications(subject, haplotypes):
 
 
 def getMedicationList(subject):
-    with open('genomics-apps/data/product.csv') as productFile:
+    with open(Path(__file__).parent/'data/product.csv') as productFile:
         products = csv.reader(productFile, delimiter=',', quotechar='"')
         productList = []
         for row in products:
