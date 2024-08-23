@@ -594,7 +594,8 @@ st.markdown('''***An app to find the secondary findings of the disorders.
 
 # Streamlit sidebar for user inputs
 st.sidebar.title("Genetic Variant Information")
-subject = st.sidebar.text_input("Enter Subject ID")
+subject_ids = ['HG00403', 'HG00406', 'HG02657', 'NA18498', 'NA18499', 'NA18871', 'NA19210', 'NA19247', 'NB6TK329']
+subject = st.sidebar.multiselect("Enter Subject ID", subject_ids, default=None)
 
 genes = list(gene_ranges.keys())
 selected_genes = st.sidebar.multiselect("Select Genes", genes, default=None)
