@@ -7,7 +7,7 @@
                 {
                     "name": "numerator",
                     "valueQuantity": {
-                        "value": 6
+                        "value": 5
                     }
                 },
                 {
@@ -35,10 +35,6 @@
                 {
                     "name": "subject",
                     "valueString": "NA18499"
-                },
-                {
-                    "name": "subject",
-                    "valueString": "NA19210"
                 }
             ]
         }
