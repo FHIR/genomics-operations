@@ -595,7 +595,13 @@ st.markdown('''***An app to find the secondary findings of the disorders.
 # Streamlit sidebar for user inputs
 st.sidebar.title("Genetic Variant Information")
 subject_ids = ['HG00403', 'HG00406', 'HG02657', 'NA18498', 'NA18499', 'NA18871', 'NA19210', 'NA19247', 'NB6TK329']
-subject = st.sidebar.multiselect("Enter Subject ID", subject_ids, default=None)
+selected_subjects = st.sidebar.multiselect("Enter Subject ID", subject_ids, default=None)
+
+# Check if exactly one subject is selected
+if len(selected_subjects) == 1:
+    subject = selected_subjects[0]
+elif len(selected_subjects) > 1:
+    st.warning("Please select only one Subject ID.")
 
 genes = list(gene_ranges.keys())
 selected_genes = st.sidebar.multiselect("Select Genes", genes, default=None)
@@ -781,7 +787,7 @@ if st.sidebar.button("Run"):
         st.warning("Please enter both Subject ID \
                    and select at least one Gene.")
 else:
-    st.write("Please enter a Subject ID, select Genes, \
+    st.write("Please select a Subject ID, select Genes, \
              and click 'Run' in the sidebar to start the analysis.")
 
 st.markdown("---")
