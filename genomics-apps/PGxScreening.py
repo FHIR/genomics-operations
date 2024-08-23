@@ -32,7 +32,7 @@ def findSubjectTxImplications(subject, haplotypes):
 
 
 def getMedicationList(subject):
-    with open('data/product.csv') as productFile:
+    with open('genomics-apps/data/product.csv') as productFile:
         products = csv.reader(productFile, delimiter=',', quotechar='"')
         productList = []
         for row in products:
