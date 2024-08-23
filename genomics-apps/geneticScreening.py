@@ -16,7 +16,7 @@ st.set_page_config(
 )
 
 
-@st.cache
+@st.cache_data
 def findPopulationDxImplications(conditionCode):
     url = 'https://fhir-gen-ops.herokuapp.com/population-operations/phenotype-operations/$find-population-dx-implications?conditions='+conditionCode+'&includePatientList=true'
     headers = {'Accept': 'application/json'}
@@ -24,7 +24,7 @@ def findPopulationDxImplications(conditionCode):
     return r.json()
 
 
-@st.cache
+@st.cache_data
 def findSubjectDxImplications(subject, conditionCode):
     url = 'https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-dx-implications?subject='+subject+'&conditions='+conditionCode
     headers = {'Accept': 'application/json'}
@@ -116,10 +116,6 @@ data = (pd.DataFrame({
     'Clinical Significance': clinSigList,
     'Evidence': evidenceList}))
 data_t = data.T
-
-AgGrid(data, enable_enterprise_modules=True, update_mode="value_changed", allow_unsafe_jscode=True)
-
-st.download_button("Download table", data_t.to_json())
 
 AgGrid(data, enable_enterprise_modules=True, update_mode="value_changed", allow_unsafe_jscode=True)
 
