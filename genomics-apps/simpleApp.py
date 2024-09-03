@@ -23,7 +23,7 @@ st.markdown("This is a simple app illustrating the use of [FHIR Genomics Operati
 
 with st.sidebar:
     subject = st.text_input("Enter patient ID", value="HG00403")
-    range = st.text_input("Enter range (zero-based RefSeq:Integer-range)", value="NC_000019.9:11200138-11244496")
+    range = st.text_input("Enter range", value="NC_000019.9:11200138-11244496")
 
 col1, col2 = st.columns([2, 3])
 

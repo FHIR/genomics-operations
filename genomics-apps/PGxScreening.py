@@ -1,9 +1,10 @@
-import streamlit as st
-import pandas as pd
-import requests
 import csv
 import random
-from st_aggrid import GridOptionsBuilder, AgGrid, JsCode
+
+import pandas as pd
+import requests
+import streamlit as st
+from st_aggrid import AgGrid, GridOptionsBuilder, JsCode
 
 st.set_page_config(
     page_title="PGx Screening",
