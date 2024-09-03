@@ -180,6 +180,7 @@ gene_ranges = {
 
 
 # Retrieve patient information
+@st.cache_data
 def fetch_patient_info(subject):
     url = f"https://api.logicahealth.org/MTB/open/Patient?identifier={subject}"
     response = requests.get(url)
@@ -219,6 +220,7 @@ def fetch_patient_info(subject):
 
 
 # Retrieve patient conditions
+@st.cache_data
 def fetch_condition(patient_id):
     url = f"https://api.logicahealth.org/MTB/open/Condition?patient={patient_id}"
     response = requests.get(url)
@@ -246,6 +248,7 @@ def fetch_condition(patient_id):
 
 
 # Retrieve medications
+@st.cache_data
 def fetch_medication(patient_id):
     url = f"https://api.logicahealth.org/MTB/open/MedicationRequest?patient={patient_id}"
     response = requests.get(url)
@@ -269,6 +272,7 @@ def fetch_medication(patient_id):
 
 
 # Retrieve patient allergies
+@st.cache_data
 def fetch_allergy(patient_id):
     url = f"https://api.logicahealth.org/MTB/open/AllergyIntolerance?patient={patient_id}"
     response = requests.get(url)
@@ -291,6 +295,7 @@ def fetch_allergy(patient_id):
 
 
 # Retrieve variant information
+@st.cache_data
 def fetch_variants(subject, gene):
     url = ("https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-variants?"
            f"subject={subject}&ranges={gene_ranges[gene]['range']}&includeVariants=true&includePhasing=true")
@@ -332,6 +337,7 @@ def fetch_variants(subject, gene):
 
 
 # Retrieve molecular consequences
+@st.cache_data
 def fetch_molecular_consequences(subject, gene):
     url = f"https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-molecular-consequences?subject={subject}&ranges={gene_ranges[gene]['range']}"
 
@@ -406,6 +412,7 @@ def fetch_molecular_consequences(subject, gene):
 
 
 # Define function to get level of evidence
+@st.cache_data
 def get_level_of_evidence(components):
     evidence_dict = {
         "practice guideline": 4,
@@ -428,6 +435,7 @@ def get_level_of_evidence(components):
 
 
 # Retrieve pathogenicity based on clinical significance and review status
+@st.cache_data
 def fetch_clinical_significance(subject, gene):
     url = f"https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-dx-implications?subject={subject}&ranges={gene_ranges[gene]['range']}"
 
@@ -533,6 +541,7 @@ def fetch_clinical_significance(subject, gene):
 
 
 # Decorating conditions based on pathogenic variants
+@st.cache_data
 def decorate_conditions(condition_df, df_final, selected_genes):
     # Reading the Excel file
     valueset_df = pd.read_excel(r"genomics-apps/data/conditions.xlsx")
