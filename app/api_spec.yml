@@ -752,6 +752,8 @@ paths:
             type: array
             items:
               type: string
+            example:
+              - "http://sequenceontology.org|SO:0001629"
           style: "form"
           explode: false
         - name: testIdentifiers
@@ -1164,6 +1166,61 @@ paths:
               - "https://www.ncbi.nlm.nih.gov/medgen|C0677776"
               - "https://www.ncbi.nlm.nih.gov/medgen|C4552100"
               - "https://www.ncbi.nlm.nih.gov/medgen|C0020445"
+          style: "form"
+          explode: false
+        - name: genomicSourceClass
+          in: query
+          schema:
+            type: string
+            enum:
+              - "germline"
+              - "somatic"
+          description: Enables an App to limit results to those that are 'germline' or 'somatic'. Default is to include variants irrespective of genomic source class.
+        - name: includePatientList
+          in: query
+          schema:
+            type: boolean
+            default: false
+          description: Include list of matching patients if set to true.
+
+  /population-operations/phenotype-operations/$find-population-molecular-consequences:
+    get:
+      description: |-
+        Retrieve count or list of patients having molecular consequences. More specifically, this operation retrieves the count +/- list of patients that have molecular consequences involving specific featureConsequences, derived from specific variants.
+
+        A patient meets numerator criteria if they have at least one molecular consequence matching the query parameters.
+      summary: "Find Population Molecular Consequences"
+      operationId: "app.endpoints.find_population_molecular_consequences"
+      tags:
+        - "Population Phenotype Operations"
+      responses:
+        '200':
+          description: "Returns a FHIR Parameters resource containing a count +/- list of patients having at least one matching molecular consequence."
+          content:
+            application/json:
+              schema:
+                type: object
+      parameters:
+        - name: variants
+          in: query
+          description: List of variants from which consequences are derived. Must be in HGVS or SPDI format.
+          schema:
+            type: array
+            items:
+              type: string
+            example:
+              - "NC_000001.10:152785039:G:T"
+          style: "form"
+          explode: false
+        - name: featureConsequences
+          in: query
+          description: List of consequences sought. Must be in token or codesystem|code format.
+          schema:
+            type: array
+            items:
+              type: string
+            example:
+              - "http://sequenceontology.org|SO:0001583"
           style: "form"
           explode: false
         - name: genomicSourceClass

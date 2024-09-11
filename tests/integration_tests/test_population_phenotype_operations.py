@@ -74,3 +74,16 @@ def test_find_population_dx_implications_4(client):
     response = client.get(url)
 
     tu.compare_actual_and_expected_output(f'{tu.FIND_POPULATION_DX_IMPLICATIONS_OUTPUT_DIR}4.json', response.json)
+
+
+"""
+Find Population Molecular Consequences Tests
+-------------------------------------
+"""
+
+
+def test_find_population_molecular_consequences_1(client):
+    url = tu.find_population_molecular_consequences_query('variants=NC_000001.10:152785039:G:T&featureConsequences=http://sequenceontology.org|SO:0001583&includePatientList=true')
+    response = client.get(url)
+
+    tu.compare_actual_and_expected_output(f'{tu.FIND_POPULATION_MOLECULAR_CONSEQUENCES_OUTPUT_DIR}1.json', response.json)
