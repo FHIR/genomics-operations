@@ -16,7 +16,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-variants?subject=NB6TK329&ranges=NC_000002.12:178525988-178807423&includeVariants=true&includePhasing=true",
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/genotype-operations/$find-subject-variants?subject=NB6TK329&testIdentifiers=TL000016660-ASM&includeVariants=true&ranges=NC_000002.12:178525988-178807423,NC_000002.12:178525988-178807423",
 							"protocol": "https",
 							"host": [
 								"fhir-gen-ops",
@@ -34,13 +34,8 @@
 									"value": "NB6TK329"
 								},
 								{
-									"key": "ranges",
-									"value": "NC_000002.12:178525988-178807423"
-								},
-								{
 									"key": "testIdentifiers",
-									"value": "TL000016660-ASM",
-									"disabled": true
+									"value": "TL000016660-ASM"
 								},
 								{
 									"key": "specimenIdentifiers",
@@ -68,7 +63,12 @@
 								},
 								{
 									"key": "includePhasing",
-									"value": "true"
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "ranges",
+									"value": "NC_000002.12:178525988-178807423,NC_000002.12:178525988-178807423"
 								}
 							]
 						}
@@ -1763,7 +1763,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-molecular-consequences?subject=HG00403&ranges=NC_000001.10:86852500-86852800&featureConsequences=http://sequenceontology.org|SO:0001575",
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-molecular-consequences?subject=NB6TK329&variants=NC_000006.12:7576293:G:A",
 							"protocol": "https",
 							"host": [
 								"fhir-gen-ops",
@@ -1778,20 +1778,21 @@
 							"query": [
 								{
 									"key": "subject",
-									"value": "HG00403"
+									"value": "NB6TK329"
 								},
 								{
 									"key": "variants",
-									"value": "NM_031475.3:c.2217C>T",
-									"disabled": true
+									"value": "NC_000006.12:7576293:G:A"
 								},
 								{
 									"key": "ranges",
-									"value": "NC_000001.10:86852500-86852800"
+									"value": "NC_000001.10:86852500-86852800",
+									"disabled": true
 								},
 								{
 									"key": "featureConsequences",
-									"value": "http://sequenceontology.org|SO:0001575"
+									"value": "http://sequenceontology.org|SO:0001575",
+									"disabled": true
 								},
 								{
 									"key": "variants",
@@ -2735,7 +2736,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/phenotype-operations/$find-population-dx-implications?conditions=https://www.ncbi.nlm.nih.gov/medgen|C1708353",
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/phenotype-operations/$find-population-dx-implications?variants=NC_000019.10:38499669:C:T&includePatientList=true",
 							"protocol": "https",
 							"host": [
 								"fhir-gen-ops",
@@ -2749,12 +2750,16 @@
 							],
 							"query": [
 								{
-									"key": "conditions",
-									"value": "https://www.ncbi.nlm.nih.gov/medgen|C1708353"
+									"key": "variants",
+									"value": "NC_000019.10:38499669:C:T"
 								},
 								{
-									"key": "variants",
-									"value": "NC_000019.10:38499669:C:T",
+									"key": "includePatientList",
+									"value": "true"
+								},
+								{
+									"key": "conditions",
+									"value": "https://www.ncbi.nlm.nih.gov/medgen|C1708353",
 									"disabled": true
 								}
 							]
@@ -2816,6 +2821,47 @@
 								{
 									"key": "conditions",
 									"value": "https://www.ncbi.nlm.nih.gov/medgen|C0677776,https://www.ncbi.nlm.nih.gov/medgen|C4552100,https://www.ncbi.nlm.nih.gov/medgen|C0020445"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "find-population-molecular-consequences",
+			"item": [
+				{
+					"name": "find-population-molecular-consequences",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/phenotype-operations/$find-population-molecular-consequences?variants=NC_000001.10:152785039:G:T&featureConsequences=http://sequenceontology.org|SO:0001583&includePatientList=true",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"phenotype-operations",
+								"$find-population-molecular-consequences"
+							],
+							"query": [
+								{
+									"key": "variants",
+									"value": "NC_000001.10:152785039:G:T"
+								},
+								{
+									"key": "featureConsequences",
+									"value": "http://sequenceontology.org|SO:0001583"
 								},
 								{
 									"key": "includePatientList",

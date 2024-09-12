@@ -1859,7 +1859,7 @@ def query_transcript(transcript):
     return results
 
 
-def query_molecular_consequences_by_variants(normalized_variant_list, feature_consequence_list, query):
+def query_molecular_consequences_by_variants(normalized_variant_list, feature_consequence_list, query, population=False):
     variant_list = []
     for item in normalized_variant_list:
         if "GRCh37" in item:
@@ -1883,12 +1883,17 @@ def query_molecular_consequences_by_variants(normalized_variant_list, feature_co
                 ]})
         pipeline_part[-1]['$match']['$or'] = or_query
 
-    query['SPDI'] = {'$in': variant_list}
+    if normalized_variant_list != []:
+        query['SPDI'] = {'$in': variant_list}
 
     query_string = [{'$match': query},
                     {'$lookup': {'from': 'MolecConseq', 'let': {'myvariant_id': '$_id'}, 'pipeline': pipeline_part,
                                  'as': 'molecularConsequenceMatches'}},
                     {'$match': {'molecularConsequenceMatches': {'$exists': True, '$not': {'$size': 0}}}}]
+
+    if population:
+        query_string.append({'$group': {'_id': '$patientID'}})
+
     try:
         results = variants_db.aggregate(query_string)
         results = list(results)

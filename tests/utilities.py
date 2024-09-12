@@ -51,6 +51,9 @@ FIND_POPULATION_TX_IMPLICATIONS_OUTPUT_DIR = "tests/expected_outputs/find_popula
 FIND_POPULATION_DX_IMPLICATIONS_URL = "/population-operations/phenotype-operations/$find-population-dx-implications"
 FIND_POPULATION_DX_IMPLICATIONS_OUTPUT_DIR = "tests/expected_outputs/find_population_dx_implications/"
 
+FIND_POPULATION_MOLECULAR_CONSEQUENCES_URL = "/population-operations/phenotype-operations/$find-population-molecular-consequences"
+FIND_POPULATION_MOLECULAR_CONSEQUENCES_OUTPUT_DIR = "tests/expected_outputs/find_population_molecular_consequences/"
+
 GET_FEATURE_COORDINATES_URL = "/utilities/get-feature-coordinates"
 GET_FEATURE_COORDINATES_OUTPUT_DIR = "tests/expected_outputs/get_feature_coordinates/"
 
@@ -120,6 +123,10 @@ def find_population_tx_implications_query(query):
 
 def find_population_dx_implications_query(query):
     return f"{FIND_POPULATION_DX_IMPLICATIONS_URL}?{query}"
+
+
+def find_population_molecular_consequences_query(query):
+    return f"{FIND_POPULATION_MOLECULAR_CONSEQUENCES_URL}?{query}"
 
 
 def get_feature_coordinates_query(query):

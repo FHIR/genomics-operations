@@ -2322,3 +2322,75 @@ def find_population_dx_implications(
             result.pop("parameter")
 
         return jsonify(result)
+
+
+def find_population_molecular_consequences(
+        variants=None, featureConsequences=None, genomicSourceClass=None,
+        includePatientList=None):
+
+    # Parameters
+    if not variants and not featureConsequences:
+        abort(400, "You must supply either 'variants' or 'featureConsequences'.")
+
+    normalized_feature_consequence_list = []
+    if featureConsequences:
+        normalized_feature_consequence_list = list(map(common.get_feature_consequence, featureConsequences))
+
+    # Query
+    query = {}
+
+    # Genomic Source Class Query
+    if genomicSourceClass:
+        genomicSourceClass = genomicSourceClass.strip().lower()
+        query["genomicSourceClass"] = {"$eq": genomicSourceClass}
+
+    normalized_variants = []
+    if variants:
+        normalized_variants = list(map(common.get_variant, variants))
+
+    # Result Object
+    result = OrderedDict()
+    result["resourceType"] = "Parameters"
+    result["parameter"] = []
+
+    if normalized_variants:
+        genomics_build_presence = common.get_genomics_build_presence(query)
+
+        for normalizedVariant in normalized_variants:
+            if not normalizedVariant["GRCh37"] and genomics_build_presence["GRCh37"]:
+                abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
+            elif not normalizedVariant["GRCh38"] and genomics_build_presence["GRCh38"]:
+                abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
+
+    query_results = common.query_molecular_consequences_by_variants(normalized_variants, normalized_feature_consequence_list, query, True)
+
+    parameter = OrderedDict()
+    parameter["name"] = "consequences"
+    parameter["part"] = []
+
+    parameter["part"].append({
+        "name": "numerator",
+        "valueQuantity": {'value': len(query_results)}
+    })
+
+    parameter["part"].append({
+        "name": "denominator",
+        "valueQuantity": {"value": common.patients_db.count_documents({})}
+    })
+
+    if includePatientList:
+        patients = []
+        for patientID in query_results:
+            patients.append(f'{patientID["_id"]}')
+
+        for patientID in sorted(patients):
+            parameter["part"].append({
+                "name": "subject",
+                "valueString": f'{patientID}'
+            })
+
+    result["parameter"].append(parameter)
+
+    if not result["parameter"]:
+        result.pop("parameter")
+    return jsonify(result)
