@@ -140,7 +140,7 @@ def find_the_gene_query(query):
 def compare_actual_and_expected_output(filename, actual_json):
     with open(filename) as expected_output_file:
         expected_json = json.load(expected_output_file)
-        diff = DeepDiff(actual_json, expected_json, ignore_order=True,report_repetition=True)
+        diff = DeepDiff(actual_json, expected_json, ignore_order=True, report_repetition=True)
 
         if diff != {}:
             if 'OVERWRITE_TEST_EXPECTED_DATA' in os.environ:
