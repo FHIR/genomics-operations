@@ -847,6 +847,7 @@ def find_subject_tx_implications(
     result = OrderedDict()
     result["resourceType"] = "Parameters"
     result["parameter"] = []
+    list_variants = []
 
     if normalized_variants:
         if not ranges:
@@ -880,11 +881,13 @@ def find_subject_tx_implications(
                 resource = common.create_fhir_variant_resource(
                     res, ref_seq, subject)
 
-                variant_param = {
-                    "name": "variant",
-                    "resource": resource
-                }
-                result["parameter"].append(variant_param)
+                if resource['id'] not in list_variants:
+                    list_variants.append(resource['id'])
+                    variant_param = {
+                        "name": "variant",
+                        "resource": resource
+                    }
+                    result["parameter"].append(variant_param)
 
         if not result["parameter"]:
             result.pop("parameter")
@@ -1000,11 +1003,13 @@ def find_subject_tx_implications(
                 variant_fhir_profiles = sorted(variant_fhir_profiles, key=lambda d: d['id'])
 
             for resource in variant_fhir_profiles:
-                variant_param = {
-                    "name": "variant",
-                    "resource": resource
-                }
-                result["parameter"].append(variant_param)
+                if resource['id'] not in list_variants:
+                    list_variants.append(resource['id'])
+                    variant_param = {
+                        "name": "variant",
+                        "resource": resource
+                    }
+                    result["parameter"].append(variant_param)
 
         if not result["parameter"]:
             result.pop("parameter")
@@ -1038,11 +1043,13 @@ def find_subject_tx_implications(
                 variant_fhir_profiles = sorted(variant_fhir_profiles, key=lambda d: d['id'])
 
             for resource in variant_fhir_profiles:
-                variant_param = {
-                    "name": "variant",
-                    "resource": resource
-                }
-                result["parameter"].append(variant_param)
+                if resource['id'] not in list_variants:
+                    list_variants.append(resource['id'])
+                    variant_param = {
+                        "name": "variant",
+                        "resource": resource
+                    }
+                    result["parameter"].append(variant_param)
 
         if not result["parameter"]:
             result.pop("parameter")
@@ -1113,7 +1120,7 @@ def find_subject_dx_implications(
     result = OrderedDict()
     result["resourceType"] = "Parameters"
     result["parameter"] = []
-
+    list_variants = []
     if normalized_variants:
         if not ranges:
             genomics_build_presence = common.get_genomics_build_presence(query)
@@ -1146,11 +1153,14 @@ def find_subject_dx_implications(
 
                 resource = common.create_fhir_variant_resource(
                     res, ref_seq, subject)
-                variant_param = {
-                    "name": "variant",
-                    "resource": resource
-                }
-                result["parameter"].append(variant_param)
+
+                if resource['id'] not in list_variants:
+                    list_variants.append(resource['id'])
+                    variant_param = {
+                        "name": "variant",
+                        "resource": resource
+                    }
+                    result["parameter"].append(variant_param)
 
         if not result["parameter"]:
             result.pop("parameter")
@@ -1180,11 +1190,14 @@ def find_subject_dx_implications(
                 ref_seq = common.get_ref_seq_by_chrom_and_build(varItem['genomicBuild'], varItem['CHROM'])
                 resource = common.create_fhir_variant_resource(varItem, ref_seq, subject)
 
-                variant_param = {
-                    "name": "variant",
-                    "resource": resource
-                }
-                result["parameter"].append(variant_param)
+                if resource['id'] not in list_variants:
+                    list_variants.append(resource['id'])
+
+                    variant_param = {
+                        "name": "variant",
+                        "resource": resource
+                    }
+                    result["parameter"].append(variant_param)
 
         if not result["parameter"]:
             result.pop("parameter")
