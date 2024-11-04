@@ -1,12 +1,13 @@
 import os
 import subprocess
 import pysam
+import json
 
 # Define S3 path and local download path for the FASTQ file
 s3_bucket = "s3://1000genomes/"
 fastq_path = "phase3/data/HG00096/sequence_read/SRR062634.filt.fastq.gz"  # Use the actual path
 local_fastq = "SRR062634.filt.fastq.gz"
-output_bed = "output.bed"
+output_json = "output.json"  # Output JSON file
 
 # Step 1: Download the FASTQ file from S3
 def download_fastq_from_s3():
@@ -17,26 +18,32 @@ def download_fastq_from_s3():
     except subprocess.CalledProcessError as e:
         print(f"Error downloading file from S3: {e}")
 
-# Step 2: Process the FASTQ file and convert to BED format
-def fastq_to_bed(fastq_file, bed_file):
+# Step 2: Convert FASTQ file to JSON format
+def fastq_to_json(fastq_file, json_file):
+    entries = []  # List to hold each entry as a dictionary
     try:
-        with pysam.FastxFile(fastq_file) as fastq, open(bed_file, "w") as bed:
+        with pysam.FastxFile(fastq_file) as fastq:
             for entry in fastq:
-                # Assuming "contig" represents the chromosome, start is 0-based
-                chrom = entry.name.split(":")[0]
-                start = int(entry.name.split(":")[1].split("-")[0]) - 1
-                end = int(entry.name.split(":")[1].split("-")[1])
+                # Create a dictionary for each entry with relevant details
+                entry_dict = {
+                    "name": entry.name,         # Read identifier
+                    "sequence": entry.sequence, # Sequence data
+                    "quality": entry.quality    # Quality scores (only for FASTQ files)
+                }
+                entries.append(entry_dict)
 
-                # Write to BED format: chrom, start, end
-                bed.write(f"{chrom}\t{start}\t{end}\n")
-        print(f"BED file created: {bed_file}")
+        # Write the list of entries to the JSON file
+        with open(json_file, "w") as json_out:
+            json.dump(entries, json_out, indent=4)
+
+        print(f"JSON file created: {json_file}")
     except Exception as e:
-        print(f"Error processing FASTQ to BED: {e}")
+        print(f"Error processing FASTQ to JSON: {e}")
 
 # Step 3: Execute the steps
 def main():
     download_fastq_from_s3()
-    fastq_to_bed(local_fastq, output_bed)
+    fastq_to_json(local_fastq, output_json)
 
     # Clean up by deleting the downloaded FASTQ file
     try:
@@ -47,4 +54,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
