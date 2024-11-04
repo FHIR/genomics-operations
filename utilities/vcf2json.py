@@ -76,8 +76,11 @@ def _valid_record(record, genomic_source_class, sample_position):
             return False
     if (record.FILTER is not None and len(record.FILTER) != 0):
         return False
-    if record.samples[sample_position]["GT"] in ['0/0', '0|0', '0']:
-        return False
+
+    #Accept non-variants
+    #if record.samples[sample_position]["GT"] in ['0/0', '0|0', '0']:
+        #return False
+
     if not record.REF.isalpha():
         return False
     if record.CHROM == "M" and (
@@ -166,11 +169,12 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
             output_json["CHROM"] = f"chr{record.CHROM}"
             output_json["POS"] = record.POS - 1
             output_json["REF"] = record.REF
-            # populate ALT
-            if len(record.ALT) > 1:
-                output_json["ALT"] = str(record.ALT[i])
-            else:
+
+            # populate ALT for non-variants
+            if record.ALT and record.ALT[0] not in [None, '.']:
                 output_json["ALT"] = str(record.ALT[0])
+            else:
+                output_json["ALT"] = output_json["REF"]
 
             output_json["END"] = (record.POS - 1 + len(record.REF))
             if record.FILTER is None:

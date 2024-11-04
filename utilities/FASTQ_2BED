@@ -1,0 +1,50 @@
+import os
+import subprocess
+import pysam
+
+# Define S3 path and local download path for the FASTQ file
+s3_bucket = "s3://1000genomes/"
+fastq_path = "phase3/data/HG00096/sequence_read/SRR062634.filt.fastq.gz"  # Use the actual path
+local_fastq = "SRR062634.filt.fastq.gz"
+output_bed = "output.bed"
+
+# Step 1: Download the FASTQ file from S3
+def download_fastq_from_s3():
+    try:
+        print("Downloading FASTQ file from S3...")
+        subprocess.run(["aws", "s3", "cp", s3_bucket + fastq_path, local_fastq], check=True)
+        print("Download completed.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error downloading file from S3: {e}")
+
+# Step 2: Process the FASTQ file and convert to BED format
+def fastq_to_bed(fastq_file, bed_file):
+    try:
+        with pysam.FastxFile(fastq_file) as fastq, open(bed_file, "w") as bed:
+            for entry in fastq:
+                # Assuming "contig" represents the chromosome, start is 0-based
+                chrom = entry.name.split(":")[0]
+                start = int(entry.name.split(":")[1].split("-")[0]) - 1
+                end = int(entry.name.split(":")[1].split("-")[1])
+
+                # Write to BED format: chrom, start, end
+                bed.write(f"{chrom}\t{start}\t{end}\n")
+        print(f"BED file created: {bed_file}")
+    except Exception as e:
+        print(f"Error processing FASTQ to BED: {e}")
+
+# Step 3: Execute the steps
+def main():
+    download_fastq_from_s3()
+    fastq_to_bed(local_fastq, output_bed)
+
+    # Clean up by deleting the downloaded FASTQ file
+    try:
+        os.remove(local_fastq)
+        print("Downloaded FASTQ file deleted.")
+    except OSError as e:
+        print(f"Error deleting FASTQ file: {e}")
+
+if __name__ == "__main__":
+    main()
+
