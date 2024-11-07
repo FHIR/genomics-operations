@@ -1,6 +1,13 @@
 from flask import abort, jsonify
 from collections import OrderedDict
 from app import common
+import requests
+
+
+def fetch_concept_map(mapID):
+    url = f"http://hapi.fhir.org/baseR4/ConceptMap/{mapID}"
+    headers = {'Accept': 'application/json'}
+    return requests.get(url, headers=headers)
 
 
 def get_feature_coordinates(
@@ -189,3 +196,97 @@ def find_the_gene(range=None):
         output.append(ord_dict)
 
     return (jsonify(output))
+
+
+def translate_terminology(codeSystem, code):
+    # validate input parameters
+    if codeSystem not in ['http://www.nlm.nih.gov/research/umls/rxnorm', 'http://snomed.info/sct', 'http://hl7.org/fhir/sid/icd-10']:
+        return "unrecognized code system"
+    response = [{}]
+
+    # process rxnorm input
+    if codeSystem == 'http://www.nlm.nih.gov/research/umls/rxnorm':
+        MapRxNorm = fetch_concept_map(44872525)
+        if MapRxNorm.status_code == 200:
+            MapRxNorm = MapRxNorm.json()
+            for element in MapRxNorm["group"][0]["element"]:
+                if element["code"] == code:
+                    response[0]["outcome"] = 'match found'
+                    response[0]["code"] = element["target"][0]["code"]
+                    response[0]["system"] = 'https://ncithesaurus.nci.nih.gov/'
+                    response[0]["display"] = element["target"][0]["display"]
+                    return response
+            response[0]["outcome"] = 'no match found'
+            response[0]["system"] = 'https://ncithesaurus.nci.nih.gov/'
+            return response
+        else:
+            abort(500, "HAPI server error")
+
+    # process snomed input, return disease ontology code AND medgen
+    if codeSystem == 'http://snomed.info/sct':
+        Mapsnomed = fetch_concept_map(44947014)
+        if Mapsnomed.status_code == 200:
+            Mapsnomed = Mapsnomed.json()
+            for element in Mapsnomed["group"][0]["element"]:
+                if element["code"] == code:
+                    response[0]["outcome"] = 'match found'
+                    response[0]["code"] = element["target"][0]["code"]
+                    response[0]["system"] = 'https://disease-ontology.org/'
+                    response[0]["display"] = element["target"][0]["display"]
+                    break
+                response[0]["outcome"] = 'no match found'
+                response[0]["system"] = 'https://disease-ontology.org/'
+        else:
+            abort(500, "HAPI server error")
+
+        Mapsnomed = fetch_concept_map(44872524)
+        if Mapsnomed.status_code == 200:
+            Mapsnomed = Mapsnomed.json()
+            response.append({})
+            for element in Mapsnomed["group"][0]["element"]:
+                if element["code"] == code:
+                    response[1]["outcome"] = 'match found'
+                    response[1]["code"] = element["target"][0]["code"]
+                    response[1]["system"] = 'https://www.ncbi.nlm.nih.gov/medgen/'
+                    response[1]["display"] = element["target"][0]["display"]
+                    break
+                response[1]["outcome"] = 'no match found'
+                response[1]["system"] = 'https://www.ncbi.nlm.nih.gov/medgen/'
+        else:
+            abort(500, "HAPI server error")
+        return response
+
+    # process ICD10 input, return disease ontology AND medgen codes
+    if codeSystem == 'http://hl7.org/fhir/sid/icd-10':
+        code = code.upper().replace(".", "")
+        MapICD10 = fetch_concept_map(44872527)
+        if MapICD10.status_code == 200:
+            MapICD10 = MapICD10.json()
+            for element in MapICD10["group"][0]["element"]:
+                if element["code"] == code:
+                    response[0]["outcome"] = 'match found'
+                    response[0]["code"] = element["target"][0]["code"]
+                    response[0]["system"] = 'https://disease-ontology.org/'
+                    response[0]["display"] = element["target"][0]["display"]
+                    break
+                response[0]["outcome"] = 'no match found'
+                response[0]["system"] = 'https://disease-ontology.org/'
+        else:
+            abort(500, "HAPI server error")
+
+        MapICD10 = fetch_concept_map(44872523)
+        if MapICD10.status_code == 200:
+            MapICD10 = MapICD10.json()
+            response.append({})
+            for element in MapICD10["group"][0]["element"]:
+                if element["code"] == code:
+                    response[1]["outcome"] = "match found"
+                    response[1]["code"] = element["target"][0]["code"]
+                    response[1]["system"] = "https://www.ncbi.nlm.nih.gov/medgen/"
+                    response[1]["display"] = element["target"][0]["display"]
+                    break
+                response[1]["outcome"] = "no match found"
+                response[1]["system"] = "https://www.ncbi.nlm.nih.gov/medgen/"
+        else:
+            abort(500, "HAPI server error")
+        return response

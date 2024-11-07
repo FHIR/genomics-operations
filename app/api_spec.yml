@@ -1280,6 +1280,7 @@ paths:
             type: string
             pattern: '^\s*[Nn][Pp]_\d{4,10}(\.)?(\d{1,2})?\s*$'
           example: "NP_000005.3"
+
   /utilities/find-the-gene:
     get:
       description: |-
@@ -1304,6 +1305,41 @@ paths:
             type: string
             pattern: '^\s*[Nn][Cc]_\d{4,10}(\.)(\d{1,2}):\d{1,10}-\d{1,10}\s*$'
             example: "NC_000001.11:11794399-11794400"
+
+  /utilities/terminology-translation:
+    get:
+      description: |-
+        This utility demonstrates terminology translations SNOMED to MedGen and DiseaseOntology; ICD10 to MedGen and DiseaseOntology; RxNorm to NCIt.
+      summary: "Translate from one code system to another"
+      operationId: "app.utilities_endpoints.translate_terminology"
+      tags:
+        - "Operations Utilities (not part of balloted HL7 Operations)"
+      responses:
+        '200':
+          description: "Returns matching codes in target code system(s)."
+          content:
+            application/json:
+              schema:
+                type: object
+      parameters:
+        - name: codeSystem
+          in: query
+          required: true
+          description: Code system for code to be translated.
+          schema:
+            type: string
+            enum:
+              - "http://www.nlm.nih.gov/research/umls/rxnorm"
+              - "http://snomed.info/sct"
+              - "http://hl7.org/fhir/sid/icd-10"
+            example: "http://snomed.info/sct"
+        - name: code
+          in: query
+          schema:
+            type: string
+            example: '126949007'
+          required: true
+          description: The code to be translated.
 
 tags:
   - name: Subject Genotype Operations
