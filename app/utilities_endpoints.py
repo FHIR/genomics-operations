@@ -220,7 +220,7 @@ def translate_terminology(codeSystem, code):
             response[0]["system"] = 'https://ncithesaurus.nci.nih.gov/'
             return response
         else:
-            return "server down"
+            abort(500, "HAPI server error")
 
     # process snomed input, return disease ontology code AND medgen
     if codeSystem == 'http://snomed.info/sct':
@@ -237,7 +237,7 @@ def translate_terminology(codeSystem, code):
                 response[0]["outcome"] = 'no match found'
                 response[0]["system"] = 'https://disease-ontology.org/'
         else:
-            return "server down"
+            abort(500, "HAPI server error")
 
         Mapsnomed = fetch_concept_map(44872524)
         if Mapsnomed.status_code == 200:
@@ -253,7 +253,7 @@ def translate_terminology(codeSystem, code):
                 response[1]["outcome"] = 'no match found'
                 response[1]["system"] = 'https://www.ncbi.nlm.nih.gov/medgen/'
         else:
-            return "server down"
+            abort(500, "HAPI server error")
         return response
 
     # process ICD10 input, return disease ontology AND medgen codes
@@ -272,7 +272,7 @@ def translate_terminology(codeSystem, code):
                 response[0]["outcome"] = 'no match found'
                 response[0]["system"] = 'https://disease-ontology.org/'
         else:
-            return "server down"
+            abort(500, "HAPI server error")
 
         MapICD10 = fetch_concept_map(44872523)
         if MapICD10.status_code == 200:
@@ -288,5 +288,5 @@ def translate_terminology(codeSystem, code):
                 response[1]["outcome"] = "no match found"
                 response[1]["system"] = "https://www.ncbi.nlm.nih.gov/medgen/"
         else:
-            return "Server down"
+            abort(500, "HAPI server error")
         return response
