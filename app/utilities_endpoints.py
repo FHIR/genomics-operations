@@ -258,6 +258,7 @@ def translate_terminology(codeSystem, code):
 
     # process ICD10 input, return disease ontology AND medgen codes
     if codeSystem == 'http://hl7.org/fhir/sid/icd-10':
+        code = code.upper().replace(".", "")
         MapICD10 = fetch_concept_map(44872527)
         if MapICD10.status_code == 200:
             MapICD10 = MapICD10.json()
