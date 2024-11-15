@@ -35,7 +35,7 @@ def test_find_population_tx_implications_4(client):
 
 
 def test_find_population_tx_implications_5(client):
-    url = tu.find_population_tx_implications_query('conditions=https://disease-ontology.org|3908&includePatientList=true')
+    url = tu.find_population_tx_implications_query('conditions=https://disease-ontology.org|DOID:3908&includePatientList=true')
     response = client.get(url)
 
     tu.compare_actual_and_expected_output(f'{tu.FIND_POPULATION_TX_IMPLICATIONS_OUTPUT_DIR}5.json', response.json)

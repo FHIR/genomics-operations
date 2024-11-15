@@ -1099,7 +1099,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-tx-implications?subject=TCGA-DD-A1EH&variants=NC_000001.10:27106893::T&conditions=https://disease-ontology.org|684&ranges=NC_000001.10:27106890-27106900",
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-tx-implications?subject=CA12345&conditions=https://disease-ontology.org|DOID:3908",
 							"protocol": "https",
 							"host": [
 								"fhir-gen-ops",
@@ -1114,19 +1114,21 @@
 							"query": [
 								{
 									"key": "subject",
-									"value": "TCGA-DD-A1EH"
+									"value": "CA12345"
 								},
 								{
 									"key": "variants",
-									"value": "NC_000001.10:27106893::T"
+									"value": "NC_000001.10:27106893::T",
+									"disabled": true
 								},
 								{
 									"key": "conditions",
-									"value": "https://disease-ontology.org|684"
+									"value": "https://disease-ontology.org|DOID:3908"
 								},
 								{
 									"key": "ranges",
-									"value": "NC_000001.10:27106890-27106900"
+									"value": "NC_000001.10:27106890-27106900",
+									"disabled": true
 								}
 							]
 						}
@@ -1392,7 +1394,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-tx-implications?subject=CA12345&variants=NM_002524.5:c.182A>C,NM_001354609.2:c.1799T>A&conditions=https://disease-ontology.org|3908",
+							"raw": "https://fhir-gen-ops.herokuapp.com/subject-operations/phenotype-operations/$find-subject-tx-implications?subject=CA12345&variants=NM_002524.5:c.182A>C,NM_001354609.2:c.1799T>A&conditions=https://disease-ontology.org|DOID:3908",
 							"protocol": "https",
 							"host": [
 								"fhir-gen-ops",
@@ -1445,7 +1447,7 @@
 								},
 								{
 									"key": "conditions",
-									"value": "https://disease-ontology.org|3908"
+									"value": "https://disease-ontology.org|DOID:3908"
 								}
 							]
 						}
@@ -2647,7 +2649,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/phenotype-operations/$find-population-tx-implications?conditions=https://disease-ontology.org|3908&includePatientList=true",
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/phenotype-operations/$find-population-tx-implications?conditions=https://disease-ontology.org|DOID:3908&includePatientList=true",
 							"protocol": "https",
 							"host": [
 								"fhir-gen-ops",
@@ -2682,7 +2684,7 @@
 								},
 								{
 									"key": "conditions",
-									"value": "https://disease-ontology.org|3908"
+									"value": "https://disease-ontology.org|DOID:3908"
 								},
 								{
 									"key": "includePatientList",

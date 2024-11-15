@@ -561,7 +561,7 @@ paths:
             items:
               type: string
             example:
-              - "https://disease-ontology.org|3908"
+              - "https://disease-ontology.org|DOID:3908"
           style: "form"
           explode: false
         - name: testIdentifiers

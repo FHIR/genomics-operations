@@ -5,3 +5,4 @@
 __pycache__
 .venv
 utilities/FASTA
+utilities/mongo_utilities.py

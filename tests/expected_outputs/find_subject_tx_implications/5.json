@@ -5,7 +5,7 @@
             "name": "implication",
             "resource": {
                 "resourceType": "Observation",
-                "id": "dv-63287c9ff7c8d34d272a3d7a",
+                "id": "dv-6737a82bd7c0d2714e4ae561",
                 "meta": {
                     "profile": [
                         "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -53,7 +53,7 @@
                             "coding": [
                                 {
                                     "system": "https://disease-ontology.org",
-                                    "code": "3908",
+                                    "code": "DOID:3908",
                                     "display": "Lung Non-small Cell Carcinoma"
                                 }
                             ]
@@ -70,7 +70,7 @@
                             ]
                         },
                         "valueCodeableConcept": {
-                            "text": "B (Clinical evidence)"
+                            "text": "C (Case study)"
                         }
                     },
                     {
@@ -87,8 +87,8 @@
                             "coding": [
                                 {
                                     "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-                                    "code": "1147220",
-                                    "display": "Vemurafenib"
+                                    "code": "1424911",
+                                    "display": "Dabrafenib"
                                 }
                             ]
                         }
@@ -104,7 +104,7 @@
                             ]
                         },
                         "valueCodeableConcept": {
-                            "text": "Supports Sensitivity/Response"
+                            "text": "Supports Resistance"
                         }
                     }
                 ],
@@ -115,7 +115,7 @@
                     },
                     {
                         "system": "https://civicdb.org/evidence",
-                        "value": "5958"
+                        "value": "91"
                     }
                 ]
             }
@@ -285,7 +285,7 @@
             "name": "implication",
             "resource": {
                 "resourceType": "Observation",
-                "id": "dv-63287c9ff7c8d34d272a3d61",
+                "id": "dv-6737a82bd7c0d2714e4ae580",
                 "meta": {
                     "profile": [
                         "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -333,7 +333,7 @@
                             "coding": [
                                 {
                                     "system": "https://disease-ontology.org",
-                                    "code": "3908",
+                                    "code": "DOID:3908",
                                     "display": "Lung Non-small Cell Carcinoma"
                                 }
                             ]
@@ -350,7 +350,7 @@
                             ]
                         },
                         "valueCodeableConcept": {
-                            "text": "C (Case study)"
+                            "text": "B (Clinical evidence)"
                         }
                     },
                     {
@@ -367,8 +367,8 @@
                             "coding": [
                                 {
                                     "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-                                    "code": "1424911",
-                                    "display": "Dabrafenib"
+                                    "code": "1147220",
+                                    "display": "Vemurafenib"
                                 }
                             ]
                         }
@@ -384,7 +384,7 @@
                             ]
                         },
                         "valueCodeableConcept": {
-                            "text": "Supports Resistance"
+                            "text": "Supports Sensitivity/Response"
                         }
                     }
                 ],
@@ -395,7 +395,7 @@
                     },
                     {
                         "system": "https://civicdb.org/evidence",
-                        "value": "91"
+                        "value": "5958"
                     }
                 ]
             }
@@ -404,7 +404,7 @@
             "name": "implication",
             "resource": {
                 "resourceType": "Observation",
-                "id": "dv-63287c9ff7c8d34d272a40a9",
+                "id": "dv-6737a82bd7c0d2714e4ae8f5",
                 "meta": {
                     "profile": [
                         "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
@@ -452,7 +452,7 @@
                             "coding": [
                                 {
                                     "system": "https://disease-ontology.org",
-                                    "code": "3908",
+                                    "code": "DOID:3908",
                                     "display": "Lung Non-small Cell Carcinoma"
                                 }
                             ]
