@@ -48,3 +48,11 @@ run `python3 -m pytest` from the terminal to execute them all.
 Additionally, since the tests run against the Mongo DB database, if you need to update the test data in this repo, you
 can run `OVERWRITE_TEST_EXPECTED_DATA=true python3 -m pytest` from the terminal and then create a pull request with the
 changes.
+
+## Update py-ard database
+
+- Run `pyard.init(data_dir='./data/pyard', imgt_version=<new version>)` to download the new version
+- Run `cd data/pyard && tar -czf pyard.sqlite3.tar.gz pyard-<new version>.sqlite3`
+- Upload `pyard.sqlite3.tar.gz` in a new release on GitHub
+- Update `PYARD_DATABASE_VERSION` in `.env`
+- Update `UTILITIES_DATA_VERSION` in `.env` with the new tag ID (short git sha)

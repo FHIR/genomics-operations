@@ -1,7 +1,19 @@
-from flask import abort, jsonify
+import os
 from collections import OrderedDict
-from app import common
+from os.path import isdir
+
+import pyard
 import requests
+from flask import abort, jsonify
+
+from app import common
+
+# Make sure the pyard folder exists locally
+if not isdir('./data/pyard'):
+    exit("Missing pyard folder. Please run fetch_utilities_data.sh!")
+
+pyard_database_version = os.getenv('PYARD_DATABASE_VERSION', '3580')
+ard = pyard.init(data_dir='./data/pyard', cache_size=1, imgt_version=pyard_database_version)
 
 
 def fetch_concept_map(mapID):
@@ -290,3 +302,22 @@ def translate_terminology(codeSystem, code):
         else:
             abort(500, "HAPI server error")
         return response
+
+
+def normalize_hla(allele):
+    try:
+        return {
+            allele: {
+                "G": ard.redux(allele, "G"),
+                "P": ard.redux(allele, "P"),
+                "lg": ard.redux(allele, "lg"),
+                "lgx": ard.redux(allele, "lgx"),
+                "W": ard.redux(allele, "W"),
+                "exon": ard.redux(allele, "exon"),
+                "U2": ard.redux(allele, "U2"),
+                "S": ard.redux(allele, "S")
+            }
+        }
+    except Exception as err:
+        print(f"Unexpected {err=}, {type(err)=}")
+        abort(422, 'Failed HLA normalization')

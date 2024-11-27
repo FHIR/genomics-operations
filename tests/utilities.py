@@ -60,6 +60,9 @@ GET_FEATURE_COORDINATES_OUTPUT_DIR = "tests/expected_outputs/get_feature_coordin
 FIND_THE_GENE_URL = "/utilities/find-the-gene"
 FIND_THE_GENE_OUTPUT_DIR = "tests/expected_outputs/find_the_gene/"
 
+NORMALIZE_HLA_URL = "/utilities/normalize-hla"
+NORMALIZE_HLA_OUTPUT_DIR = "tests/expected_outputs/normalize_hla/"
+
 
 def find_subject_variants_query(query):
     return f"{FIND_SUBJECT_VARIANTS_URL}?{query}"
@@ -135,6 +138,10 @@ def get_feature_coordinates_query(query):
 
 def find_the_gene_query(query):
     return f"{FIND_THE_GENE_URL}?{query}"
+
+
+def normalize_hla_utility_query(query):
+    return f"{NORMALIZE_HLA_URL}?{query}"
 
 
 def compare_actual_and_expected_output(filename, actual_json):
