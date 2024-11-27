@@ -1306,6 +1306,28 @@ paths:
             pattern: '^\s*[Nn][Cc]_\d{4,10}(\.)(\d{1,2}):\d{1,10}-\d{1,10}\s*$'
             example: "NC_000001.11:11794399-11794400"
 
+  /utilities/normalize-hla:
+    get:
+      summary: "Normalize HLA"
+      operationId: "app.utilities_endpoints.normalize_hla"
+      tags:
+        - "Operations Utilities (not part of balloted HL7 Operations)"
+      responses:
+        "200":
+          description: "Returns a normalized HLA ARD allele."
+          content:
+            application/json:
+              schema:
+                type: object
+      parameters:
+        - name: allele
+          in: query
+          required: true
+          description: "Allele."
+          schema:
+            type: string
+            example: "B14"
+
   /utilities/terminology-translation:
     get:
       description: |-
