@@ -1308,6 +1308,8 @@ paths:
 
   /utilities/normalize-variant:
     get:
+      description: >
+        This utility uses <a href="https://api.ncbi.nlm.nih.gov/variation/v0/">NCBI Variation Services</a> to convert an arbitrary HGVS or SPDI-formatted variant into a canonical build 37 and build 38 HGVS and SPDI.
       summary: "Normalize variant"
       operationId: "app.utilities_endpoints.normalize_variant"
       tags:
@@ -1330,6 +1332,8 @@ paths:
 
   /utilities/normalize-hla:
     get:
+      description: >
+        This utility uses the <a href="https://pypi.org/project/py-ard/">python py-ard library</a> to convert an arbitrary HLA allele into various canonical forms.
       summary: "Normalize HLA"
       operationId: "app.utilities_endpoints.normalize_hla"
       tags:
