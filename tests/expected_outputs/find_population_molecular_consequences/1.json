@@ -1,0 +1,26 @@
+{
+  "resourceType": "Parameters",
+  "parameter": [
+    {
+      "name": "consequences",
+      "part": [
+        {
+          "name": "numerator",
+          "valueQuantity": {
+            "value": 1
+          }
+        },
+        {
+          "name": "denominator",
+          "valueQuantity": {
+            "value": 1116
+          }
+        },
+        {
+          "name": "subject",
+          "valueString": "TCGA-DD-A1EH"
+        }
+      ]
+    }
+  ]
+}

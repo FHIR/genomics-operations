@@ -1,6 +1,51 @@
-from flask import abort, jsonify
+import os
 from collections import OrderedDict
+from os.path import isdir
+import pyard
+import requests
+from flask import abort, jsonify
 from app import common
+import json
+
+# Make sure the pyard folder exists locally
+if not isdir('./data/pyard'):
+    exit("Missing pyard folder. Please run fetch_utilities_data.sh!")
+
+pyard_database_version = os.getenv('PYARD_DATABASE_VERSION', '3580')
+ard = pyard.init(data_dir='./data/pyard', cache_size=1, imgt_version=pyard_database_version)
+
+
+def fetch_concept_map(mapID):
+    url = f"http://hapi.fhir.org/baseR4/ConceptMap/{mapID}"
+    headers = {'Accept': 'application/json'}
+    return requests.get(url, headers=headers)
+
+
+def SPDI_all_equivalent_contextual(variant):
+    url = 'https://api.ncbi.nlm.nih.gov/variation/v0/spdi/' + variant + '/all_equivalent_contextual'
+    headers = {'Accept': 'application/json'}
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+        abort(500, "NCBI Variation Services server is down")
+    return response
+
+
+def SPDI_hgvs(variant):
+    url = 'https://api.ncbi.nlm.nih.gov/variation/v0/spdi/' + variant + '/hgvs'
+    headers = {'Accept': 'application/json'}
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+        abort(500, "NCBI Variation Services issue")
+    return response
+
+
+def HGVS_contextuals(variant):
+    url = 'https://api.ncbi.nlm.nih.gov/variation/v0/hgvs/' + variant + '/contextuals'
+    headers = {'Accept': 'application/json'}
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+        abort(500, "NCBI Variation Services issue")
+    return response
 
 
 def get_feature_coordinates(
@@ -189,3 +234,148 @@ def find_the_gene(range=None):
         output.append(ord_dict)
 
     return (jsonify(output))
+
+
+def normalize_variant(variant):
+    normalizedVariant = {
+        "b37SPDI": "",
+        "b38SPDI": "",
+        "b37HGVS": "",
+        "b38HGVS": ""
+    }
+    if variant.count(':') == 3:  # SPDI
+        response = SPDI_all_equivalent_contextual(variant)
+        for spdi in json.loads(response.text)["data"]["spdis"]:
+            if spdi["seq_id"] in ['NC_000001.10', 'NC_000002.11', 'NC_000003.11', 'NC_000004.11', 'NC_000005.9', 'NC_000006.11', 'NC_000007.13', 'NC_000008.10', 'NC_000009.11', 'NC_000010.10', 'NC_000011.9', 'NC_000012.11', 'NC_000013.10', 'NC_000014.8', 'NC_000015.9', 'NC_000016.9', 'NC_000017.10', 'NC_000018.9', 'NC_000019.9', 'NC_000020.10', 'NC_000021.8', 'NC_000022.10', 'NC_000023.10', 'NC_000024.9']:
+                normalizedVariant["b37SPDI"] = spdi["seq_id"] + ":" + str(spdi["position"]) + ":" + spdi["deleted_sequence"] + ":" + spdi["inserted_sequence"]
+                normalizedVariant["b37HGVS"] = json.loads(SPDI_hgvs(normalizedVariant["b37SPDI"]).text)["data"]["hgvs"]
+            if spdi["seq_id"] in ['NC_000001.11', 'NC_000002.12', 'NC_000003.12', 'NC_000004.12', 'NC_000005.10', 'NC_000006.12', 'NC_000007.14', 'NC_000008.11', 'NC_000009.12', 'NC_000010.11', 'NC_000011.10', 'NC_000012.12', 'NC_000013.11', 'NC_000014.9', 'NC_000015.10', 'NC_000016.10', 'NC_000017.11', 'NC_000018.10', 'NC_000019.10', 'NC_000020.11', 'NC_000021.9', 'NC_000022.11', 'NC_000023.11', 'NC_000024.10']:
+                normalizedVariant["b38SPDI"] = spdi["seq_id"] + ":" + str(spdi["position"]) + ":" + spdi["deleted_sequence"] + ":" + spdi["inserted_sequence"]
+                normalizedVariant["b38HGVS"] = json.loads(SPDI_hgvs(normalizedVariant["b38SPDI"]).text)["data"]["hgvs"]
+    elif variant.count(":") == 1:  # HGVS
+        spdi = json.loads(HGVS_contextuals(variant).text)["data"]["spdis"][0]
+        spdi = spdi["seq_id"] + ":" + str(spdi["position"]) + ":" + spdi["deleted_sequence"] + ":" + spdi["inserted_sequence"]
+        response = SPDI_all_equivalent_contextual(spdi)
+        for spdi in json.loads(response.text)["data"]["spdis"]:
+            if spdi["seq_id"] in ['NC_000001.10', 'NC_000002.11', 'NC_000003.11', 'NC_000004.11', 'NC_000005.9', 'NC_000006.11', 'NC_000007.13', 'NC_000008.10', 'NC_000009.11', 'NC_000010.10', 'NC_000011.9', 'NC_000012.11', 'NC_000013.10', 'NC_000014.8', 'NC_000015.9', 'NC_000016.9', 'NC_000017.10', 'NC_000018.9', 'NC_000019.9', 'NC_000020.10', 'NC_000021.8', 'NC_000022.10', 'NC_000023.10', 'NC_000024.9']:
+                normalizedVariant["b37SPDI"] = spdi["seq_id"] + ":" + str(spdi["position"]) + ":" + spdi["deleted_sequence"] + ":" + spdi["inserted_sequence"]
+                normalizedVariant["b37HGVS"] = json.loads(SPDI_hgvs(normalizedVariant["b37SPDI"]).text)["data"]["hgvs"]
+            if spdi["seq_id"] in ['NC_000001.11', 'NC_000002.12', 'NC_000003.12', 'NC_000004.12', 'NC_000005.10', 'NC_000006.12', 'NC_000007.14', 'NC_000008.11', 'NC_000009.12', 'NC_000010.11', 'NC_000011.10', 'NC_000012.12', 'NC_000013.11', 'NC_000014.9', 'NC_000015.10', 'NC_000016.10', 'NC_000017.11', 'NC_000018.10', 'NC_000019.10', 'NC_000020.11', 'NC_000021.9', 'NC_000022.11', 'NC_000023.11', 'NC_000024.10']:
+                normalizedVariant["b38SPDI"] = spdi["seq_id"] + ":" + str(spdi["position"]) + ":" + spdi["deleted_sequence"] + ":" + spdi["inserted_sequence"]
+                normalizedVariant["b38HGVS"] = json.loads(SPDI_hgvs(normalizedVariant["b38SPDI"]).text)["data"]["hgvs"]
+    else:
+        abort(500, "Unrecognized variant syntax.")
+    return normalizedVariant
+
+
+def translate_terminology(codeSystem, code):
+    # validate input parameters
+    if codeSystem not in ['http://www.nlm.nih.gov/research/umls/rxnorm', 'http://snomed.info/sct', 'http://hl7.org/fhir/sid/icd-10']:
+        return "unrecognized code system"
+    response = [{}]
+
+    # process rxnorm input
+    if codeSystem == 'http://www.nlm.nih.gov/research/umls/rxnorm':
+        MapRxNorm = fetch_concept_map(44872525)
+        if MapRxNorm.status_code == 200:
+            MapRxNorm = MapRxNorm.json()
+            for element in MapRxNorm["group"][0]["element"]:
+                if element["code"] == code:
+                    response[0]["outcome"] = 'match found'
+                    response[0]["code"] = element["target"][0]["code"]
+                    response[0]["system"] = 'https://ncithesaurus.nci.nih.gov/'
+                    response[0]["display"] = element["target"][0]["display"]
+                    return response
+            response[0]["outcome"] = 'no match found'
+            response[0]["system"] = 'https://ncithesaurus.nci.nih.gov/'
+            return response
+        else:
+            abort(500, "HAPI server error")
+
+    # process snomed input, return disease ontology code AND medgen
+    if codeSystem == 'http://snomed.info/sct':
+        Mapsnomed = fetch_concept_map(44947014)
+        if Mapsnomed.status_code == 200:
+            Mapsnomed = Mapsnomed.json()
+            for element in Mapsnomed["group"][0]["element"]:
+                if element["code"] == code:
+                    response[0]["outcome"] = 'match found'
+                    response[0]["code"] = element["target"][0]["code"]
+                    response[0]["system"] = 'https://disease-ontology.org/'
+                    response[0]["display"] = element["target"][0]["display"]
+                    break
+                response[0]["outcome"] = 'no match found'
+                response[0]["system"] = 'https://disease-ontology.org/'
+        else:
+            abort(500, "HAPI server error")
+
+        Mapsnomed = fetch_concept_map(44872524)
+        if Mapsnomed.status_code == 200:
+            Mapsnomed = Mapsnomed.json()
+            response.append({})
+            for element in Mapsnomed["group"][0]["element"]:
+                if element["code"] == code:
+                    response[1]["outcome"] = 'match found'
+                    response[1]["code"] = element["target"][0]["code"]
+                    response[1]["system"] = 'https://www.ncbi.nlm.nih.gov/medgen/'
+                    response[1]["display"] = element["target"][0]["display"]
+                    break
+                response[1]["outcome"] = 'no match found'
+                response[1]["system"] = 'https://www.ncbi.nlm.nih.gov/medgen/'
+        else:
+            abort(500, "HAPI server error")
+        return response
+
+    # process ICD10 input, return disease ontology AND medgen codes
+    if codeSystem == 'http://hl7.org/fhir/sid/icd-10':
+        code = code.upper().replace(".", "")
+        MapICD10 = fetch_concept_map(44872527)
+        if MapICD10.status_code == 200:
+            MapICD10 = MapICD10.json()
+            for element in MapICD10["group"][0]["element"]:
+                if element["code"] == code:
+                    response[0]["outcome"] = 'match found'
+                    response[0]["code"] = element["target"][0]["code"]
+                    response[0]["system"] = 'https://disease-ontology.org/'
+                    response[0]["display"] = element["target"][0]["display"]
+                    break
+                response[0]["outcome"] = 'no match found'
+                response[0]["system"] = 'https://disease-ontology.org/'
+        else:
+            abort(500, "HAPI server error")
+
+        MapICD10 = fetch_concept_map(44872523)
+        if MapICD10.status_code == 200:
+            MapICD10 = MapICD10.json()
+            response.append({})
+            for element in MapICD10["group"][0]["element"]:
+                if element["code"] == code:
+                    response[1]["outcome"] = "match found"
+                    response[1]["code"] = element["target"][0]["code"]
+                    response[1]["system"] = "https://www.ncbi.nlm.nih.gov/medgen/"
+                    response[1]["display"] = element["target"][0]["display"]
+                    break
+                response[1]["outcome"] = "no match found"
+                response[1]["system"] = "https://www.ncbi.nlm.nih.gov/medgen/"
+        else:
+            abort(500, "HAPI server error")
+        return response
+
+
+def normalize_hla(allele):
+    try:
+        return {
+            allele: {
+                "G": ard.redux(allele, "G"),
+                "P": ard.redux(allele, "P"),
+                "lg": ard.redux(allele, "lg"),
+                "lgx": ard.redux(allele, "lgx"),
+                "W": ard.redux(allele, "W"),
+                "exon": ard.redux(allele, "exon"),
+                "U2": ard.redux(allele, "U2"),
+                "S": ard.redux(allele, "S")
+            }
+        }
+    except Exception as err:
+        print(f"Unexpected {err=}, {type(err)=}")
+        abort(422, 'Failed HLA normalization')

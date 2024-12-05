@@ -51,11 +51,17 @@ FIND_POPULATION_TX_IMPLICATIONS_OUTPUT_DIR = "tests/expected_outputs/find_popula
 FIND_POPULATION_DX_IMPLICATIONS_URL = "/population-operations/phenotype-operations/$find-population-dx-implications"
 FIND_POPULATION_DX_IMPLICATIONS_OUTPUT_DIR = "tests/expected_outputs/find_population_dx_implications/"
 
+FIND_POPULATION_MOLECULAR_CONSEQUENCES_URL = "/population-operations/phenotype-operations/$find-population-molecular-consequences"
+FIND_POPULATION_MOLECULAR_CONSEQUENCES_OUTPUT_DIR = "tests/expected_outputs/find_population_molecular_consequences/"
+
 GET_FEATURE_COORDINATES_URL = "/utilities/get-feature-coordinates"
 GET_FEATURE_COORDINATES_OUTPUT_DIR = "tests/expected_outputs/get_feature_coordinates/"
 
 FIND_THE_GENE_URL = "/utilities/find-the-gene"
 FIND_THE_GENE_OUTPUT_DIR = "tests/expected_outputs/find_the_gene/"
+
+NORMALIZE_HLA_URL = "/utilities/normalize-hla"
+NORMALIZE_HLA_OUTPUT_DIR = "tests/expected_outputs/normalize_hla/"
 
 
 def find_subject_variants_query(query):
@@ -122,6 +128,10 @@ def find_population_dx_implications_query(query):
     return f"{FIND_POPULATION_DX_IMPLICATIONS_URL}?{query}"
 
 
+def find_population_molecular_consequences_query(query):
+    return f"{FIND_POPULATION_MOLECULAR_CONSEQUENCES_URL}?{query}"
+
+
 def get_feature_coordinates_query(query):
     return f"{GET_FEATURE_COORDINATES_URL}?{query}"
 
@@ -130,10 +140,14 @@ def find_the_gene_query(query):
     return f"{FIND_THE_GENE_URL}?{query}"
 
 
+def normalize_hla_utility_query(query):
+    return f"{NORMALIZE_HLA_URL}?{query}"
+
+
 def compare_actual_and_expected_output(filename, actual_json):
     with open(filename) as expected_output_file:
         expected_json = json.load(expected_output_file)
-        diff = DeepDiff(actual_json, expected_json, ignore_order=True)
+        diff = DeepDiff(actual_json, expected_json, ignore_order=True, report_repetition=True)
 
         if diff != {}:
             if 'OVERWRITE_TEST_EXPECTED_DATA' in os.environ:

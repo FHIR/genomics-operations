@@ -847,6 +847,7 @@ def find_subject_tx_implications(
     result = OrderedDict()
     result["resourceType"] = "Parameters"
     result["parameter"] = []
+    list_variants = []
 
     if normalized_variants:
         if not ranges:
@@ -880,11 +881,13 @@ def find_subject_tx_implications(
                 resource = common.create_fhir_variant_resource(
                     res, ref_seq, subject)
 
-                variant_param = {
-                    "name": "variant",
-                    "resource": resource
-                }
-                result["parameter"].append(variant_param)
+                if resource['id'] not in list_variants:
+                    list_variants.append(resource['id'])
+                    variant_param = {
+                        "name": "variant",
+                        "resource": resource
+                    }
+                    result["parameter"].append(variant_param)
 
         if not result["parameter"]:
             result.pop("parameter")
@@ -1000,11 +1003,13 @@ def find_subject_tx_implications(
                 variant_fhir_profiles = sorted(variant_fhir_profiles, key=lambda d: d['id'])
 
             for resource in variant_fhir_profiles:
-                variant_param = {
-                    "name": "variant",
-                    "resource": resource
-                }
-                result["parameter"].append(variant_param)
+                if resource['id'] not in list_variants:
+                    list_variants.append(resource['id'])
+                    variant_param = {
+                        "name": "variant",
+                        "resource": resource
+                    }
+                    result["parameter"].append(variant_param)
 
         if not result["parameter"]:
             result.pop("parameter")
@@ -1038,11 +1043,13 @@ def find_subject_tx_implications(
                 variant_fhir_profiles = sorted(variant_fhir_profiles, key=lambda d: d['id'])
 
             for resource in variant_fhir_profiles:
-                variant_param = {
-                    "name": "variant",
-                    "resource": resource
-                }
-                result["parameter"].append(variant_param)
+                if resource['id'] not in list_variants:
+                    list_variants.append(resource['id'])
+                    variant_param = {
+                        "name": "variant",
+                        "resource": resource
+                    }
+                    result["parameter"].append(variant_param)
 
         if not result["parameter"]:
             result.pop("parameter")
@@ -1113,7 +1120,7 @@ def find_subject_dx_implications(
     result = OrderedDict()
     result["resourceType"] = "Parameters"
     result["parameter"] = []
-
+    list_variants = []
     if normalized_variants:
         if not ranges:
             genomics_build_presence = common.get_genomics_build_presence(query)
@@ -1146,11 +1153,14 @@ def find_subject_dx_implications(
 
                 resource = common.create_fhir_variant_resource(
                     res, ref_seq, subject)
-                variant_param = {
-                    "name": "variant",
-                    "resource": resource
-                }
-                result["parameter"].append(variant_param)
+
+                if resource['id'] not in list_variants:
+                    list_variants.append(resource['id'])
+                    variant_param = {
+                        "name": "variant",
+                        "resource": resource
+                    }
+                    result["parameter"].append(variant_param)
 
         if not result["parameter"]:
             result.pop("parameter")
@@ -1180,11 +1190,14 @@ def find_subject_dx_implications(
                 ref_seq = common.get_ref_seq_by_chrom_and_build(varItem['genomicBuild'], varItem['CHROM'])
                 resource = common.create_fhir_variant_resource(varItem, ref_seq, subject)
 
-                variant_param = {
-                    "name": "variant",
-                    "resource": resource
-                }
-                result["parameter"].append(variant_param)
+                if resource['id'] not in list_variants:
+                    list_variants.append(resource['id'])
+
+                    variant_param = {
+                        "name": "variant",
+                        "resource": resource
+                    }
+                    result["parameter"].append(variant_param)
 
         if not result["parameter"]:
             result.pop("parameter")
@@ -2322,3 +2335,75 @@ def find_population_dx_implications(
             result.pop("parameter")
 
         return jsonify(result)
+
+
+def find_population_molecular_consequences(
+        variants=None, featureConsequences=None, genomicSourceClass=None,
+        includePatientList=None):
+
+    # Parameters
+    if not variants and not featureConsequences:
+        abort(400, "You must supply either 'variants' or 'featureConsequences'.")
+
+    normalized_feature_consequence_list = []
+    if featureConsequences:
+        normalized_feature_consequence_list = list(map(common.get_feature_consequence, featureConsequences))
+
+    # Query
+    query = {}
+
+    # Genomic Source Class Query
+    if genomicSourceClass:
+        genomicSourceClass = genomicSourceClass.strip().lower()
+        query["genomicSourceClass"] = {"$eq": genomicSourceClass}
+
+    normalized_variants = []
+    if variants:
+        normalized_variants = list(map(common.get_variant, variants))
+
+    # Result Object
+    result = OrderedDict()
+    result["resourceType"] = "Parameters"
+    result["parameter"] = []
+
+    if normalized_variants:
+        genomics_build_presence = common.get_genomics_build_presence(query)
+
+        for normalizedVariant in normalized_variants:
+            if not normalizedVariant["GRCh37"] and genomics_build_presence["GRCh37"]:
+                abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
+            elif not normalizedVariant["GRCh38"] and genomics_build_presence["GRCh38"]:
+                abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
+
+    query_results = common.query_molecular_consequences_by_variants(normalized_variants, normalized_feature_consequence_list, query, True)
+
+    parameter = OrderedDict()
+    parameter["name"] = "consequences"
+    parameter["part"] = []
+
+    parameter["part"].append({
+        "name": "numerator",
+        "valueQuantity": {'value': len(query_results)}
+    })
+
+    parameter["part"].append({
+        "name": "denominator",
+        "valueQuantity": {"value": common.patients_db.count_documents({})}
+    })
+
+    if includePatientList:
+        patients = []
+        for patientID in query_results:
+            patients.append(f'{patientID["_id"]}')
+
+        for patientID in sorted(patients):
+            parameter["part"].append({
+                "name": "subject",
+                "valueString": f'{patientID}'
+            })
+
+    result["parameter"].append(parameter)
+
+    if not result["parameter"]:
+        result.pop("parameter")
+    return jsonify(result)

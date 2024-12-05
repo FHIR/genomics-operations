@@ -28,7 +28,7 @@ jobs:
           args: --extend-ignore E501,E741
 
       - name: Run Tests
-        run: python -m pytest
+        run: ./fetch_utilities_data.sh && python -m pytest
 
   deploy:
     name: Deploy to dev
@@ -40,7 +40,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: akhileshns/heroku-deploy@v3.12.14
+      - uses: akhileshns/heroku-deploy@v3.13.15
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_DEV_APP_NAME }}

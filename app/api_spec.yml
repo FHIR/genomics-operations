@@ -561,7 +561,7 @@ paths:
             items:
               type: string
             example:
-              - "https://disease-ontology.org|3908"
+              - "https://disease-ontology.org|DOID:3908"
           style: "form"
           explode: false
         - name: testIdentifiers
@@ -752,6 +752,8 @@ paths:
             type: array
             items:
               type: string
+            example:
+              - "http://sequenceontology.org|SO:0001629"
           style: "form"
           explode: false
         - name: testIdentifiers
@@ -1181,6 +1183,61 @@ paths:
             default: false
           description: Include list of matching patients if set to true.
 
+  /population-operations/phenotype-operations/$find-population-molecular-consequences:
+    get:
+      description: |-
+        Retrieve count or list of patients having molecular consequences. More specifically, this operation retrieves the count +/- list of patients that have molecular consequences involving specific featureConsequences, derived from specific variants.
+
+        A patient meets numerator criteria if they have at least one molecular consequence matching the query parameters.
+      summary: "Find Population Molecular Consequences"
+      operationId: "app.endpoints.find_population_molecular_consequences"
+      tags:
+        - "Population Phenotype Operations"
+      responses:
+        '200':
+          description: "Returns a FHIR Parameters resource containing a count +/- list of patients having at least one matching molecular consequence."
+          content:
+            application/json:
+              schema:
+                type: object
+      parameters:
+        - name: variants
+          in: query
+          description: List of variants from which consequences are derived. Must be in HGVS or SPDI format.
+          schema:
+            type: array
+            items:
+              type: string
+            example:
+              - "NC_000001.10:152785039:G:T"
+          style: "form"
+          explode: false
+        - name: featureConsequences
+          in: query
+          description: List of consequences sought. Must be in token or codesystem|code format.
+          schema:
+            type: array
+            items:
+              type: string
+            example:
+              - "http://sequenceontology.org|SO:0001583"
+          style: "form"
+          explode: false
+        - name: genomicSourceClass
+          in: query
+          schema:
+            type: string
+            enum:
+              - "germline"
+              - "somatic"
+          description: Enables an App to limit results to those that are 'germline' or 'somatic'. Default is to include variants irrespective of genomic source class.
+        - name: includePatientList
+          in: query
+          schema:
+            type: boolean
+            default: false
+          description: Include list of matching patients if set to true.
+
   /utilities/get-feature-coordinates:
     get:
       description: 'This utility returns genomic feature coordinates and other annotations. All data are from <a href="https://www.ncbi.nlm.nih.gov/genome/guide/human/">NCBI Human Genome Resources</a>. For chromosomes, build 37 and build 38 reference sequences are returned. For genes, genomic coordinates are returned, along with a list of transcripts. MANE transcript is flagged. For transcripts, genomic coordinates are returned, along with the gene name and composite exons, along with exon coordinates. For proteins, the corresponding transcript is returned.'
@@ -1223,6 +1280,7 @@ paths:
             type: string
             pattern: '^\s*[Nn][Pp]_\d{4,10}(\.)?(\d{1,2})?\s*$'
           example: "NP_000005.3"
+
   /utilities/find-the-gene:
     get:
       description: |-
@@ -1247,6 +1305,89 @@ paths:
             type: string
             pattern: '^\s*[Nn][Cc]_\d{4,10}(\.)(\d{1,2}):\d{1,10}-\d{1,10}\s*$'
             example: "NC_000001.11:11794399-11794400"
+
+  /utilities/normalize-variant:
+    get:
+      description: >
+        This utility uses <a href="https://api.ncbi.nlm.nih.gov/variation/v0/">NCBI Variation Services</a> to convert an arbitrary HGVS or SPDI-formatted variant into a canonical build 37 and build 38 HGVS and SPDI.
+      summary: "Normalize variant"
+      operationId: "app.utilities_endpoints.normalize_variant"
+      tags:
+        - "Operations Utilities (not part of balloted HL7 Operations)"
+      responses:
+        "200":
+          description: "Returns a canonical build 37 and build 38 HGVS and SPDI."
+          content:
+            application/json:
+              schema:
+                type: object
+      parameters:
+        - name: variant
+          in: query
+          required: true
+          description: "Variant must be in HGVS or SPDI format."
+          schema:
+            type: string
+            example: "NM_001127510.3:c.145A>T"
+
+  /utilities/normalize-hla:
+    get:
+      description: >
+        This utility uses the <a href="https://pypi.org/project/py-ard/">python py-ard library</a> to convert an arbitrary HLA allele into various canonical forms.
+      summary: "Normalize HLA"
+      operationId: "app.utilities_endpoints.normalize_hla"
+      tags:
+        - "Operations Utilities (not part of balloted HL7 Operations)"
+      responses:
+        "200":
+          description: "Returns a normalized HLA ARD allele."
+          content:
+            application/json:
+              schema:
+                type: object
+      parameters:
+        - name: allele
+          in: query
+          required: true
+          description: "Allele."
+          schema:
+            type: string
+            example: "B14"
+
+  /utilities/translate-terminology:
+    get:
+      description: |-
+        This utility demonstrates terminology translations SNOMED to MedGen and DiseaseOntology; ICD10 to MedGen and DiseaseOntology; RxNorm to NCIt.
+      summary: "Translate from one code system to another"
+      operationId: "app.utilities_endpoints.translate_terminology"
+      tags:
+        - "Operations Utilities (not part of balloted HL7 Operations)"
+      responses:
+        '200':
+          description: "Returns matching codes in target code system(s)."
+          content:
+            application/json:
+              schema:
+                type: object
+      parameters:
+        - name: codeSystem
+          in: query
+          required: true
+          description: Code system for code to be translated.
+          schema:
+            type: string
+            enum:
+              - "http://www.nlm.nih.gov/research/umls/rxnorm"
+              - "http://snomed.info/sct"
+              - "http://hl7.org/fhir/sid/icd-10"
+            example: "http://snomed.info/sct"
+        - name: code
+          in: query
+          schema:
+            type: string
+            example: '126949007'
+          required: true
+          description: The code to be translated.
 
 tags:
   - name: Subject Genotype Operations
