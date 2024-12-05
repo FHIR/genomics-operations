@@ -1306,6 +1306,28 @@ paths:
             pattern: '^\s*[Nn][Cc]_\d{4,10}(\.)(\d{1,2}):\d{1,10}-\d{1,10}\s*$'
             example: "NC_000001.11:11794399-11794400"
 
+  /utilities/normalize-variant:
+    get:
+      summary: "Normalize variant"
+      operationId: "app.utilities_endpoints.normalize_variant"
+      tags:
+        - "Operations Utilities (not part of balloted HL7 Operations)"
+      responses:
+        "200":
+          description: "Returns a canonical build 37 and build 38 HGVS and SPDI."
+          content:
+            application/json:
+              schema:
+                type: object
+      parameters:
+        - name: variant
+          in: query
+          required: true
+          description: "Variant must be in HGVS or SPDI format."
+          schema:
+            type: string
+            example: "NM_001127510.3:c.145A>T"
+
   /utilities/normalize-hla:
     get:
       summary: "Normalize HLA"
@@ -1328,7 +1350,7 @@ paths:
             type: string
             example: "B14"
 
-  /utilities/terminology-translation:
+  /utilities/translate-terminology:
     get:
       description: |-
         This utility demonstrates terminology translations SNOMED to MedGen and DiseaseOntology; ICD10 to MedGen and DiseaseOntology; RxNorm to NCIt.

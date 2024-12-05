@@ -1,12 +1,11 @@
 import os
 from collections import OrderedDict
 from os.path import isdir
-
 import pyard
 import requests
 from flask import abort, jsonify
-
 from app import common
+import json
 
 # Make sure the pyard folder exists locally
 if not isdir('./data/pyard'):
@@ -20,6 +19,33 @@ def fetch_concept_map(mapID):
     url = f"http://hapi.fhir.org/baseR4/ConceptMap/{mapID}"
     headers = {'Accept': 'application/json'}
     return requests.get(url, headers=headers)
+
+
+def SPDI_all_equivalent_contextual(variant):
+    url = 'https://api.ncbi.nlm.nih.gov/variation/v0/spdi/' + variant + '/all_equivalent_contextual'
+    headers = {'Accept': 'application/json'}
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+        abort(500, "NCBI Variation Services server is down")
+    return response
+
+
+def SPDI_hgvs(variant):
+    url = 'https://api.ncbi.nlm.nih.gov/variation/v0/spdi/' + variant + '/hgvs'
+    headers = {'Accept': 'application/json'}
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+        abort(500, "NCBI Variation Services issue")
+    return response
+
+
+def HGVS_contextuals(variant):
+    url = 'https://api.ncbi.nlm.nih.gov/variation/v0/hgvs/' + variant + '/contextuals'
+    headers = {'Accept': 'application/json'}
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+        abort(500, "NCBI Variation Services issue")
+    return response
 
 
 def get_feature_coordinates(
@@ -208,6 +234,38 @@ def find_the_gene(range=None):
         output.append(ord_dict)
 
     return (jsonify(output))
+
+
+def normalize_variant(variant):
+    normalizedVariant = {
+        "b37SPDI": "",
+        "b38SPDI": "",
+        "b37HGVS": "",
+        "b38HGVS": ""
+    }
+    if variant.count(':') == 3:  # SPDI
+        response = SPDI_all_equivalent_contextual(variant)
+        for spdi in json.loads(response.text)["data"]["spdis"]:
+            if spdi["seq_id"] in ['NC_000001.10', 'NC_000002.11', 'NC_000003.11', 'NC_000004.11', 'NC_000005.9', 'NC_000006.11', 'NC_000007.13', 'NC_000008.10', 'NC_000009.11', 'NC_000010.10', 'NC_000011.9', 'NC_000012.11', 'NC_000013.10', 'NC_000014.8', 'NC_000015.9', 'NC_000016.9', 'NC_000017.10', 'NC_000018.9', 'NC_000019.9', 'NC_000020.10', 'NC_000021.8', 'NC_000022.10', 'NC_000023.10', 'NC_000024.9']:
+                normalizedVariant["b37SPDI"] = spdi["seq_id"] + ":" + str(spdi["position"]) + ":" + spdi["deleted_sequence"] + ":" + spdi["inserted_sequence"]
+                normalizedVariant["b37HGVS"] = json.loads(SPDI_hgvs(normalizedVariant["b37SPDI"]).text)["data"]["hgvs"]
+            if spdi["seq_id"] in ['NC_000001.11', 'NC_000002.12', 'NC_000003.12', 'NC_000004.12', 'NC_000005.10', 'NC_000006.12', 'NC_000007.14', 'NC_000008.11', 'NC_000009.12', 'NC_000010.11', 'NC_000011.10', 'NC_000012.12', 'NC_000013.11', 'NC_000014.9', 'NC_000015.10', 'NC_000016.10', 'NC_000017.11', 'NC_000018.10', 'NC_000019.10', 'NC_000020.11', 'NC_000021.9', 'NC_000022.11', 'NC_000023.11', 'NC_000024.10']:
+                normalizedVariant["b38SPDI"] = spdi["seq_id"] + ":" + str(spdi["position"]) + ":" + spdi["deleted_sequence"] + ":" + spdi["inserted_sequence"]
+                normalizedVariant["b38HGVS"] = json.loads(SPDI_hgvs(normalizedVariant["b38SPDI"]).text)["data"]["hgvs"]
+    elif variant.count(":") == 1:  # HGVS
+        spdi = json.loads(HGVS_contextuals(variant).text)["data"]["spdis"][0]
+        spdi = spdi["seq_id"] + ":" + str(spdi["position"]) + ":" + spdi["deleted_sequence"] + ":" + spdi["inserted_sequence"]
+        response = SPDI_all_equivalent_contextual(spdi)
+        for spdi in json.loads(response.text)["data"]["spdis"]:
+            if spdi["seq_id"] in ['NC_000001.10', 'NC_000002.11', 'NC_000003.11', 'NC_000004.11', 'NC_000005.9', 'NC_000006.11', 'NC_000007.13', 'NC_000008.10', 'NC_000009.11', 'NC_000010.10', 'NC_000011.9', 'NC_000012.11', 'NC_000013.10', 'NC_000014.8', 'NC_000015.9', 'NC_000016.9', 'NC_000017.10', 'NC_000018.9', 'NC_000019.9', 'NC_000020.10', 'NC_000021.8', 'NC_000022.10', 'NC_000023.10', 'NC_000024.9']:
+                normalizedVariant["b37SPDI"] = spdi["seq_id"] + ":" + str(spdi["position"]) + ":" + spdi["deleted_sequence"] + ":" + spdi["inserted_sequence"]
+                normalizedVariant["b37HGVS"] = json.loads(SPDI_hgvs(normalizedVariant["b37SPDI"]).text)["data"]["hgvs"]
+            if spdi["seq_id"] in ['NC_000001.11', 'NC_000002.12', 'NC_000003.12', 'NC_000004.12', 'NC_000005.10', 'NC_000006.12', 'NC_000007.14', 'NC_000008.11', 'NC_000009.12', 'NC_000010.11', 'NC_000011.10', 'NC_000012.12', 'NC_000013.11', 'NC_000014.9', 'NC_000015.10', 'NC_000016.10', 'NC_000017.11', 'NC_000018.10', 'NC_000019.10', 'NC_000020.11', 'NC_000021.9', 'NC_000022.11', 'NC_000023.11', 'NC_000024.10']:
+                normalizedVariant["b38SPDI"] = spdi["seq_id"] + ":" + str(spdi["position"]) + ":" + spdi["deleted_sequence"] + ":" + spdi["inserted_sequence"]
+                normalizedVariant["b38HGVS"] = json.loads(SPDI_hgvs(normalizedVariant["b38SPDI"]).text)["data"]["hgvs"]
+    else:
+        abort(500, "Unrecognized variant syntax.")
+    return normalizedVariant
 
 
 def translate_terminology(codeSystem, code):
