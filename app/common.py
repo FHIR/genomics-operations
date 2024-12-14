@@ -8,6 +8,11 @@ import pymongo
 from flask import abort
 from itertools import groupby
 import re
+import os
+import pyard
+
+pyard_database_version = os.getenv('PYARD_DATABASE_VERSION', '3580')
+ard = pyard.init(data_dir='./data/pyard', cache_size=1, imgt_version=pyard_database_version)
 
 # MongoDB Client URIs
 FHIR_genomics_data_client_uri = "mongodb+srv://download:download@cluster0.8ianr.mongodb.net/FHIRGenomicsData"
@@ -255,16 +260,22 @@ def get_feature_consequence(feature_consequence):
 
 def get_haplotype(haplotype):
     haplotype = haplotype.strip()
-    haplotype_return = {'isSystem': False, 'haplotype': haplotype, 'system': None}
+    haplotype_return = {'isSystem': False, 'haplotype': haplotype, 'system': None, 'lgxHaplotype': None}
+    try:
+        haplotype_return['lgxHaplotype'] = ard.redux(haplotype, "lgx")
+    except:
+        haplotype_return['lgxHaplotype'] = None
     if "|" in haplotype:
-        if haplotype.count("|") == 1:
-            haplotype_system_url = haplotype.rsplit("|")[0]
-            haplotype = haplotype.rsplit("|")[1]
+        if "HTTP" in haplotype.split("|")[0].upper():
+            haplotype_system_url = haplotype.split("|")[0]
+            haplotype = haplotype.split("|",1)[1]
             haplotype_return['isSystem'] = True
             haplotype_return['haplotype'] = haplotype
             haplotype_return['system'] = haplotype_system_url
-        else:
-            abort(400, f'haplotype ({haplotype}) is not in the correct format(codesystem|code)')
+            try:
+                haplotype_return['lgxHaplotype'] = ard.redux(haplotype, "lgx")
+            except:
+                haplotype_return['lgxHaplotype'] = None
 
     return haplotype_return
 

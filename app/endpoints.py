@@ -1,7 +1,5 @@
 from collections import OrderedDict
-
 from flask import abort, jsonify
-
 from app import common
 
 
@@ -724,9 +722,11 @@ def find_subject_specific_haplotypes(
             ]
         else:
             query['$or'] = [
-                {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*"}},
-                {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*"}}
+                {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options" : "i"}},
+                {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options" : "i"}}
             ]
+            if haplotype["lgxHaplotype"] is not None:
+                query["$or"].append({'hlaLgx': {'$regex': ".*"+str(haplotype['lgxHaplotype']).replace('*', r'\*')+".*"}})
 
         try:
             haplotype_q = common.genotypes_db.aggregate([{"$match": query}])
