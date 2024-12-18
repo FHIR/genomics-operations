@@ -904,13 +904,6 @@ def find_subject_tx_implications(
                 }
                 result["parameter"].append(impl_param)
 
-                # haplotype_profile = create_haplotype_profile(res, subject, res["UUID"])
-
-                # parameter["part"].append({
-                # "name": "haplotype",
-                # "resource": haplotype_profile
-                # })
-
                 genotype_profile = common.create_genotype_profile(res, subject, [str(res['_id'])])
 
                 geno_param = {
@@ -944,13 +937,6 @@ def find_subject_tx_implications(
             result["parameter"].append(impl_param)
             genotype_profiles = []
             for genItem in res["patientMatches"]:
-
-                # haplotype_profile = create_haplotype_profile(genItem, subject, genItem["UUID"])
-
-                # parameter["part"].append({
-                # "name": "haplotype",
-                # "resource": haplotype_profile
-                # })
 
                 genotype_profile = common.create_genotype_profile(genItem, subject, [str(genItem['_id'])])
 
