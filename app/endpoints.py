@@ -742,32 +742,21 @@ def find_subject_specific_haplotypes(
             "valueBoolean": present
         })
 
-        if present:
-            genotype_profiles = []
-            for qresult in haplotype_q:
-                # haplotype_profile = create_haplotype_profile(qresult, subject, "")
-                genotype_profile = common.create_genotype_profile(qresult, subject, [])
+        genotype_profiles = []
+        for qresult in haplotype_q:
+            genotype_profile = common.create_genotype_profile(qresult, subject, [])
+            genotype_profiles.append(genotype_profile)
 
-                genotype_profiles.append(genotype_profile)
+        if genotype_profiles:
+            genotype_profiles = sorted(genotype_profiles, key=lambda d: d['id'])
 
-                # parameter["part"].append({
-                # "name": "haplotype",
-                # "resource": haplotype_profile
-                # })
+        for genotype_profile in genotype_profiles:
+            parameter["part"].append({
+                "name": "genotype",
+                "resource": genotype_profile
+            })
 
-            if genotype_profiles:
-                genotype_profiles = sorted(genotype_profiles, key=lambda d: d['id'])
-
-            for genotype_profile in genotype_profiles:
-                parameter["part"].append({
-                    "name": "genotype",
-                    "resource": genotype_profile
-                })
-
-            result["parameter"].append(parameter)
-
-    if not result["parameter"]:
-        result.pop("parameter")
+        result["parameter"].append(parameter)
 
     return jsonify(result)
 
