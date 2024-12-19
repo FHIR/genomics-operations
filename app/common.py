@@ -1,17 +1,19 @@
+import os
+import re
 from collections import OrderedDict
+from datetime import datetime
+from itertools import groupby
 from threading import Lock
 from uuid import uuid4
+
 import pyliftover
-import requests
-from datetime import datetime
 import pymongo
+import requests
 from flask import abort
-from itertools import groupby
-import re
 
 # MongoDB Client URIs
-FHIR_genomics_data_client_uri = "mongodb+srv://download:download@cluster0.8ianr.mongodb.net/FHIRGenomicsData"
-utilities_data_client_uri = "mongodb+srv://download:download@cluster0.8ianr.mongodb.net/UtilitiesData"
+FHIR_genomics_data_client_uri = f"mongodb+srv://readonly:{os.getenv('MONGODB_READONLY_PASSWORD')}@cluster0.8ianr.mongodb.net/FHIRGenomicsData"
+utilities_data_client_uri = f"mongodb+srv://readonly:{os.getenv('MONGODB_READONLY_PASSWORD')}@cluster0.8ianr.mongodb.net/UtilitiesData"
 
 # MongoDB Clients
 client = pymongo.MongoClient(FHIR_genomics_data_client_uri)
@@ -620,9 +622,11 @@ def create_fhir_variant_resource(record, ref_seq, subject):
             inner_end = record['END'] - abs(record['CIEND'][0])
             outer_end = record['END'] + abs(record['CIEND'][1])
 
-        resource["component"].append({"code": {"coding": [{"system": "http://loinc.org", "code": "81301-4", "display": "Variant outer start-end"}]}, "valueRange": {"low": {"value": outer_start}, "high": {"value": outer_end}}})
+        resource["component"].append({"code": {"coding": [{"system": "http://loinc.org", "code": "81301-4", "display": "Variant outer start-end"}]},
+                                     "valueRange": {"low": {"value": outer_start}, "high": {"value": outer_end}}})
 
-        resource["component"].append({"code": {"coding": [{"system": "http://loinc.org", "code": "81302-2", "display": "Variant inner start-end"}]}, "valueRange": {"low": {"value": inner_start}, "high": {"value": inner_end}}})
+        resource["component"].append({"code": {"coding": [{"system": "http://loinc.org", "code": "81302-2", "display": "Variant inner start-end"}]},
+                                     "valueRange": {"low": {"value": inner_start}, "high": {"value": inner_end}}})
 
     # Variant population allele frequency
     if 'popAlleleFreq' in record:

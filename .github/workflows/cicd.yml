@@ -29,6 +29,8 @@ jobs:
 
       - name: Run Tests
         run: ./fetch_utilities_data.sh && python -m pytest
+        env:
+          MONGODB_READONLY_PASSWORD: ${{ secrets.MONGODB_READONLY_PASSWORD }}
 
   deploy:
     name: Deploy to dev

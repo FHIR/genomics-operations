@@ -7,3 +7,4 @@ __pycache__
 utilities/FASTA
 utilities/mongo_utilities.py
 /data
+secrets.env
