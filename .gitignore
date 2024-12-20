@@ -7,5 +7,5 @@ __pycache__
 utilities/FASTA
 utilities/mongo_utilities.py
 /data
-app/temp.py
 secrets.env
+app/temp.py
