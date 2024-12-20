@@ -1,14 +1,15 @@
+import os
+import re
 from collections import OrderedDict
+from datetime import datetime
+from itertools import groupby
 from threading import Lock
 from uuid import uuid4
+
 import pyliftover
-import requests
-from datetime import datetime
 import pymongo
+import requests
 from flask import abort
-from itertools import groupby
-import re
-import os
 import pyard
 
 pyard_database_version = os.getenv('PYARD_DATABASE_VERSION', '3580')
