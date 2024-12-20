@@ -887,7 +887,6 @@ def find_subject_tx_implications(
             query.pop("genomicSourceClass")
 
         query_results = common.query_PharmGKB_by_haplotypes(normalized_haplotype_list, treatment_code_list, query)
-        print(query_results)
         for res in query_results:
             for implication in res["txImplicationMatches"]:
 
@@ -1833,6 +1832,7 @@ def find_population_specific_haplotypes(
 
         all_patients = []
         for hapList in normalizedHaplotypesLists:
+            patients = []
 
             for haplotype in hapList:
                 if haplotype['isSystem']:
@@ -1848,20 +1848,18 @@ def find_population_specific_haplotypes(
                     if haplotype["lgxHaplotype"] is not None:
                         query["$or"].append({'hlaLgx': {'$regex': ".*"+str(haplotype['lgxHaplotype']).replace('*', r'\*')+".*"}})
 
-            try:
-                haplotype_q = common.genotypes_db.aggregate([
-                    {"$match": query},
-                    {'$group': {'_id': '$patientID'}}
-                ])
-                haplotype_q = list(haplotype_q)
-            except Exception as e:
-                print(f"DEBUG: Error{e} under find_population_specific_haplotypes query={query}")
-                haplotype_q = []
+                try:
+                    haplotype_q = common.genotypes_db.aggregate([
+                        {"$match": query},
+                        {'$group': {'_id': '$patientID'}}
+                    ])
+                    haplotype_q = list(haplotype_q)
+                except Exception as e:
+                    print(f"DEBUG: Error{e} under find_population_specific_haplotypes query={query}")
+                    haplotype_q = []
 
-            patients = []
-
-            for patientID in haplotype_q:
-                patients.append(patientID['_id'])
+                for patientID in haplotype_q:
+                    patients.append(patientID['_id'])
 
             all_patients.append(set(patients))
 
