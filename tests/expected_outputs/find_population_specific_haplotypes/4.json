@@ -11,7 +11,7 @@
                 {
                     "name": "numerator",
                     "valueQuantity": {
-                        "value": 1
+                        "value": 5
                     }
                 },
                 {
@@ -22,7 +22,23 @@
                 },
                 {
                     "name": "subject",
+                    "valueString": "L2345"
+                },
+                {
+                    "name": "subject",
                     "valueString": "NB6TK328"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "XYZ123"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "XYZ234"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "XYZ345"
                 }
             ]
         },
@@ -61,7 +77,7 @@
                 {
                     "name": "numerator",
                     "valueQuantity": {
-                        "value": 1
+                        "value": 2
                     }
                 },
                 {
@@ -73,6 +89,10 @@
                 {
                     "name": "subject",
                     "valueString": "NB6TK328"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "XYZ234"
                 }
             ]
         }
