@@ -1800,11 +1800,6 @@ def find_population_specific_haplotypes(
     # Query
     query = {}
 
-    # Genomic Source Class Query
-    # if genomicSourceClass:
-    #     genomicSourceClass = genomicSourceClass.strip().lower()
-    #     query["genomicSourceClass"] = {"$eq": genomicSourceClass}
-
     haplotypeItem = []
     normalizedHaplotypesLists = []
     for normalized_haplotype_list in haplotypes:
@@ -1847,9 +1842,11 @@ def find_population_specific_haplotypes(
                     ]
                 else:
                     query['$or'] = [
-                        {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*"}},
-                        {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*"}}
+                        {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options" : "i"}},
+                        {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options" : "i"}}
                     ]
+                    if haplotype["lgxHaplotype"] is not None:
+                        query["$or"].append({'hlaLgx': {'$regex': ".*"+str(haplotype['lgxHaplotype']).replace('*', r'\*')+".*"}})
 
             try:
                 haplotype_q = common.genotypes_db.aggregate([
@@ -1907,9 +1904,11 @@ def find_population_specific_haplotypes(
                 ]
             else:
                 query['$or'] = [
-                    {'genotypeCode': {'$regex': ".*"+str(hapItem['haplotype']).replace('*', r'\*')+".*"}},
-                    {'genotypeDesc': {'$regex': ".*"+str(hapItem['haplotype']).replace('*', r'\*')+".*"}}
+                    {'genotypeCode': {'$regex': ".*"+str(hapItem['haplotype']).replace('*', r'\*')+".*", "$options" : "i"}},
+                    {'genotypeDesc': {'$regex': ".*"+str(hapItem['haplotype']).replace('*', r'\*')+".*", "$options" : "i"}}
                 ]
+                if hapItem["lgxHaplotype"] is not None:
+                    query["$or"].append({'hlaLgx': {'$regex': ".*"+str(hapItem['lgxHaplotype']).replace('*', r'\*')+".*"}})
 
             try:
                 haplotype_q = common.genotypes_db.aggregate([
@@ -2238,7 +2237,8 @@ def find_population_dx_implications(
         if genomicSourceClass:
             query.pop("genomicSourceClass")
 
-        query_results = common.query_PharmGKB_by_haplotypes(normalized_haplotype_list, [], query, True)
+        # query_results = common.query_PharmGKB_by_haplotypes(normalized_haplotype_list, [], query, True)
+        query_results = [] # PharmGKB doesn't have dxImplications. This code block will need revision once we have a source of haplotype-based dxImplications.
 
         parameter = OrderedDict()
         parameter["name"] = "implications"
