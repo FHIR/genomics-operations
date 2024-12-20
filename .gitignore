@@ -8,3 +8,4 @@ utilities/FASTA
 utilities/mongo_utilities.py
 /data
 app/temp.py
+secrets.env

@@ -15,8 +15,8 @@ pyard_database_version = os.getenv('PYARD_DATABASE_VERSION', '3580')
 ard = pyard.init(data_dir='./data/pyard', cache_size=1, imgt_version=pyard_database_version)
 
 # MongoDB Client URIs
-FHIR_genomics_data_client_uri = "mongodb+srv://download:download@cluster0.8ianr.mongodb.net/FHIRGenomicsData"
-utilities_data_client_uri = "mongodb+srv://download:download@cluster0.8ianr.mongodb.net/UtilitiesData"
+FHIR_genomics_data_client_uri = f"mongodb+srv://readonly:{os.getenv('MONGODB_READONLY_PASSWORD')}@cluster0.8ianr.mongodb.net/FHIRGenomicsData"
+utilities_data_client_uri = f"mongodb+srv://readonly:{os.getenv('MONGODB_READONLY_PASSWORD')}@cluster0.8ianr.mongodb.net/UtilitiesData"
 
 # MongoDB Clients
 client = pymongo.MongoClient(FHIR_genomics_data_client_uri)
