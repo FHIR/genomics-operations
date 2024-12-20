@@ -264,18 +264,18 @@ def get_haplotype(haplotype):
     haplotype_return = {'isSystem': False, 'haplotype': haplotype, 'system': None, 'lgxHaplotype': None}
     try:
         haplotype_return['lgxHaplotype'] = ard.redux(haplotype, "lgx")
-    except:
+    except Exception:
         haplotype_return['lgxHaplotype'] = None
     if "|" in haplotype:
         if "HTTP" in haplotype.split("|")[0].upper():
             haplotype_system_url = haplotype.split("|")[0]
-            haplotype = haplotype.split("|",1)[1]
+            haplotype = haplotype.split("|", 1)[1]
             haplotype_return['isSystem'] = True
             haplotype_return['haplotype'] = haplotype
             haplotype_return['system'] = haplotype_system_url
             try:
                 haplotype_return['lgxHaplotype'] = ard.redux(haplotype, "lgx")
-            except:
+            except Exception:
                 haplotype_return['lgxHaplotype'] = None
 
     return haplotype_return
@@ -1609,14 +1609,14 @@ def query_PharmGKB_by_haplotypes(normalizedHaplotypeList, treatmentCodeList, que
             query['$or'].append({'genotypeCode': {"$eq": haplotype['haplotype']}})
         elif haplotype["lgxHaplotype"] is not None:
             query['$or'].append({'$or': [
-                {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options" : "i"}},
-                {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options" : "i"}},
+                {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options": "i"}},
+                {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options": "i"}},
                 {'hlaLgx': {'$regex': ".*"+str(haplotype['lgxHaplotype']).replace('*', r'\*')+".*"}}
             ]})
         else:
             query['$or'].append({'$or': [
-                {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options" : "i"}},
-                {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options" : "i"}}
+                {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options": "i"}},
+                {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options": "i"}}
             ]})
 
     query_string = [{'$match': query},

@@ -722,8 +722,8 @@ def find_subject_specific_haplotypes(
             ]
         else:
             query['$or'] = [
-                {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options" : "i"}},
-                {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options" : "i"}}
+                {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options": "i"}},
+                {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options": "i"}}
             ]
             if haplotype["lgxHaplotype"] is not None:
                 query["$or"].append({'hlaLgx': {'$regex': ".*"+str(haplotype['lgxHaplotype']).replace('*', r'\*')+".*"}})
@@ -1842,8 +1842,8 @@ def find_population_specific_haplotypes(
                     ]
                 else:
                     query['$or'] = [
-                        {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options" : "i"}},
-                        {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options" : "i"}}
+                        {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options": "i"}},
+                        {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options": "i"}}
                     ]
                     if haplotype["lgxHaplotype"] is not None:
                         query["$or"].append({'hlaLgx': {'$regex': ".*"+str(haplotype['lgxHaplotype']).replace('*', r'\*')+".*"}})
@@ -1902,8 +1902,8 @@ def find_population_specific_haplotypes(
                 ]
             else:
                 query['$or'] = [
-                    {'genotypeCode': {'$regex': ".*"+str(hapItem['haplotype']).replace('*', r'\*')+".*", "$options" : "i"}},
-                    {'genotypeDesc': {'$regex': ".*"+str(hapItem['haplotype']).replace('*', r'\*')+".*", "$options" : "i"}}
+                    {'genotypeCode': {'$regex': ".*"+str(hapItem['haplotype']).replace('*', r'\*')+".*", "$options": "i"}},
+                    {'genotypeDesc': {'$regex': ".*"+str(hapItem['haplotype']).replace('*', r'\*')+".*", "$options": "i"}}
                 ]
                 if hapItem["lgxHaplotype"] is not None:
                     query["$or"].append({'hlaLgx': {'$regex': ".*"+str(hapItem['lgxHaplotype']).replace('*', r'\*')+".*"}})
@@ -2172,9 +2172,10 @@ def find_population_dx_implications(
     if conditions:
         condition_code_list = list(map(common.get_condition, conditions))
 
-    normalized_haplotype_list = []
-    if haplotypes:
-        normalized_haplotype_list = list(map(common.get_haplotype, haplotypes))
+    # suppress this block for now, since we don't have any haplotype-related dxImplications
+    # normalized_haplotype_list = []
+    # if haplotypes:
+    #     normalized_haplotype_list = list(map(common.get_haplotype, haplotypes))
 
     # Query
     query = {}
@@ -2236,7 +2237,7 @@ def find_population_dx_implications(
             query.pop("genomicSourceClass")
 
         # query_results = common.query_PharmGKB_by_haplotypes(normalized_haplotype_list, [], query, True)
-        query_results = [] # PharmGKB doesn't have dxImplications. This code block will need revision once we have a source of haplotype-based dxImplications.
+        query_results = []  # PharmGKB doesn't have dxImplications. This code block will need revision once we have a source of haplotype-based dxImplications.
 
         parameter = OrderedDict()
         parameter["name"] = "implications"
