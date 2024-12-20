@@ -1,7 +1,5 @@
 from collections import OrderedDict
-
 from flask import abort, jsonify
-
 from app import common
 
 
@@ -724,9 +722,11 @@ def find_subject_specific_haplotypes(
             ]
         else:
             query['$or'] = [
-                {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*"}},
-                {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*"}}
+                {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options": "i"}},
+                {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options": "i"}}
             ]
+            if haplotype["lgxHaplotype"] is not None:
+                query["$or"].append({'hlaLgx': {'$regex': ".*"+str(haplotype['lgxHaplotype']).replace('*', r'\*')+".*"}})
 
         try:
             haplotype_q = common.genotypes_db.aggregate([{"$match": query}])
@@ -742,32 +742,21 @@ def find_subject_specific_haplotypes(
             "valueBoolean": present
         })
 
-        if present:
-            genotype_profiles = []
-            for qresult in haplotype_q:
-                # haplotype_profile = create_haplotype_profile(qresult, subject, "")
-                genotype_profile = common.create_genotype_profile(qresult, subject, [])
+        genotype_profiles = []
+        for qresult in haplotype_q:
+            genotype_profile = common.create_genotype_profile(qresult, subject, [])
+            genotype_profiles.append(genotype_profile)
 
-                genotype_profiles.append(genotype_profile)
+        if genotype_profiles:
+            genotype_profiles = sorted(genotype_profiles, key=lambda d: d['id'])
 
-                # parameter["part"].append({
-                # "name": "haplotype",
-                # "resource": haplotype_profile
-                # })
+        for genotype_profile in genotype_profiles:
+            parameter["part"].append({
+                "name": "genotype",
+                "resource": genotype_profile
+            })
 
-            if genotype_profiles:
-                genotype_profiles = sorted(genotype_profiles, key=lambda d: d['id'])
-
-            for genotype_profile in genotype_profiles:
-                parameter["part"].append({
-                    "name": "genotype",
-                    "resource": genotype_profile
-                })
-
-            result["parameter"].append(parameter)
-
-    if not result["parameter"]:
-        result.pop("parameter")
+        result["parameter"].append(parameter)
 
     return jsonify(result)
 
@@ -898,7 +887,6 @@ def find_subject_tx_implications(
             query.pop("genomicSourceClass")
 
         query_results = common.query_PharmGKB_by_haplotypes(normalized_haplotype_list, treatment_code_list, query)
-        print(query_results)
         for res in query_results:
             for implication in res["txImplicationMatches"]:
 
@@ -914,13 +902,6 @@ def find_subject_tx_implications(
                     "resource": implication_profile
                 }
                 result["parameter"].append(impl_param)
-
-                # haplotype_profile = create_haplotype_profile(res, subject, res["UUID"])
-
-                # parameter["part"].append({
-                # "name": "haplotype",
-                # "resource": haplotype_profile
-                # })
 
                 genotype_profile = common.create_genotype_profile(res, subject, [str(res['_id'])])
 
@@ -955,13 +936,6 @@ def find_subject_tx_implications(
             result["parameter"].append(impl_param)
             genotype_profiles = []
             for genItem in res["patientMatches"]:
-
-                # haplotype_profile = create_haplotype_profile(genItem, subject, genItem["UUID"])
-
-                # parameter["part"].append({
-                # "name": "haplotype",
-                # "resource": haplotype_profile
-                # })
 
                 genotype_profile = common.create_genotype_profile(genItem, subject, [str(genItem['_id'])])
 
@@ -1825,11 +1799,6 @@ def find_population_specific_haplotypes(
     # Query
     query = {}
 
-    # Genomic Source Class Query
-    # if genomicSourceClass:
-    #     genomicSourceClass = genomicSourceClass.strip().lower()
-    #     query["genomicSourceClass"] = {"$eq": genomicSourceClass}
-
     haplotypeItem = []
     normalizedHaplotypesLists = []
     for normalized_haplotype_list in haplotypes:
@@ -1863,6 +1832,7 @@ def find_population_specific_haplotypes(
 
         all_patients = []
         for hapList in normalizedHaplotypesLists:
+            patients = []
 
             for haplotype in hapList:
                 if haplotype['isSystem']:
@@ -1872,24 +1842,24 @@ def find_population_specific_haplotypes(
                     ]
                 else:
                     query['$or'] = [
-                        {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*"}},
-                        {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*"}}
+                        {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options": "i"}},
+                        {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options": "i"}}
                     ]
+                    if haplotype["lgxHaplotype"] is not None:
+                        query["$or"].append({'hlaLgx': {'$regex': ".*"+str(haplotype['lgxHaplotype']).replace('*', r'\*')+".*"}})
 
-            try:
-                haplotype_q = common.genotypes_db.aggregate([
-                    {"$match": query},
-                    {'$group': {'_id': '$patientID'}}
-                ])
-                haplotype_q = list(haplotype_q)
-            except Exception as e:
-                print(f"DEBUG: Error{e} under find_population_specific_haplotypes query={query}")
-                haplotype_q = []
+                try:
+                    haplotype_q = common.genotypes_db.aggregate([
+                        {"$match": query},
+                        {'$group': {'_id': '$patientID'}}
+                    ])
+                    haplotype_q = list(haplotype_q)
+                except Exception as e:
+                    print(f"DEBUG: Error{e} under find_population_specific_haplotypes query={query}")
+                    haplotype_q = []
 
-            patients = []
-
-            for patientID in haplotype_q:
-                patients.append(patientID['_id'])
+                for patientID in haplotype_q:
+                    patients.append(patientID['_id'])
 
             all_patients.append(set(patients))
 
@@ -1932,9 +1902,11 @@ def find_population_specific_haplotypes(
                 ]
             else:
                 query['$or'] = [
-                    {'genotypeCode': {'$regex': ".*"+str(hapItem['haplotype']).replace('*', r'\*')+".*"}},
-                    {'genotypeDesc': {'$regex': ".*"+str(hapItem['haplotype']).replace('*', r'\*')+".*"}}
+                    {'genotypeCode': {'$regex': ".*"+str(hapItem['haplotype']).replace('*', r'\*')+".*", "$options": "i"}},
+                    {'genotypeDesc': {'$regex': ".*"+str(hapItem['haplotype']).replace('*', r'\*')+".*", "$options": "i"}}
                 ]
+                if hapItem["lgxHaplotype"] is not None:
+                    query["$or"].append({'hlaLgx': {'$regex': ".*"+str(hapItem['lgxHaplotype']).replace('*', r'\*')+".*"}})
 
             try:
                 haplotype_q = common.genotypes_db.aggregate([
@@ -2200,9 +2172,10 @@ def find_population_dx_implications(
     if conditions:
         condition_code_list = list(map(common.get_condition, conditions))
 
-    normalized_haplotype_list = []
-    if haplotypes:
-        normalized_haplotype_list = list(map(common.get_haplotype, haplotypes))
+    # suppress this block for now, since we don't have any haplotype-related dxImplications
+    # normalized_haplotype_list = []
+    # if haplotypes:
+    #     normalized_haplotype_list = list(map(common.get_haplotype, haplotypes))
 
     # Query
     query = {}
@@ -2263,7 +2236,8 @@ def find_population_dx_implications(
         if genomicSourceClass:
             query.pop("genomicSourceClass")
 
-        query_results = common.query_PharmGKB_by_haplotypes(normalized_haplotype_list, [], query, True)
+        # query_results = common.query_PharmGKB_by_haplotypes(normalized_haplotype_list, [], query, True)
+        query_results = []  # PharmGKB doesn't have dxImplications. This code block will need revision once we have a source of haplotype-based dxImplications.
 
         parameter = OrderedDict()
         parameter["name"] = "implications"

@@ -1,3 +1,18 @@
 {
-    "resourceType": "Parameters"
+    "resourceType": "Parameters",
+    "parameter": [
+        {
+            "name": "haplotypes",
+            "part": [
+                {
+                    "name": "haplotypeItem",
+                    "valueString": "HLA-B*27"
+                },
+                {
+                    "name": "presence",
+                    "valueBoolean": false
+                }
+            ]
+        }
+    ]
 }
