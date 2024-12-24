@@ -10,10 +10,8 @@ import pyliftover
 import pymongo
 import requests
 from flask import abort
-import pyard
 
-pyard_database_version = os.getenv('PYARD_DATABASE_VERSION', '3580')
-ard = pyard.init(data_dir='./data/pyard', cache_size=1, imgt_version=pyard_database_version)
+from utilities.pyard import redux
 
 # MongoDB Client URIs
 FHIR_genomics_data_client_uri = f"mongodb+srv://readonly:{os.getenv('MONGODB_READONLY_PASSWORD')}@cluster0.8ianr.mongodb.net/FHIRGenomicsData"
@@ -263,7 +261,7 @@ def get_haplotype(haplotype):
     haplotype = haplotype.strip()
     haplotype_return = {'isSystem': False, 'haplotype': haplotype, 'system': None, 'lgxHaplotype': None}
     try:
-        haplotype_return['lgxHaplotype'] = ard.redux(haplotype, "lgx")
+        haplotype_return['lgxHaplotype'] = redux(haplotype, "lgx")
     except Exception:
         haplotype_return['lgxHaplotype'] = None
     if "|" in haplotype:
@@ -274,7 +272,7 @@ def get_haplotype(haplotype):
             haplotype_return['haplotype'] = haplotype
             haplotype_return['system'] = haplotype_system_url
             try:
-                haplotype_return['lgxHaplotype'] = ard.redux(haplotype, "lgx")
+                haplotype_return['lgxHaplotype'] = redux(haplotype, "lgx")
             except Exception:
                 haplotype_return['lgxHaplotype'] = None
 
