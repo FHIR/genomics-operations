@@ -11,6 +11,8 @@ import pymongo
 import requests
 from flask import abort
 
+from utilities.pyard import redux
+
 # MongoDB Client URIs
 FHIR_genomics_data_client_uri = f"mongodb+srv://readonly:{os.getenv('MONGODB_READONLY_PASSWORD')}@cluster0.8ianr.mongodb.net/FHIRGenomicsData"
 utilities_data_client_uri = f"mongodb+srv://readonly:{os.getenv('MONGODB_READONLY_PASSWORD')}@cluster0.8ianr.mongodb.net/UtilitiesData"
@@ -257,16 +259,22 @@ def get_feature_consequence(feature_consequence):
 
 def get_haplotype(haplotype):
     haplotype = haplotype.strip()
-    haplotype_return = {'isSystem': False, 'haplotype': haplotype, 'system': None}
+    haplotype_return = {'isSystem': False, 'haplotype': haplotype, 'system': None, 'lgxHaplotype': None}
+    try:
+        haplotype_return['lgxHaplotype'] = redux(haplotype, "lgx")
+    except Exception:
+        haplotype_return['lgxHaplotype'] = None
     if "|" in haplotype:
-        if haplotype.count("|") == 1:
-            haplotype_system_url = haplotype.rsplit("|")[0]
-            haplotype = haplotype.rsplit("|")[1]
+        if "HTTP" in haplotype.split("|")[0].upper():
+            haplotype_system_url = haplotype.split("|")[0]
+            haplotype = haplotype.split("|", 1)[1]
             haplotype_return['isSystem'] = True
             haplotype_return['haplotype'] = haplotype
             haplotype_return['system'] = haplotype_system_url
-        else:
-            abort(400, f'haplotype ({haplotype}) is not in the correct format(codesystem|code)')
+            try:
+                haplotype_return['lgxHaplotype'] = redux(haplotype, "lgx")
+            except Exception:
+                haplotype_return['lgxHaplotype'] = None
 
     return haplotype_return
 
@@ -1597,10 +1605,16 @@ def query_PharmGKB_by_haplotypes(normalizedHaplotypeList, treatmentCodeList, que
 
         if haplotype['isSystem']:
             query['$or'].append({'genotypeCode': {"$eq": haplotype['haplotype']}})
+        elif haplotype["lgxHaplotype"] is not None:
+            query['$or'].append({'$or': [
+                {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options": "i"}},
+                {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options": "i"}},
+                {'hlaLgx': {'$regex': ".*"+str(haplotype['lgxHaplotype']).replace('*', r'\*')+".*"}}
+            ]})
         else:
             query['$or'].append({'$or': [
-                {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*"}},
-                {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*"}}
+                {'genotypeCode': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options": "i"}},
+                {'genotypeDesc': {'$regex': ".*"+str(haplotype['haplotype']).replace('*', r'\*')+".*", "$options": "i"}}
             ]})
 
     query_string = [{'$match': query},

@@ -274,3 +274,10 @@ def test_find_subject_specific_haplotypes_2(client):
     response = client.get(url)
 
     tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_SPECIFIC_HAPLOTYPES_OUTPUT_DIR}2.json', response.json)
+
+
+def test_find_subject_specific_haplotypes_3(client):
+    url = tu.find_subject_specific_haplotypes_query('subject=XYZ234&haplotypes=DRB1*13:02')
+    response = client.get(url)
+
+    tu.compare_actual_and_expected_output(f'{tu.FIND_SUBJECT_SPECIFIC_HAPLOTYPES_OUTPUT_DIR}3.json', response.json)
