@@ -182,39 +182,41 @@ gene_ranges = {
 # Retrieve patient information
 @st.cache_data
 def fetch_patient_info(subject):
-    url = f"https://api.logicahealth.org/MTB/open/Patient?identifier={subject}"
+    url = f"http://hapi.fhir.org/baseR4/Patient?identifier={subject}"
     response = requests.get(url)
     data = response.json()
+    # st.write (data)
     patient_info = []
 
-    for i in data["entry"]:
-        j = i["resource"]
-        if j["resourceType"] == "Patient":
-            patient_id = j["id"]
-            name, dob, gender = "", "", ""
-            marital_status, contact, address = "", "", ""
-            if j["identifier"][0]["type"]["coding"][0]["display"] == "Medical record number":
-                subject_id = j["identifier"][0]["value"]
-            name = j["name"][0]["given"][0]
-            dob = j["birthDate"]
-            gender = j["gender"]
-            marital_status = j["maritalStatus"]["text"]
-            contact = j["telecom"][0]["value"]
-            address = f"{j['address'][0]['line'][0]},\
-                {j['address'][0]['city']},\
-                {j['address'][0]['state']} - {j['address'][0]['postalCode']},\
-                {j['address'][0]['country']}"
+    if "entry" in data:
+        for i in data["entry"]:
+            j = i["resource"]
+            if j["resourceType"] == "Patient":
+                patient_id = j["id"]
+                name, dob, gender = "", "", ""
+                marital_status, contact, address = "", "", ""
+                if j["identifier"][0]["type"]["coding"][0]["display"] == "Medical Record Number":
+                    subject_id = j["identifier"][0]["value"]
+                name = j["name"][0]["given"][0]
+                dob = j["birthDate"]
+                gender = j["gender"]
+                marital_status = j["maritalStatus"]["text"]
+                contact = j["telecom"][0]["value"]
+                address = f"{j['address'][0]['line'][0]},\
+                    {j['address'][0]['city']},\
+                    {j['address'][0]['state']} - {j['address'][0]['postalCode']},\
+                    {j['address'][0]['country']}"
 
-            patient_info.append({
-                "Patient ID": patient_id,
-                "Subject ID": subject_id,
-                "Name": name,
-                "Gender": gender,
-                "Date of Birth": dob,
-                "Marital Status": marital_status,
-                "Contact": contact,
-                "Address": address
-            })
+                patient_info.append({
+                    "Patient ID": patient_id,
+                    "Subject ID": subject_id,
+                    "Name": name,
+                    "Gender": gender,
+                    "Date of Birth": dob,
+                    "Marital Status": marital_status,
+                    "Contact": contact,
+                    "Address": address
+                })
 
     return pd.DataFrame(patient_info)
 
@@ -222,7 +224,7 @@ def fetch_patient_info(subject):
 # Retrieve patient conditions
 @st.cache_data
 def fetch_condition(patient_id):
-    url = f"https://api.logicahealth.org/MTB/open/Condition?patient={patient_id}"
+    url = f"http://hapi.fhir.org/baseR4/Condition?patient={patient_id}"
     response = requests.get(url)
     data = response.json()
     condition_list = []
@@ -250,7 +252,7 @@ def fetch_condition(patient_id):
 # Retrieve medications
 @st.cache_data
 def fetch_medication(patient_id):
-    url = f"https://api.logicahealth.org/MTB/open/MedicationRequest?patient={patient_id}"
+    url = f"http://hapi.fhir.org/baseR4/MedicationRequest?patient={patient_id}"
     response = requests.get(url)
     data = response.json()
     medication_list = []
@@ -274,7 +276,7 @@ def fetch_medication(patient_id):
 # Retrieve patient allergies
 @st.cache_data
 def fetch_allergy(patient_id):
-    url = f"https://api.logicahealth.org/MTB/open/AllergyIntolerance?patient={patient_id}"
+    url = f"http://hapi.fhir.org/baseR4/AllergyIntolerance?patient={patient_id}"
     response = requests.get(url)
     data = response.json()
     allergy_list = []
@@ -284,11 +286,11 @@ def fetch_allergy(patient_id):
             j = i["resource"]
             if j["resourceType"] == "AllergyIntolerance":
                 substance = j["code"]["coding"][0]["display"]
-                reaction = j["reaction"][0]["manifestation"][0]["coding"][0]["display"]
+                # reaction = j["reaction"][0]["manifestation"][0]["coding"][0]["display"]
 
                 allergy_list.append({
                     "Substance": substance,
-                    "Reaction": reaction
+                    # "Reaction": reaction
                 })
 
     return pd.DataFrame(allergy_list)
@@ -603,7 +605,7 @@ st.markdown('''***An app to find the secondary findings of the disorders.
 
 # Streamlit sidebar for user inputs
 st.sidebar.title("Genetic Variant Information")
-subject_ids = ['HG00403', 'HG00406', 'HG02657', 'NA18498', 'NA18499', 'NA18871', 'NA19210', 'NA19247', 'NB6TK329']
+subject_ids = ['HG00403', 'HG00406', 'HG02657', 'NA18498', 'NA18499', 'NA18871', 'NB6TK329']
 selected_subjects = st.sidebar.multiselect("Enter Subject ID", subject_ids, default=None)
 
 # Check if exactly one subject is selected
