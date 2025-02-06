@@ -1,5 +1,4 @@
 {
-    "resourceType": "Parameters",
     "parameter": [
         {
             "name": "haplotypes",
@@ -14,5 +13,6 @@
                 }
             ]
         }
-    ]
+    ],
+    "resourceType": "Parameters"
 }

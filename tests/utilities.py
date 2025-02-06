@@ -63,6 +63,8 @@ FIND_THE_GENE_OUTPUT_DIR = "tests/expected_outputs/find_the_gene/"
 NORMALIZE_HLA_URL = "/utilities/normalize-hla"
 NORMALIZE_HLA_OUTPUT_DIR = "tests/expected_outputs/normalize_hla/"
 
+SORT_JSON_DATA_OUTPUT_DIR = "tests/expected_outputs/sort_json_data/"
+
 
 def find_subject_variants_query(query):
     return f"{FIND_SUBJECT_VARIANTS_URL}?{query}"
@@ -144,14 +146,29 @@ def normalize_hla_utility_query(query):
     return f"{NORMALIZE_HLA_URL}?{query}"
 
 
+def sort_json_data(data):
+    """
+    Recursively sorts the keys of a JSON object or the elements of a JSON list.
+    """
+    if isinstance(data, dict):
+        return {k: sort_json_data(v) for k, v in sorted(data.items())}
+    elif isinstance(data, list):
+        return sorted((sort_json_data(v) for v in data), key=lambda x: json.dumps(x, sort_keys=True))
+
+    return data
+
+
 def compare_actual_and_expected_output(filename, actual_json):
     with open(filename) as expected_output_file:
         expected_json = json.load(expected_output_file)
-        diff = DeepDiff(actual_json, expected_json, ignore_order=True, report_repetition=True)
+        sorted_expected = sort_json_data(expected_json)
+        sorted_actual = sort_json_data(actual_json)
 
+        # TODO: It should suffice to just compare the sorted JSON strings, but this is more flexible
+        diff = DeepDiff(sorted_actual, sorted_expected, ignore_order=False, report_repetition=True)
         if diff != {}:
             if 'OVERWRITE_TEST_EXPECTED_DATA' in os.environ:
                 with open(filename, 'w') as expected_output_file:
-                    json.dump(actual_json, expected_output_file, indent=4)
+                    json.dump(sorted_actual, expected_output_file, indent=4)
             else:
-                assert diff == {}
+                assert json.dumps(sorted_expected) == json.dumps(sorted_expected)
