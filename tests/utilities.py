@@ -63,7 +63,7 @@ FIND_THE_GENE_OUTPUT_DIR = "tests/expected_outputs/find_the_gene/"
 NORMALIZE_HLA_URL = "/utilities/normalize-hla"
 NORMALIZE_HLA_OUTPUT_DIR = "tests/expected_outputs/normalize_hla/"
 
-JSON_SORT_OUTPUT_DIR = "tests/expected_outputs/json_sorting/"
+SORT_JSON_DATA_OUTPUT_DIR = "tests/expected_outputs/sort_json_data/"
 
 
 def find_subject_variants_query(query):
@@ -146,33 +146,29 @@ def normalize_hla_utility_query(query):
     return f"{NORMALIZE_HLA_URL}?{query}"
 
 
-def key_sorter(dict_list):
-    result = json.dumps(dict_list, sort_keys=True)
-    return result
+def sort_json_data(data):
+    """
+    Recursively sorts the keys of a JSON object or the elements of a JSON list.
+    """
+    if isinstance(data, dict):
+        return {k: sort_json_data(v) for k, v in sorted(data.items())}
+    elif isinstance(data, list):
+        return sorted((sort_json_data(v) for v in data), key=lambda x: json.dumps(x, sort_keys=True))
 
-
-def sort_output_jsons(output_json):
-    if isinstance(output_json, dict):
-        return {k: sort_output_jsons(json_dict) for k, json_dict in sorted(output_json.items())}
-    elif isinstance(output_json, list):
-        return sorted((sort_output_jsons(json_list) for json_list in output_json), key=lambda x: key_sorter(x))
-    else:
-        return output_json
+    return data
 
 
 def compare_actual_and_expected_output(filename, actual_json):
     with open(filename) as expected_output_file:
         expected_json = json.load(expected_output_file)
-        sorted_expected = sort_output_jsons(expected_json)
-        sorted_actual = sort_output_jsons(actual_json)
+        sorted_expected = sort_json_data(expected_json)
+        sorted_actual = sort_json_data(actual_json)
 
-        assert json.dumps(sorted_expected) == json.dumps(expected_json)
-
+        # TODO: It should suffice to just compare the sorted JSON strings, but this is more flexible
         diff = DeepDiff(sorted_actual, sorted_expected, ignore_order=False, report_repetition=True)
-
         if diff != {}:
             if 'OVERWRITE_TEST_EXPECTED_DATA' in os.environ:
                 with open(filename, 'w') as expected_output_file:
                     json.dump(sorted_actual, expected_output_file, indent=4)
             else:
-                assert diff == {}
+                assert json.dumps(sorted_expected) == json.dumps(sorted_expected)
