@@ -29,7 +29,7 @@ jobs:
 
       - name: Run Tests
         # We don't have access to secrets when the PR is created from a fork
-        if: ${{ github.ref == 'refs/heads/master' && github.repository == 'FHIR/genomics-operations' }}
+        if: ${{ github.repository == 'FHIR/genomics-operations' }}
         run: ./fetch_utilities_data.sh && python -m pytest
         env:
           MONGODB_READONLY_PASSWORD: ${{ secrets.MONGODB_READONLY_PASSWORD }}
