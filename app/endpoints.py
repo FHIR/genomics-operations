@@ -1,6 +1,7 @@
 from collections import OrderedDict
 from flask import abort, jsonify
 from app import common
+from app import utilities_endpoints
 
 
 def find_subject_variants(
@@ -786,6 +787,12 @@ def find_subject_tx_implications(
     condition_code_list = []
     if conditions:
         condition_code_list = list(map(common.get_condition, conditions))
+        for condition_item in condition_code_list:
+            if (condition_item['system'] == "http://snomed.info/sct" or condition_item['system'] == "http://hl7.org/fhir/sid/icd-10"):
+                translate_code = utilities_endpoints.translate_terminology(condition_item['system'], condition_item['condition'])
+                for i in translate_code:
+                    if i['outcome'] == 'match found' and i['system'] == 'https://disease-ontology.org':
+                        condition_code_list.append({'isSystem': True, 'condition': i['code'], 'system': i['system']})
 
     treatment_code_list = []
     if treatments:
@@ -1048,6 +1055,12 @@ def find_subject_dx_implications(
     condition_code_list = []
     if conditions:
         condition_code_list = list(map(common.get_condition, conditions))
+        for condition_item in condition_code_list:
+            if (condition_item['system'] == "http://snomed.info/sct" or condition_item['system'] == "http://hl7.org/fhir/sid/icd-10"):
+                translate_code = utilities_endpoints.translate_terminology(condition_item['system'], condition_item['condition'])
+                for i in translate_code:
+                    if i['outcome'] == 'match found' and i['system'] == 'https://www.ncbi.nlm.nih.gov/medgen':
+                        condition_code_list.append({'isSystem': True, 'condition': i['code'], 'system': i['system']})
 
     # Query
     query = {}
@@ -1965,6 +1978,12 @@ def find_population_tx_implications(
     condition_code_list = []
     if conditions:
         condition_code_list = list(map(common.get_condition, conditions))
+        for condition_item in condition_code_list:
+            if (condition_item['system'] == "http://snomed.info/sct" or condition_item['system'] == "http://hl7.org/fhir/sid/icd-10"):
+                translate_code = utilities_endpoints.translate_terminology(condition_item['system'], condition_item['condition'])
+                for i in translate_code:
+                    if i['outcome'] == 'match found' and i['system'] == 'https://disease-ontology.org':
+                        condition_code_list.append({'isSystem': True, 'condition': i['code'], 'system': i['system']})
 
     normalized_haplotype_list = []
     if haplotypes:
@@ -2171,6 +2190,12 @@ def find_population_dx_implications(
     condition_code_list = []
     if conditions:
         condition_code_list = list(map(common.get_condition, conditions))
+        for condition_item in condition_code_list:
+            if (condition_item['system'] == "http://snomed.info/sct" or condition_item['system'] == "http://hl7.org/fhir/sid/icd-10"):
+                translate_code = utilities_endpoints.translate_terminology(condition_item['system'], condition_item['condition'])
+                for i in translate_code:
+                    if i['outcome'] == 'match found' and i['system'] == 'https://www.ncbi.nlm.nih.gov/medgen':
+                        condition_code_list.append({'isSystem': True, 'condition': i['code'], 'system': i['system']})
 
     # suppress this block for now, since we don't have any haplotype-related dxImplications
     # normalized_haplotype_list = []
