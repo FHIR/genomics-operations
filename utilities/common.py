@@ -5,7 +5,7 @@ from enum import Enum
 import pandas as pd
 import pymongo
 
-utilities_data_client_uri = f"mongodb+srv://readonly:{os.getenv('MONGODB_READONLY_PASSWORD')}@cluster0.8ianr.mongodb.net/UtilitiesData"
+utilities_data_client_uri = f"mongodb+srv://readonly:{os.environ['MONGODB_READONLY_PASSWORD']}@cluster0.8ianr.mongodb.net/UtilitiesData"
 utilities_client = pymongo.MongoClient(utilities_data_client_uri)
 utilities_db = utilities_client.UtilitiesData
 transcript_data = utilities_db.Transcripts

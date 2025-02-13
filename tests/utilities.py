@@ -63,6 +63,9 @@ FIND_THE_GENE_OUTPUT_DIR = "tests/expected_outputs/find_the_gene/"
 NORMALIZE_HLA_URL = "/utilities/normalize-hla"
 NORMALIZE_HLA_OUTPUT_DIR = "tests/expected_outputs/normalize_hla/"
 
+NORMALIZE_VARIANT_URL = "/utilities/normalize-variant"
+NORMALIZE_VARIANT_OUTPUT_DIR = "tests/expected_outputs/normalize_variant/"
+
 SORT_JSON_DATA_OUTPUT_DIR = "tests/expected_outputs/sort_json_data/"
 
 
@@ -144,6 +147,10 @@ def find_the_gene_query(query):
 
 def normalize_hla_utility_query(query):
     return f"{NORMALIZE_HLA_URL}?{query}"
+
+
+def normalize_variant_query(query):
+    return f"{NORMALIZE_VARIANT_URL}?{query}"
 
 
 def sort_json_data(data):

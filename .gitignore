@@ -4,8 +4,8 @@
 .pytest_cache
 __pycache__
 .venv
-utilities/FASTA
-utilities/mongo_utilities.py
-/data
 secrets.env
-app/temp.py
+/data
+/seqrepo
+/tmp
+/utilities/FASTA
