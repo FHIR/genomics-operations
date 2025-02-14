@@ -1,12 +1,9 @@
 import vcf
 import json
 from collections import OrderedDict
-from gene_ref_seq import _get_ref_seq_by_chrom
-from SPDI_Normalization import get_normalized_spdi
 import common
 import re
 import uuid
-
 
 def add_phase_records(record, phased_rec_map, sample_position):
     if (record.samples[sample_position].phased is False):
@@ -20,7 +17,6 @@ def add_phase_records(record, phased_rec_map, sample_position):
         if isinstance(sample_data.PS, list):
             sample_data_ps = sample_data_ps[0]
         phased_rec_map.setdefault(sample_data_ps, []).append(record)
-
 
 def add_phased_relationship_obv(patientID, test_id, specimen_id, ref_build, phase_data, df, phased_rec_map):
     sequence_rels = common.get_sequence_relation(phased_rec_map)
@@ -45,7 +41,6 @@ def add_phased_relationship_obv(patientID, test_id, specimen_id, ref_build, phas
         output_json['phase'] = relation
         phase_data.append(output_json)
         c -= 1
-
 
 def _valid_record(record, genomic_source_class, sample_position):
     svAltRegex = re.compile("^<{1}.*>{1}$")
@@ -76,18 +71,19 @@ def _valid_record(record, genomic_source_class, sample_position):
             return False
     if (record.FILTER is not None and len(record.FILTER) != 0):
         return False
+
+
     if record.samples[sample_position]["GT"] in ['0/0', '0|0', '0']:
-        return False
+        return False  # Reject non-variant if not allowed
+
     if not record.REF.isalpha():
         return False
     if record.CHROM == "M" and (
-        (len(
-            record.samples[sample_position].gt_alleles) == 1 and
+        (len(record.samples[sample_position].gt_alleles) == 1 and
             record.samples[sample_position].gt_alleles[0] == "0") or len(
             record.samples[sample_position].gt_alleles) == 2):
         return False
     return True
-
 
 def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
              test_date=None, test_id=None, specimen_id=None,
@@ -124,13 +120,7 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
         patient_id = vcf_reader.samples[sample_position]
 
     for record in vcf_reader:
-        # high level logic flow:
-        #  - get a VCF row using the pyvcf reader
-        #  - validate that it is a record we parse
-        #  - update the record if it contains multiple ALT alleles
-        #  - for each ALT allele in a record, output_json
-        #  - write output_json (which is used to compute phase data)
-        if not _valid_record(record, genomic_source_class, sample_position):
+        if not _valid_record(record, genomic_source_class, sample_position):  # Pass the flag
             continue
 
         # Convert multi-ALT record to single-ALT record where genotype only includes one of the ALT alleles
@@ -166,11 +156,12 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
             output_json["CHROM"] = f"chr{record.CHROM}"
             output_json["POS"] = record.POS - 1
             output_json["REF"] = record.REF
-            # populate ALT
-            if len(record.ALT) > 1:
-                output_json["ALT"] = str(record.ALT[i])
-            else:
+
+            # populate ALT for non-variants
+            if record.ALT and record.ALT[0] not in [None, '.']:
                 output_json["ALT"] = str(record.ALT[0])
+            else:
+                output_json["ALT"] = output_json["REF"]
 
             output_json["END"] = (record.POS - 1 + len(record.REF))
             if record.FILTER is None:
