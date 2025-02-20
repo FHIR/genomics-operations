@@ -7,9 +7,8 @@ from threading import Lock
 import common
 import pyfastx
 import vcf
-
-from .gene_ref_seq import get_ref_seq_by_chrom
-from .spdi import normalize
+from gene_ref_seq import get_ref_seq_by_chrom
+from spdi import normalize
 
 # Fasta file handles cache
 fasta_cache = {}

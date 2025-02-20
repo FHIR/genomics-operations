@@ -9,15 +9,10 @@ pyfastx==2.0.1
 pymongo==4.2.0
 pyranges==0.0.120
 python_dateutil==2.8.2
-requests==2.28.1
+requests==2.32.5
 streamlit==1.19.0
-<<<<<<< HEAD
 streamlit-aggrid==1.0.5
 pytest==7.1.1
-=======
-pytest==7.1.1
-deepdiff==6.7.1
->>>>>>> 1b4630a (Add SPDI normalization with refseq files)
 python-dotenv==1.0.1
 toml==0.10.2
 pandas==2.2.2
@@ -25,9 +20,6 @@ numpy==2.0.2
 pyliftover==0.4
 hgvs==1.5.4
 py-ard==1.5.3
-<<<<<<< HEAD
 openpyxl==3.1.5
 pyvcf3==1.0.3
 tqdm==4.65.1
-=======
->>>>>>> 1b4630a (Add SPDI normalization with refseq files)
