@@ -1,9 +1,10 @@
-import connexion
-import flask
-from flask_cors import CORS
 import os
 
+import connexion
+import flask
 import hgvs
+from flask_cors import CORS
+
 # Disable the hgvs LRU cache to avoid blowing up memory
 # TODO: Revisit this, since this caching might not use a ton of memory.
 hgvs.global_config.lru_cache.maxsize = 0

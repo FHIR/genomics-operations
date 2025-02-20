@@ -7,9 +7,8 @@ from threading import Lock
 import common
 import pyfastx
 import vcf
-
-from .gene_ref_seq import get_ref_seq_by_chrom
-from .spdi import normalize
+from gene_ref_seq import get_ref_seq_by_chrom
+from spdi import normalize
 
 # Fasta file handles cache
 fasta_cache = {}
@@ -34,7 +33,7 @@ def get_fasta(file):
 def normalize_spdi(ref_seq, pos, ref, alt, build):
     fasta = get_fasta(BUILD37_FILE) if build == 'GRCh37' else get_fasta(BUILD38_FILE)
 
-    return normalize(fasta[ref_seq], pos, ref, alt)
+    return normalize(fasta[ref_seq], ref_seq, pos, ref, alt)
 
 
 def add_phase_records(record, phased_rec_map, sample_position):
