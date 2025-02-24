@@ -7,7 +7,7 @@ from app import utilities_endpoints
 def find_subject_variants(
         subject, ranges, testIdentifiers=None, testDateRange=None,
         specimenIdentifiers=None, genomicSourceClass=None,
-        includeVariants=False, includePhasing=False):
+        includeVariants=False, includePhasing=False, includeNonVariants=False):  # Added includeNonVariants parameter
 
     # Parameters
     subject = subject.strip()
@@ -59,7 +59,6 @@ def find_subject_variants(
     # create a Parameters FHIR Object.
     for chrom in chromosome_to_ranges:
         parameter = OrderedDict()
-
         parameter["name"] = "variants"
         parameter["part"] = []
         parameter["part"].append({
@@ -83,8 +82,8 @@ def find_subject_variants(
             {
                 "$and": [
                     {"POS": {"$gte": chrom["PGB"]["L"]}},
-                    {"POS": {"$lt": chrom["PGB"]["H"]}}
-                ]
+                    {"POS": {"$lt": chrom["PGB"]["H"]}
+                    }]
             }
         ]})
         query["$and"].append({"CHROM": {"$eq": chrom["CHROM"]}})
@@ -100,20 +99,25 @@ def find_subject_variants(
                     {
                     "$and": [
                         {"POS": {"$gte": chrom["OGB"]["L"]}},
-                        {"POS": {"$lt": chrom["OGB"]["H"]}}
-                    ]
+                        {"POS": {"$lt": chrom["OGB"]["H"]}
+                    }]
                 }]
             )
-
             genomic_builds.append(chrom["OGB"]["BUILD"])
 
         query["genomicBuild"] = {"$in": genomic_builds}
 
         try:
-            variant_q = common.variants_db.aggregate([{"$match": query}])
-            variant_q = list(variant_q)
+            # Original query on the Variants collection
+            variant_q = list(common.variants_db.aggregate([{"$match": query}]))
+
+            # New logic to include NonVariants collection if includeNonVariants is True
+            if includeNonVariants:  # Check if includeNonVariants is True
+                non_variant_q = list(common.non_variants_db.aggregate([{"$match": query}]))  # Query NonVariants
+                variant_q.extend(non_variant_q)  # Append NonVariants results to the variants query
+
         except Exception as e:
-            print(f"DEBUG: Error{e} under find_subject_variants query={query}")
+            print(f"DEBUG: Error {e} under find_subject_variants query={query}")
             variant_q = []
 
         # Variants
@@ -146,8 +150,7 @@ def find_subject_variants(
                 if includePhasing:
                     variantIDs = [str(v['_id']) for v in variant_q]
                     sequence_phase_profiles = []
-                    sequence_phase_data = common.get_sequence_phase_data(
-                        subject)
+                    sequence_phase_data = common.get_sequence_phase_data(subject)
 
                     for sq_data in sequence_phase_data:
                         if sq_data["variantID1"] in variantIDs and sq_data["variantID2"] in variantIDs:
@@ -174,7 +177,7 @@ def find_subject_variants(
 
 def find_subject_specific_variants(
         subject, variants, testIdentifiers=None, testDateRange=None,
-        specimenIdentifiers=None, genomicSourceClass=None):
+        specimenIdentifiers=None, genomicSourceClass=None, includeNonVariants=False):
 
     # Parameters
     subject = subject.strip()
@@ -186,11 +189,10 @@ def find_subject_specific_variants(
     query = {}
     query["SVTYPE"] = {"$exists": False}
 
-    # date query
+    # Date query
     if testDateRange:
         testDateRange = list(map(common.get_date, testDateRange))
         query["testDate"] = {}
-
         for date_range in testDateRange:
             query["testDate"][date_range['OPERATOR']] = date_range['DATE']
 
@@ -227,7 +229,6 @@ def find_subject_specific_variants(
 
     for variant in variants:
         parameter = OrderedDict()
-
         parameter["name"] = "variants"
         parameter["part"] = []
         parameter["part"].append({
@@ -236,7 +237,6 @@ def find_subject_specific_variants(
         })
 
         spdis = []
-
         if variant["GRCh37"]:
             spdis.append(variant["GRCh37"])
         if variant["GRCh38"]:
@@ -245,14 +245,19 @@ def find_subject_specific_variants(
         query["SPDI"] = {"$in": spdis}
 
         try:
-            variant_q = common.variants_db.aggregate([{"$match": query}])
-            variant_q = list(variant_q)
+            # Query the Variants collection
+            variant_q = list(common.variants_db.aggregate([{"$match": query}]))
+
+            # If the flag is set, also query the NonVariants collection and merge results
+            if includeNonVariants:
+                non_variant_q = list(common.non_variants_db.aggregate([{"$match": query}]))
+                variant_q.extend(non_variant_q)
+
         except Exception as e:
-            print(f"DEBUG: Error{e} under find_subject_specific_variants query={query}")
+            print(f"DEBUG: Error {e} under find_subject_specific_variants query={query}")
             variant_q = []
 
         present = bool(variant_q)
-
         parameter["part"].append({
             "name": "presence",
             "valueBoolean": present
@@ -260,16 +265,12 @@ def find_subject_specific_variants(
 
         if present:
             variant_fhir_profiles = []
-
             for record in variant_q:
                 ref_seq = common.get_ref_seq_by_chrom_and_build(record['genomicBuild'], record['CHROM'])
                 resource = common.create_fhir_variant_resource(record, ref_seq, subject)
-
                 variant_fhir_profiles.append(resource)
-
             if variant_fhir_profiles:
                 variant_fhir_profiles = sorted(variant_fhir_profiles, key=lambda d: d['id'])
-
             for resource in variant_fhir_profiles:
                 parameter["part"].append({
                     "name": "variant",
