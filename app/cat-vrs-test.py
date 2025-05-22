@@ -31,4 +31,7 @@ experimental = True
 # Query mongoDb for txImplication records that have regions that intersect our ranges
 
 # print(patients_db.find_one({"patientID": subject}))
-print(txImplication_db.find_one({"evidenceLevel": "CPIC Level A"}))
+# print(txImplication_db.find_one({"evidenceLevel": "CPIC Level A"}))
+resultSet = (txImplication_db.find({"region": "NC_000007.14:55019016-55211628"}))
+for result in resultSet:
+    print(result)
