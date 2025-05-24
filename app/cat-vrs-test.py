@@ -28,10 +28,38 @@ subject = "L2345"
 ranges = ["NC_000007.14:55019016-55211628", "NC_000008.11:127735433-127742951"]
 experimental = True
 
-# Query mongoDb for txImplication records that have regions that intersect our ranges
+# If experimental, query mongoDb for txImplication records that have regions that intersect our ranges
 
 # print(patients_db.find_one({"patientID": subject}))
+# {"region":{"$exists":true}}
 # print(txImplication_db.find_one({"evidenceLevel": "CPIC Level A"}))
-resultSet = (txImplication_db.find({"region": "NC_000007.14:55019016-55211628"}))
+# resultSet = (txImplication_db.find({"region": {"$exists":True}}))
+# for result in resultSet:
+#     print(result)
+
+query = {
+    '$or': [
+        {
+            'region': {
+                '$elemMatch': {
+                    'refseq': 'NC_000007.14',
+                    'start': {'$lt': 55211628},
+                    'end': {'$gte': 55019016}
+                }
+            }
+        },
+        {
+            'region': {
+                '$elemMatch': {
+                    'refseq': 'NC_000008.11',
+                    'start': {'$lt': 127742951},
+                    'end': {'$gte': 127735433}
+                }
+            }
+        }
+    ]
+}
+
+resultSet = (txImplication_db.find(query))
 for result in resultSet:
     print(result)
