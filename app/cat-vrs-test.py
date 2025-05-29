@@ -24,40 +24,37 @@ genotypes_db = db.Genotypes
 dxImplication_db = db.dxImplication
 txImplication_db = db.txImplication
 
+# QUERY INPUT PARAMETERS
 subject = "L2345"
-ranges = ["NC_000007.14:55019016-55211628", "NC_000008.11:127735433-127742951"]
+ranges = ["NC_000007.14:55019016-55211628", "NC_000008.11:127735433-127742951", "NC_000002.11:127735431-127742951"]
 experimental = True
 
-# If experimental, query mongoDb for txImplication records that have regions that intersect our ranges
+refseq = []
+low = []
+high = []
 
-# print(patients_db.find_one({"patientID": subject}))
-# {"region":{"$exists":true}}
-# print(txImplication_db.find_one({"evidenceLevel": "CPIC Level A"}))
-# resultSet = (txImplication_db.find({"region": {"$exists":True}}))
-# for result in resultSet:
-#     print(result)
+for item in ranges:
+    xrefseq, low_high = item.split(':')
+    xlow, xhigh = map(int, low_high.split('-'))
+    refseq.append(xrefseq)
+    low.append(xlow)
+    high.append(xhigh)
 
-query = {
-    '$or': [
-        {
+orGroup = []
+for i in range(len(refseq)):
+    item = {
             'region': {
                 '$elemMatch': {
-                    'refseq': 'NC_000007.14',
-                    'start': {'$lt': 55211628},
-                    'end': {'$gte': 55019016}
-                }
-            }
-        },
-        {
-            'region': {
-                '$elemMatch': {
-                    'refseq': 'NC_000008.11',
-                    'start': {'$lt': 127742951},
-                    'end': {'$gte': 127735433}
+                    'refseq': refseq[i],
+                    'start': {'$lt': high[i]},
+                    'end': {'$gte': low[i]}
                 }
             }
         }
-    ]
+    orGroup.append(item)
+
+query = {
+    '$or': orGroup
 }
 
 resultSet = (txImplication_db.find(query))
