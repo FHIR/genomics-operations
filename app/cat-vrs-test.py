@@ -24,7 +24,7 @@ genotypes_db = db.Genotypes
 dxImplication_db = db.dxImplication
 txImplication_db = db.txImplication
 
-# QUERY INPUT PARAMETERS
+# QUERY INPUT PARAMETERS WORK
 subject = "L2345"
 ranges = ["NC_000007.14:55019016-55211628", "NC_000008.11:127735433-127742951", "NC_000002.11:127735431-127742951"]
 experimental = True
