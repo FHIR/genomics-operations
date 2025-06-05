@@ -59,4 +59,23 @@ query = {
 
 resultSet = (txImplication_db.find(query))
 for result in resultSet:
-    print(result)
+    type = result["expression"]["constraints"][0]["type"]
+    if type == "CopyChangeConstraint":
+        refseq = result["expression"]["constraints"][1]["location"]["sequenceReference"]["id"].split(":")[1]
+        start = result["expression"]["constraints"][1]["location"]["start"]
+        end = result["expression"]["constraints"][1]["location"]["end"]
+        copyChange = result["expression"]["constraints"][0]["copyChange"]
+    elif type == "CopyCountConstraint":
+        refseq = result["expression"]["constraints"][1]["location"]["sequenceReference"]["id"].split(":")[1]
+        start = result["expression"]["constraints"][1]["location"]["start"]
+        end = result["expression"]["constraints"][1]["location"]["end"]
+        copyCount = result["expression"]["constraints"][0]["copies"]
+    elif type == "DefiningAlleleConstraint":
+        refseq = result["expression"]["constraints"][0]["allele"]["location"]["sequenceReference"]["id"].split(":")[1]
+        start = result["expression"]["constraints"][0]["allele"]["location"]["start"]
+        end = result["expression"]["constraints"][0]["allele"]["location"]["end"]
+    else:
+        refseq, start, end = None, None, None
+
+
+
