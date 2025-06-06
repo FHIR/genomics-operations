@@ -2,9 +2,8 @@ import os
 import pymongo
 from pathlib import Path
 from dotenv import load_dotenv
+from app import common
 
-load_dotenv(Path(__file__).parent.parent / ".env")
-# Load secrets from secrets.env file if available
 load_dotenv(Path(__file__).parent.parent / "secrets.env")
 
 # MongoDB Client URIs
@@ -23,59 +22,82 @@ tests_db = db.Tests
 genotypes_db = db.Genotypes
 dxImplication_db = db.dxImplication
 txImplication_db = db.txImplication
+molCon_db = db.MolecConseq
 
-# QUERY INPUT PARAMETERS Works
+# Query input parameters
 subject = "L2345"
 ranges = ["NC_000007.14:55019016-55211628", "NC_000008.11:127735433-127742951", "NC_000002.11:127735431-127742951"]
 experimental = True
 
-refseq = []
-low = []
-high = []
-
-for item in ranges:
-    xrefseq, low_high = item.split(':')
-    xlow, xhigh = map(int, low_high.split('-'))
-    refseq.append(xrefseq)
-    low.append(xlow)
-    high.append(xhigh)
-
+# Query txImplication collection based on the provided ranges
 orGroup = []
-for i in range(len(refseq)):
-    item = {
-            'region': {
-                '$elemMatch': {
-                    'refseq': refseq[i],
-                    'start': {'$lt': high[i]},
-                    'end': {'$gte': low[i]}
-                }
+for item in ranges:
+    refseq, low_high = item.split(':')
+    low, high = map(int, low_high.split('-'))
+    orElement = {
+        '$or': [
+            {
+                'b38Region.refseq': refseq,
+                'b38Region.start': {'$lt': high},
+                'b38Region.end': {'$gte': low}
+            },
+            {
+                'b37Region.refseq': refseq,
+                'b37Region.start': {'$lt': high},
+                'b37Region.end': {'$gte': low}
             }
+        ]
+    }
+    orGroup.append(orElement)
+query = {'$or': orGroup}
+txImpQueryResults = (txImplication_db.find(query))
+
+# Now to test patient data against the expressions
+for txImpResult in txImpQueryResults:
+    # First, we gather the patient data
+    type = txImpResult["expression"]["constraints"][0]["type"]
+    VariantQuery = {
+            "$or": [
+                {
+                    "patientID": subject,
+                    "genomicBuild": "GRCh38",
+                    "CHROM": txImpResult["b38Region"]["chrom"],
+                    "POS": {'$lt': txImpResult["b38Region"]["end"]},
+                    "END": {'$gte': txImpResult["b38Region"]["start"]}
+                },
+                {
+                    "patientID": subject,
+                    "genomicBuild": "GRCh37",
+                    "CHROM": txImpResult["b37Region"]["chrom"],
+                    "POS": {'$lt': txImpResult["b37Region"]["end"]},
+                    "END": {'$gte': txImpResult["b37Region"]["start"]}
+                }
+            ]
         }
-    orGroup.append(item)
+    variantQueryResults = (variants_db.find(VariantQuery))
+    if type in ["DefiningAlleleConstraint"]:
+        VariantIDList = []
+        for VariantQueryResult in variantQueryResults:
+            VariantIDList.append(VariantQueryResult["_id"])
+        MolConQuery = {"variantID": {"$in": VariantIDList}}
+        molConQueryResults = (molCon_db.find(MolConQuery))
 
-query = {
-    '$or': orGroup
-}
-
-resultSet = (txImplication_db.find(query))
-for result in resultSet:
-    type = result["expression"]["constraints"][0]["type"]
-    if type == "CopyChangeConstraint":
-        refseq = result["expression"]["constraints"][1]["location"]["sequenceReference"]["id"].split(":")[1]
-        start = result["expression"]["constraints"][1]["location"]["start"]
-        end = result["expression"]["constraints"][1]["location"]["end"]
-        copyChange = result["expression"]["constraints"][0]["copyChange"]
-    elif type == "CopyCountConstraint":
-        refseq = result["expression"]["constraints"][1]["location"]["sequenceReference"]["id"].split(":")[1]
-        start = result["expression"]["constraints"][1]["location"]["start"]
-        end = result["expression"]["constraints"][1]["location"]["end"]
-        copyCount = result["expression"]["constraints"][0]["copies"]
-    elif type == "DefiningAlleleConstraint":
-        refseq = result["expression"]["constraints"][0]["allele"]["location"]["sequenceReference"]["id"].split(":")[1]
-        start = result["expression"]["constraints"][0]["allele"]["location"]["start"]
-        end = result["expression"]["constraints"][0]["allele"]["location"]["end"]
-    else:
-        refseq, start, end = None, None, None
-
-
-
+    # Now we can compare patient data with txImplication results
+    if type in ["CopyCountConstraint"]:
+        print("processing CopyCountConstraint...")
+        """
+        Cycle through each variantQueryResult, checking to see
+        if any variant satisfies the expression constraints in txImpResult.
+        """
+    elif type in ["CopyChangeConstraint"]:
+        print("processing CopyChangeConstraint...")
+        """
+        Cycle through each variantQueryResult, checking to see
+        if any variant satisfies the expression constraints in txImpResult.
+        """
+    elif type in ["DefiningAlleleConstraint"]:
+        print("processing DefiningAlleleConstraint...")
+        """
+        Cycle through each molConQueryResult, checking to see
+        if any molCon satisfies the expression constraints in txImpResult.
+        """
