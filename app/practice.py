@@ -45,18 +45,20 @@ for item in ranges:
 query = {'$or': orGroup}
 
 resultSet = txImplication_db.find(query)
+# ...existing code...
+
+unique_lines = set()
+
 for result in resultSet:
     constraint_type = result["expression"]["constraints"][0]["type"]
     if constraint_type == "CopyChangeConstraint":
         refseq = result["expression"]["constraints"][1]["location"]["sequenceReference"]["id"].split(":")[1]
         start = result["expression"]["constraints"][1]["location"]["start"]
         end = result["expression"]["constraints"][1]["location"]["end"]
-        copyChange = result["expression"]["constraints"][0]["copyChange"]
     elif constraint_type == "CopyCountConstraint":
         refseq = result["expression"]["constraints"][1]["location"]["sequenceReference"]["id"].split(":")[1]
         start = result["expression"]["constraints"][1]["location"]["start"]
         end = result["expression"]["constraints"][1]["location"]["end"]
-        copyCount = result["expression"]["constraints"][0]["copies"]
     elif constraint_type == "DefiningAlleleConstraint":
         refseq = result["expression"]["constraints"][0]["allele"]["location"]["sequenceReference"]["id"].split(":")[1]
         start = result["expression"]["constraints"][0]["allele"]["location"]["start"]
@@ -64,5 +66,9 @@ for result in resultSet:
     else:
         refseq, start, end = None, None, None
 
-    print(f"Type: {constraint_type}, RefSeq: {refseq}, Start: {start}, End: {end}")
+    line = f"Type: {constraint_type}, RefSeq: {refseq}, Start: {start}, End: {end}"
+    unique_lines.add(line)
+
+for line in unique_lines:
+    print(line)
 # ...existing code...
