@@ -80,7 +80,7 @@ for txImpResult in txImpQueryResults:
         for VariantQueryResult in variantQueryResults:
             VariantIDList.append(VariantQueryResult["_id"])
         MolConQuery = {"variantID": {"$in": VariantIDList}}
-        molConQueryResults = (molCon_db.find(MolConQuery))
+        molConQueryResults = molCon_db.find(MolConQuery)
 
     # Now we can compare patient data with txImplication results
     if type in ["CopyCountConstraint"]:
@@ -89,15 +89,64 @@ for txImpResult in txImpQueryResults:
         Cycle through each variantQueryResult, checking to see
         if any variant satisfies the expression constraints in txImpResult.
         """
+        for variantQueryResult in variantQueryResults:
+            criteriaSatisfied = False
+            Copies = txImpResult["expression"]["constraints"][0]["copies"]
+            if "SPDI" in variantQueryResult:
+                REF = (variantQueryResult["SPDI"]).split(":")[2]
+                ALT = (variantQueryResult["SPDI"]).split(":")[3]
+                if len(REF) > len(ALT) and Copies[1] < 2:
+                    criteriaSatisfied = True
+            if "CN" in variantQueryResult:
+                CN = variantQueryResult["CN"]
+                SVTYPE = variantQueryResult["SVTYPE"]
+                if CN in Copies:
+                    criteriaSatisfied = True
+                elif SVTYPE == "DEL" and (0 in Copies or 1 in Copies):
+                    criteriaSatisfied = True
+            if criteriaSatisfied:
+                print(f" - Variant {variantQueryResult['_id']} satisfies txImp {txImpResult['_id']}")
     elif type in ["CopyChangeConstraint"]:
         print("processing CopyChangeConstraint...")
         """
         Cycle through each variantQueryResult, checking to see
         if any variant satisfies the expression constraints in txImpResult.
         """
+        for variantQueryResult in variantQueryResults:
+            criteriaSatisfied = False
+            CopyChange = txImpResult["expression"]["constraints"][0]["copyChange"]
+            if "SPDI" in variantQueryResult:
+                REF = (variantQueryResult["SPDI"]).split(":")[2]
+                ALT = (variantQueryResult["SPDI"]).split(":")[3]
+                if len(REF) > len(ALT) and CopyChange == "loss":
+                    criteriaSatisfied = True
+                    break
+            if "CN" in variantQueryResult:
+                CN = variantQueryResult["CN"]
+                SVTYPE = variantQueryResult["SVTYPE"]
+                if (
+                    (CN > 2 and CopyChange == "gain")
+                    or (CN < 2 and CopyChange == "loss")
+                    or (SVTYPE == "DUP" and CopyChange == "gain")
+                    or (SVTYPE == "DEL" and CopyChange == "loss")
+                ):
+                    criteriaSatisfied = True
+                    break
+            if criteriaSatisfied:
+                print(f" - Variant {variantQueryResult['_id']} satisfies txImp {txImpResult['_id']}")
     elif type in ["DefiningAlleleConstraint"]:
         print("processing DefiningAlleleConstraint...")
         """
         Cycle through each molConQueryResult, checking to see
         if any molCon satisfies the expression constraints in txImpResult.
         """
+        criteria = txImpResult["expression"]["constraints"][0]["allele"]["expressions"][0]["value"]
+        for molConQueryResult in molConQueryResults:
+            criteriaSatisfied = False
+            variantID = molConQueryResult["variantID"]
+            pHGVS = molConQueryResult["pHGVS"]
+            if pHGVS == criteria:
+                criteriaSatisfied = True
+                break
+        if criteriaSatisfied:
+            print(f" - MolCon {molConQueryResult['_id']} of variant {variantID} satisfies txImp {txImpResult['_id']}")
