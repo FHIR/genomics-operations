@@ -32,7 +32,7 @@ tests_db = db.Tests
 genotypes_db = db.Genotypes
 dxImplication_db = db.dxImplication
 txImplication_db = db.txImplication
-
+molCon_db = db.MolecConseq
 beds = db.BEDs
 phase_data = db.PhaseData
 
@@ -1923,5 +1923,174 @@ def query_molecular_consequences_by_variants(normalized_variant_list, feature_co
 
     for item in results:
         query_results.append(item)
+
+    return query_results
+
+
+def query_CIVIC_cat_var(ranges, normalized_variant_list, condition_code_list, treatment_code_list, query):
+    # Query txImplication collection for those with relevant categorical expressions
+    query_results = []
+    if not ranges:
+        # construct ranges from normalized variant list
+        ranges = []
+        for variant in normalized_variant_list:
+            refseq = variant["GRCh38"].split(":")[0]
+            start = int(variant["GRCh38"].split(":")[1])
+            end = start + len(variant["GRCh38"].split(":")[2])
+            ranges.append(f"{refseq}:{start}-{end}")
+
+    txImpQuery = {'$and': []}
+    if condition_code_list != []:
+        condition_query = {'$or': []}
+        for condition in condition_code_list:
+            if condition['isSystem']:
+                condition_query['$or'].append({'$and': [
+                    {'phenotypicTreatmentContext.code': {'$eq': condition['condition']}},
+                    {'phenotypicTreatmentContext.system': {'$eq': condition['system']}}]})
+            else:
+                condition_query['$or'].append({'$or': [
+                    {'phenotypicTreatmentContext.code': {'$regex': ".*"+str(condition['condition']).replace('*', r'\*')+".*"}},
+                    {'phenotypicTreatmentContext.display': {'$regex': ".*"+str(condition['condition']).replace('*', r'\*')+".*"}}
+                ]})
+        txImpQuery['$and'].append(condition_query)
+
+    if treatment_code_list != []:
+        treatment_query = {'$or': []}
+        for treatment in treatment_code_list:
+            if treatment['isSystem']:
+                treatment_query['$or'].append({'$and': [
+                    {'medicationAssessed.code': {'$eq': treatment['treatment']}},
+                    {'medicationAssessed.system': {'$eq': treatment['system']}}]})
+            else:
+                treatment_query['$or'].append({'$or': [
+                    {'medicationAssessed.code': {'$regex': ".*"+str(treatment['treatment']).replace('*', r'\*')+".*"}},
+                    {'medicationAssessed.display': {'$regex': ".*"+str(treatment['treatment']).replace('*', r'\*')+".*"}}
+                ]})
+        txImpQuery['$and'].append(treatment_query)
+
+    orGroup = []
+    for item in ranges:
+        refseq, low_high = item.split(':')
+        low, high = map(int, low_high.split('-'))
+        orElement = {
+            '$or': [
+                {
+                    'b38Region.refseq': refseq,
+                    'b38Region.start': {'$lt': high},
+                    'b38Region.end': {'$gte': low},
+
+                },
+                {
+                    'b37Region.refseq': refseq,
+                    'b37Region.start': {'$lt': high},
+                    'b37Region.end': {'$gte': low}
+                }
+            ]
+        }
+        orGroup.append(orElement)
+    rangeQuery = {'$or': orGroup}
+    txImpQuery['$and'].append(rangeQuery)
+    txImpQueryResults = (txImplication_db.find(txImpQuery))
+
+    # Now to test patient data against the expressions
+    for txImpResult in txImpQueryResults:
+        # First, we gather the patient data
+        type = txImpResult["expression"]["constraints"][0]["type"]
+        VariantQuery = query
+        VariantQuery.pop("SPDI", {})
+        VariantQuery["$or"] = [
+                    {
+                        "genomicBuild": "GRCh38",
+                        "CHROM": txImpResult["b38Region"]["chrom"],
+                        "POS": {'$lt': txImpResult["b38Region"]["end"]},
+                        "END": {'$gte': txImpResult["b38Region"]["start"]}
+                    },
+                    {
+                        "genomicBuild": "GRCh37",
+                        "CHROM": txImpResult["b37Region"]["chrom"],
+                        "POS": {'$lt': txImpResult["b37Region"]["end"]},
+                        "END": {'$gte': txImpResult["b37Region"]["start"]}
+                    }
+                ]
+        variantQueryResults = (variants_db.find(VariantQuery))
+        variantQueryResults = list(variantQueryResults)
+        if type in ["DefiningAlleleConstraint"]:
+            VariantIDList = []
+            for VariantQueryResult in variantQueryResults:
+                VariantIDList.append(VariantQueryResult["_id"])
+            MolConQuery = {"variantID": {"$in": VariantIDList}}
+            molConQueryResults = molCon_db.find(MolConQuery)
+
+        # Now we can compare patient data with txImplication results
+        if type in ["CopyCountConstraint"]:
+            """
+            Cycle through each variantQueryResult, checking to see
+            if any variant satisfies the expression constraints in txImpResult.
+            """
+            for variantQueryResult in variantQueryResults:
+                criteriaSatisfied = False
+                Copies = txImpResult["expression"]["constraints"][0]["copies"]
+                if "SPDI" in variantQueryResult:
+                    REF = (variantQueryResult["SPDI"]).split(":")[2]
+                    ALT = (variantQueryResult["SPDI"]).split(":")[3]
+                    if len(REF) > len(ALT) and Copies[1] < 2:
+                        criteriaSatisfied = True
+                if "CN" in variantQueryResult:
+                    CN = variantQueryResult["CN"]
+                    SVTYPE = variantQueryResult["SVTYPE"]
+                    if CN in Copies:
+                        criteriaSatisfied = True
+                    elif SVTYPE == "DEL" and (0 in Copies or 1 in Copies):
+                        criteriaSatisfied = True
+                if criteriaSatisfied:
+                    print(f" - Variant {variantQueryResult['_id']} satisfies txImp {txImpResult['_id']}")
+                    variantQueryResult["txImplicationMatches"] = [txImpResult]
+                    query_results.append(variantQueryResult)
+
+        elif type in ["CopyChangeConstraint"]:
+            """
+            Cycle through each variantQueryResult, checking to see
+            if any variant satisfies the expression constraints in txImpResult.
+            """
+            for variantQueryResult in variantQueryResults:
+                criteriaSatisfied = False
+                CopyChange = txImpResult["expression"]["constraints"][0]["copyChange"]
+                if "SPDI" in variantQueryResult:
+                    REF = (variantQueryResult["SPDI"]).split(":")[2]
+                    ALT = (variantQueryResult["SPDI"]).split(":")[3]
+                    if len(REF) > len(ALT) and CopyChange == "loss":
+                        criteriaSatisfied = True
+                if "CN" in variantQueryResult:
+                    CN = variantQueryResult["CN"]
+                    SVTYPE = variantQueryResult["SVTYPE"]
+                    if (
+                        (CN > 2 and CopyChange == "gain")
+                        or (CN < 2 and CopyChange == "loss")
+                        or (SVTYPE == "DUP" and CopyChange == "gain")
+                        or (SVTYPE == "DEL" and CopyChange == "loss")
+                    ):
+                        criteriaSatisfied = True
+                if criteriaSatisfied:
+                    print(f" - Variant {variantQueryResult['_id']} satisfies txImp {txImpResult['_id']}")
+                    variantQueryResult["txImplicationMatches"] = [txImpResult]
+                    query_results.append(variantQueryResult)
+        elif type in ["DefiningAlleleConstraint"]:
+            """
+            Cycle through each molConQueryResult, checking to see
+            if any molCon satisfies the expression constraints in txImpResult.
+            """
+            criteria = txImpResult["expression"]["constraints"][0]["allele"]["expressions"][0]["value"]
+            for molConQueryResult in molConQueryResults:
+                criteriaSatisfied = False
+                variantID = molConQueryResult["variantID"]
+                pHGVS = molConQueryResult["pHGVS"]
+                if pHGVS == criteria:
+                    criteriaSatisfied = True
+                    break
+            if criteriaSatisfied:
+                print(f" - MolCon {molConQueryResult['_id']} of variant {variantID} satisfies txImp {txImpResult['_id']}")
+                myVariant = next((d for d in variantQueryResults if d["_id"] == variantID), None)
+                myVariant["txImplicationMatches"] = [txImpResult]
+                query_results.append(myVariant)
 
     return query_results

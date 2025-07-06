@@ -765,7 +765,7 @@ def find_subject_specific_haplotypes(
 def find_subject_tx_implications(
         subject, variants=None, ranges=None, haplotypes=None, treatments=None, conditions=None,
         testIdentifiers=None, testDateRange=None, specimenIdentifiers=None,
-        genomicSourceClass=None):
+        genomicSourceClass=None, experimental=None):
 
     # Parameters
     subject = subject.strip()
@@ -829,14 +829,19 @@ def find_subject_tx_implications(
 
     normalized_variants = []
     if ranges:
+        origRanges = ranges
         ranges = list(map(common.get_range, ranges))
         common.get_lift_over_range(ranges)
         variants = common.get_variants(ranges, query)
-        if not variants:
-            return jsonify({"resourceType": "Parameters"})
         normalized_variants = [{variant["BUILD"]: variant["SPDI"]} for variant in variants]
+        if not variants:
+            if experimental:
+                normalized_variants = [{'GRCh38': 'NC_000001.11:1:N:N'}]
+            else:
+                return jsonify({"resourceType": "Parameters"})
 
     if variants and not ranges:
+        origRanges = []
         normalized_variants = list(map(common.get_variant, variants))
 
     # Result Object
@@ -856,6 +861,8 @@ def find_subject_tx_implications(
                     abort(422, f'Failed LiftOver. Variant: {normalizedVariant["variant"]}')
 
         query_results = common.query_CIVIC_by_variants(normalized_variants, condition_code_list, treatment_code_list, query)
+        if experimental:
+            query_results.extend(common.query_CIVIC_cat_var(origRanges, normalized_variants, condition_code_list, treatment_code_list, query))
 
         for res in query_results:
             if res["txImplicationMatches"]:
