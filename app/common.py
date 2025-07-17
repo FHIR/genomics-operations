@@ -2080,6 +2080,7 @@ def query_CIVIC_cat_var(ranges, normalized_variant_list, condition_code_list, tr
             if any molCon satisfies the expression constraints in txImpResult.
             """
             criteria = txImpResult["expression"]["constraints"][0]["allele"]["expressions"][0]["value"]
+            criteriaSatisfied = False
             for molConQueryResult in molConQueryResults:
                 criteriaSatisfied = False
                 variantID = molConQueryResult["variantID"]
