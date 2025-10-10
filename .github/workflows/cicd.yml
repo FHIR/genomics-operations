@@ -33,6 +33,7 @@ jobs:
         run: ./fetch_utilities_data.sh && python -m pytest
         env:
           MONGODB_READONLY_PASSWORD: ${{ secrets.MONGODB_READONLY_PASSWORD }}
+          UTA_DATABASE_URL: ${{ secrets.UTA_DATABASE_URL }}
 
   deploy:
     name: Deploy to dev

@@ -1,11 +1,39 @@
-import vcf
 import json
-from collections import OrderedDict
-from gene_ref_seq import _get_ref_seq_by_chrom
-from SPDI_Normalization import get_normalized_spdi
-import common
 import re
 import uuid
+from collections import OrderedDict
+from threading import Lock
+
+import common
+import pyfastx
+import vcf
+from gene_ref_seq import get_ref_seq_by_chrom
+from spdi import normalize
+
+# Fasta file handles cache
+fasta_cache = {}
+fasta_lock = Lock()
+
+BUILD37_FILE = 'FASTA/GRCh37_latest_genomic.fna.gz'
+BUILD38_FILE = 'FASTA/GRCh38_latest_genomic.fna.gz'
+
+
+def get_fasta(file):
+    with fasta_lock:
+        if file not in fasta_cache:
+            try:
+                fasta = pyfastx.Fasta(file)
+            except Exception as err:
+                print(f"Unexpected {err=}, {type(err)=}")
+                raise
+            fasta_cache[file] = fasta
+        return fasta_cache[file]
+
+
+def normalize_spdi(ref_seq, pos, ref, alt, build):
+    fasta = get_fasta(BUILD37_FILE) if build == 'GRCh37' else get_fasta(BUILD38_FILE)
+
+    return normalize(fasta[ref_seq], pos, ref, alt)
 
 
 def add_phase_records(record, phased_rec_map, sample_position):
@@ -204,7 +232,7 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
                     output_json["GT"] = GT
             output_json["genomicSourceClass"] = genomic_source_class
             # populate SPDI
-            ref_seq = _get_ref_seq_by_chrom(ref_build, common.extract_chrom_identifier(record.CHROM))
+            ref_seq = get_ref_seq_by_chrom(ref_build, common.extract_chrom_identifier(record.CHROM))
 
             if not record.is_sv and output_json["ALT"] is not None:
                 spdi = (f'{ref_seq}:{record.POS - 1}:{record.REF}:{output_json["ALT"]}')
@@ -214,7 +242,7 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
 
                 # Calculate SPDI using SPDI_Normalization logic
                 if len(record.REF) != len(output_json["ALT"]):
-                    output_json["SPDI"] = get_normalized_spdi(ref_seq, (record.POS - 1), record.REF, output_json["ALT"], ref_build)
+                    output_json["SPDI"] = normalize_spdi(ref_seq, (record.POS - 1), record.REF, output_json["ALT"], ref_build)
             # populate allelicState
             alleles = common.get_allelic_state(record, ratio_ad_dp, sample_position)
 
