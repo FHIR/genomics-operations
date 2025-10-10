@@ -5,6 +5,13 @@ from enum import Enum
 import pandas as pd
 import pymongo
 
+from pathlib import Path
+from dotenv import load_dotenv
+
+BASE_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = BASE_DIR.parent
+load_dotenv(PROJECT_ROOT / "secrets.env")
+
 utilities_data_client_uri = f"mongodb+srv://readonly:{os.getenv('MONGODB_READONLY_PASSWORD')}@cluster0.8ianr.mongodb.net/UtilitiesData"
 utilities_client = pymongo.MongoClient(utilities_data_client_uri)
 utilities_db = utilities_client.UtilitiesData
