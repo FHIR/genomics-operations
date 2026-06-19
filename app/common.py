@@ -133,7 +133,7 @@ def key_func(k):
     return k['CHROMOSOME']['RefSeq']
 
 
-def is_overlaping(a, b):
+def is_overlapping(a, b):
     if b['RANGE']['L'] >= a['RANGE']['L'] and b['RANGE']['L'] <= a['RANGE']['H']:
         return True
     else:
@@ -148,7 +148,7 @@ def merge(arr):
     for i in range(1, len(arr)):
         pop_element = merged_list.pop()
 
-        if is_overlaping(pop_element, arr[i]):
+        if is_overlapping(pop_element, arr[i]):
             pop_element['RANGE']['H'] = max(pop_element['RANGE']['H'], arr[i]['RANGE']['H'])
             merged_list.append(pop_element)
         else:

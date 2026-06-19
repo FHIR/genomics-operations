@@ -79,7 +79,7 @@ if st.sidebar.button("Run"):
                             "Genotype": genotype,
                             "Allelic State": allelicState,
                             "Copy Number": copyNumber,
-                            "Allele Frequeny": alleleFreq})
+                            "Allele Frequency": alleleFreq})
         # get and parse structural variants
         response = findSubjectStructuralIntersectingVariants(subject, range)
         if response.status_code == 200:
@@ -112,7 +112,7 @@ if st.sidebar.button("Run"):
                             "Genotype": genotype,
                             "Allelic State": allelicState,
                             "Copy Number": copyNumber,
-                            "Allele Frequeny": alleleFreq})
+                            "Allele Frequency": alleleFreq})
         # get and parse haplotypes
         response = findSubjectHaplotypes(subject, geneId)
         if response.status_code == 200:
@@ -130,7 +130,7 @@ if st.sidebar.button("Run"):
                             "Genotype": genotype,
                             "Allelic State": allelicState,
                             "Copy Number": copyNumber,
-                            "Allele Frequeny": alleleFreq})
+                            "Allele Frequency": alleleFreq})
 
     data = (pd.DataFrame(variantList))
     AgGrid(data, enable_enterprise_modules=True, update_mode="value_changed", allow_unsafe_jscode=True)

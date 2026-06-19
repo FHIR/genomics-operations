@@ -45,7 +45,7 @@ if st.sidebar.button("Run"):
                             SPDI = k["valueCodeableConcept"]["coding"][0]["display"]
                         elif k["code"]["coding"][0]["code"] == "81258-6":
                             alleleFreq = k["valueQuantity"]["value"]
-                    variantList.append({"SPDI": SPDI, "Source Class": sourceClass, "Allelic State": allelicState, "Allele Frequeny": alleleFreq})
+                    variantList.append({"SPDI": SPDI, "Source Class": sourceClass, "Allelic State": allelicState, "Allele Frequency": alleleFreq})
         data = (pd.DataFrame(variantList))
         with col2:
             AgGrid(data, enable_enterprise_modules=True, update_mode="value_changed", allow_unsafe_jscode=True)
