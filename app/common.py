@@ -86,7 +86,7 @@ GENOMIC_SOURCE_CLASS_TO_CODE = {
 
 GENOMIC_BUILD_TO_CODE = {
     'GRCh37': 'LA14029-5',
-    'GRCh38': ' LA26806-2'
+    'GRCh38': 'LA26806-2'
 }
 
 ALLELIC_STATE_TO_CODE = {
@@ -133,7 +133,7 @@ def key_func(k):
     return k['CHROMOSOME']['RefSeq']
 
 
-def is_overlaping(a, b):
+def is_overlapping(a, b):
     if b['RANGE']['L'] >= a['RANGE']['L'] and b['RANGE']['L'] <= a['RANGE']['H']:
         return True
     else:
@@ -148,7 +148,7 @@ def merge(arr):
     for i in range(1, len(arr)):
         pop_element = merged_list.pop()
 
-        if is_overlaping(pop_element, arr[i]):
+        if is_overlapping(pop_element, arr[i]):
             pop_element['RANGE']['H'] = max(pop_element['RANGE']['H'], arr[i]['RANGE']['H'])
             merged_list.append(pop_element)
         else:
@@ -1043,7 +1043,7 @@ def get_intersected_regions(bed_id, build, chrom, start, end, intersected_region
         result = list(result)
     except Exception as e:
         print(f"DEBUG: Error({e}) under get_intersected_regions(bed_id={bed_id}, build={build}, chrom={chrom}, start={start}, end={end}, intersected_regions={intersected_regions})")
-        result = result
+        result = []
 
     if result:
         result = result[0]["BED"]
