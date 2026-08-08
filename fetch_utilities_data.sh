@@ -9,6 +9,25 @@ if [ -d ./data ]; then
     exit 0
 fi
 
+mkdir -p ./data/refseq
+(
+    cd ./data/refseq
+
+    echo "Downloading refseq files..."
+
+    curl -sLO https://github.com/FHIR/genomics-operations/releases/download/${UTILITIES_DATA_VERSION}/GRCh37_refseq.tar.gz
+    curl -sLO https://github.com/FHIR/genomics-operations/releases/download/${UTILITIES_DATA_VERSION}/GRCh38_refseq.tar.gz
+    curl -sLO https://github.com/FHIR/genomics-operations/releases/download/${UTILITIES_DATA_VERSION}/rna_refseq.tar.gz
+
+    echo "Extracting refseq files..."
+
+    tar -xzf GRCh37_refseq.tar.gz
+    tar -xzf GRCh38_refseq.tar.gz
+    tar -xzf rna_refseq.tar.gz
+
+    echo "Finished extracting refseq files."
+)
+
 mkdir -p ./data/pyard
 (
     cd ./data/pyard

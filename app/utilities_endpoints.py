@@ -1,12 +1,12 @@
-
 import json
 from collections import OrderedDict
 
 import requests
 from flask import abort, jsonify
 
-from app import common
-from utilities.pyard import redux
+from app import common, input_normalization
+from utilities import hla
+from utilities.spdi_refseq import get_ref_seq_subseq
 
 
 def fetch_concept_map(mapID):
@@ -172,7 +172,8 @@ def get_feature_coordinates(
             protein = protein.split('.')[0]
 
         try:
-            result = common.proteins_data.aggregate([{"$match": {"proteinRefSeq": {'$regex': ".*"+str(protein).replace('*', r'\*')+".*"}}}])
+            result = common.proteins_data.aggregate(
+                [{"$match": {"proteinRefSeq": {'$regex': ".*"+str(protein).replace('*', r'\*')+".*"}}}])
             result = list(result)
         except Exception as e:
             print(f"DEBUG: Error({e}) under get_feature_coordinates(protein={protein})")
@@ -356,18 +357,34 @@ def translate_terminology(codeSystem, code):
         return response
 
 
+def normalize_variant_hgvs(variant):
+    try:
+        return input_normalization.normalize(variant)
+    except Exception as err:
+        print(f"Unexpected {err=}, {type(err)=}")
+        abort(422, 'Failed LiftOver')
+
+
+def seqfetcher(acc, start, end):
+    try:
+        return get_ref_seq_subseq(acc, start, end)
+    except Exception as err:
+        print(f"Unexpected {err=}, {type(err)=}")
+        abort(404, 'Not Found')
+
+
 def normalize_hla(allele):
     try:
         return {
             allele: {
-                "G": redux(allele, "G"),
-                "P": redux(allele, "P"),
-                "lg": redux(allele, "lg"),
-                "lgx": redux(allele, "lgx"),
-                "W": redux(allele, "W"),
-                "exon": redux(allele, "exon"),
-                "U2": redux(allele, "U2"),
-                "S": redux(allele, "S")
+                "G": hla.redux(allele, "G"),
+                "P": hla.redux(allele, "P"),
+                "lg": hla.redux(allele, "lg"),
+                "lgx": hla.redux(allele, "lgx"),
+                "W": hla.redux(allele, "W"),
+                "exon": hla.redux(allele, "exon"),
+                "U2": hla.redux(allele, "U2"),
+                "S": hla.redux(allele, "S")
             }
         }
     except Exception as err:

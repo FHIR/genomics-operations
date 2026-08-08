@@ -1,7 +1,8 @@
 from collections import OrderedDict
+
 from flask import abort, jsonify
-from app import common
-from app import utilities_endpoints
+
+from app import common, utilities_endpoints
 
 
 def find_subject_variants(
@@ -831,6 +832,7 @@ def find_subject_tx_implications(
     if ranges:
         ranges = list(map(common.get_range, ranges))
         common.get_lift_over_range(ranges)
+
         variants = common.get_variants(ranges, query)
         if not variants:
             return jsonify({"resourceType": "Parameters"})
@@ -1095,6 +1097,7 @@ def find_subject_dx_implications(
     if ranges:
         ranges = list(map(common.get_range, ranges))
         common.get_lift_over_range(ranges)
+
         variants = common.get_variants(ranges, query)
         if not variants:
             return jsonify({"resourceType": "Parameters"})
