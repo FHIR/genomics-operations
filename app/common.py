@@ -1995,7 +1995,23 @@ def query_CIVIC_cat_var(ranges, normalized_variant_list, condition_code_list, tr
     # Now to test patient data against the expressions
     for txImpResult in txImpQueryResults:
         # First, we gather the patient data
-        type = txImpResult["expression"]["constraints"][0]["type"]
+        supported_constraint_types = {
+            "FunctionConstraint",
+            "DefiningAlleleConstraint",
+            "CopyCountConstraint",
+            "CopyChangeConstraint"
+        }
+        constraint = next(
+            (
+                expression_constraint
+                for expression_constraint in txImpResult["expression"].get("constraints", [])
+                if expression_constraint.get("type") in supported_constraint_types
+            ),
+            None
+        )
+        if constraint is None:
+            continue
+        type = constraint["type"]
         VariantQuery = query
         VariantQuery.pop("SPDI", {})
         VariantQuery["$or"] = [
@@ -2014,7 +2030,7 @@ def query_CIVIC_cat_var(ranges, normalized_variant_list, condition_code_list, tr
                 ]
         variantQueryResults = (variants_db.find(VariantQuery))
         variantQueryResults = list(variantQueryResults)
-        if type in ["DefiningAlleleConstraint"]:
+        if type in ["DefiningAlleleConstraint", "FunctionConstraint"]:
             VariantIDList = []
             for VariantQueryResult in variantQueryResults:
                 VariantIDList.append(VariantQueryResult["_id"])
@@ -2029,18 +2045,24 @@ def query_CIVIC_cat_var(ranges, normalized_variant_list, condition_code_list, tr
             """
             for variantQueryResult in variantQueryResults:
                 criteriaSatisfied = False
-                Copies = txImpResult["expression"]["constraints"][0]["copies"]
+                copies = constraint["copies"]
+                if isinstance(copies, int):
+                    allowed_copies = {copies}
+                    max_copy = copies
+                else:
+                    allowed_copies = set(copies)
+                    max_copy = max(allowed_copies)
                 if "SPDI" in variantQueryResult:
                     REF = (variantQueryResult["SPDI"]).split(":")[2]
                     ALT = (variantQueryResult["SPDI"]).split(":")[3]
-                    if len(REF) > len(ALT) and Copies[1] < 2:
+                    if len(REF) > len(ALT) and max_copy < 2:
                         criteriaSatisfied = True
                 if "CN" in variantQueryResult:
                     CN = variantQueryResult["CN"]
                     SVTYPE = variantQueryResult["SVTYPE"]
-                    if CN in Copies:
+                    if CN in allowed_copies:
                         criteriaSatisfied = True
-                    elif SVTYPE == "DEL" and (0 in Copies or 1 in Copies):
+                    elif SVTYPE == "DEL" and ({0, 1} & allowed_copies):
                         criteriaSatisfied = True
                 if criteriaSatisfied:
                     print(f" - Variant {variantQueryResult['_id']} satisfies txImp {txImpResult['_id']}")
@@ -2054,7 +2076,7 @@ def query_CIVIC_cat_var(ranges, normalized_variant_list, condition_code_list, tr
             """
             for variantQueryResult in variantQueryResults:
                 criteriaSatisfied = False
-                CopyChange = txImpResult["expression"]["constraints"][0]["copyChange"]
+                CopyChange = constraint["copyChange"]
                 if "SPDI" in variantQueryResult:
                     REF = (variantQueryResult["SPDI"]).split(":")[2]
                     ALT = (variantQueryResult["SPDI"]).split(":")[3]
@@ -2062,11 +2084,15 @@ def query_CIVIC_cat_var(ranges, normalized_variant_list, condition_code_list, tr
                         criteriaSatisfied = True
                 if "CN" in variantQueryResult:
                     CN = variantQueryResult["CN"]
-                    SVTYPE = variantQueryResult["SVTYPE"]
                     if (
                         (CN > 2 and CopyChange == "gain")
                         or (CN < 2 and CopyChange == "loss")
-                        or (SVTYPE == "DUP" and CopyChange == "gain")
+                    ):
+                        criteriaSatisfied = True
+                if "SVTYPE" in variantQueryResult:
+                    SVTYPE = variantQueryResult["SVTYPE"]
+                    if (
+                        (SVTYPE == "DUP" and CopyChange == "gain")
                         or (SVTYPE == "DEL" and CopyChange == "loss")
                     ):
                         criteriaSatisfied = True
@@ -2074,12 +2100,13 @@ def query_CIVIC_cat_var(ranges, normalized_variant_list, condition_code_list, tr
                     print(f" - Variant {variantQueryResult['_id']} satisfies txImp {txImpResult['_id']}")
                     variantQueryResult["txImplicationMatches"] = [txImpResult]
                     query_results.append(variantQueryResult)
+
         elif type in ["DefiningAlleleConstraint"]:
             """
             Cycle through each molConQueryResult, checking to see
             if any molCon satisfies the expression constraints in txImpResult.
             """
-            criteria = txImpResult["expression"]["constraints"][0]["allele"]["expressions"][0]["value"]
+            criteria = constraint["allele"]["expressions"][0]["value"]
             criteriaSatisfied = False
             for molConQueryResult in molConQueryResults:
                 criteriaSatisfied = False
@@ -2093,5 +2120,31 @@ def query_CIVIC_cat_var(ranges, normalized_variant_list, condition_code_list, tr
                 myVariant = next((d for d in variantQueryResults if d["_id"] == variantID), None)
                 myVariant["txImplicationMatches"] = [txImpResult]
                 query_results.append(myVariant)
+
+        elif type in ["FunctionConstraint"]:
+            """
+            Cycle through each molConQueryResult, checking to see
+            if any molCon satisfies the expression constraints in txImpResult.
+
+MolecConseq.functionalEffect[x].code =
+FunctionConstraint.primaryCoding (generally SO:0002054; "loss_of_function_variant")
+
+            """
+            criteria = constraint["functionConsequence"]["primaryCoding"]["code"]
+            criteriaSatisfied = False
+            for molConQueryResult in molConQueryResults:
+                criteriaSatisfied = False
+                variantID = molConQueryResult["variantID"]
+                if "functionalEffect" in molConQueryResult:
+                    for functionalEffect in molConQueryResult["functionalEffect"]:
+                        if functionalEffect["code"] == criteria:
+                            criteriaSatisfied = True
+                            break
+            if criteriaSatisfied:
+                print(f" - MolCon {molConQueryResult['_id']} of variant {variantID} satisfies txImp {txImpResult['_id']}")
+                myVariant = next((d for d in variantQueryResults if d["_id"] == variantID), None)
+                myVariant["txImplicationMatches"] = [txImpResult]
+                query_results.append(myVariant)
+
 
     return query_results
