@@ -20,7 +20,7 @@ jobs:
         run: python -m pip install --upgrade pip
 
       - name: Install Dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txt flake8
 
       - name: Lint with flake8
         run: flake8 --extend-ignore E501,E741
@@ -46,7 +46,7 @@ jobs:
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh
 
-      - uses: akhileshns/heroku-deploy@v3.13.15
+      - uses: akhileshns/heroku-deploy@v3.15.15
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_DEV_APP_NAME }}
