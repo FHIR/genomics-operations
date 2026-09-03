@@ -9,20 +9,7 @@
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/run.py",
-            "console": "integratedTerminal",
-            "justMyCode": false
-        },
-        {
-            "name": "Debug Unit Test",
-            "type": "debugpy",
-            "request": "launch",
-            "justMyCode": false,
-        },
-        {
-            "name": "Debug File",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${file}",
+            "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
             "justMyCode": false
         }
