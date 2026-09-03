@@ -2146,5 +2146,4 @@ FunctionConstraint.primaryCoding (generally SO:0002054; "loss_of_function_varian
                 myVariant["txImplicationMatches"] = [txImpResult]
                 query_results.append(myVariant)
 
-
     return query_results
