@@ -1,0 +1,85 @@
+Cancer category,Phenotype (for filtering implications),Label,Region
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, this tumor type",BRCA1
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, this tumor type",BRCA2
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, this tumor type",PALB2
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, this tumor type",CHEK2
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, this tumor type",ATM
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, this tumor type",CRIP1
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, this tumor type",RAD51C
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, this tumor type",PTEN
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, this tumor type",TP53
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, this tumor type",CDH1
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, this tumor type",PIK3CA
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, this tumor type",ERBB2
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, other tumor type",BRCA1
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, other tumor type",BRCA2
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, other tumor type",PALB2
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, other tumor type",CHEK2
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, other tumor type",ATM
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, other tumor type",CRIP1
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, other tumor type",RAD51C
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, other tumor type",PTEN
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, other tumor type",TP53
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, other tumor type",CDH1
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, other tumor type",PIK3CA
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, other tumor type",ERBB2
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, other tumor type",KRAS
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,"Actionable, other tumor type",NRAS
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Possibly actionable,BRCA1
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Possibly actionable,BRCA2
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Possibly actionable,PALB2
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Possibly actionable,CHEK2
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Possibly actionable,ATM
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Possibly actionable,CRIP1
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Possibly actionable,RAD51C
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Possibly actionable,PTEN
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Possibly actionable,TP53
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Possibly actionable,CDH1
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Possibly actionable,PIK3CA
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Possibly actionable,ERBB2
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Possibly actionable,KRAS
+Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Possibly actionable,NRAS
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, this tumor type",ALK
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, this tumor type",BRAF
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, this tumor type",EGFR
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, this tumor type",ERBB2
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, this tumor type",KRAS
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, this tumor type",MET
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, this tumor type",NTRK1
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, this tumor type",NTRK2
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, this tumor type",NTRK3
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, this tumor type",RET
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, this tumor type",ROS1
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, other tumor type",ALK
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, other tumor type",BRAF
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, other tumor type",EGFR
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, other tumor type",ERBB2
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, other tumor type",KRAS
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, other tumor type",MET
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, other tumor type",NTRK1
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, other tumor type",NTRK2
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, other tumor type",NTRK3
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, other tumor type",RET
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,"Actionable, other tumor type",ROS1
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Possibly actionable,ALK
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Possibly actionable,BRAF
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Possibly actionable,EGFR
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Possibly actionable,ERBB2
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Possibly actionable,KRAS
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Possibly actionable,MET
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Possibly actionable,NTRK1
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Possibly actionable,NTRK2
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Possibly actionable,NTRK3
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Possibly actionable,RET
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Possibly actionable,ROS1
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Clinical trials,BRCA1
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Clinical trials,BRCA2
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Clinical trials,EGFR
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Clinical trials,FGFR1
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Clinical trials,FGFR2
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Clinical trials,FGFR3
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Clinical trials,FGFR4
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Clinical trials,KRAS
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Clinical trials,MET
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Clinical trials,RET
+NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Clinical trials,STK11

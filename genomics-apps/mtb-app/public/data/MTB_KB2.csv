@@ -1,0 +1,115 @@
+Cancer category,Label,Region
+Any,ACMG germline cancer screening,APC
+Any,ACMG germline cancer screening,BMPR1A
+Any,ACMG germline cancer screening,BRCA1
+Any,ACMG germline cancer screening,BRCA2
+Any,ACMG germline cancer screening,KIT
+Any,ACMG germline cancer screening,MAX
+Any,ACMG germline cancer screening,MEN1
+Any,ACMG germline cancer screening,MET
+Any,ACMG germline cancer screening,MLH1
+Any,ACMG germline cancer screening,MSH2
+Any,ACMG germline cancer screening,MSH6
+Any,ACMG germline cancer screening,MUTYH
+Any,ACMG germline cancer screening,NF2
+Any,ACMG germline cancer screening,PALB2
+Any,ACMG germline cancer screening,PMS2
+Any,ACMG germline cancer screening,PTEN
+Any,ACMG germline cancer screening,RB1
+Any,ACMG germline cancer screening,RET
+Any,ACMG germline cancer screening,SDHAF2
+Any,ACMG germline cancer screening,SDHB
+Any,ACMG germline cancer screening,SDHC
+Any,ACMG germline cancer screening,SDHD
+Any,ACMG germline cancer screening,SMAD4
+Any,ACMG germline cancer screening,STK11
+Any,ACMG germline cancer screening,TMEM127
+Any,ACMG germline cancer screening,TP53
+Any,ACMG germline cancer screening,TSC1
+Any,ACMG germline cancer screening,TSC2
+Any,ACMG germline cancer screening,VHL
+Any,ACMG germline cancer screening,WT1
+Any,Immunotherapy indications,APC
+Any,Immunotherapy indications,BMPR1A
+Any,Immunotherapy indications,BRCA1
+Any,Immunotherapy indications,BRCA2
+Any,Immunotherapy indications,KIT
+Any,Immunotherapy indications,MAX
+Any,Immunotherapy indications,MEN1
+Any,Immunotherapy indications,MET
+Any,Immunotherapy indications,MLH1
+Any,Immunotherapy indications,MSH2
+Any,Immunotherapy indications,MSH6
+Any,Immunotherapy indications,MUTYH
+Any,Immunotherapy indications,NF2
+Any,Immunotherapy indications,PALB2
+Any,Immunotherapy indications,PMS2
+Any,Immunotherapy indications,PTEN
+Any,Immunotherapy indications,RB1
+Any,Immunotherapy indications,RET
+Any,Immunotherapy indications,SDHAF2
+Any,Immunotherapy indications,SDHB
+Any,Immunotherapy indications,SDHC
+Any,Immunotherapy indications,SDHD
+Any,Immunotherapy indications,SMAD4
+Any,Immunotherapy indications,STK11
+Any,Immunotherapy indications,TMEM127
+Any,Immunotherapy indications,TP53
+Any,Immunotherapy indications,TSC1
+Any,Immunotherapy indications,TSC2
+Any,Immunotherapy indications,VHL
+Any,Immunotherapy indications,WT1 
+Breast carcinoma,"Actionable, this tumor type",ATM
+Breast carcinoma,"Actionable, this tumor type",BRCA1
+Breast carcinoma,"Actionable, this tumor type",BRCA2
+Breast carcinoma,"Actionable, this tumor type",CDH1
+Breast carcinoma,"Actionable, this tumor type",CHEK2
+Breast carcinoma,"Actionable, this tumor type",CRIP1
+Breast carcinoma,"Actionable, this tumor type",ERBB2
+Breast carcinoma,"Actionable, this tumor type",PALB2
+Breast carcinoma,"Actionable, this tumor type",PIK3CA
+Breast carcinoma,"Actionable, this tumor type",PTEN
+Breast carcinoma,"Actionable, this tumor type",RAD51C
+Breast carcinoma,"Actionable, this tumor type",TP53
+Hepatocellular carcinoma,"Actionable, this tumor type",AFP
+Hepatocellular carcinoma,"Actionable, this tumor type",AXL
+Hepatocellular carcinoma,"Actionable, this tumor type",BRAF
+Hepatocellular carcinoma,"Actionable, this tumor type",CD274
+Hepatocellular carcinoma,"Actionable, this tumor type",CTLA4
+Hepatocellular carcinoma,"Actionable, this tumor type",FGFR
+Hepatocellular carcinoma,"Actionable, this tumor type",FLT3
+Hepatocellular carcinoma,"Actionable, this tumor type",KIT
+Hepatocellular carcinoma,"Actionable, this tumor type",MET
+Hepatocellular carcinoma,"Actionable, this tumor type",PDCD1
+Hepatocellular carcinoma,"Actionable, this tumor type",PDGFRA
+Hepatocellular carcinoma,"Actionable, this tumor type",PDGFRB
+Hepatocellular carcinoma,"Actionable, this tumor type",RAF1
+Hepatocellular carcinoma,"Actionable, this tumor type",RET
+Hepatocellular carcinoma,"Actionable, this tumor type",VEGF
+Hepatocellular carcinoma,"Actionable, this tumor type",VEGFR1
+Hepatocellular carcinoma,"Actionable, this tumor type",VEGFR2
+Hepatocellular carcinoma,"Actionable, this tumor type",VEGFR3
+NSCLC,"Actionable, this tumor type",ALK
+NSCLC,"Actionable, this tumor type",BRAF
+NSCLC,"Actionable, this tumor type",EGFR
+NSCLC,"Actionable, this tumor type",ERBB2
+NSCLC,"Actionable, this tumor type",KRAS
+NSCLC,"Actionable, this tumor type",MET
+NSCLC,"Actionable, this tumor type",NTRK1
+NSCLC,"Actionable, this tumor type",NTRK2
+NSCLC,"Actionable, this tumor type",NTRK3
+NSCLC,"Actionable, this tumor type",RET
+NSCLC,"Actionable, this tumor type",ROS1
+Prostate adenocarcinoma,"Actionable, this tumor type",ATM
+Prostate adenocarcinoma,"Actionable, this tumor type",ATR
+Prostate adenocarcinoma,"Actionable, this tumor type",BRCA1
+Prostate adenocarcinoma,"Actionable, this tumor type",BRCA2
+Prostate adenocarcinoma,"Actionable, this tumor type",CDK12
+Prostate adenocarcinoma,"Actionable, this tumor type",CHEK2
+Prostate adenocarcinoma,"Actionable, this tumor type",FANCA
+Prostate adenocarcinoma,"Actionable, this tumor type",FOLH1
+Prostate adenocarcinoma,"Actionable, this tumor type",MLH1
+Prostate adenocarcinoma,"Actionable, this tumor type",MRE11
+Prostate adenocarcinoma,"Actionable, this tumor type",NBN
+Prostate adenocarcinoma,"Actionable, this tumor type",PALB2
+Prostate adenocarcinoma,"Actionable, this tumor type",RAD51C

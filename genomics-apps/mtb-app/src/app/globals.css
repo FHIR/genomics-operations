@@ -1,0 +1,21 @@
+/* Import Tailwind's base styles */
+@tailwind base;
+/* Import Tailwind's component classes */
+@tailwind components;
+/* Import Tailwind's utility classes */
+@tailwind utilities;
+@tailwind components;
+@tailwind utilities;
+
+/* Define CSS variables for theme colors */
+:root {
+  --background: #ffffff;  /* Main background color */
+  --foreground: #000000;  /* Main text color */
+}
+
+/* Apply base styles to body element */
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, sans-serif;
+}
