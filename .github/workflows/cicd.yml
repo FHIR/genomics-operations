@@ -3,8 +3,12 @@ name: CI/CD
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'genomics-apps/**'
   pull_request:
     branches: [main, dev]
+    paths-ignore:
+      - 'genomics-apps/**'
 
   workflow_dispatch:
 
