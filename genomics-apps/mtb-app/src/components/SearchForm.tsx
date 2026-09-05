@@ -6,21 +6,29 @@ interface SearchFormProps {
   handleSearch: () => void;
   subjectId: string;
   setSubjectId: (value: string) => void;
+  className?: string;
 }
 
 const patientIDs: string[] = [
-    "ABC123","NA19240","ABC456",
-    "NA18498", "NA19247", "m123",
-    "ABC789", "NA18499", "NA19256",
-    "CA12345", "NA18870", "NB6TK328",
-    "HCC1143", "NA18871", "NB6TK329",
-    "HG00403", "NA19190", "XYZ123",
-    "HG00406", "NA19210", "XYZ234",
-    "HG02657", "NA19238", "XYZ345",
-    "huC30902", "NA19239", "L2345"
+  "ABC123", "NA19240", "ABC456",
+  "NA18498", "NA19247", "m123",
+  "ABC789", "NA18499", "NA19256",
+  "CA12345", "NA18870", "NB6TK328",
+  "HCC1143", "NA18871", "NB6TK329",
+  "HG00403", "NA19190", "XYZ123",
+  "HG00406", "NA19210", "XYZ234",
+  "HG02657", "NA19238", "XYZ345",
+  "huC30902", "NA19239", "L2345"
 ].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 
-export default function SearchForm({ searchInput, setSearchInput, handleSearch, subjectId, setSubjectId }: SearchFormProps) {
+export default function SearchForm({
+  searchInput,
+  setSearchInput,
+  handleSearch,
+  subjectId,
+  setSubjectId,
+  className = 'mb-8',
+}: SearchFormProps) {
   const [isCustomMRN, setIsCustomMRN] = useState(false);
   const [customMRN, setCustomMRN] = useState('');
 
@@ -41,7 +49,7 @@ export default function SearchForm({ searchInput, setSearchInput, handleSearch, 
   };
 
   return (
-    <div className="bg-gray-100 p-8 rounded-lg mb-8 shadow-sm">
+    <div className={`bg-gray-100 p-8 rounded-lg shadow-sm ${className}`.trim()}>
       {/* MRN Dropdown field */}
       <div className="mb-4">
         <label htmlFor="mrn-select" className="block text-lg mb-2">MRN (Medical Record Number)</label>

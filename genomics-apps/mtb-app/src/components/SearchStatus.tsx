@@ -2,9 +2,15 @@ interface SearchStatusProps {
   searchStatus: Record<string, string>;
   invalidRanges: string[];
   onCancelSearch: () => void;
+  className?: string;
 }
 
-export default function SearchStatus({ searchStatus, invalidRanges, onCancelSearch }: SearchStatusProps) {
+export default function SearchStatus({
+  searchStatus,
+  invalidRanges,
+  onCancelSearch,
+  className = '',
+}: SearchStatusProps) {
   // Determine if any range is currently searching
   const isSearching = Object.values(searchStatus).includes('searching');
 
@@ -12,12 +18,12 @@ export default function SearchStatus({ searchStatus, invalidRanges, onCancelSear
     <>
       {/* Search Status Section */}
       {Object.keys(searchStatus).length > 0 && (
-        <div className="bg-gray-100 p-4 rounded-lg mb-4 shadow-sm">
-          <h3 className="text-lg font-medium mb-2">Search Status</h3>
-          <div className="space-y-2">
+        <div className={`bg-gray-100 p-4 rounded-lg shadow-sm overflow-hidden ${className}`.trim()}>
+          <h3 className="mb-2 text-base font-medium">Search Status</h3>
+          <div className="space-y-1.5 overflow-y-auto pr-1 max-h-[24rem] text-sm">
             {Object.entries(searchStatus).map(([range, status]) => (
-              <div key={range} className="flex items-center">
-                <span className="font-medium mr-2">{range}:</span>
+              <div key={range} className="flex items-start leading-5">
+                <span className="mr-2 font-medium break-all">{range}:</span>
                 {status === 'searching' && (
                   <span className="text-yellow-600">Searching...</span>
                 )}
@@ -43,7 +49,7 @@ export default function SearchStatus({ searchStatus, invalidRanges, onCancelSear
           {isSearching && (
             <div className="mt-4">
               <button
-                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition-colors"
+                className="rounded bg-red-500 px-3 py-1.5 text-sm text-white transition-colors hover:bg-red-600"
                 onClick={onCancelSearch}
               >
                 Cancel Search
