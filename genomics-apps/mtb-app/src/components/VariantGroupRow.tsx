@@ -15,6 +15,60 @@ interface VariantGroupRowProps {
     renderMolecularConsequences: (mc?: MolecularConsequence[]) => JSX.Element;
 }
 
+const getSimpleVariantLabel = (variantString: string) => {
+    const parts = variantString.split(':');
+
+    if (parts.length !== 4) {
+        return 'Simple';
+    }
+
+    const [, , deleted = '', inserted = ''] = parts;
+
+    if (deleted.length === inserted.length) {
+        if (deleted.length === 1) {
+            return 'SNV';
+        }
+
+        if (deleted.length > 1) {
+            return 'MNV';
+        }
+    }
+
+    if (deleted.length !== inserted.length) {
+        return 'InDel';
+    }
+
+    return 'Simple';
+};
+
+const renderVariantLabel = (variant: Variant) => {
+    if (variant.variantType === 'simple') {
+        const simpleVariantLabel = getSimpleVariantLabel(variant.variant);
+
+        return (
+            <>
+                <span className="font-semibold">{simpleVariantLabel}</span>{' '}
+                <span>({variant.variant})</span>
+            </>
+        );
+    }
+
+    const structuralMatch = /^(.*?)(\s\([^)]+\))?(\s\(Copies:.*\))?$/.exec(variant.variant);
+
+    if (!structuralMatch) {
+        return <strong>{variant.variant}</strong>;
+    }
+
+    const [, dnaChangeType = variant.variant, locationSuffix = '', copiesSuffix = ''] = structuralMatch;
+
+    return (
+        <>
+            <span className="font-semibold">{dnaChangeType}</span>
+            <span>{locationSuffix}{copiesSuffix}</span>
+        </>
+    );
+};
+
 export default function VariantGroupRow({
     range,
     variants,
@@ -35,15 +89,15 @@ export default function VariantGroupRow({
                     return <td key={column.id} className="p-3">{showRange ? range : ''}</td>;
                 case 'variant':
                     return (
-                        <td key={column.id} className="p-3 max-w-0">
-                            <div className="flex items-center gap-2">
-                                <span className="truncate block">{variant.variant}</span>
+                        <td key={column.id} className="p-3 max-w-0 align-top">
+                            <div className="flex min-w-0 items-start gap-2">
+                                <span className="block min-w-0 whitespace-normal break-words">{renderVariantLabel(variant)}</span>
                                 {variant.isLoading && (
                                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500 flex-shrink-0"></div>
                                 )}
                             </div>
                             {variant.molecularConsequences?.[0]?.proteinChange && (
-                                <div className="text-sm text-gray-600 truncate">
+                                <div className="mt-1 text-sm text-gray-600 whitespace-normal break-words">
                                     ({variant.molecularConsequences[0].proteinChange})
                                 </div>
                             )}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ProcessedTxImplication } from '@/services/txService';
+import { getTxImplicationDedupKey, ProcessedTxImplication } from '@/services/txService';
 import { useMemo } from 'react';
 
 interface TxImplicationCellProps {
@@ -7,8 +7,24 @@ interface TxImplicationCellProps {
 }
 
 function ImplicationDisplay({ implication }: { implication: ProcessedTxImplication }) {
+    const isClinicalTrialImplication = /^clinical trial$/i.test(implication.evidenceLevel);
+
     // Build the display string in the format: "Variant {Implication} to {Medication} in {txPhenotype} [{txEvidence}]"
     const buildDisplayString = () => {
+        if (isClinicalTrialImplication) {
+            const parts = ['(Clinical Trial)', 'Variant'];
+
+            if (implication.therapeuticImplicationDisplay || implication.therapeuticImplication) {
+                parts.push(implication.therapeuticImplicationDisplay || implication.therapeuticImplication);
+            }
+
+            if (implication.clinicalTrialId) {
+                parts.push('in clinical trial', implication.clinicalTrialId);
+            }
+
+            return parts.join(' ');
+        }
+
         const parts = [];
 
         // Start with "Variant"
@@ -47,15 +63,18 @@ function ImplicationDisplay({ implication }: { implication: ProcessedTxImplicati
                     href={implication.hyperlink}
                     target="_blank"
                     rel="noopener noreferrer"
+                    title={implication.hyperlinkTitle}
                     className="text-blue-600 hover:text-blue-800 hover:underline text-sm"
                 >
-                    {implication.hyperlink.includes('civicdb.org/variants/')
-                        ? 'CIViC entry'
-                        : implication.hyperlink.includes('ncbi.nlm.nih.gov/clinvar/variation/')
-                        ? 'ClinVar entry'
-                        : implication.hyperlink.includes('cancer.gov')
-                        ? 'NCI PDQ entry'
-                        : 'External source'}
+                    {implication.hyperlinkLabel
+                        ? implication.hyperlinkLabel
+                        : implication.hyperlink.includes('civicdb.org/')
+                            ? 'CIViC entry'
+                            : implication.hyperlink.includes('ncbi.nlm.nih.gov/clinvar/variation/')
+                                ? 'ClinVar entry'
+                                : implication.hyperlink.includes('cancer.gov')
+                                    ? 'NCI PDQ entry'
+                                    : 'External source'}
                 </a>
             )}
         </div>
@@ -70,12 +89,7 @@ export default function TxImplicationCell({ implications }: TxImplicationCellPro
         if (!implications) return [];
         const cache = new Set();
         return implications.filter((item) => {
-            const key = [
-                item.evidenceLevel,
-                item.medication,
-                item.phenotypicContext,
-                item.therapeuticImplication
-            ].join("|");
+            const key = getTxImplicationDedupKey(item);
             if (cache.has(key)) return false;
             cache.add(key);
             return true;

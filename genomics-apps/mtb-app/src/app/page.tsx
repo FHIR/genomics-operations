@@ -30,6 +30,7 @@ export default function Home() {
   const [filteredResults, setFilteredResults] = useState<Variant[]>([]);
   const [searchStatus, setSearchStatus] = useState<Record<string, string>>({});
   const [invalidRanges, setInvalidRanges] = useState<string[]>([]);
+  const [enableCatVrsQueries, setEnableCatVrsQueries] = useState(false);
   const [selectedCancerType, setSelectedCancerType] = useState("");
   const [selectedLabel, setSelectedLabel] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -315,7 +316,7 @@ export default function Home() {
 
       try {
         // Use the cached variant service - it handles all implications internally
-        const processedVariants = await findSubjectVariantsWithCache(term, subjectId, searchId);
+        const processedVariants = await findSubjectVariantsWithCache(term, subjectId, searchId, enableCatVrsQueries);
 
         // Check if this search was cancelled
         if (controller.signal.aborted) {
@@ -406,6 +407,8 @@ export default function Home() {
             handleSearch={handleSearch}
             subjectId={subjectId}
             setSubjectId={setSubjectId}
+            enableCatVrsQueries={enableCatVrsQueries}
+            onEnableCatVrsQueriesChange={setEnableCatVrsQueries}
             className="mb-0"
           />
           <SearchStatus
@@ -425,6 +428,8 @@ export default function Home() {
         <ResultsTable
           results={filteredResults}
           onToggleFilters={() => setIsFilterOpen(!isFilterOpen)}
+          enableCatVrsQueries={enableCatVrsQueries}
+          onEnableCatVrsQueriesChange={setEnableCatVrsQueries}
         />
         {/*
         <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8">

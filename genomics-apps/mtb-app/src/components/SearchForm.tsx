@@ -6,6 +6,8 @@ interface SearchFormProps {
   handleSearch: () => void;
   subjectId: string;
   setSubjectId: (value: string) => void;
+  enableCatVrsQueries: boolean;
+  onEnableCatVrsQueriesChange: (enabled: boolean) => void;
   className?: string;
 }
 
@@ -27,6 +29,8 @@ export default function SearchForm({
   handleSearch,
   subjectId,
   setSubjectId,
+  enableCatVrsQueries,
+  onEnableCatVrsQueriesChange,
   className = 'mb-8',
 }: SearchFormProps) {
   const [isCustomMRN, setIsCustomMRN] = useState(false);
@@ -112,6 +116,16 @@ export default function SearchForm({
         >
           Search
         </button>
+      </div>
+      <div className="mt-3 flex justify-end">
+        <label className="flex items-center gap-2 rounded border border-gray-300 bg-white px-4 py-2 text-sm text-gray-700 shadow-sm">
+          <input
+            type="checkbox"
+            checked={enableCatVrsQueries}
+            onChange={(event) => onEnableCatVrsQueriesChange(event.target.checked)}
+          />
+          <span className="font-semibold">Enable Cat-VRS queries (experimental)</span>
+        </label>
       </div>
       <div className="mt-2 text-sm text-gray-600">
         <p>Examples:</p>

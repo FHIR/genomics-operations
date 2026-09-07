@@ -22,16 +22,31 @@ interface GeneInfoResponse {
 }
 
 interface FhirVariantResource {
+    id?: string;
     component?: {
         code?: {
             coding?: {
                 code: string;
+                display?: string;
             }[];
         };
         valueCodeableConcept?: {
             coding?: {
                 code: string;
+                display?: string;
             }[];
+            text?: string;
+        };
+        valueQuantity?: {
+            value?: number;
+        };
+        valueRange?: {
+            low?: {
+                value?: number;
+            };
+            high?: {
+                value?: number;
+            };
         };
     }[];
 }
@@ -95,6 +110,47 @@ const extractVariantString = (resource: FhirVariantResource): string => {
     return variantComponent?.valueCodeableConcept?.coding?.[0]?.code || "Unknown variant";
 };
 
+const findComponent = (resource: FhirVariantResource, code: string) =>
+    resource.component?.find(component =>
+        component.code?.coding?.some(coding => coding.code === code)
+    );
+
+const extractStructuralLocation = (resource: FhirVariantResource): string => {
+    const referenceSequence = findComponent(resource, '48013-7')?.valueCodeableConcept?.coding?.[0]?.code || '';
+    const outerRange = findComponent(resource, '81301-4')?.valueRange;
+    const innerRange = findComponent(resource, '81302-2')?.valueRange;
+    const selectedRange = outerRange?.low?.value !== undefined && outerRange?.high?.value !== undefined
+        ? outerRange
+        : innerRange;
+    const start = selectedRange?.low?.value;
+    const end = selectedRange?.high?.value;
+
+    if (!referenceSequence || start === undefined || end === undefined) {
+        return referenceSequence;
+    }
+
+    return `${referenceSequence}:${start}-${end}`;
+};
+
+const extractStructuralVariantString = (resource: FhirVariantResource): string => {
+    const rawDnaChangeType = findComponent(resource, '48019-4')?.valueCodeableConcept?.coding?.[0]?.display || 'Structural variant';
+    const dnaChangeType = rawDnaChangeType.charAt(0).toUpperCase() + rawDnaChangeType.slice(1);
+    const location = extractStructuralLocation(resource);
+    const copyNumber = findComponent(resource, '82155-3')?.valueQuantity?.value;
+    const copiesSuffix = copyNumber !== undefined ? ` (Copies: ${copyNumber})` : '';
+
+    const locationSuffix = location ? ` (${location})` : '';
+
+    return `${dnaChangeType}${locationSuffix}${copiesSuffix}`.trim();
+};
+
+const extractVariantResources = (data: FhirResponse): FhirVariantResource[] =>
+    data.parameter
+        ?.find(p => p.name === 'variants')
+        ?.part
+        ?.filter((p): p is { name: string; resource: FhirVariantResource } => p.name === 'variant' && !!p.resource)
+        ?.map(p => p.resource) || [];
+
 /**
  * API call to find variants for a given range
  */
@@ -110,37 +166,49 @@ export const findSubjectVariants = async (
         // Convert gene symbol to genomic coordinates if needed
         const genomicRange = isGenomicCoordinate(range) ? range : await getFeatureCoordinates(range);
 
-        const response = await fetch(
-            `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.subjectOps}/$find-subject-variants?subject=${subjectId}&ranges=${encodeURIComponent(genomicRange)}&includeVariants=true`
-        );
+        const simpleVariantsUrl = `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.subjectOps}/$find-subject-variants?subject=${subjectId}&ranges=${encodeURIComponent(genomicRange)}&includeVariants=true`;
+        const structuralVariantsUrl = `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.subjectOps}/$find-subject-structural-intersecting-variants?subject=${subjectId}&ranges=${encodeURIComponent(genomicRange)}&includeVariants=true`;
 
-        if (!response.ok) {
-            throw new Error(`API error: ${response.status} ${response.statusText}`);
+        const [simpleResponse, structuralResponse] = await Promise.all([
+            fetch(simpleVariantsUrl),
+            fetch(structuralVariantsUrl)
+        ]);
+
+        if (!simpleResponse.ok) {
+            throw new Error(`API error: ${simpleResponse.status} ${simpleResponse.statusText}`);
         }
 
-        const data = await response.json() as FhirResponse;
+        if (!structuralResponse.ok) {
+            throw new Error(`API error: ${structuralResponse.status} ${structuralResponse.statusText}`);
+        }
 
-        // Process FHIR response to extract variants
-        const variantResources = data.parameter
-            ?.find(p => p.name === "variants")
-            ?.part
-            ?.filter(p => p.name === "variant" && p.resource)
-            ?.map(p => p.resource) || [];
+        const [simpleData, structuralData] = await Promise.all([
+            simpleResponse.json() as Promise<FhirResponse>,
+            structuralResponse.json() as Promise<FhirResponse>
+        ]);
 
-        // Create variant objects with required properties
-        return variantResources.map(resource => {
-            if (!resource) {
-                throw new Error('Invalid variant resource');
-            }
-
-            return {
+        return [
+            ...extractVariantResources(simpleData).map(resource => ({
                 range,
+                resolvedRange: genomicRange,
+                sourceObservationId: resource.id,
                 variant: extractVariantString(resource),
-                dxImplications: [], // Initialize with empty arrays
+                variantType: 'simple' as const,
+                dxImplications: [],
                 txImplications: [],
                 molecularConsequences: []
-            } satisfies Variant;
-        });
+            } satisfies Variant)),
+            ...extractVariantResources(structuralData).map(resource => ({
+                range,
+                resolvedRange: genomicRange,
+                sourceObservationId: resource.id,
+                variant: extractStructuralVariantString(resource),
+                variantType: 'structural' as const,
+                dxImplications: [],
+                txImplications: [],
+                molecularConsequences: []
+            } satisfies Variant))
+        ];
 
     } catch (error) {
         console.error(`Error fetching variants for ${range}:`, error);

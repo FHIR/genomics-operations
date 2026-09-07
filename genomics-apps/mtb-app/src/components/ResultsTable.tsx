@@ -1,6 +1,6 @@
 "use client";
 
-import { MouseEvent as ReactMouseEvent, useEffect, useMemo, useState } from 'react';
+import { MouseEvent as ReactMouseEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { Variant } from '@/types/variants';
 import { DxImplication } from '@/services/dxService';
 import { ProcessedTxImplication } from '@/services/txService';
@@ -23,6 +23,11 @@ interface SortState {
   direction: SortDirection;
 }
 
+const DEFAULT_SORT_STATE: SortState = {
+  columnId: 'range',
+  direction: 'asc',
+};
+
 const COLUMN_MAP = Object.fromEntries(
   RESULTS_TABLE_COLUMNS.map((column) => [column.id, column])
 ) as Record<ColumnId, (typeof RESULTS_TABLE_COLUMNS)[number]>;
@@ -36,6 +41,7 @@ const DEFAULT_COLUMN_WIDTHS = Object.fromEntries(
 ) as Record<ColumnId, number>;
 
 const TABLE_SETTINGS_STORAGE_KEY = 'mtb-results-table-settings';
+const DEFAULT_ENABLE_CAT_VRS_QUERIES = false;
 
 function normalizeColumnOrder(columnOrder?: ColumnId[]) {
   const knownColumnIds = new Set(DEFAULT_COLUMN_ORDER);
@@ -67,6 +73,42 @@ function normalizeColumnOrder(columnOrder?: ColumnId[]) {
 interface ResultsTableProps {
   results: Variant[];
   onToggleFilters: () => void;
+  enableCatVrsQueries: boolean;
+  onEnableCatVrsQueriesChange: (enabled: boolean) => void;
+}
+
+function getSimpleVariantLabel(variantString: string) {
+  const parts = variantString.split(':');
+
+  if (parts.length !== 4) {
+    return 'Simple';
+  }
+
+  const [, , deleted = '', inserted = ''] = parts;
+
+  if (deleted.length === inserted.length) {
+    if (deleted.length === 1) {
+      return 'SNV';
+    }
+
+    if (deleted.length > 1) {
+      return 'MNV';
+    }
+  }
+
+  if (deleted.length !== inserted.length) {
+    return 'InDel';
+  }
+
+  return 'Simple';
+}
+
+function getVariantSortValue(variant: Variant) {
+  if (variant.variantType === 'simple') {
+    return `${getSimpleVariantLabel(variant.variant)} ${variant.variant}`;
+  }
+
+  return variant.variant;
 }
 
 function getColumnTextValue(variant: Variant, columnId: ColumnId, range: string) {
@@ -74,7 +116,7 @@ function getColumnTextValue(variant: Variant, columnId: ColumnId, range: string)
     case 'range':
       return range;
     case 'variant':
-      return [variant.variant, variant.molecularConsequences?.[0]?.proteinChange]
+      return [getVariantSortValue(variant), variant.molecularConsequences?.[0]?.proteinChange]
         .filter(Boolean)
         .join(' ');
     case 'oncogenicityPrediction':
@@ -131,7 +173,12 @@ function compareColumnValues(left: string, right: string, direction: SortDirecti
   return direction === 'asc' ? comparison : -comparison;
 }
 
-export default function ResultsTable({ results, onToggleFilters }: ResultsTableProps) {
+export default function ResultsTable({
+  results,
+  onToggleFilters,
+  enableCatVrsQueries,
+  onEnableCatVrsQueriesChange,
+}: ResultsTableProps) {
   const [columnOrder, setColumnOrder] = useState<ColumnId[]>(DEFAULT_COLUMN_ORDER);
   const [columnVisibility, setColumnVisibility] = useState<Record<ColumnId, boolean>>(
     DEFAULT_COLUMN_VISIBILITY
@@ -140,7 +187,8 @@ export default function ResultsTable({ results, onToggleFilters }: ResultsTableP
     DEFAULT_COLUMN_WIDTHS
   );
   const [draggedColumnId, setDraggedColumnId] = useState<ColumnId | null>(null);
-  const [sortState, setSortState] = useState<SortState | null>(null);
+  const [sortState, setSortState] = useState<SortState | null>(DEFAULT_SORT_STATE);
+  const [isCustomizeTableOpen, setIsCustomizeTableOpen] = useState(false);
   const [columnFilters, setColumnFilters] = useState<Record<ColumnId, string>>({
     range: '',
     variant: '',
@@ -149,6 +197,7 @@ export default function ResultsTable({ results, onToggleFilters }: ResultsTableP
     dxImplications: '',
     txImplications: '',
   });
+  const customizeTableRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -166,6 +215,7 @@ export default function ResultsTable({ results, onToggleFilters }: ResultsTableP
         columnOrder?: ColumnId[];
         columnVisibility?: Partial<Record<ColumnId, boolean>>;
         columnWidths?: Partial<Record<ColumnId, number>>;
+        enableCatVrsQueries?: boolean;
       };
 
       setColumnOrder(normalizeColumnOrder(parsedSettings.columnOrder));
@@ -184,10 +234,11 @@ export default function ResultsTable({ results, onToggleFilters }: ResultsTableP
           })
         ),
       });
+      onEnableCatVrsQueriesChange(parsedSettings.enableCatVrsQueries ?? DEFAULT_ENABLE_CAT_VRS_QUERIES);
     } catch {
       window.localStorage.removeItem(TABLE_SETTINGS_STORAGE_KEY);
     }
-  }, []);
+  }, [onEnableCatVrsQueriesChange]);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -200,9 +251,36 @@ export default function ResultsTable({ results, onToggleFilters }: ResultsTableP
         columnOrder,
         columnVisibility,
         columnWidths,
+        enableCatVrsQueries,
       })
     );
-  }, [columnOrder, columnVisibility, columnWidths]);
+  }, [columnOrder, columnVisibility, columnWidths, enableCatVrsQueries]);
+
+  useEffect(() => {
+    if (!isCustomizeTableOpen) {
+      return;
+    }
+
+    const handlePointerDown = (event: MouseEvent) => {
+      if (!customizeTableRef.current?.contains(event.target as Node)) {
+        setIsCustomizeTableOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsCustomizeTableOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isCustomizeTableOpen]);
 
   // Function to render Dx Implications content
   const renderDxImplications = (implications?: DxImplication[]) => {
@@ -230,6 +308,7 @@ export default function ResultsTable({ results, onToggleFilters }: ResultsTableP
   );
 
   const processedGroups = useMemo(() => {
+    const activeSortState = sortState ?? DEFAULT_SORT_STATE;
     const activeVisibleFilters = visibleColumns.filter(
       (column) => columnFilters[column.id].trim() !== ''
     );
@@ -248,28 +327,24 @@ export default function ResultsTable({ results, onToggleFilters }: ResultsTableP
       })
       .filter(([, variants]) => variants.length > 0);
 
-    if (!sortState || !columnVisibility[sortState.columnId]) {
-      return filteredGroups;
-    }
-
     const sortedGroups = filteredGroups
       .map(([range, variants]) => {
         const sortedVariants = [...variants].sort((leftVariant, rightVariant) => {
-          const leftValue = getColumnTextValue(leftVariant, sortState.columnId, range);
-          const rightValue = getColumnTextValue(rightVariant, sortState.columnId, range);
-          return compareColumnValues(leftValue, rightValue, sortState.direction);
+          const leftValue = getColumnTextValue(leftVariant, activeSortState.columnId, range);
+          const rightValue = getColumnTextValue(rightVariant, activeSortState.columnId, range);
+          return compareColumnValues(leftValue, rightValue, activeSortState.direction);
         });
 
         return [range, sortedVariants] as const;
       })
       .sort(([leftRange, leftVariants], [rightRange, rightVariants]) => {
-        const leftValue = getColumnTextValue(leftVariants[0], sortState.columnId, leftRange);
-        const rightValue = getColumnTextValue(rightVariants[0], sortState.columnId, rightRange);
-        return compareColumnValues(leftValue, rightValue, sortState.direction);
+        const leftValue = getColumnTextValue(leftVariants[0], activeSortState.columnId, leftRange);
+        const rightValue = getColumnTextValue(rightVariants[0], activeSortState.columnId, rightRange);
+        return compareColumnValues(leftValue, rightValue, activeSortState.direction);
       });
 
     return sortedGroups;
-  }, [groupedResults, visibleColumns, columnFilters, sortState, columnVisibility]);
+  }, [groupedResults, visibleColumns, columnFilters, sortState]);
 
   const totalTableWidth = visibleColumns.reduce(
     (width, column) => width + (columnWidths[column.id] ?? column.defaultWidth),
@@ -313,7 +388,8 @@ export default function ResultsTable({ results, onToggleFilters }: ResultsTableP
     setColumnOrder(DEFAULT_COLUMN_ORDER);
     setColumnVisibility(DEFAULT_COLUMN_VISIBILITY);
     setColumnWidths(DEFAULT_COLUMN_WIDTHS);
-    setSortState(null);
+    onEnableCatVrsQueriesChange(DEFAULT_ENABLE_CAT_VRS_QUERIES);
+    setSortState(DEFAULT_SORT_STATE);
     setColumnFilters({
       range: '',
       variant: '',
@@ -400,69 +476,77 @@ export default function ResultsTable({ results, onToggleFilters }: ResultsTableP
           <button
             type="button"
             onClick={onToggleFilters}
-            className="px-4 py-2 bg-white text-gray-700 rounded hover:bg-gray-50 transition-colors flex items-center gap-2 border border-gray-300"
+            className="inline-flex items-center gap-2 rounded-md border border-blue-700 bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_3px_0_0_rgb(29_78_216)] transition-[transform,box-shadow,background-color] hover:bg-blue-700 hover:shadow-[0_2px_0_0_rgb(30_64_175)] active:translate-y-px active:shadow-[0_1px_0_0_rgb(30_64_175)] focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
             </svg>
             Filter Results
           </button>
-          <details className="relative">
-            <summary className="list-none px-4 py-2 bg-white text-gray-700 rounded hover:bg-gray-50 transition-colors flex items-center gap-2 border border-gray-300 cursor-pointer">
+          <div className="relative" ref={customizeTableRef}>
+            <button
+              type="button"
+              aria-expanded={isCustomizeTableOpen}
+              aria-haspopup="dialog"
+              onClick={() => setIsCustomizeTableOpen((currentValue) => !currentValue)}
+              className="inline-flex items-center gap-2 rounded-md border border-blue-700 bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_3px_0_0_rgb(29_78_216)] transition-[transform,box-shadow,background-color] hover:bg-blue-700 hover:shadow-[0_2px_0_0_rgb(30_64_175)] active:translate-y-px active:shadow-[0_1px_0_0_rgb(30_64_175)] focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2"
+            >
               Customize Table
-            </summary>
-            <div className="absolute left-0 z-10 mt-2 w-96 rounded-lg border border-gray-200 bg-white p-4 shadow-xl">
-              <div className="space-y-3">
-                {RESULTS_TABLE_COLUMNS.map((column) => {
-                  const columnId = column.id;
-                  const index = columnOrder.indexOf(columnId);
-                  const isOnlyVisibleColumn = columnVisibility[columnId] && visibleColumns.length === 1;
+            </button>
+            {isCustomizeTableOpen && (
+              <div className="absolute left-0 z-10 mt-2 w-96 rounded-lg border border-gray-200 bg-white p-4 shadow-xl">
+                <div className="space-y-3">
+                  {RESULTS_TABLE_COLUMNS.map((column) => {
+                    const columnId = column.id;
+                    const index = columnOrder.indexOf(columnId);
+                    const isOnlyVisibleColumn = columnVisibility[columnId] && visibleColumns.length === 1;
 
-                  return (
-                    <div key={columnId} className="flex items-center justify-between gap-3 rounded-md border border-gray-100 px-3 py-2">
-                      <label className="flex items-center gap-2 text-sm text-gray-700">
-                        <input
-                          type="checkbox"
-                          checked={columnVisibility[columnId]}
-                          disabled={isOnlyVisibleColumn}
-                          onChange={() => handleColumnVisibilityChange(columnId)}
-                        />
-                        <span>{column.label}</span>
-                      </label>
-                      <div className="flex items-center gap-2">
-                        <button
-                          type="button"
-                          className="rounded border border-gray-300 px-2 py-1 text-xs text-gray-700 disabled:cursor-not-allowed disabled:opacity-40"
-                          disabled={index === 0}
-                          onClick={() => moveColumn(columnId, 'left')}
-                        >
-                          Left
-                        </button>
-                        <button
-                          type="button"
-                          className="rounded border border-gray-300 px-2 py-1 text-xs text-gray-700 disabled:cursor-not-allowed disabled:opacity-40"
-                          disabled={index === columnOrder.length - 1}
-                          onClick={() => moveColumn(columnId, 'right')}
-                        >
-                          Right
-                        </button>
+                    return (
+                      <div key={columnId} className="flex items-center justify-between gap-3 rounded-md border border-gray-100 px-3 py-2">
+                        <label className="flex items-center gap-2 text-sm text-gray-700">
+                          <input
+                            type="checkbox"
+                            checked={columnVisibility[columnId]}
+                            disabled={isOnlyVisibleColumn}
+                            onChange={() => handleColumnVisibilityChange(columnId)}
+                          />
+                          <span>{column.label}</span>
+                        </label>
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            className="rounded border border-gray-300 px-2 py-1 text-xs text-gray-700 disabled:cursor-not-allowed disabled:opacity-40"
+                            disabled={index === 0}
+                            onClick={() => moveColumn(columnId, 'left')}
+                          >
+                            Left
+                          </button>
+                          <button
+                            type="button"
+                            className="rounded border border-gray-300 px-2 py-1 text-xs text-gray-700 disabled:cursor-not-allowed disabled:opacity-40"
+                            disabled={index === columnOrder.length - 1}
+                            onClick={() => moveColumn(columnId, 'right')}
+                          >
+                            Right
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
+                <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
+                  <span>Drag headers to reorder. Drag the header edge to resize. Use header filters and sort for visible columns.</span>
+                  <button
+                    type="button"
+                    className="font-medium text-blue-600 hover:underline"
+                    onClick={resetColumns}
+                  >
+                    Reset
+                  </button>
+                </div>
               </div>
-              <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
-                <span>Drag headers to reorder. Drag the header edge to resize. Use header filters and sort for visible columns.</span>
-                <button
-                  type="button"
-                  className="font-medium text-blue-600 hover:underline"
-                  onClick={resetColumns}
-                >
-                  Reset
-                </button>
-              </div>
-            </div>
-          </details>
+            )}
+          </div>
         </div>
         <div className="text-sm text-gray-500">
           {visibleColumns.length} of {RESULTS_TABLE_COLUMNS.length} columns shown
@@ -489,7 +573,7 @@ export default function ResultsTable({ results, onToggleFilters }: ResultsTableP
                   >
                     <div className="mb-2 flex items-start justify-between gap-2">
                       <div
-                        className="cursor-grab text-sm font-semibold"
+                        className="cursor-grab text-base font-bold"
                         draggable
                         onDragStart={() => setDraggedColumnId(column.id)}
                         onDragEnd={() => setDraggedColumnId(null)}
@@ -500,11 +584,11 @@ export default function ResultsTable({ results, onToggleFilters }: ResultsTableP
                       </div>
                       <button
                         type="button"
-                        className={`rounded border px-2 py-1 text-xs ${sortState?.columnId === column.id ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-gray-300 bg-white text-gray-700'}`}
+                        className={`rounded border px-2 py-1 text-xs ${(sortState ?? DEFAULT_SORT_STATE).columnId === column.id ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-gray-300 bg-white text-gray-700'}`}
                         onClick={() => toggleSort(column.id)}
                       >
-                        {sortState?.columnId === column.id
-                          ? sortState.direction === 'asc'
+                        {(sortState ?? DEFAULT_SORT_STATE).columnId === column.id
+                          ? (sortState ?? DEFAULT_SORT_STATE).direction === 'asc'
                             ? 'Sort A-Z'
                             : 'Sort Z-A'
                           : 'Sort'}
