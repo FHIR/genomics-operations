@@ -5,7 +5,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { Variant } from '@/types/variants';
 import { findSubjectVariantsWithCache } from '@/services/cachedVariantService';
-import SearchForm from '../components/SearchForm';
+import SearchForm, { MrnSelector } from '../components/SearchForm';
 import SearchStatus from '../components/SearchStatus';
 import ResultsTable from '../components/ResultsTable';
 import CancerSelect from "@/cancerFilter/cancerSelect";
@@ -15,8 +15,14 @@ import FilterSidebar from "@/cancerFilter/FilterSidebar";
 import { FilterCriteria } from "@/cancerFilter/FilterSidebar";
 import { applyFiltersToVariants } from "@/cancerFilter/filterUtils";
 import { isPhenotypeMatchForImplication, isOtherTumorType, isALevelEvidence } from "@/cancerFilter/phenotypeUtils";
+import { HOW_TO_USE_SECTIONS, HOW_TO_USE_TITLE, HowToUseLinkItem } from './howToUseContent';
 // import EmailSubscription from "@/components/EmailSubscription";
 // import FeedbackForm from "@/components/FeedbackForm";
+
+function isHowToUseLinkItem(item: string | HowToUseLinkItem): item is HowToUseLinkItem {
+  return typeof item !== 'string';
+}
+
 export default function Home() {
   // useRef for better search ID generation
   const searchIdRef = useRef(0);
@@ -31,6 +37,7 @@ export default function Home() {
   const [searchStatus, setSearchStatus] = useState<Record<string, string>>({});
   const [invalidRanges, setInvalidRanges] = useState<string[]>([]);
   const [enableCatVrsQueries, setEnableCatVrsQueries] = useState(false);
+  const [isHowToUseOpen, setIsHowToUseOpen] = useState(false);
   const [selectedCancerType, setSelectedCancerType] = useState("");
   const [selectedLabel, setSelectedLabel] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -82,6 +89,24 @@ export default function Home() {
       setSearchInput("");
     }
   }, [selectedLabel]);
+
+  useEffect(() => {
+    if (!isHowToUseOpen) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsHowToUseOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isHowToUseOpen]);
 
   // Reset regions loading state when either selection changes
   useEffect(() => {
@@ -376,9 +401,25 @@ export default function Home() {
           </Link>
         </div>
 
-        <p className="text-xl text-gray-600 mb-8">Search genetic variants by entering gene symbols or genomic ranges</p>
+        <div className="mb-8 flex flex-wrap items-center gap-3">
+          <p className="text-xl text-gray-600">Search genetic variants by entering gene symbols or genomic ranges</p>
+          <button
+            type="button"
+            onClick={() => setIsHowToUseOpen(true)}
+            className="inline-flex items-center rounded-md border border-blue-200 bg-blue-50 px-3 py-1.5 text-sm font-semibold text-blue-700 transition-colors hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2"
+          >
+            How to use
+          </button>
+        </div>
 
-        <CancerSelect onSelect={setSelectedCancerType} />
+        <div className="mb-3 grid grid-cols-1 items-start gap-6 xl:grid-cols-2">
+          <MrnSelector
+            subjectId={subjectId}
+            setSubjectId={setSubjectId}
+            className="mb-0"
+          />
+          <CancerSelect onSelect={setSelectedCancerType} />
+        </div>
         <ActionableCheckBoxes onLabelChange={setSelectedLabel} />
 
         <RegionLoader
@@ -405,8 +446,6 @@ export default function Home() {
             searchInput={searchInput}
             setSearchInput={setSearchInput}
             handleSearch={handleSearch}
-            subjectId={subjectId}
-            setSubjectId={setSubjectId}
             enableCatVrsQueries={enableCatVrsQueries}
             onEnableCatVrsQueriesChange={setEnableCatVrsQueries}
             className="mb-0"
@@ -431,6 +470,65 @@ export default function Home() {
           enableCatVrsQueries={enableCatVrsQueries}
           onEnableCatVrsQueriesChange={setEnableCatVrsQueries}
         />
+        {isHowToUseOpen && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 px-4 py-8"
+            onClick={() => setIsHowToUseOpen(false)}
+          >
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="how-to-use-title"
+              className="max-h-[85vh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="mb-6 flex items-start justify-between gap-4">
+                <div>
+                  <h2 id="how-to-use-title" className="text-2xl font-bold text-gray-900">
+                    {HOW_TO_USE_TITLE}
+                  </h2>
+                  <p className="mt-2 text-sm text-gray-600">
+                    These notes summarize the current search, filtering, and results behavior in the app.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsHowToUseOpen(false)}
+                  className="rounded-md border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2"
+                >
+                  Close
+                </button>
+              </div>
+              <div className="space-y-6">
+                {HOW_TO_USE_SECTIONS.map((section) => (
+                  <section key={section.title}>
+                    <h3 className="text-lg font-semibold text-gray-900">{section.title}</h3>
+                    <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-gray-700">
+                      {section.items.map((item) => (
+                        <li key={typeof item === 'string' ? item : `${section.title}-${item.linkLabel}`}>
+                          {isHowToUseLinkItem(item) ? (
+                            <>
+                              {item.textBefore}
+                              <a
+                                href={item.linkUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="font-medium text-blue-600 hover:text-blue-800 hover:underline"
+                              >
+                                {item.linkLabel}
+                              </a>
+                              {item.textAfter}
+                            </>
+                          ) : item}
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
         {/*
         <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
           <EmailSubscription />

@@ -7,7 +7,7 @@ interface DxImplicationCellProps {
 export default function DxImplicationCell({ implications }: DxImplicationCellProps) {
     if (!implications || implications.length === 0) {
         return (
-            <div className="p-3 text-gray-400 italic">&lt;none found&gt;</div>
+            <div className="p-3 whitespace-normal break-words text-gray-400 italic">&lt;none found&gt;</div>
         );
     }
 
@@ -69,14 +69,14 @@ export default function DxImplicationCell({ implications }: DxImplicationCellPro
 
     if (!bestImplication) {
         return (
-            <div className="p-3 text-gray-400 italic">&lt;none found&gt;</div>
+            <div className="p-3 whitespace-normal break-words text-gray-400 italic">&lt;none found&gt;</div>
         );
     }
 
     const stars = evidenceLevelToStars(bestImplication.evidenceLevel || '');
 
     return (
-        <div className="p-3 text-gray-700 font-medium">
+        <div className="p-3 whitespace-normal break-words text-gray-700 font-medium">
             {bestImplication.clinicalSignificance || 'Unknown'}{' '}
             <a
                 href={bestImplication.clinvarLink}

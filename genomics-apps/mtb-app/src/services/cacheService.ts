@@ -3,7 +3,7 @@ import { ProcessedTxImplication } from './txService';
 import { MolecularConsequence } from './mcService';
 import packageJson from '../../package.json';
 
-const CACHE_SCHEMA_VERSION = '4';
+const CACHE_SCHEMA_VERSION = '5';
 const CACHE_STORAGE_KEY = 'mtb-cache';
 const CACHE_SESSION_STORAGE_KEY = 'mtb-cache-session';
 const DEV_CACHE_OVERRIDE_KEY = 'mtb-enable-dev-cache';
@@ -15,6 +15,7 @@ interface ProcessedVariantCache {
   sourceObservationId?: string;
   variant: string;
   variantType?: 'simple' | 'structural';
+  genomicSourceClass?: string;
   dxImplications: DxImplication[];
   txImplications: ProcessedTxImplication[];
   molecularConsequences: MolecularConsequence[];

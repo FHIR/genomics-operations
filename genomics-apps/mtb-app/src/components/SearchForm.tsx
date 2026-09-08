@@ -4,10 +4,14 @@ interface SearchFormProps {
   searchInput: string;
   setSearchInput: (value: string) => void;
   handleSearch: () => void;
-  subjectId: string;
-  setSubjectId: (value: string) => void;
   enableCatVrsQueries: boolean;
   onEnableCatVrsQueriesChange: (enabled: boolean) => void;
+  className?: string;
+}
+
+interface MrnSelectorProps {
+  subjectId: string;
+  setSubjectId: (value: string) => void;
   className?: string;
 }
 
@@ -23,16 +27,11 @@ const patientIDs: string[] = [
   "huC30902", "NA19239", "L2345"
 ].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 
-export default function SearchForm({
-  searchInput,
-  setSearchInput,
-  handleSearch,
+export function MrnSelector({
   subjectId,
   setSubjectId,
-  enableCatVrsQueries,
-  onEnableCatVrsQueriesChange,
   className = 'mb-8',
-}: SearchFormProps) {
+}: MrnSelectorProps) {
   const [isCustomMRN, setIsCustomMRN] = useState(false);
   const [customMRN, setCustomMRN] = useState('');
 
@@ -53,17 +52,16 @@ export default function SearchForm({
   };
 
   return (
-    <div className={`bg-gray-100 p-8 rounded-lg shadow-sm ${className}`.trim()}>
-      {/* MRN Dropdown field */}
-      <div className="mb-4">
-        <label htmlFor="mrn-select" className="block text-lg mb-2">MRN (Medical Record Number)</label>
+    <div className={className.trim()}>
+      <div>
+        <label htmlFor="mrn-select" className="block mb-2 text-gray-600">MRN (Medical Record Number)</label>
         {!isCustomMRN ? (
           <div className="flex gap-2">
             <select
               id="mrn-select"
               value={subjectId}
               onChange={(e) => handleMRNChange(e.target.value)}
-              className="flex-1 bg-white text-black p-4 rounded-lg text-lg border border-gray-200"
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">Select a patient MRN</option>
               {patientIDs.map((id) => (
@@ -81,7 +79,7 @@ export default function SearchForm({
               value={customMRN}
               onChange={(e) => handleCustomMRNChange(e.target.value)}
               placeholder="Enter custom MRN"
-              className="flex-1 bg-white text-black p-4 rounded-lg text-lg border border-gray-200"
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <button
               onClick={() => {
@@ -89,13 +87,27 @@ export default function SearchForm({
                 setSubjectId('');
                 setCustomMRN('');
               }}
-              className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm"
+              className="rounded-md border border-gray-300 px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50"
             >
               Back to List
             </button>
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+export default function SearchForm({
+  searchInput,
+  setSearchInput,
+  handleSearch,
+  enableCatVrsQueries,
+  onEnableCatVrsQueriesChange,
+  className = 'mb-8',
+}: SearchFormProps) {
+  return (
+    <div className={`bg-gray-100 p-8 rounded-lg shadow-sm ${className}`.trim()}>
 
       {/* Gene Symbols section */}
       <p className="text-sm text-gray-600 mb-4">Enter Gene Symbols or Genomic Ranges (comma-separated). Ranges must be in zero-based RefSeq:Integer-range format (e.g. &apos;NC_000007.14:55019016-55211628&apos;)</p>

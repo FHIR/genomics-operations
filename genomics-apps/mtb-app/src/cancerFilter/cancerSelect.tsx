@@ -20,7 +20,7 @@ const CancerSelect = ({ onSelect }: CancerSelectProps) => {
     };
 
     return (
-        <div className="mb-8">
+        <div>
             <label className="block mb-2 text-gray-600">
                 Select Cancer Type
             </label>

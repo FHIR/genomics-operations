@@ -9,6 +9,7 @@ export interface Variant {
     sourceObservationId?: string; // Back-reference to the source FHIR observation
     variant: string; // The variant identifier
     variantType?: 'simple' | 'structural';
+    genomicSourceClass?: string;
     oncogenicityPrediction?: string; // Optional oncogenicity assessment when available
     dxImplications: DxImplication[]; // Diagnostic implications
     txImplications: ProcessedTxImplication[]; // Therapeutic implications

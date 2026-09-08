@@ -13,7 +13,7 @@ function getSeverityRank(impact?: string): number {
 export default function MolecularConsequenceCell({ consequences }: MolecularConsequenceCellProps) {
     if (!consequences) {
         return (
-            <div className="p-3">
+            <div className="p-3 whitespace-normal break-words">
                 <span className="italic text-gray-400">Loading...</span>
             </div>
         );
@@ -21,7 +21,7 @@ export default function MolecularConsequenceCell({ consequences }: MolecularCons
 
     if (consequences.length === 0) {
         return (
-            <div className="p-3">
+            <div className="p-3 whitespace-normal break-words">
                 <span className="text-gray-400">&lt;none found&gt;</span>
             </div>
         );
@@ -32,9 +32,9 @@ export default function MolecularConsequenceCell({ consequences }: MolecularCons
     const mostSevere = sorted[0];
 
     return (
-        <div className="p-3">
+        <div className="p-3 whitespace-normal break-words">
             {mostSevere.featureConsequence && (
-                <div className="text-gray-700">
+                <div className="text-gray-700 whitespace-normal break-words">
                     <span className="font-medium text-gray-900">{mostSevere.impact}</span>
                     <span className="mx-2 text-gray-500">/</span>
                     <span className="font-medium text-gray-900">{mostSevere.featureConsequence}</span>

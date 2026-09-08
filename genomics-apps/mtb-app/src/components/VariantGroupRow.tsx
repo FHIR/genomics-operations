@@ -86,7 +86,7 @@ export default function VariantGroupRow({
         return columns.map((column) => {
             switch (column.id) {
                 case 'range':
-                    return <td key={column.id} className="p-3">{showRange ? range : ''}</td>;
+                    return <td key={column.id} className="p-3 align-top whitespace-normal break-all">{showRange ? range : ''}</td>;
                 case 'variant':
                     return (
                         <td key={column.id} className="p-3 max-w-0 align-top">
@@ -103,9 +103,17 @@ export default function VariantGroupRow({
                             )}
                         </td>
                     );
+                case 'genomicSourceClass':
+                    return (
+                        <td key={column.id} className="p-3 max-w-0 align-top">
+                            <div className="block min-w-0 whitespace-normal break-words text-gray-700">
+                                {variant.genomicSourceClass ?? '<unknown>'}
+                            </div>
+                        </td>
+                    );
                 case 'oncogenicityPrediction':
                     return (
-                        <td key={column.id} className="p-3 align-top text-sm text-gray-600" />
+                        <td key={column.id} className="p-3 align-top text-sm text-gray-600 whitespace-normal break-words" />
                     );
                 case 'molecularConsequences':
                     return (

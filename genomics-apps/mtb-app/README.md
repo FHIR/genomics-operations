@@ -1,10 +1,8 @@
 # Molecular Tumor Board (MTB) — Variant & Implication Explorer
 
-Live demo: [https://moleculartb.netlify.app/](https://moleculartb.netlify.app/)
+Live demo: [https://mtb-app-elimu1.vercel.app/](https://mtb-app-elimu1.vercel.app/)
 
 A web application that helps clinicians and researchers quickly review **therapeutic (Tx)**, **diagnostic (Dx)**, and **molecular consequence** data for cancer variants. The platform supports filtering by cancer type, actionability levels, and phenotype to streamline Molecular Tumor Board (MTB) review workflows.
-
-![MTB App Interface](public/elimu.png)
 
 ---
 
@@ -26,7 +24,7 @@ The **MTB Variant & Implication Explorer** was designed to support oncologists d
 
 * **Scenario**: A patient’s tumor genomic profiling results are presented at the MTB. Clinicians need to review variants, assess their therapeutic and diagnostic implications, and decide on treatment recommendations.
 * **Functionality**: The application allows read-only searches of genetic variants and their annotations. Clinicians can enter ranges (gene names or genomic coordinates), select cancer types, and apply actionability filters to quickly narrow down relevant results.
-* **Outcome**: Results are displayed in a structured table, showing molecular consequences, diagnostic significance, and therapeutic implications, with links to external reference databases (ClinVar, CIViC, SnpEff).
+* **Outcome**: Results are displayed in a structured table, showing molecular consequences, diagnostic significance, and therapeutic implications, with links to external reference databases (e.g. ClinVar, CIViC, SnpEff).
 
 This workflow ensures that clinicians can:
 
@@ -63,13 +61,15 @@ This workflow ensures that clinicians can:
 
 ```
 src/
-├── app/                     # Next.js app router
+├── app/                    # Next.js app router
 │   ├── globals.css         # Global styles
+│   ├── howToUseContent.tx  # Overview of app use
 │   ├── layout.tsx          # Root layout
 │   └── page.tsx            # Main application page
 ├── components/             # Reusable UI components
 │   ├── sidebar/            # Filter sidebar components
 │   ├── ResultsTable.tsx    # Main results display
+│   ├── resultsTableColumns.tx  # Table column information
 │   ├── SearchForm.tsx      # Search input and controls
 │   ├── FeedbackForm.tsx    # User feedback collection
 │   ├── EmailSubscription.tsx # Email signup

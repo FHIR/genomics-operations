@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import dynamic from 'next/dynamic';
 
 const TooltipIcon = dynamic(() => import('../components/TooltipIcon'), {
@@ -42,7 +42,7 @@ export default function ActionableCheckBoxes({ onLabelChange }: ActionableCheckB
     };
 
     return (
-        <div className="mt-4">
+        <div className="mt-1">
             <p className="text-gray-600 mb-2">Filter by actionability:</p>
             <div className="flex gap-4 lg:gap-8 xl:gap-12 2xl:gap-16 items-center flex-wrap">
                 {ACTIONABILITY_OPTIONS.map((option) => (

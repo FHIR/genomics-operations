@@ -54,8 +54,8 @@ function ImplicationDisplay({ implication }: { implication: ProcessedTxImplicati
     };
 
     return (
-        <div className="mb-2 border-t border-gray-200 pt-2">
-            <div className="text-gray-700 mb-2">
+        <div className="mb-2 border-t border-gray-200 pt-2 whitespace-normal break-words">
+            <div className="text-gray-700 mb-2 whitespace-normal break-words">
                 <span className="font-medium text-gray-900">{buildDisplayString()}</span>
             </div>
             {implication.hyperlink && (
@@ -112,7 +112,7 @@ export default function TxImplicationCell({ implications }: TxImplicationCellPro
 
     if (!implications) {
         return (
-            <div className="p-3">
+            <div className="p-3 whitespace-normal break-words">
                 <span className="italic text-gray-400">Loading...</span>
             </div>
         );
@@ -120,14 +120,14 @@ export default function TxImplicationCell({ implications }: TxImplicationCellPro
 
     if (implications.length === 0) {
         return (
-            <div className="p-3">
+            <div className="p-3 whitespace-normal break-words">
                 <span className="text-gray-400">&lt;none found&gt;</span>
             </div>
         );
     }
 
     return (
-        <div className="p-3">
+        <div className="p-3 whitespace-normal break-words">
             {/* Show implications based on current mode */}
             {implicationsToShow.map((implication, index) => (
                 <ImplicationDisplay key={`${viewMode}-${index}`} implication={implication} />

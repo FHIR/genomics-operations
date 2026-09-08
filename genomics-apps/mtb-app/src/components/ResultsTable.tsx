@@ -33,7 +33,7 @@ const COLUMN_MAP = Object.fromEntries(
 ) as Record<ColumnId, (typeof RESULTS_TABLE_COLUMNS)[number]>;
 
 const DEFAULT_COLUMN_VISIBILITY = Object.fromEntries(
-  RESULTS_TABLE_COLUMNS.map((column) => [column.id, column.id !== 'oncogenicityPrediction'])
+  RESULTS_TABLE_COLUMNS.map((column) => [column.id, !['genomicSourceClass', 'oncogenicityPrediction'].includes(column.id)])
 ) as Record<ColumnId, boolean>;
 
 const DEFAULT_COLUMN_WIDTHS = Object.fromEntries(
@@ -41,6 +41,7 @@ const DEFAULT_COLUMN_WIDTHS = Object.fromEntries(
 ) as Record<ColumnId, number>;
 
 const TABLE_SETTINGS_STORAGE_KEY = 'mtb-results-table-settings';
+const TABLE_WIDTHS_VERSION = 6;
 const DEFAULT_ENABLE_CAT_VRS_QUERIES = false;
 
 function normalizeColumnOrder(columnOrder?: ColumnId[]) {
@@ -119,6 +120,8 @@ function getColumnTextValue(variant: Variant, columnId: ColumnId, range: string)
       return [getVariantSortValue(variant), variant.molecularConsequences?.[0]?.proteinChange]
         .filter(Boolean)
         .join(' ');
+    case 'genomicSourceClass':
+      return variant.genomicSourceClass ?? '<unknown>';
     case 'oncogenicityPrediction':
       return variant.oncogenicityPrediction ?? '';
     case 'molecularConsequences':
@@ -173,6 +176,10 @@ function compareColumnValues(left: string, right: string, direction: SortDirecti
   return direction === 'asc' ? comparison : -comparison;
 }
 
+function getMinimumColumnWidth(columnId: ColumnId) {
+  return COLUMN_MAP[columnId]?.minWidth ?? 80;
+}
+
 export default function ResultsTable({
   results,
   onToggleFilters,
@@ -192,6 +199,7 @@ export default function ResultsTable({
   const [columnFilters, setColumnFilters] = useState<Record<ColumnId, string>>({
     range: '',
     variant: '',
+    genomicSourceClass: '',
     oncogenicityPrediction: '',
     molecularConsequences: '',
     dxImplications: '',
@@ -215,6 +223,7 @@ export default function ResultsTable({
         columnOrder?: ColumnId[];
         columnVisibility?: Partial<Record<ColumnId, boolean>>;
         columnWidths?: Partial<Record<ColumnId, number>>;
+        columnWidthsVersion?: number;
         enableCatVrsQueries?: boolean;
       };
 
@@ -223,16 +232,20 @@ export default function ResultsTable({
         ...DEFAULT_COLUMN_VISIBILITY,
         ...parsedSettings.columnVisibility,
       });
-      setColumnWidths({
-        ...DEFAULT_COLUMN_WIDTHS,
-        ...Object.fromEntries(
+      const persistedWidths = parsedSettings.columnWidthsVersion === TABLE_WIDTHS_VERSION
+        ? Object.fromEntries(
           Object.entries(parsedSettings.columnWidths ?? {}).map(([columnId, width]) => {
             const typedColumnId = columnId as ColumnId;
-            const minimumWidth = COLUMN_MAP[typedColumnId]?.minWidth ?? 140;
+            const minimumWidth = getMinimumColumnWidth(typedColumnId);
 
             return [typedColumnId, Math.max(Number(width) || minimumWidth, minimumWidth)];
           })
-        ),
+        )
+        : {};
+
+      setColumnWidths({
+        ...DEFAULT_COLUMN_WIDTHS,
+        ...persistedWidths,
       });
       onEnableCatVrsQueriesChange(parsedSettings.enableCatVrsQueries ?? DEFAULT_ENABLE_CAT_VRS_QUERIES);
     } catch {
@@ -251,6 +264,7 @@ export default function ResultsTable({
         columnOrder,
         columnVisibility,
         columnWidths,
+        columnWidthsVersion: TABLE_WIDTHS_VERSION,
         enableCatVrsQueries,
       })
     );
@@ -350,6 +364,12 @@ export default function ResultsTable({
     (width, column) => width + (columnWidths[column.id] ?? column.defaultWidth),
     0
   );
+  const txColumnWidth = columnWidths.txImplications ?? COLUMN_MAP.txImplications.defaultWidth;
+  const hasExplicitTxColumnWidth = txColumnWidth !== COLUMN_MAP.txImplications.defaultWidth;
+  const minimumTableWidth = visibleColumns.reduce(
+    (width, column) => width + getMinimumColumnWidth(column.id),
+    0
+  );
 
   const hasActiveTableFilters = visibleColumns.some((column) => columnFilters[column.id].trim() !== '');
 
@@ -393,6 +413,7 @@ export default function ResultsTable({
     setColumnFilters({
       range: '',
       variant: '',
+      genomicSourceClass: '',
       oncogenicityPrediction: '',
       molecularConsequences: '',
       dxImplications: '',
@@ -449,7 +470,7 @@ export default function ResultsTable({
 
     const startingX = event.clientX;
     const startingWidth = columnWidths[columnId];
-    const minimumWidth = COLUMN_MAP[columnId].minWidth;
+    const minimumWidth = getMinimumColumnWidth(columnId);
 
     const handleMouseMove = (mouseEvent: MouseEvent) => {
       const nextWidth = Math.max(startingWidth + (mouseEvent.clientX - startingX), minimumWidth);
@@ -558,11 +579,18 @@ export default function ResultsTable({
         </div>
       )}
       <div className="overflow-x-auto">
-        <table className="border-collapse table-fixed" style={{ minWidth: totalTableWidth }}>
+        <table className="w-full border-collapse table-fixed" style={{ minWidth: Math.max(totalTableWidth, minimumTableWidth) }}>
           <colgroup>
-            {visibleColumns.map((column) => (
-              <col key={column.id} style={{ width: columnWidths[column.id] }} />
-            ))}
+            {visibleColumns.map((column) => {
+              const isExpandingTxColumn = column.id === 'txImplications' && !hasExplicitTxColumnWidth;
+
+              return (
+                <col
+                  key={column.id}
+                  style={isExpandingTxColumn ? undefined : { width: columnWidths[column.id] }}
+                />
+              );
+            })}
           </colgroup>
           <thead>
             <tr className="bg-gray-200">
@@ -573,7 +601,7 @@ export default function ResultsTable({
                   >
                     <div className="mb-2 flex items-start justify-between gap-2">
                       <div
-                        className="cursor-grab text-base font-bold"
+                        className="cursor-grab break-words text-base font-bold whitespace-normal"
                         draggable
                         onDragStart={() => setDraggedColumnId(column.id)}
                         onDragEnd={() => setDraggedColumnId(null)}
