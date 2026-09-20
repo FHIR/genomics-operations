@@ -9,18 +9,32 @@ import SearchForm, { MrnSelector } from '../components/SearchForm';
 import SearchStatus from '../components/SearchStatus';
 import ResultsTable from '../components/ResultsTable';
 import CancerSelect from "@/cancerFilter/cancerSelect";
-import ActionableCheckBoxes from "@/cancerFilter/actionableCheckBoxes";
 import RegionLoader from "@/cancerFilter/regionLoader";
 import FilterSidebar from "@/cancerFilter/FilterSidebar";
-import { FilterCriteria } from "@/cancerFilter/FilterSidebar";
+import { DEFAULT_ACTIONABILITY_FILTER, FilterCriteria } from "@/cancerFilter/FilterSidebar";
 import { applyFiltersToVariants } from "@/cancerFilter/filterUtils";
-import { isPhenotypeMatchForImplication, isOtherTumorType, isALevelEvidence } from "@/cancerFilter/phenotypeUtils";
+import { isPhenotypeMatchForImplication, isALevelEvidence } from "@/cancerFilter/phenotypeUtils";
 import { HOW_TO_USE_SECTIONS, HOW_TO_USE_TITLE, HowToUseLinkItem } from './howToUseContent';
 // import EmailSubscription from "@/components/EmailSubscription";
 // import FeedbackForm from "@/components/FeedbackForm";
 
 function isHowToUseLinkItem(item: string | HowToUseLinkItem): item is HowToUseLinkItem {
   return typeof item !== 'string';
+}
+
+function hasActiveSidebarFilters(filters: FilterCriteria, cancerType: string) {
+  const actionabilityIsActive = filters.actionableFilter !== 'None' &&
+    (filters.actionableFilter !== DEFAULT_ACTIONABILITY_FILTER || Boolean(cancerType));
+
+  return actionabilityIsActive ||
+    filters.selectedImpacts.length > 0 ||
+    filters.selectedConsequences.length > 0 ||
+    filters.selectedDxSignificances.length > 0 ||
+    filters.selectedDxStars.length > 0 ||
+    filters.selectedTxEvidence.length > 0 ||
+    filters.selectedTxMedications.length > 0 ||
+    filters.selectedTxImplications.length > 0 ||
+    filters.selectedTxPhenotypes.length > 0;
 }
 
 export default function Home() {
@@ -39,9 +53,10 @@ export default function Home() {
   const [enableCatVrsQueries, setEnableCatVrsQueries] = useState(false);
   const [isHowToUseOpen, setIsHowToUseOpen] = useState(false);
   const [selectedCancerType, setSelectedCancerType] = useState("");
-  const [selectedLabel, setSelectedLabel] = useState("");
+  const [selectedPresetLabel, setSelectedPresetLabel] = useState('');
+  const [presetRequestId, setPresetRequestId] = useState(0);
+  const [isSearchWorkspaceCollapsed, setIsSearchWorkspaceCollapsed] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [mtbKbPhenotypes, setMtbKbPhenotypes] = useState<Set<string>>(new Set());
   const [currentFilters, setCurrentFilters] = useState<FilterCriteria>({
     selectedImpacts: [],
     selectedConsequences: [],
@@ -50,13 +65,10 @@ export default function Home() {
     selectedTxEvidence: [],
     selectedTxMedications: [],
     selectedTxImplications: [],
-    selectedTxPhenotypes: []
+    selectedTxPhenotypes: [],
+    actionableFilter: DEFAULT_ACTIONABILITY_FILTER,
   });
-  /**
-   * Tracks whether regions have been loaded for the current cancer type and label combination.
-   * Reset to false when either selection changes to allow reloading.
-   */
-  const [hasLoadedRegions, setHasLoadedRegions] = useState(false);
+
   // Cleanup abort controllers when component unmounts
   useEffect(() => {
     const controllers = abortControllersRef.current;
@@ -85,12 +97,6 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (!selectedLabel) {
-      setSearchInput("");
-    }
-  }, [selectedLabel]);
-
-  useEffect(() => {
     if (!isHowToUseOpen) {
       return;
     }
@@ -108,31 +114,41 @@ export default function Home() {
     };
   }, [isHowToUseOpen]);
 
-  // Reset regions loading state when either selection changes
   useEffect(() => {
-    setHasLoadedRegions(false);
-  }, [selectedCancerType, selectedLabel]);
+    setSelectedPresetLabel('');
+    setPresetRequestId(0);
+  }, [selectedCancerType]);
 
-  // Unified filter function that combines both radio and user filters
+  const handlePresetSelect = useCallback((label: string) => {
+    setSelectedPresetLabel(label);
+    setPresetRequestId((currentRequestId) => currentRequestId + 1);
+  }, []);
+
+  const handleSearchInputChange = useCallback((value: string) => {
+    setSelectedPresetLabel('');
+    setPresetRequestId(0);
+    setSearchInput(value);
+  }, []);
+
+  // Unified filter function that combines actionability and sidebar filters.
   const applyUnifiedFilters = useCallback((
     variants: Variant[],
     filters: FilterCriteria,
     cancerType: string,
-    actionableLabel: string,
-    phenotypes: Set<string>
   ): Variant[] => {
     try {
-      // First apply the dynamic filters from FilterSidebar
       let filtered = applyFiltersToVariants(variants, filters);
+      const actionableLabel = filters.actionableFilter;
 
-      // Then apply actionable logic based on radio button selection
       if (actionableLabel === "Actionable, this tumor type") {
+        if (!cancerType) {
+          return filtered;
+        }
+
         filtered = filtered.map(variant => ({
           ...variant,
           txImplications: variant.txImplications?.filter(tx => {
-            // Must have A-level evidence
             const hasALevel = isALevelEvidence(tx.evidenceLevel);
-            // Must match cancer type phenotype
             const phenotypeMatch = isPhenotypeMatchForImplication(tx.phenotypicContext, cancerType);
 
             return hasALevel && phenotypeMatch;
@@ -148,22 +164,18 @@ export default function Home() {
           (variant.txImplications && variant.txImplications.length > 0) ||
           (variant.dxImplications && variant.dxImplications.length > 0)
         );
-      } else if (actionableLabel === "Actionable, other tumor type") {
+      } else if (actionableLabel === "Actionable, any tumor type") {
         filtered = filtered.map(variant => ({
           ...variant,
           txImplications: variant.txImplications?.filter(tx => {
             const hasALevel = isALevelEvidence(tx.evidenceLevel);
 
-            const isOtherTumor = isOtherTumorType(tx.phenotypicContext, cancerType, phenotypes);
-
-            return hasALevel && isOtherTumor;
+            return hasALevel;
           }),
           dxImplications: variant.dxImplications?.filter(dx => {
             const hasALevel = isALevelEvidence(dx.evidenceLevel);
 
-            const isOtherTumor = isOtherTumorType(dx.predictedPhenotype, cancerType, phenotypes);
-
-            return hasALevel && isOtherTumor;
+            return hasALevel;
           })
         })).filter(variant =>
           (variant.txImplications && variant.txImplications.length > 0) ||
@@ -198,96 +210,30 @@ export default function Home() {
 
   const handleFilterChange = useCallback((filters: FilterCriteria) => {
     setCurrentFilters(filters);
-    const filtered = applyUnifiedFilters(results, filters, selectedCancerType, selectedLabel, mtbKbPhenotypes);
+    const filtered = applyUnifiedFilters(results, filters, selectedCancerType);
     setFilteredResults(filtered);
-  }, [results, selectedCancerType, selectedLabel, mtbKbPhenotypes, applyUnifiedFilters]);
-
-  // Update filter state when radio button selection changes
-  useEffect(() => {
-    setCurrentFilters(prevFilters => {
-      const updatedFilters = { ...prevFilters };
-      if (selectedLabel === "Actionable, this tumor type" || selectedLabel === "Actionable, other tumor type") {
-        // Add A-level evidence filter from radio button
-        // We need to match the actual evidence levels from the data
-        const radioFilters: { value: string; source: 'radio' }[] = [];
-
-        // Check what A-level evidence levels actually exist in the results
-        const existingEvidenceLevels = new Set<string>();
-        results.forEach(variant => {
-          variant.txImplications?.forEach(tx => {
-            if (tx.evidenceLevel && isALevelEvidence(tx.evidenceLevel)) {
-              existingEvidenceLevels.add(tx.evidenceLevel);
-            }
-          });
-          variant.dxImplications?.forEach(dx => {
-            if (dx.evidenceLevel && isALevelEvidence(dx.evidenceLevel)) {
-              existingEvidenceLevels.add(dx.evidenceLevel);
-            }
-          });
-        });
-
-        // Add radio filters for all A-level evidence that actually exists
-        existingEvidenceLevels.forEach(evidenceLevel => {
-          radioFilters.push({ value: evidenceLevel, source: 'radio' as const });
-        });
-
-        // Remove existing radio filters and add the ones that actually exist in data
-        updatedFilters.selectedTxEvidence = [
-          ...updatedFilters.selectedTxEvidence.filter(f => f.source !== 'radio'),
-          ...radioFilters
-        ];
-        updatedFilters.actionableFilter = selectedLabel;
-        updatedFilters.evidenceLevelSource = 'radio';
-      } else if (selectedLabel === "Possibly actionable") {
-        // For "Possibly actionable", lock all NON-A evidence levels that exist in the data
-        const radioFilters: { value: string; source: 'radio' }[] = [];
-
-        // Check what NON-A evidence levels actually exist in the results
-        const existingNonAEvidenceLevels = new Set<string>();
-        results.forEach(variant => {
-          variant.txImplications?.forEach(tx => {
-            if (tx.evidenceLevel && !isALevelEvidence(tx.evidenceLevel)) {
-              existingNonAEvidenceLevels.add(tx.evidenceLevel);
-            }
-          });
-          variant.dxImplications?.forEach(dx => {
-            if (dx.evidenceLevel && !isALevelEvidence(dx.evidenceLevel)) {
-              existingNonAEvidenceLevels.add(dx.evidenceLevel);
-            }
-          });
-        });
-
-        // Add radio filters for all non-A evidence levels that actually exist
-        existingNonAEvidenceLevels.forEach(evidenceLevel => {
-          radioFilters.push({ value: evidenceLevel, source: 'radio' as const });
-        });
-
-        // Remove existing radio filters and add the non-A ones
-        updatedFilters.selectedTxEvidence = [
-          ...updatedFilters.selectedTxEvidence.filter(f => f.source !== 'radio'),
-          ...radioFilters
-        ];
-        updatedFilters.actionableFilter = selectedLabel;
-        updatedFilters.evidenceLevelSource = 'radio';
-      } else {
-        // Clear radio filters when no actionable option is selected
-        updatedFilters.selectedTxEvidence = updatedFilters.selectedTxEvidence.filter(f => f.source !== 'radio');
-        delete updatedFilters.actionableFilter;
-        delete updatedFilters.evidenceLevelSource;
-      }
-      return updatedFilters;
-    });
-  }, [selectedLabel, selectedCancerType, results]); // Add results to dependency array
+  }, [results, selectedCancerType, applyUnifiedFilters]);
 
   // Apply filters whenever currentFilters, results, or related dependencies change
   useEffect(() => {
     if (results.length > 0) {
-      const filtered = applyUnifiedFilters(results, currentFilters, selectedCancerType, selectedLabel, mtbKbPhenotypes);
+      const filtered = applyUnifiedFilters(results, currentFilters, selectedCancerType);
       setFilteredResults(filtered);
     } else {
       setFilteredResults([]);
     }
-  }, [results, currentFilters, selectedCancerType, selectedLabel, mtbKbPhenotypes, applyUnifiedFilters]);
+  }, [results, currentFilters, selectedCancerType, applyUnifiedFilters]);
+
+  const hasActiveFilters = hasActiveSidebarFilters(currentFilters, selectedCancerType);
+  const trimmedSearchInput = searchInput.trim();
+  const searchTermCount = trimmedSearchInput
+    ? trimmedSearchInput.split(',').map(term => term.trim()).filter(Boolean).length
+    : 0;
+  const searchPreview = trimmedSearchInput
+    ? (trimmedSearchInput.length > 60 ? `${trimmedSearchInput.slice(0, 60)}...` : trimmedSearchInput)
+    : 'No search terms loaded';
+  const hasSearchActivity = Object.keys(searchStatus).length > 0 || invalidRanges.length > 0;
+
   const handleSearch = async () => {
     if (!searchInput.trim()) {
       setResults([]);
@@ -420,42 +366,69 @@ export default function Home() {
           />
           <CancerSelect onSelect={setSelectedCancerType} />
         </div>
-        <ActionableCheckBoxes onLabelChange={setSelectedLabel} />
 
         <RegionLoader
           cancerType={selectedCancerType}
-          label={selectedLabel}
+          label={selectedPresetLabel}
+          requestId={presetRequestId}
           onRegionsLoaded={(regions) => {
-            if (!selectedLabel) {
-              setSearchInput("");
-              return;
-            }
-
-            // Only load regions once when both cancer type and label are selected
-            // Allow reloading if the user changes the selection
-            if (!hasLoadedRegions && regions && regions.length > 0) {
-              setSearchInput(regions.join(", "));
-              setHasLoadedRegions(true);
-            }
+            setSearchInput(regions.join(", "));
+            setSelectedPresetLabel('');
+            setPresetRequestId(0);
           }}
-          onPhenotypesLoaded={setMtbKbPhenotypes}
         />
 
-        <div className="mb-8 grid grid-cols-1 items-start gap-6 xl:grid-cols-[minmax(0,1fr)_18rem]">
-          <SearchForm
-            searchInput={searchInput}
-            setSearchInput={setSearchInput}
-            handleSearch={handleSearch}
-            enableCatVrsQueries={enableCatVrsQueries}
-            onEnableCatVrsQueriesChange={setEnableCatVrsQueries}
-            className="mb-0"
-          />
-          <SearchStatus
-            searchStatus={searchStatus}
-            invalidRanges={invalidRanges}
-            onCancelSearch={handleCancelSearch}
-            className="max-h-[32rem]"
-          />
+        <div className="mb-8 overflow-hidden rounded-2xl border-2 border-slate-400 bg-gradient-to-br from-gray-50 to-white shadow-sm">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-slate-300 px-5 py-4">
+            <div>
+              <h2 className="text-lg font-semibold text-gray-900">Search Workspace</h2>
+              <p className="mt-1 text-sm text-gray-600">
+                {selectedCancerType ? `Cancer type: ${selectedCancerType}` : 'Select a cancer type to load preset search terms.'}
+                {' '}
+                {searchTermCount > 0 ? `• ${searchTermCount} search term${searchTermCount === 1 ? '' : 's'}` : ''}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsSearchWorkspaceCollapsed((currentValue) => !currentValue)}
+              className="inline-flex items-center gap-2 rounded-md border border-blue-700 bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_3px_0_0_rgb(29_78_216)] transition-[transform,box-shadow,background-color] hover:bg-blue-700 hover:shadow-[0_2px_0_0_rgb(30_64_175)] active:translate-y-px active:shadow-[0_1px_0_0_rgb(30_64_175)] focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2"
+            >
+              {isSearchWorkspaceCollapsed ? 'Show Search Panel' : 'Hide Search Panel'}
+            </button>
+          </div>
+
+          {isSearchWorkspaceCollapsed ? (
+            <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-4 text-sm text-gray-600">
+              <span className="min-w-0 flex-1 truncate">{searchPreview}</span>
+              <div className="flex items-center gap-3 text-xs font-medium uppercase tracking-wide text-gray-500">
+                <span>{hasSearchActivity ? 'Search status available' : 'No search activity yet'}</span>
+                <span>{hasActiveFilters ? 'Filters active' : 'No active filters'}</span>
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 items-start gap-0 xl:grid-cols-[minmax(0,1.65fr)_14rem]">
+              <SearchForm
+                searchInput={searchInput}
+                setSearchInput={handleSearchInputChange}
+                handleSearch={handleSearch}
+                selectedCancerType={selectedCancerType}
+                onPresetSelect={handlePresetSelect}
+                enableCatVrsQueries={enableCatVrsQueries}
+                onEnableCatVrsQueriesChange={setEnableCatVrsQueries}
+                embedded={true}
+                className="p-5"
+              />
+              <div className="border-t-2 border-slate-300 xl:border-l-2 xl:border-t-0">
+                <SearchStatus
+                  searchStatus={searchStatus}
+                  invalidRanges={invalidRanges}
+                  onCancelSearch={handleCancelSearch}
+                  embedded={true}
+                  className="max-h-[32rem]"
+                />
+              </div>
+            </div>
+          )}
         </div>
         <FilterSidebar
           onFilterChange={handleFilterChange}
@@ -467,6 +440,7 @@ export default function Home() {
         <ResultsTable
           results={filteredResults}
           onToggleFilters={() => setIsFilterOpen(!isFilterOpen)}
+          hasActiveFilters={hasActiveFilters}
           enableCatVrsQueries={enableCatVrsQueries}
           onEnableCatVrsQueriesChange={setEnableCatVrsQueries}
         />

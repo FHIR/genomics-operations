@@ -4,8 +4,11 @@ interface SearchFormProps {
   searchInput: string;
   setSearchInput: (value: string) => void;
   handleSearch: () => void;
+  selectedCancerType: string;
+  onPresetSelect: (label: string) => void;
   enableCatVrsQueries: boolean;
   onEnableCatVrsQueriesChange: (enabled: boolean) => void;
+  embedded?: boolean;
   className?: string;
 }
 
@@ -102,51 +105,97 @@ export default function SearchForm({
   searchInput,
   setSearchInput,
   handleSearch,
+  selectedCancerType,
+  onPresetSelect,
   enableCatVrsQueries,
   onEnableCatVrsQueriesChange,
+  embedded = false,
   className = 'mb-8',
 }: SearchFormProps) {
-  return (
-    <div className={`bg-gray-100 p-8 rounded-lg shadow-sm ${className}`.trim()}>
+  const presetButtons = [
+    {
+      label: 'Actionable Genes',
+      value: 'Actionable Gene List',
+    },
+    {
+      label: 'Extended Gene List',
+      value: 'Extended Gene List',
+    },
+  ] as const;
 
-      {/* Gene Symbols section */}
-      <p className="text-sm text-gray-600 mb-4">Enter Gene Symbols or Genomic Ranges (comma-separated). Ranges must be in zero-based RefSeq:Integer-range format (e.g. &apos;NC_000007.14:55019016-55211628&apos;)</p>
-      <div className="flex gap-4">
-        {/* Search input field */}
+  const containerClassName = embedded
+    ? className.trim()
+    : `bg-gray-100 p-8 rounded-lg shadow-sm ${className}`.trim();
+
+  const presetHelpText = selectedCancerType
+    ? 'Available for the selected cancer type.'
+    : 'Select a cancer type to enable.';
+
+  return (
+    <div className={containerClassName}>
+      <div className="rounded-xl border border-blue-100 bg-white p-4 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9)]">
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <div>
+            <label htmlFor="search-terms-input" className="block text-sm font-semibold text-gray-900">Search terms</label>
+            <p className="mt-1 text-sm text-gray-600">Gene symbols or genomic ranges, separated by commas. Ranges must use zero-based RefSeq:start-end format.</p>
+          </div>
+          <button
+            onClick={handleSearch}
+            className="shrink-0 rounded-md border border-blue-700 bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_3px_0_0_rgb(29_78_216)] transition-[transform,box-shadow,background-color] hover:bg-blue-700 hover:shadow-[0_2px_0_0_rgb(30_64_175)] active:translate-y-px active:shadow-[0_1px_0_0_rgb(30_64_175)] focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2"
+          >
+            Search
+          </button>
+        </div>
+
         <input
+          id="search-terms-input"
           type="text"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          className="flex-1 bg-white text-black p-4 rounded-lg text-lg border border-gray-200"
-          onKeyDown={(e) => e.key === 'Enter' && handleSearch()} // Trigger search on Enter key
-          placeholder="e.g., BRAF, EGFR, ALK"
+          className="w-full rounded-xl border-2 border-blue-100 bg-white px-4 py-4 text-lg text-black shadow-sm outline-none transition-colors placeholder:text-gray-400 focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+          placeholder="BRAF, EGFR, ALK"
         />
-        {/* Search button */}
-        <button
-          onClick={handleSearch}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg"
-        >
-          Search
-        </button>
+
+        <div className="mt-3 border-t border-gray-100 pt-3">
+          <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500">
+            <span className="font-semibold text-gray-700">Examples:</span>
+            <span className="font-mono">BRAF</span>
+            <span className="text-gray-300">•</span>
+            <span className="font-mono">NC_000007.14:140713327-140924929</span>
+            <span className="text-gray-300">•</span>
+            <span className="font-mono">NC_000007.14:55174721-55174820, BRAF, EGFR, ALK</span>
+          </div>
+
+          <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-gray-500">
+            <span className="font-semibold text-gray-700">Presets:</span>
+            <span>{presetHelpText}</span>
+            {presetButtons.map((preset) => {
+              return (
+                <button
+                  key={preset.value}
+                  type="button"
+                  onClick={() => onPresetSelect(preset.value)}
+                  disabled={!selectedCancerType}
+                  className="inline-flex items-center rounded-full border border-slate-300 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-100 disabled:text-gray-400"
+                >
+                  {preset.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
+
       <div className="mt-3 flex justify-end">
-        <label className="flex items-center gap-2 rounded border border-gray-300 bg-white px-4 py-2 text-sm text-gray-700 shadow-sm">
+        <label className="flex items-center gap-2 rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 shadow-sm">
           <input
             type="checkbox"
             checked={enableCatVrsQueries}
             onChange={(event) => onEnableCatVrsQueriesChange(event.target.checked)}
           />
-          <span className="font-semibold">Enable Cat-VRS queries (experimental)</span>
+          <span className="font-medium">Enable Cat-VRS queries</span>
         </label>
-      </div>
-      <div className="mt-2 text-sm text-gray-600">
-        <p>Examples:</p>
-        <ul className="list-disc pl-5 space-y-1">
-          <li><span className="font-mono bg-gray-200 px-1 rounded">NC_000007.14:140713327-140924929</span> - BRAF</li>
-          <li><span className="font-mono bg-gray-200 px-1 rounded">NC_000007.14:55174721-55174820</span> - EGFR exon 19</li>
-          <li><span className="font-mono bg-gray-200 px-1 rounded">NC_000002.12:29190991-29921589</span> - ALK</li>
-          <li><span className="font-mono bg-gray-200 px-1 rounded">BRAF, EGFR, ALK</span> - Search multiple genes at once</li>
-        </ul>
       </div>
     </div>
   );

@@ -2,7 +2,18 @@ import { useState, useMemo, useEffect } from 'react';
 import { Sidebar } from '@/components/sidebar';
 import { Variant } from '@/types/variants';
 
-export type FilterSource = 'user' | 'radio' | 'system';
+export type FilterSource = 'user';
+
+export const ACTIONABILITY_OPTIONS = [
+  'Actionable, this tumor type',
+  'Actionable, any tumor type',
+  'Possibly actionable',
+  'None',
+] as const;
+
+export type ActionabilityFilter = typeof ACTIONABILITY_OPTIONS[number];
+
+export const DEFAULT_ACTIONABILITY_FILTER: ActionabilityFilter = 'Actionable, this tumor type';
 
 export interface ActiveFilter<T> {
   value: T;
@@ -18,8 +29,7 @@ export interface FilterCriteria {
   selectedTxMedications: string[];
   selectedTxImplications: string[];
   selectedTxPhenotypes: string[];
-  actionableFilter?: string;
-  evidenceLevelSource?: FilterSource;
+  actionableFilter: ActionabilityFilter;
 }
 
 interface FilterSidebarProps {
@@ -73,7 +83,8 @@ export default function FilterSidebar({ isOpen, onClose, onFilterChange, results
     selectedTxEvidence: [],
     selectedTxMedications: [],
     selectedTxImplications: [],
-    selectedTxPhenotypes: []
+    selectedTxPhenotypes: [],
+    actionableFilter: DEFAULT_ACTIONABILITY_FILTER,
   });
 
   // Sync filters with currentFilters prop
@@ -84,10 +95,23 @@ export default function FilterSidebar({ isOpen, onClose, onFilterChange, results
   }, [currentFilters]);
 
   const [openSections, setOpenSections] = useState({
+    actionability: true,
     molecular: false,
     therapeutic: false,
     dx: false
   });
+
+  const hasResettableFilters = useMemo(() => {
+    return filters.actionableFilter !== DEFAULT_ACTIONABILITY_FILTER ||
+      filters.selectedImpacts.length > 0 ||
+      filters.selectedConsequences.length > 0 ||
+      filters.selectedDxSignificances.length > 0 ||
+      filters.selectedDxStars.length > 0 ||
+      filters.selectedTxEvidence.length > 0 ||
+      filters.selectedTxMedications.length > 0 ||
+      filters.selectedTxImplications.length > 0 ||
+      filters.selectedTxPhenotypes.length > 0;
+  }, [filters]);
 
   const toggleSection = (section: keyof typeof openSections) => {
     setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
@@ -311,20 +335,18 @@ export default function FilterSidebar({ isOpen, onClose, onFilterChange, results
     let newSelectedTxEvidence: ActiveFilter<string>[];
 
     if (existingFilterIndex !== -1) {
-      // Remove the filter if it exists and is user-added
-      const existingFilter = filters.selectedTxEvidence[existingFilterIndex];
-      if (existingFilter.source === 'user') {
-        newSelectedTxEvidence = filters.selectedTxEvidence.filter(f => f.value !== evidence);
-      } else {
-        // Can't remove system/radio filters
-        return;
-      }
+      newSelectedTxEvidence = filters.selectedTxEvidence.filter(f => f.value !== evidence);
     } else {
-      // Add as user filter
       newSelectedTxEvidence = [...filters.selectedTxEvidence, { value: evidence, source: 'user' }];
     }
 
     const newFilters = { ...filters, selectedTxEvidence: newSelectedTxEvidence };
+    setFilters(newFilters);
+    onFilterChange(newFilters);
+  };
+
+  const handleActionabilityChange = (actionableFilter: ActionabilityFilter) => {
+    const newFilters = { ...filters, actionableFilter };
     setFilters(newFilters);
     onFilterChange(newFilters);
   };
@@ -360,21 +382,16 @@ export default function FilterSidebar({ isOpen, onClose, onFilterChange, results
   };
 
   const handleReset = () => {
-    // Preserve radio button filters when resetting
-    const radioFilters = filters.selectedTxEvidence.filter(f => f.source === 'radio');
-
     const resetFilters: FilterCriteria = {
       selectedImpacts: [],
       selectedConsequences: [],
       selectedDxSignificances: [],
       selectedDxStars: [],
-      selectedTxEvidence: radioFilters, // Keep radio button filters
+      selectedTxEvidence: [],
       selectedTxMedications: [],
       selectedTxImplications: [],
       selectedTxPhenotypes: [],
-      // Preserve the actionable filter info
-      actionableFilter: filters.actionableFilter,
-      evidenceLevelSource: filters.evidenceLevelSource
+      actionableFilter: DEFAULT_ACTIONABILITY_FILTER,
     };
     setFilters(resetFilters);
     onFilterChange(resetFilters);
@@ -390,32 +407,40 @@ export default function FilterSidebar({ isOpen, onClose, onFilterChange, results
       {/* Scrollable content area */}
       <div className="flex-1 overflow-y-auto">
         <div className="p-4">
-          {/* Actionable Filter Status Section */}
-          {filters.actionableFilter && (
-            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-              <h4 className="font-medium text-blue-900 mb-2">Active Radio Button Filter</h4>
-              <div className="text-sm text-blue-800">
-                <div className="mb-1">
-                  <span className="font-medium">Filter Type:</span> {filters.actionableFilter}
-                </div>
-                {filters.selectedTxEvidence.filter(f => f.source === 'radio').length > 0 && (
-                  <div className="mb-1">
-                    <span className="font-medium">Applied Evidence Levels:</span>{' '}
-                    {filters.selectedTxEvidence
-                      .filter(f => f.source === 'radio')
-                      .map(f => f.value)
-                      .join(', ')}
-                  </div>
-                )}
-                <div className="text-xs text-blue-600">
-                  {filters.actionableFilter === "Possibly actionable"
-                    ? "This filter selects all non-A evidence levels (B, C, D, E, etc.) and excludes A-level evidence."
-                    : "This filter requires A-level evidence and applies phenotype matching based on your selected cancer type."
-                  }
-                </div>
-              </div>
+          <FilterSection
+            title="Actionability"
+            isOpen={openSections.actionability}
+            onToggle={() => toggleSection('actionability')}
+          >
+            <div className="space-y-3">
+              {ACTIONABILITY_OPTIONS.map((option) => (
+                <label key={option} className="flex items-start gap-2">
+                  <input
+                    type="radio"
+                    name="actionability-filter"
+                    checked={filters.actionableFilter === option}
+                    onChange={() => handleActionabilityChange(option)}
+                    className="mt-1 border-gray-300 text-blue-600 focus:ring-blue-500"
+                  />
+                  <span className="text-sm text-gray-700">
+                    <span className="font-medium">{option}</span>
+                    {option === 'Actionable, this tumor type' && (
+                      <span className="block text-xs text-gray-500">A-level evidence with phenotype matching for the selected cancer type.</span>
+                    )}
+                    {option === 'Actionable, any tumor type' && (
+                      <span className="block text-xs text-gray-500">A-level evidence for any tumor type.</span>
+                    )}
+                    {option === 'Possibly actionable' && (
+                      <span className="block text-xs text-gray-500">Non-A evidence levels only.</span>
+                    )}
+                    {option === 'None' && (
+                      <span className="block text-xs text-gray-500">Do not apply actionability filtering.</span>
+                    )}
+                  </span>
+                </label>
+              ))}
             </div>
-          )}
+          </FilterSection>
 
           <FilterSection
             title="Molecular Consequences"
@@ -434,7 +459,7 @@ export default function FilterSidebar({ isOpen, onClose, onFilterChange, results
                         onChange={() => handleSelectedImpactChange(impact)}
                         className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       />
-                       <span className="text-sm" style={{ marginLeft: '4px' }}>{impact}</span>
+                      <span className="text-sm" style={{ marginLeft: '4px' }}>{impact}</span>
                     </label>
                   ))}
                 </div>
@@ -469,34 +494,17 @@ export default function FilterSidebar({ isOpen, onClose, onFilterChange, results
                 <h4 className="font-medium mb-2 mt-4">Evidence Level</h4>
                 <div className="space-y-2 max-h-40 overflow-y-auto">
                   {txEvidenceLevels.map(evidence => {
-                    const existingFilter = filters.selectedTxEvidence.find(f => f.value === evidence);
-                    const isChecked = !!existingFilter;
-                    const isDisabled = existingFilter?.source === 'radio' || existingFilter?.source === 'system';
+                    const isChecked = filters.selectedTxEvidence.some(f => f.value === evidence);
 
                     return (
-                      <label key={evidence} className={`flex items-center ${isDisabled ? 'opacity-75' : ''}`}>
+                      <label key={evidence} className="flex items-center">
                         <input
                           type="checkbox"
                           checked={isChecked}
-                          disabled={isDisabled}
                           onChange={() => handleSelectedTxEvidenceChange(evidence)}
-                          className={`rounded border-gray-300 focus:ring-blue-500 ${
-                            isDisabled ? 'text-gray-400' : 'text-blue-600'
-                          }`}
+                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                         />
-                        <span className="text-sm" style={{ marginLeft: '4px' }}>
-                          {evidence}
-                          {existingFilter?.source === 'radio' && (
-                            <span className="ml-2 px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">
-                              Actionable Filter
-                            </span>
-                          )}
-                          {existingFilter?.source === 'system' && (
-                            <span className="ml-2 px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded">
-                              System
-                            </span>
-                          )}
-                        </span>
+                        <span className="text-sm" style={{ marginLeft: '4px' }}>{evidence}</span>
                       </label>
                     );
                   })}
@@ -609,7 +617,10 @@ export default function FilterSidebar({ isOpen, onClose, onFilterChange, results
         <div className="flex justify-between items-center">
           <button
             onClick={handleReset}
-            className="px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors"
+            className={`rounded px-4 py-2 transition-colors ${hasResettableFilters
+              ? 'bg-amber-100 font-semibold text-amber-900 ring-1 ring-inset ring-amber-300 hover:bg-amber-200'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
           >
             Reset Filters
           </button>
@@ -620,11 +631,6 @@ export default function FilterSidebar({ isOpen, onClose, onFilterChange, results
             Close
           </button>
         </div>
-        {filters.actionableFilter && (
-          <div className="mt-2 text-xs text-gray-600 text-center">
-            To clear radio button filters, change the selection above the search box
-          </div>
-        )}
       </div>
     </Sidebar>
   );

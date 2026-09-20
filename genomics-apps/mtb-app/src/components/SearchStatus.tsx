@@ -2,6 +2,7 @@ interface SearchStatusProps {
   searchStatus: Record<string, string>;
   invalidRanges: string[];
   onCancelSearch: () => void;
+  embedded?: boolean;
   className?: string;
 }
 
@@ -9,16 +10,23 @@ export default function SearchStatus({
   searchStatus,
   invalidRanges,
   onCancelSearch,
+  embedded = false,
   className = '',
 }: SearchStatusProps) {
   // Determine if any range is currently searching
   const isSearching = Object.values(searchStatus).includes('searching');
+  const hasSearchStatus = Object.keys(searchStatus).length > 0;
+  const hasInvalidRanges = invalidRanges.length > 0;
+
+  if (!hasSearchStatus && !hasInvalidRanges && !embedded) {
+    return null;
+  }
 
   return (
     <>
       {/* Search Status Section */}
-      {Object.keys(searchStatus).length > 0 && (
-        <div className={`bg-gray-100 p-4 rounded-lg shadow-sm overflow-hidden ${className}`.trim()}>
+      {hasSearchStatus ? (
+        <div className={`${embedded ? '' : 'bg-gray-100 rounded-lg shadow-sm'} p-4 overflow-hidden ${className}`.trim()}>
           <h3 className="mb-2 text-base font-medium">Search Status</h3>
           <div className="space-y-1.5 overflow-y-auto pr-1 max-h-[24rem] text-sm">
             {Object.entries(searchStatus).map(([range, status]) => (
@@ -57,11 +65,16 @@ export default function SearchStatus({
             </div>
           )}
         </div>
-      )}
+      ) : embedded ? (
+        <div className={`p-4 ${className}`.trim()}>
+          <h3 className="mb-2 text-base font-medium">Search Status</h3>
+          <p className="text-sm text-gray-500">Status updates will appear here after you run a search.</p>
+        </div>
+      ) : null}
 
       {/* Invalid Ranges Section */}
-      {invalidRanges.length > 0 && (
-        <div className="bg-red-50 p-4 rounded-lg mb-4 shadow-sm border border-red-200">
+      {hasInvalidRanges && (
+        <div className={`${embedded ? 'mt-4 border border-red-200 bg-red-50' : 'mb-4 border border-red-200 bg-red-50 shadow-sm'} rounded-lg p-4`}>
           <h3 className="text-lg font-medium text-red-700 mb-2">Unprocessable Ranges</h3>
           <ul className="list-disc pl-5 text-red-600">
             {invalidRanges.map((range, index) => (

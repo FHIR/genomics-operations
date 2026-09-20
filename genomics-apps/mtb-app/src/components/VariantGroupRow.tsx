@@ -3,7 +3,9 @@ import { Variant } from '@/types/variants';
 import { DxImplication } from '@/services/dxService';
 import { ProcessedTxImplication } from '@/services/txService';
 import { MolecularConsequence } from '@/services/mcService';
+import { OncogenicityPredictionResult } from '@/types/oncogenicity';
 import LoadingCell from './LoadingCell';
+import OncogenicityPredictionCell from './OncogenicityPredictionCell';
 import { ResultsTableColumnDefinition } from './resultsTableColumns';
 
 interface VariantGroupRowProps {
@@ -13,6 +15,10 @@ interface VariantGroupRowProps {
     renderDxImplications: (dx?: DxImplication[]) => JSX.Element;
     renderTxImplications: (tx?: ProcessedTxImplication[]) => JSX.Element;
     renderMolecularConsequences: (mc?: MolecularConsequence[]) => JSX.Element;
+    oncogenicityResults: Record<string, OncogenicityPredictionResult>;
+    getOncogenicityKey: (variant: Variant) => string;
+    onComputeOncogenicity: (variant: Variant) => void;
+    onOpenOncogenicityDetails: (variant: Variant) => void;
 }
 
 const getSimpleVariantLabel = (variantString: string) => {
@@ -76,6 +82,10 @@ export default function VariantGroupRow({
     renderDxImplications,
     renderTxImplications,
     renderMolecularConsequences,
+    oncogenicityResults,
+    getOncogenicityKey,
+    onComputeOncogenicity,
+    onOpenOncogenicityDetails,
 }: VariantGroupRowProps) {
     const [expanded, setExpanded] = useState(false);
 
@@ -113,7 +123,14 @@ export default function VariantGroupRow({
                     );
                 case 'oncogenicityPrediction':
                     return (
-                        <td key={column.id} className="p-3 align-top text-sm text-gray-600 whitespace-normal break-words" />
+                        <td key={column.id} className="p-3 align-top text-sm text-gray-600 whitespace-normal break-words">
+                            <OncogenicityPredictionCell
+                                variant={variant}
+                                result={oncogenicityResults[getOncogenicityKey(variant)]}
+                                onComputePrediction={onComputeOncogenicity}
+                                onOpenDetails={onOpenOncogenicityDetails}
+                            />
+                        </td>
                     );
                 case 'molecularConsequences':
                     return (

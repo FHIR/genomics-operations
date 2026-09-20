@@ -11,17 +11,18 @@ type KBRow = {
 interface RegionLoaderProps {
     cancerType: string;
     label: string;
+    requestId: number;
     onRegionsLoaded: (regions: string[]) => void;
     onPhenotypesLoaded?: (phenotypes: Set<string>) => void;
 }
 
 
 
-export default function RegionLoader({ cancerType, label, onRegionsLoaded, onPhenotypesLoaded }: RegionLoaderProps) {
+export default function RegionLoader({ cancerType, label, requestId, onRegionsLoaded, onPhenotypesLoaded }: RegionLoaderProps) {
     const [kbRows, setKbRows] = useState<KBRow[]>([]);
 
     useEffect(() => {
-        Papa.parse("/data/MTB_KB.csv", {
+        Papa.parse("/data/MTB_KB_GeneLists.csv", {
             header: true,
             download: true,
             complete: (result) => {
@@ -49,15 +50,15 @@ export default function RegionLoader({ cancerType, label, onRegionsLoaded, onPhe
     }, [onPhenotypesLoaded]);
 
     useEffect(() => {
-        if (!cancerType || !label || kbRows.length === 0) return;
+        if (!cancerType || !label || requestId === 0 || kbRows.length === 0) return;
 
-        // Use cancer type directly from CSV data
+        // Load predefined gene lists for the selected cancer type and preset label.
         const matchedRegions = kbRows
             .filter((row) => row["Cancer category"] === cancerType && row["Label"] === label)
             .map((row) => row["Region"]);
 
         onRegionsLoaded(matchedRegions);
-    }, [cancerType, label, kbRows, onRegionsLoaded]);
+    }, [cancerType, label, requestId, kbRows, onRegionsLoaded]);
 
     return null; // it only loads data
 }
