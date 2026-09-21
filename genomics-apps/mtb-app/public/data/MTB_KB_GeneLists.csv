@@ -1,55 +1,55 @@
 Cancer category,Phenotype (for filtering implications),Label,Region
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,AKT1
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,BRCA1
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,BRCA2
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,ERBB2
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,ESR1
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,NTRK1
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,NTRK2
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,NTRK3
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,PIK3CA
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,PTEN
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,AKT1
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,AR
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,ATM
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,BRCA1
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,BRCA2
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,CHEK2
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,ERBB2
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,ESR1
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,FGFR1
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,NTRK1
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,NTRK2
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,NTRK3
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,PALB2
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,PIK3CA
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,PTEN
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,RB1
-Breast carcinoma,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,TP53
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,ALK
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,BRAF
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,EGFR
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,ERBB2
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,KRAS
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,MET
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,NTRK1
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,NTRK2
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,NTRK3
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,RET
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,ROS1
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,ALK
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,BRAF
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,EGFR
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,ERBB2
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,KEAP1
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,KRAS
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,MET
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,NRG1
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,NTRK1
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,NTRK2
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,NTRK3
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,PIK3CA
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,RET
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,ROS1
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,STK11
-NSCLC,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,TP53
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,AKT1
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,BRCA1
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,BRCA2
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,ERBB2
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,ESR1
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,NTRK1
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,NTRK2
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,NTRK3
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,PIK3CA
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,PTEN
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,AKT1
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,AR
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,ATM
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,BRCA1
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,BRCA2
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,CHEK2
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,ERBB2
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,ESR1
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,FGFR1
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,NTRK1
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,NTRK2
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,NTRK3
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,PALB2
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,PIK3CA
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,PTEN
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,RB1
+Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,TP53
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,ALK
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,BRAF
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,EGFR
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,ERBB2
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,KRAS
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,MET
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,NTRK1
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,NTRK2
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,NTRK3
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,RET
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,ROS1
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,ALK
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,BRAF
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,EGFR
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,ERBB2
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,KEAP1
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,KRAS
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,MET
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,NRG1
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,NTRK1
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,NTRK2
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,NTRK3
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,PIK3CA
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,RET
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,ROS1
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,STK11
+Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,TP53

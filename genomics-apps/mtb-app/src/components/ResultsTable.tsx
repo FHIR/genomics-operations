@@ -83,6 +83,7 @@ function normalizeColumnOrder(columnOrder?: ColumnId[]) {
 
 interface ResultsTableProps {
   results: Variant[];
+  selectedCancerType: string;
   onToggleFilters: () => void;
   hasActiveFilters: boolean;
   enableCatVrsQueries: boolean;
@@ -208,6 +209,7 @@ function getMinimumColumnWidth(columnId: ColumnId) {
 
 export default function ResultsTable({
   results,
+  selectedCancerType,
   onToggleFilters,
   hasActiveFilters,
   enableCatVrsQueries,
@@ -527,6 +529,7 @@ export default function ResultsTable({
   };
 
   const selectedOncogenicityResult = selectedOncogenicityKey ? oncogenicityResults[selectedOncogenicityKey] : undefined;
+  const predictorTumorType = selectedCancerType.trim() || undefined;
 
   const computeOncogenicityPrediction = async (variant: Variant) => {
     const key = getOncogenicityKey(variant);
@@ -554,6 +557,7 @@ export default function ResultsTable({
         },
         body: JSON.stringify({
           spdi: variant.variant,
+          tumorType: predictorTumorType,
         }),
       });
 
@@ -623,6 +627,7 @@ export default function ResultsTable({
         },
         body: JSON.stringify({
           spdi: selectedOncogenicityResult.spdi,
+          tumorType: predictorTumorType,
         }),
       });
 

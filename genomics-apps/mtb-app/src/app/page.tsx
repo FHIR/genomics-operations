@@ -439,6 +439,7 @@ export default function Home() {
         />
         <ResultsTable
           results={filteredResults}
+          selectedCancerType={selectedCancerType}
           onToggleFilters={() => setIsFilterOpen(!isFilterOpen)}
           hasActiveFilters={hasActiveFilters}
           enableCatVrsQueries={enableCatVrsQueries}

@@ -35,8 +35,11 @@ export async function convertSpdiToHgvs(spdi: string) {
     return hgvs;
 }
 
-export async function fetchPredictionObservation(hgvs: string) {
+export async function fetchPredictionObservation(hgvs: string, tumorType?: string) {
     const params = new URLSearchParams({ variant: hgvs });
+    if (tumorType) {
+        params.set('tumorType', tumorType);
+    }
     const response = await fetchJsonResponse(`${PREDICTOR_BASE_URL}/predictOncogenicity?${params.toString()}`);
 
     if (!response.ok) {
@@ -46,8 +49,11 @@ export async function fetchPredictionObservation(hgvs: string) {
     return response.json() as Promise<unknown>;
 }
 
-export async function fetchEvidenceSummary(hgvs: string) {
+export async function fetchEvidenceSummary(hgvs: string, tumorType?: string) {
     const params = new URLSearchParams({ variant: hgvs });
+    if (tumorType) {
+        params.set('tumorType', tumorType);
+    }
     const response = await fetchJsonResponse(`${PREDICTOR_BASE_URL}/summarizeEvidence?${params.toString()}`);
 
     if (!response.ok) {

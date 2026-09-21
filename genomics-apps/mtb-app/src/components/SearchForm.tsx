@@ -136,8 +136,11 @@ export default function SearchForm({
       <div className="rounded-xl border border-blue-100 bg-white p-4 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9)]">
         <div className="mb-3 flex items-center justify-between gap-3">
           <div>
-            <label htmlFor="search-terms-input" className="block text-sm font-semibold text-gray-900">Search terms</label>
-            <p className="mt-1 text-sm text-gray-600">Gene symbols or genomic ranges, separated by commas. Ranges must use zero-based RefSeq:start-end format.</p>
+            <label htmlFor="search-terms-input" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-900">
+              <span className="inline-block h-2.5 w-2.5 rounded-full bg-sky-500 shadow-[0_0_0_4px_rgba(14,165,233,0.14)]" />
+              <span>Search terms</span>
+            </label>
+            <p className="mt-1 text-sm text-slate-600">Gene symbols or genomic ranges, separated by commas. Ranges must use zero-based RefSeq:start-end format.</p>
           </div>
           <button
             onClick={handleSearch}
@@ -152,7 +155,7 @@ export default function SearchForm({
           type="text"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          className="w-full rounded-xl border-2 border-blue-100 bg-white px-4 py-4 text-lg text-black shadow-sm outline-none transition-colors placeholder:text-gray-400 focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+          className="w-full rounded-xl border-2 border-sky-300 bg-sky-50/55 px-4 py-4 text-lg text-slate-950 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95),0_2px_10px_rgba(14,116,144,0.08)] outline-none transition-[border-color,box-shadow,background-color] placeholder:text-slate-500 focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-100"
           onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
           placeholder="BRAF, EGFR, ALK"
         />
