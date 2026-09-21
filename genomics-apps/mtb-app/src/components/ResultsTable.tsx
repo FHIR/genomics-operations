@@ -871,6 +871,15 @@ export default function ResultsTable({
                   >
                     Horak et al. 2022
                   </a>
+                  , implemented using{' '}
+                  <a
+                    href="https://github.com/rhdolin/oncogenicity-predictor"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium text-blue-700 underline decoration-blue-300 underline-offset-2 hover:text-blue-800"
+                  >
+                    OncogenicityPredictor v1
+                  </a>
                   .
                 </p>
               </div>
