@@ -1,5 +1,15 @@
 import { Variant } from '@/types/variants';
 
+function isNsclcCancerType(selectedCancerType: string) {
+  const cancerTypeLower = selectedCancerType.toLowerCase();
+  return cancerTypeLower === "nsclc" || cancerTypeLower === "non-small cell lung cancer";
+}
+
+function isBreastCancerType(selectedCancerType: string) {
+  const cancerTypeLower = selectedCancerType.toLowerCase();
+  return cancerTypeLower === "breast carcinoma" || cancerTypeLower === "breast cancer";
+}
+
 // Helper function to check phenotype match for individual implications
 function isPhenotypeMatchForImplication(
   phenotype: string | undefined,
@@ -13,13 +23,13 @@ function isPhenotypeMatchForImplication(
     const phenotypeLower = p.toLowerCase();
     const cancerTypeLower = selectedCancerType.toLowerCase();
 
-    // For NSCLC, also check for "lung" and "non-small cell" patterns
-    if (selectedCancerType === "NSCLC") {
+    // For NSCLC, also check for "lung" and "non-small cell" patterns.
+    if (isNsclcCancerType(selectedCancerType)) {
       return phenotypeLower.includes("lung") && phenotypeLower.includes("non-small");
     }
 
-    // For Breast carcinoma, check for "breast" patterns
-    if (selectedCancerType === "Breast carcinoma") {
+    // For breast cancer, check for "breast" patterns.
+    if (isBreastCancerType(selectedCancerType)) {
       return phenotypeLower.includes("breast");
     }
 
@@ -124,11 +134,11 @@ export function filterActionableOtherTumor(
     // We need to get the specific phenotypes for the selected cancer type
     // For now, we'll use a simple approach based on the cancer type
     mtbKbPhenotypes.forEach(phenotype => {
-      if (selectedCancerType === "Breast carcinoma" &&
-          (phenotype.toLowerCase().includes("breast"))) {
+      if (isBreastCancerType(selectedCancerType) &&
+        (phenotype.toLowerCase().includes("breast"))) {
         selectedCancerPhenotypes.add(phenotype);
-      } else if (selectedCancerType === "NSCLC" &&
-                 (phenotype.toLowerCase().includes("lung"))) {
+      } else if (isNsclcCancerType(selectedCancerType) &&
+        (phenotype.toLowerCase().includes("lung"))) {
         selectedCancerPhenotypes.add(phenotype);
       }
     });

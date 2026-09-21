@@ -1,3 +1,13 @@
+function isNsclcCancerType(selectedCancerType: string) {
+  const cancerTypeLower = selectedCancerType.toLowerCase();
+  return cancerTypeLower === "nsclc" || cancerTypeLower === "non-small cell lung cancer";
+}
+
+function isBreastCancerType(selectedCancerType: string) {
+  const cancerTypeLower = selectedCancerType.toLowerCase();
+  return cancerTypeLower === "breast carcinoma" || cancerTypeLower === "breast cancer";
+}
+
 // Helper function to check phenotype match for individual implications
 export function isPhenotypeMatchForImplication(
   phenotype: string | undefined,
@@ -11,13 +21,13 @@ export function isPhenotypeMatchForImplication(
     const phenotypeLower = p.toLowerCase();
     const cancerTypeLower = selectedCancerType.toLowerCase();
 
-    // For NSCLC, also check for "lung" and "non-small cell" patterns
-    if (selectedCancerType === "NSCLC") {
+    // For NSCLC, also check for "lung" and "non-small cell" patterns.
+    if (isNsclcCancerType(selectedCancerType)) {
       return phenotypeLower.includes("lung") && phenotypeLower.includes("non-small");
     }
 
-    // For Breast carcinoma, check for "breast" patterns
-    if (selectedCancerType === "Breast carcinoma") {
+    // For breast cancer, check for "breast" patterns.
+    if (isBreastCancerType(selectedCancerType)) {
       return phenotypeLower.includes("breast");
     }
 
@@ -32,27 +42,27 @@ export function isOtherTumorType(
   mtbKbPhenotypes: Set<string>
 ): boolean {
   if (!phenotype || !mtbKbPhenotypes.has(phenotype)) return false;
-  
+
   // Check if it's NOT the selected cancer type
   const selectedCancerPhenotypes = new Set<string>();
   if (mtbKbPhenotypes.size > 0) {
     mtbKbPhenotypes.forEach(p => {
-      if (selectedCancerType === "Breast carcinoma" && p.toLowerCase().includes("breast")) {
+      if (isBreastCancerType(selectedCancerType) && p.toLowerCase().includes("breast")) {
         selectedCancerPhenotypes.add(p);
-      } else if (selectedCancerType === "NSCLC" && p.toLowerCase().includes("lung")) {
+      } else if (isNsclcCancerType(selectedCancerType) && p.toLowerCase().includes("lung")) {
         selectedCancerPhenotypes.add(p);
       }
     });
   }
-  
+
   return !selectedCancerPhenotypes.has(phenotype);
 }
 
 // Helper function to check if evidence level is A-level
 export function isALevelEvidence(evidenceLevel: string | undefined): boolean {
   if (!evidenceLevel) return false;
-  
-  return evidenceLevel.startsWith("A ") || 
-         evidenceLevel === "A" || 
-         evidenceLevel.includes("Validated association");
+
+  return evidenceLevel.startsWith("A ") ||
+    evidenceLevel === "A" ||
+    evidenceLevel.includes("Validated association");
 }
