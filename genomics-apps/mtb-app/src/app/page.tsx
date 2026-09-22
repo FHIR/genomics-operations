@@ -378,7 +378,7 @@ export default function Home() {
           }}
         />
 
-        <div className="mb-8 overflow-hidden rounded-2xl border-2 border-slate-400 bg-gradient-to-br from-gray-50 to-white shadow-sm">
+        <div className="mb-8 overflow-hidden rounded-2xl border-2 border-slate-400 bg-gradient-to-br from-slate-100 to-slate-50 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-slate-300 px-5 py-4">
             <div>
               <h2 className="text-lg font-semibold text-gray-900">Search Workspace</h2>
