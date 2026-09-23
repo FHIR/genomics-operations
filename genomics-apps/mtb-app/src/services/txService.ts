@@ -14,6 +14,7 @@ const CIVIC_IDENTIFIER_URLS: Record<string, (value: string) => string> = {
 };
 
 export interface ProcessedTxImplication {
+    resourceId?: string;
     phenotypicContext: string;
     evidenceLevel: string;
     medication: string;
@@ -27,6 +28,7 @@ export interface ProcessedTxImplication {
 }
 
 const getTxImplicationIdentityKey = (implication: ProcessedTxImplication) => [
+    implication.resourceId,
     implication.evidenceLevel,
     implication.medication,
     implication.phenotypicContext,
@@ -148,6 +150,7 @@ const txExtraFieldsExtractor = (resource: FhirObservation): Partial<ProcessedTxI
         const clinicalTrialId = medicationCoding?.code || '';
 
         return {
+            resourceId: resource.id,
             hyperlink: clinicalTrialId ? `https://clinicaltrials.gov/study/${clinicalTrialId}` : '',
             hyperlinkLabel: clinicalTrialId ? 'Clinical Trial link' : undefined,
             hyperlinkTitle: medicationCoding?.display || '',
@@ -158,6 +161,7 @@ const txExtraFieldsExtractor = (resource: FhirObservation): Partial<ProcessedTxI
     }
 
     return {
+        resourceId: resource.id,
         hyperlink: getCivicHyperlink(resource),
         sourceObservationIds: getDerivedFromObservationIds(resource),
     };

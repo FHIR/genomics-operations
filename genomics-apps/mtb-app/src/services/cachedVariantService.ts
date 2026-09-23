@@ -92,9 +92,22 @@ export const findSubjectVariantsWithCache = async (
 
       // Extract results and handle failures gracefully
       const dxImplications = dx.status === 'fulfilled' ? dx.value : [];
+      const exactVariantTxImplications = tx.status === 'fulfilled'
+        ? tx.value.filter((implication) => {
+          if (!variant.sourceObservationId) {
+            return true;
+          }
+
+          if (!implication.sourceObservationIds || implication.sourceObservationIds.length === 0) {
+            return true;
+          }
+
+          return implication.sourceObservationIds.includes(variant.sourceObservationId);
+        })
+        : [];
       const txImplications = mergeTxImplications(
         rangeBasedTxImplications,
-        tx.status === 'fulfilled' ? tx.value : []
+        exactVariantTxImplications
       );
       const molecularConsequences = mc.status === 'fulfilled' ? mc.value : [];
 

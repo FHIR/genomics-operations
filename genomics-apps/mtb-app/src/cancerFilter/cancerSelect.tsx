@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { loadGeneListKbRows } from "@/cancerFilter/geneListKb";
+import { getAvailableCancerTypes, loadGeneListKbRows } from "@/cancerFilter/geneListKb";
 
 interface CancerSelectProps {
     onSelect: (type: string) => void;
@@ -11,15 +11,7 @@ const CancerSelect = ({ onSelect }: CancerSelectProps) => {
 
     useEffect(() => {
         loadGeneListKbRows().then((rows) => {
-            const availableTypes: string[] = Array.from(
-                new Set(
-                    rows
-                        .map((row) => row["Cancer category"])
-                        .filter((type): type is string => Boolean(type))
-                )
-            ).sort((left, right) => left.localeCompare(right));
-
-            setCancerTypes(availableTypes);
+            setCancerTypes(getAvailableCancerTypes(rows));
         });
     }, []);
 

@@ -10,6 +10,7 @@ import SearchStatus from '../components/SearchStatus';
 import ResultsTable from '../components/ResultsTable';
 import CancerSelect from "@/cancerFilter/cancerSelect";
 import RegionLoader from "@/cancerFilter/regionLoader";
+import { PresetSelection } from "@/cancerFilter/geneListKb";
 import FilterSidebar from "@/cancerFilter/FilterSidebar";
 import { DEFAULT_ACTIONABILITY_FILTER, FilterCriteria } from "@/cancerFilter/FilterSidebar";
 import { applyFiltersToVariants } from "@/cancerFilter/filterUtils";
@@ -53,7 +54,7 @@ export default function Home() {
   const [enableCatVrsQueries, setEnableCatVrsQueries] = useState(false);
   const [isHowToUseOpen, setIsHowToUseOpen] = useState(false);
   const [selectedCancerType, setSelectedCancerType] = useState("");
-  const [selectedPresetLabel, setSelectedPresetLabel] = useState('');
+  const [selectedPreset, setSelectedPreset] = useState<PresetSelection | null>(null);
   const [presetRequestId, setPresetRequestId] = useState(0);
   const [isSearchWorkspaceCollapsed, setIsSearchWorkspaceCollapsed] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -115,17 +116,17 @@ export default function Home() {
   }, [isHowToUseOpen]);
 
   useEffect(() => {
-    setSelectedPresetLabel('');
+    setSelectedPreset(null);
     setPresetRequestId(0);
   }, [selectedCancerType]);
 
-  const handlePresetSelect = useCallback((label: string) => {
-    setSelectedPresetLabel(label);
+  const handlePresetSelect = useCallback((selection: PresetSelection) => {
+    setSelectedPreset(selection);
     setPresetRequestId((currentRequestId) => currentRequestId + 1);
   }, []);
 
   const handleSearchInputChange = useCallback((value: string) => {
-    setSelectedPresetLabel('');
+    setSelectedPreset(null);
     setPresetRequestId(0);
     setSearchInput(value);
   }, []);
@@ -368,12 +369,11 @@ export default function Home() {
         </div>
 
         <RegionLoader
-          cancerType={selectedCancerType}
-          label={selectedPresetLabel}
+          presetSelection={selectedPreset}
           requestId={presetRequestId}
           onRegionsLoaded={(regions) => {
             setSearchInput(regions.join(", "));
-            setSelectedPresetLabel('');
+            setSelectedPreset(null);
             setPresetRequestId(0);
           }}
         />

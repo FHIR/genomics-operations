@@ -622,7 +622,7 @@ export default function FilterSidebar({ isOpen, onClose, onFilterChange, results
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
           >
-            Reset Filters
+            Reset Defaults
           </button>
           <button
             onClick={onClose}

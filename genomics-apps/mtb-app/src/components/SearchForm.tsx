@@ -1,11 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import {
+  getCancerSpecificPresetLabels,
+  getGlobalGeneListLabels,
+  GLOBAL_GENE_LIST_CATEGORY,
+  loadGeneListKbRows,
+  PresetSelection,
+} from '@/cancerFilter/geneListKb';
 
 interface SearchFormProps {
   searchInput: string;
   setSearchInput: (value: string) => void;
   handleSearch: () => void;
   selectedCancerType: string;
-  onPresetSelect: (label: string) => void;
+  onPresetSelect: (selection: PresetSelection) => void;
   enableCatVrsQueries: boolean;
   onEnableCatVrsQueriesChange: (enabled: boolean) => void;
   embedded?: boolean;
@@ -112,24 +119,35 @@ export default function SearchForm({
   embedded = false,
   className = 'mb-8',
 }: SearchFormProps) {
-  const presetButtons = [
-    {
-      label: 'Actionable Genes',
-      value: 'Actionable Gene List',
-    },
-    {
-      label: 'Extended Gene List',
-      value: 'Extended Gene List',
-    },
-  ] as const;
+  const [cancerPresetLabels, setCancerPresetLabels] = useState<string[]>([]);
+  const [globalGeneListLabels, setGlobalGeneListLabels] = useState<string[]>([]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    loadGeneListKbRows().then((rows) => {
+      if (!isMounted) {
+        return;
+      }
+
+      setGlobalGeneListLabels(getGlobalGeneListLabels(rows));
+      setCancerPresetLabels(getCancerSpecificPresetLabels(rows, selectedCancerType));
+    });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [selectedCancerType]);
 
   const containerClassName = embedded
     ? className.trim()
     : `bg-gray-100 p-8 rounded-lg shadow-sm ${className}`.trim();
 
   const presetHelpText = selectedCancerType
-    ? 'Available for the selected cancer type.'
-    : 'Select a cancer type to enable.';
+    ? 'Cancer-specific presets enabled. General lists always available.'
+    : 'Select a cancer type to enable cancer-specific presets. General gene lists are always available.';
+
+  const buttonClassName = 'inline-flex items-center rounded-full border border-slate-300 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-100 disabled:text-gray-400';
 
   return (
     <div className={containerClassName}>
@@ -173,19 +191,43 @@ export default function SearchForm({
           <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-gray-500">
             <span className="font-semibold text-gray-700">Presets:</span>
             <span>{presetHelpText}</span>
-            {presetButtons.map((preset) => {
+          </div>
+
+          <div className="mt-3 ml-4 flex flex-wrap items-center gap-2 text-xs text-gray-500">
+            <span className="font-semibold text-gray-700">Cancer-specific:</span>
+            {cancerPresetLabels.length > 0 ? cancerPresetLabels.map((label) => {
               return (
                 <button
-                  key={preset.value}
+                  key={`cancer-${label}`}
                   type="button"
-                  onClick={() => onPresetSelect(preset.value)}
+                  onClick={() => onPresetSelect({ category: selectedCancerType, label })}
                   disabled={!selectedCancerType}
-                  className="inline-flex items-center rounded-full border border-slate-300 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-100 disabled:text-gray-400"
+                  className={buttonClassName}
                 >
-                  {preset.label}
+                  {label}
                 </button>
               );
-            })}
+            }) : (
+              <span>{selectedCancerType ? 'No cancer-specific presets available.' : 'Select a cancer type to enable.'}</span>
+            )}
+          </div>
+
+          <div className="mt-3 ml-4 flex flex-wrap items-center gap-2 text-xs text-gray-500">
+            <span className="font-semibold text-gray-700">General:</span>
+            {globalGeneListLabels.length > 0 ? globalGeneListLabels.map((label) => {
+              return (
+                <button
+                  key={`global-${label}`}
+                  type="button"
+                  onClick={() => onPresetSelect({ category: GLOBAL_GENE_LIST_CATEGORY, label })}
+                  className={buttonClassName}
+                >
+                  {label}
+                </button>
+              );
+            }) : (
+              <span>No general gene lists available.</span>
+            )}
           </div>
         </div>
       </div>

@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { KBRow, loadGeneListKbRows } from "./geneListKb";
+import { KBRow, PresetSelection, loadGeneListKbRows } from "./geneListKb";
 
 interface RegionLoaderProps {
-    cancerType: string;
-    label: string;
+    presetSelection: PresetSelection | null;
     requestId: number;
     onRegionsLoaded: (regions: string[]) => void;
     onPhenotypesLoaded?: (phenotypes: Set<string>) => void;
@@ -11,7 +10,7 @@ interface RegionLoaderProps {
 
 
 
-export default function RegionLoader({ cancerType, label, requestId, onRegionsLoaded, onPhenotypesLoaded }: RegionLoaderProps) {
+export default function RegionLoader({ presetSelection, requestId, onRegionsLoaded, onPhenotypesLoaded }: RegionLoaderProps) {
     const [kbRows, setKbRows] = useState<KBRow[]>([]);
 
     useEffect(() => {
@@ -38,15 +37,15 @@ export default function RegionLoader({ cancerType, label, requestId, onRegionsLo
     }, [onPhenotypesLoaded]);
 
     useEffect(() => {
-        if (!cancerType || !label || requestId === 0 || kbRows.length === 0) return;
+        if (!presetSelection || requestId === 0 || kbRows.length === 0) return;
 
-        // Load predefined gene lists for the selected cancer type and preset label.
+        // Load predefined gene lists for the selected preset category and label.
         const matchedRegions = kbRows
-            .filter((row) => row["Cancer category"] === cancerType && row["Label"] === label)
+            .filter((row) => row["Cancer category"] === presetSelection.category && row["Label"] === presetSelection.label)
             .map((row) => row["Region"]);
 
         onRegionsLoaded(matchedRegions);
-    }, [cancerType, label, requestId, kbRows, onRegionsLoaded]);
+    }, [presetSelection, requestId, kbRows, onRegionsLoaded]);
 
     return null; // it only loads data
 }
