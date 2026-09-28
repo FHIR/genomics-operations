@@ -24,6 +24,7 @@ export interface ProcessedTxImplication {
     hyperlinkTitle?: string;
     clinicalTrialId?: string;
     therapeuticImplicationDisplay?: string;
+    categoricalVariantName?: string;
     sourceObservationIds?: string[];
 }
 
@@ -35,6 +36,7 @@ const getTxImplicationIdentityKey = (implication: ProcessedTxImplication) => [
     implication.therapeuticImplication,
     implication.therapeuticImplicationDisplay,
     implication.clinicalTrialId,
+    implication.categoricalVariantName,
 ].join('|');
 
 const mergeSourceObservationIds = (
@@ -73,6 +75,7 @@ const mergeTxImplication = (
     hyperlinkTitle: secondary.hyperlinkTitle || primary.hyperlinkTitle,
     clinicalTrialId: secondary.clinicalTrialId || primary.clinicalTrialId,
     therapeuticImplicationDisplay: secondary.therapeuticImplicationDisplay || primary.therapeuticImplicationDisplay,
+    categoricalVariantName: secondary.categoricalVariantName || primary.categoricalVariantName,
     sourceObservationIds: mergeSourceObservationIds(primary.sourceObservationIds, secondary.sourceObservationIds),
 });
 
@@ -116,6 +119,13 @@ const getEvidenceLevelValue = (resource: FhirObservation) => {
         || '';
 };
 
+// Cat-VRS expression name (from Observation.interpretation.text), with "CIViC" removed
+const getCategoricalVariantName = (resource: FhirObservation) => {
+    const name = resource.interpretation?.[0]?.text || '';
+
+    return name.replace(/\bCIViC\b/gi, '').replace(/\s+/g, ' ').trim() || undefined;
+};
+
 const getDerivedFromObservationIds = (resource: FhirObservation) =>
     (resource.derivedFrom ?? [])
         .map(reference => reference.reference?.match(/^Observation\/(.+)$/)?.[1] ?? '')
@@ -145,6 +155,7 @@ const txExtraFieldsExtractor = (resource: FhirObservation): Partial<ProcessedTxI
     const evidenceLevel = getEvidenceLevelValue(resource);
     const therapeuticImplicationCoding = getPrimaryCoding(resource, TxComponentCodes.therapeuticImplication);
     const medicationCoding = getPrimaryCoding(resource, TxComponentCodes.medication);
+    const categoricalVariantName = getCategoricalVariantName(resource);
 
     if (/^clinical trial$/i.test(evidenceLevel)) {
         const clinicalTrialId = medicationCoding?.code || '';
@@ -156,6 +167,7 @@ const txExtraFieldsExtractor = (resource: FhirObservation): Partial<ProcessedTxI
             hyperlinkTitle: medicationCoding?.display || '',
             clinicalTrialId,
             therapeuticImplicationDisplay: therapeuticImplicationCoding?.display || therapeuticImplicationCoding?.code || '',
+            categoricalVariantName,
             sourceObservationIds: getDerivedFromObservationIds(resource),
         };
     }
@@ -163,6 +175,7 @@ const txExtraFieldsExtractor = (resource: FhirObservation): Partial<ProcessedTxI
     return {
         resourceId: resource.id,
         hyperlink: getCivicHyperlink(resource),
+        categoricalVariantName,
         sourceObservationIds: getDerivedFromObservationIds(resource),
     };
 };

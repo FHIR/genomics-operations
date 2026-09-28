@@ -803,6 +803,9 @@ def create_tx_implication_profile_civic(implication, subject, vids):
                                                        "display": "predicted-therapeutic-implication"}]},
                                   "valueCodeableConcept": {"text": implication['predictedImplication']}})
 
+    if isinstance(implication.get('expression'), dict) and implication['expression'].get('name'):
+        resource["interpretation"] = [{"text": implication['expression']['name']}]
+
     return resource
 
 
@@ -2125,10 +2128,6 @@ def query_CIVIC_cat_var(ranges, normalized_variant_list, condition_code_list, tr
             """
             Cycle through each molConQueryResult, checking to see
             if any molCon satisfies the expression constraints in txImpResult.
-
-MolecConseq.functionalEffect[x].code =
-FunctionConstraint.primaryCoding (generally SO:0002054; "loss_of_function_variant")
-
             """
             criteria = constraint["functionConsequence"]["primaryCoding"]["code"]
             criteriaSatisfied = False

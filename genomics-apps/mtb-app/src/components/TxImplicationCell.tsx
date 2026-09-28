@@ -8,11 +8,12 @@ interface TxImplicationCellProps {
 
 function ImplicationDisplay({ implication }: { implication: ProcessedTxImplication }) {
     const isClinicalTrialImplication = /^clinical trial$/i.test(implication.evidenceLevel);
+    const subjectLabel = implication.categoricalVariantName || 'Variant';
 
-    // Build the display string in the format: "Variant {Implication} to {Medication} in {txPhenotype} [{txEvidence}]"
+    // Build the display string in the format: "{Variant | Cat-VRS name} {Implication} to {Medication} in {txPhenotype} [{txEvidence}]"
     const buildDisplayString = () => {
         if (isClinicalTrialImplication) {
-            const parts = ['(Clinical Trial)', 'Variant'];
+            const parts = ['(Clinical Trial)', subjectLabel];
 
             if (implication.therapeuticImplicationDisplay || implication.therapeuticImplication) {
                 parts.push(implication.therapeuticImplicationDisplay || implication.therapeuticImplication);
@@ -27,8 +28,8 @@ function ImplicationDisplay({ implication }: { implication: ProcessedTxImplicati
 
         const parts = [];
 
-        // Start with "Variant"
-        parts.push("Variant");
+        // Start with "Variant", or the Cat-VRS expression name when present
+        parts.push(subjectLabel);
 
         // Add therapeutic implication if available
         if (implication.therapeuticImplication) {
