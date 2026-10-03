@@ -1,0 +1,104 @@
+{
+  "id": "nrf2",
+  "name": "NRF2",
+  "version": "1.0",
+  "source": {
+    "citation": "Sanchez-Vega F, et al. Oncogenic Signaling Pathways in The Cancer Genome Atlas. Cell. 2018;173(2):321-337.e10. doi:10.1016/j.cell.2018.03.035",
+    "diagram": "Figure 2 (curated pathway templates), redrawn",
+    "genes": "Table S3 (curated pathway templates): gene membership and OG/TSG labels"
+  },
+  "size": {
+    "width": 620,
+    "height": 230
+  },
+  "groups": [
+    {
+      "id": "keap",
+      "label": "",
+      "x": 170,
+      "y": 30,
+      "width": 259,
+      "height": 64,
+      "members": [
+        "KEAP1",
+        "CUL3"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "KEAP1",
+      "label": "KEAP1",
+      "type": "gene",
+      "x": 237.0,
+      "y": 62.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "KEAP1"
+      ]
+    },
+    {
+      "id": "CUL3",
+      "label": "CUL3",
+      "type": "gene",
+      "x": 362.0,
+      "y": 62.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "CUL3"
+      ]
+    },
+    {
+      "id": "NFE2L2",
+      "label": "NFE2L2",
+      "type": "gene",
+      "x": 300,
+      "y": 180,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "NFE2L2"
+      ]
+    },
+    {
+      "id": "OSR",
+      "label": "Oxidative stress response",
+      "type": "process",
+      "x": 500,
+      "y": 180,
+      "width": 190,
+      "height": 40
+    }
+  ],
+  "edges": [
+    {
+      "from": "keap",
+      "to": "NFE2L2",
+      "type": "inhibits"
+    },
+    {
+      "from": "NFE2L2",
+      "to": "OSR",
+      "type": "activates"
+    }
+  ],
+  "genes": [
+    {
+      "symbol": "NFE2L2",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "KEAP1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CUL3",
+      "role": "TSG",
+      "inDiagram": true
+    }
+  ]
+}

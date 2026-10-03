@@ -1,0 +1,770 @@
+{
+  "id": "notch",
+  "name": "NOTCH",
+  "version": "1.0",
+  "source": {
+    "citation": "Sanchez-Vega F, et al. Oncogenic Signaling Pathways in The Cancer Genome Atlas. Cell. 2018;173(2):321-337.e10. doi:10.1016/j.cell.2018.03.035",
+    "diagram": "Figure 2 (curated pathway templates), redrawn",
+    "genes": "Table S3 (curated pathway templates): gene membership and OG/TSG labels"
+  },
+  "size": {
+    "width": 1300,
+    "height": 410
+  },
+  "groups": [
+    {
+      "id": "rec",
+      "label": "",
+      "x": 275,
+      "y": 100,
+      "width": 259,
+      "height": 120,
+      "members": [
+        "NOTCH1",
+        "NOTCH2",
+        "NOTCH3",
+        "NOTCH4"
+      ]
+    },
+    {
+      "id": "coact",
+      "label": "",
+      "x": 740,
+      "y": 100,
+      "width": 259,
+      "height": 120,
+      "members": [
+        "MAML3",
+        "KAT2B",
+        "CREBBP",
+        "EP300"
+      ]
+    },
+    {
+      "id": "rep",
+      "label": "",
+      "x": 678,
+      "y": 290,
+      "width": 384,
+      "height": 64,
+      "members": [
+        "NCOR1/2",
+        "SPEN",
+        "KDM5A"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "JAG2",
+      "label": "JAG2",
+      "type": "gene",
+      "x": 330,
+      "y": 40,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "JAG2"
+      ]
+    },
+    {
+      "id": "ARRDC1",
+      "label": "ARRDC1",
+      "type": "gene",
+      "x": 470,
+      "y": 40,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "ARRDC1"
+      ]
+    },
+    {
+      "id": "NOTCH1",
+      "label": "NOTCH1",
+      "type": "gene",
+      "x": 342.0,
+      "y": 132.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "NOTCH1"
+      ]
+    },
+    {
+      "id": "NOTCH2",
+      "label": "NOTCH2",
+      "type": "gene",
+      "x": 467.0,
+      "y": 132.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "NOTCH2"
+      ]
+    },
+    {
+      "id": "NOTCH3",
+      "label": "NOTCH3",
+      "type": "gene",
+      "x": 342.0,
+      "y": 188.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "NOTCH3"
+      ]
+    },
+    {
+      "id": "NOTCH4",
+      "label": "NOTCH4",
+      "type": "gene",
+      "x": 467.0,
+      "y": 188.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "NOTCH4"
+      ]
+    },
+    {
+      "id": "NOV",
+      "label": "NOV",
+      "type": "gene",
+      "x": 120,
+      "y": 150,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "NOV"
+      ]
+    },
+    {
+      "id": "CNTN6",
+      "label": "CNTN6",
+      "type": "gene",
+      "x": 120,
+      "y": 205,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "CNTN6"
+      ]
+    },
+    {
+      "id": "DNER",
+      "label": "DNER",
+      "type": "gene",
+      "x": 330,
+      "y": 300,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "DNER"
+      ]
+    },
+    {
+      "id": "PSEN2",
+      "label": "PSEN2",
+      "type": "gene",
+      "x": 470,
+      "y": 300,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "PSEN2"
+      ]
+    },
+    {
+      "id": "CLV",
+      "label": "Cleaved NOTCH",
+      "type": "process",
+      "x": 640,
+      "y": 165,
+      "width": 120,
+      "height": 40
+    },
+    {
+      "id": "FBXW7",
+      "label": "FBXW7",
+      "type": "gene",
+      "x": 640,
+      "y": 40,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "FBXW7"
+      ]
+    },
+    {
+      "id": "CUL1",
+      "label": "CUL1",
+      "type": "gene",
+      "x": 800,
+      "y": 40,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "CUL1"
+      ]
+    },
+    {
+      "id": "MAML3",
+      "label": "MAML3",
+      "type": "gene",
+      "x": 807.0,
+      "y": 132.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "MAML3"
+      ]
+    },
+    {
+      "id": "KAT2B",
+      "label": "KAT2B",
+      "type": "gene",
+      "x": 932.0,
+      "y": 132.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "KAT2B"
+      ]
+    },
+    {
+      "id": "CREBBP",
+      "label": "CREBBP",
+      "type": "gene",
+      "x": 807.0,
+      "y": 188.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "CREBBP"
+      ]
+    },
+    {
+      "id": "EP300",
+      "label": "EP300",
+      "type": "gene",
+      "x": 932.0,
+      "y": 188.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "EP300"
+      ]
+    },
+    {
+      "id": "NCOR1/2",
+      "label": "NCOR1/2",
+      "type": "gene",
+      "x": 745.0,
+      "y": 322.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "NCOR1",
+        "NCOR2"
+      ]
+    },
+    {
+      "id": "SPEN",
+      "label": "SPEN",
+      "type": "gene",
+      "x": 870.0,
+      "y": 322.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "SPEN"
+      ]
+    },
+    {
+      "id": "KDM5A",
+      "label": "KDM5A",
+      "type": "gene",
+      "x": 995.0,
+      "y": 322.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "KDM5A"
+      ]
+    },
+    {
+      "id": "HES-X",
+      "label": "HES-X",
+      "type": "gene",
+      "x": 1090,
+      "y": 130,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "HES1",
+        "HES2",
+        "HES3",
+        "HES4",
+        "HES5"
+      ]
+    },
+    {
+      "id": "HEY-X",
+      "label": "HEY-X",
+      "type": "gene",
+      "x": 1090,
+      "y": 200,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "HEY1",
+        "HEY2",
+        "HEYL"
+      ]
+    },
+    {
+      "id": "OUT",
+      "label": "Cell growth, apoptosis",
+      "type": "process",
+      "x": 1220,
+      "y": 165,
+      "width": 140,
+      "height": 40
+    }
+  ],
+  "edges": [
+    {
+      "from": "JAG2",
+      "to": "rec",
+      "type": "activates"
+    },
+    {
+      "from": "ARRDC1",
+      "to": "rec",
+      "type": "inhibits"
+    },
+    {
+      "from": "NOV",
+      "to": "rec",
+      "type": "inhibits"
+    },
+    {
+      "from": "CNTN6",
+      "to": "rec",
+      "type": "inhibits"
+    },
+    {
+      "from": "DNER",
+      "to": "rec",
+      "type": "activates"
+    },
+    {
+      "from": "PSEN2",
+      "to": "rec",
+      "type": "activates"
+    },
+    {
+      "from": "rec",
+      "to": "CLV",
+      "type": "activates"
+    },
+    {
+      "from": "FBXW7",
+      "to": "CLV",
+      "type": "inhibits"
+    },
+    {
+      "from": "CUL1",
+      "to": "FBXW7",
+      "type": "activates"
+    },
+    {
+      "from": "CLV",
+      "to": "coact",
+      "type": "activates"
+    },
+    {
+      "from": "rep",
+      "to": "coact",
+      "type": "inhibits"
+    },
+    {
+      "from": "coact",
+      "to": "HES-X",
+      "type": "activates"
+    },
+    {
+      "from": "coact",
+      "to": "HEY-X",
+      "type": "activates"
+    },
+    {
+      "from": "HES-X",
+      "to": "OUT",
+      "type": "activates"
+    },
+    {
+      "from": "HEY-X",
+      "to": "OUT",
+      "type": "activates"
+    }
+  ],
+  "genes": [
+    {
+      "symbol": "ARRDC1",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CNTN6",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CREBBP",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "EP300",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "HES1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "HES2",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "HES3",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "HES4",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "HES5",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "HEY1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "HEY2",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "HEYL",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "KAT2B",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "KDM5A",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "NOTCH1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "NOTCH2",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "NOTCH3",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "NOTCH4",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "NOV",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "NRARP",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "PSEN2",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "LFNG",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "ITCH",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "NCSTN",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "SPEN",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "JAG1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "APH1A",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "FBXW7",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "FHL1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "THBS2",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "HDAC2",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "MFAP2",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "CUL1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "RFNG",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "NCOR1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "NCOR2",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "MFAP5",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "HDAC1",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "NUMB",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "JAG2",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "MAML3",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "MFNG",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "CIR1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "CNTN1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "MAML1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "MAML2",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "NUMBL",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "PSEN1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "PSENEN",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "RBPJ",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "RBPJL",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "RBX1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "SAP30",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "SKP1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "SNW1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "CTBP1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "CTBP2",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "ADAM10",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "APH1B",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "ADAM17",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "DLK1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "DLL1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "DLL3",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "DLL4",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "DNER",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "DTX1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "DTX2",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "DTX3",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "DTX3L",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "DTX4",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "EGFL7",
+      "role": null,
+      "inDiagram": false
+    }
+  ]
+}

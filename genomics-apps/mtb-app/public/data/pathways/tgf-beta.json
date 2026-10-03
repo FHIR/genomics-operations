@@ -1,0 +1,184 @@
+{
+  "id": "tgf-beta",
+  "name": "TGFβ",
+  "version": "1.0",
+  "source": {
+    "citation": "Sanchez-Vega F, et al. Oncogenic Signaling Pathways in The Cancer Genome Atlas. Cell. 2018;173(2):321-337.e10. doi:10.1016/j.cell.2018.03.035",
+    "diagram": "Figure 2 (curated pathway templates), redrawn",
+    "genes": "Table S3 (curated pathway templates): gene membership and OG/TSG labels"
+  },
+  "size": {
+    "width": 640,
+    "height": 460
+  },
+  "groups": [
+    {
+      "id": "smad",
+      "label": "",
+      "x": 196,
+      "y": 200,
+      "width": 259,
+      "height": 120,
+      "members": [
+        "SMAD2",
+        "SMAD3",
+        "SMAD4"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "TGFL",
+      "label": "TGFβ ligands",
+      "type": "process",
+      "x": 210,
+      "y": 40,
+      "width": 150,
+      "height": 40
+    },
+    {
+      "id": "ACTL",
+      "label": "Activin ligands",
+      "type": "process",
+      "x": 430,
+      "y": 40,
+      "width": 150,
+      "height": 40
+    },
+    {
+      "id": "TGFBR1/2",
+      "label": "TGFBR1/2",
+      "type": "gene",
+      "x": 210,
+      "y": 130,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "TGFBR1",
+        "TGFBR2"
+      ]
+    },
+    {
+      "id": "ACVR2A/1B",
+      "label": "ACVR2A/1B",
+      "type": "gene",
+      "x": 430,
+      "y": 130,
+      "width": 130,
+      "height": 40,
+      "genes": [
+        "ACVR2A",
+        "ACVR1B"
+      ]
+    },
+    {
+      "id": "SMAD2",
+      "label": "SMAD2",
+      "type": "gene",
+      "x": 263.0,
+      "y": 232.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "SMAD2"
+      ]
+    },
+    {
+      "id": "SMAD3",
+      "label": "SMAD3",
+      "type": "gene",
+      "x": 388.0,
+      "y": 232.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "SMAD3"
+      ]
+    },
+    {
+      "id": "SMAD4",
+      "label": "SMAD4",
+      "type": "gene",
+      "x": 263.0,
+      "y": 288.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "SMAD4"
+      ]
+    },
+    {
+      "id": "OUT",
+      "label": "Proliferation, stem/progenitor phenotype",
+      "type": "process",
+      "x": 320,
+      "y": 420,
+      "width": 300,
+      "height": 40
+    }
+  ],
+  "edges": [
+    {
+      "from": "TGFL",
+      "to": "TGFBR1/2",
+      "type": "activates"
+    },
+    {
+      "from": "ACTL",
+      "to": "ACVR2A/1B",
+      "type": "activates"
+    },
+    {
+      "from": "TGFBR1/2",
+      "to": "smad",
+      "type": "activates"
+    },
+    {
+      "from": "ACVR2A/1B",
+      "to": "smad",
+      "type": "activates"
+    },
+    {
+      "from": "smad",
+      "to": "OUT",
+      "type": "activates"
+    }
+  ],
+  "genes": [
+    {
+      "symbol": "TGFBR1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "TGFBR2",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "ACVR2A",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "ACVR1B",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "SMAD2",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "SMAD3",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "SMAD4",
+      "role": "TSG",
+      "inDiagram": true
+    }
+  ]
+}

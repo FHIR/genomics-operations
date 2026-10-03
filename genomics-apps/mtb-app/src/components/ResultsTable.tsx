@@ -2,6 +2,7 @@
 
 import { MouseEvent as ReactMouseEvent, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
+import { ArrowDownToLine } from 'lucide-react';
 import { Variant } from '@/types/variants';
 import { DxImplication } from '@/services/dxService';
 import { ProcessedTxImplication } from '@/services/txService';
@@ -9,6 +10,7 @@ import { MolecularConsequence } from '@/services/mcService';
 import DxImplicationCell from './DxImplicationCell';
 import MolecularConsequenceCell from './MolecularConsequenceCell';
 import TxImplicationCell from './TxImplicationCell';
+import { CooccurrenceProfile } from '@/services/cooccurrenceService';
 import VariantGroupRow from './VariantGroupRow';
 import {
   ColumnId,
@@ -21,8 +23,12 @@ import {
   getGaugeImagePath,
   getGaugeKindForScore,
   getObservationCaveat,
+  ONCOGENICITY_RETRY_DELAYS_MS,
+  ONCOGENICITY_SLOW_REQUEST_MS,
   OncogenicityPredictionResult,
+  runWithRetries,
 } from '@/types/oncogenicity';
+import { useHasElapsed } from '@/lib/useHasElapsed';
 import _ from 'lodash';
 
 type SortDirection = 'asc' | 'desc';
@@ -42,7 +48,7 @@ const COLUMN_MAP = Object.fromEntries(
 ) as Record<ColumnId, (typeof RESULTS_TABLE_COLUMNS)[number]>;
 
 const DEFAULT_COLUMN_VISIBILITY = Object.fromEntries(
-  RESULTS_TABLE_COLUMNS.map((column) => [column.id, !['genomicSourceClass', 'oncogenicityPrediction'].includes(column.id)])
+  RESULTS_TABLE_COLUMNS.map((column) => [column.id, !['genomicSourceClass', 'variantAlleleFrequency', 'oncogenicityPrediction'].includes(column.id)])
 ) as Record<ColumnId, boolean>;
 
 const DEFAULT_COLUMN_WIDTHS = Object.fromEntries(
@@ -88,7 +94,21 @@ interface ResultsTableProps {
   hasActiveFilters: boolean;
   enableCatVrsQueries: boolean;
   onEnableCatVrsQueriesChange: (enabled: boolean) => void;
+  cooccurrencesByVariant: Record<string, CooccurrenceProfile[]>;
+  selectedVariantIds: Set<string>;
+  onToggleVariantSelection: (variantId: string) => void;
+  onSelectVariants: (variantIds: string[]) => void;
+  onVisibleVariantIdsChange: (variantIds: string[]) => void;
+  highlightRequest: HighlightRequest | null;
+  onHighlightMissing: (variantId: string) => void;
 }
+
+export interface HighlightRequest {
+  variantId: string;
+  requestId: number;
+}
+
+const SELECTION_COLUMN_WIDTH = 44;
 
 function getSimpleVariantLabel(variantString: string) {
   const parts = variantString.split(':');
@@ -124,6 +144,15 @@ function getVariantSortValue(variant: Variant) {
   return variant.variant;
 }
 
+async function getResponseErrorMessage(response: Response, fallbackMessage: string) {
+  try {
+    const payload = await response.json() as { error?: string };
+    return payload.error || `${fallbackMessage} (${response.status})`;
+  } catch {
+    return `${fallbackMessage} (${response.status})`;
+  }
+}
+
 function getOncogenicityKey(variant: Variant) {
   return variant.id ?? variant.variant;
 }
@@ -143,6 +172,8 @@ function getColumnTextValue(
         .join(' ');
     case 'genomicSourceClass':
       return variant.genomicSourceClass ?? '<unknown>';
+    case 'variantAlleleFrequency':
+      return variant.variantAlleleFrequency?.toString() ?? '<none found>';
     case 'oncogenicityPrediction':
       return [
         oncogenicityResults?.[getOncogenicityKey(variant)]?.score,
@@ -195,6 +226,13 @@ function compareColumnValues(left: string, right: string, direction: SortDirecti
     return -1;
   }
 
+  const leftNumber = Number(normalizedLeft);
+  const rightNumber = Number(normalizedRight);
+
+  if (Number.isFinite(leftNumber) && Number.isFinite(rightNumber)) {
+    return direction === 'asc' ? leftNumber - rightNumber : rightNumber - leftNumber;
+  }
+
   const comparison = normalizedLeft.localeCompare(normalizedRight, undefined, {
     numeric: true,
     sensitivity: 'base',
@@ -214,7 +252,15 @@ export default function ResultsTable({
   hasActiveFilters,
   enableCatVrsQueries,
   onEnableCatVrsQueriesChange,
+  cooccurrencesByVariant,
+  selectedVariantIds,
+  onToggleVariantSelection,
+  onSelectVariants,
+  onVisibleVariantIdsChange,
+  highlightRequest,
+  onHighlightMissing,
 }: ResultsTableProps) {
+  const [highlightedVariantId, setHighlightedVariantId] = useState<string | null>(null);
   const [columnOrder, setColumnOrder] = useState<ColumnId[]>(DEFAULT_COLUMN_ORDER);
   const [columnVisibility, setColumnVisibility] = useState<Record<ColumnId, boolean>>(
     DEFAULT_COLUMN_VISIBILITY
@@ -232,12 +278,15 @@ export default function ResultsTable({
     range: '',
     variant: '',
     genomicSourceClass: '',
+    variantAlleleFrequency: '',
     oncogenicityPrediction: '',
     molecularConsequences: '',
     dxImplications: '',
     txImplications: '',
   });
   const customizeTableRef = useRef<HTMLDivElement | null>(null);
+  const extendedEvidenceRef = useRef<HTMLElement | null>(null);
+  const pendingEvidenceScrollKeyRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -345,8 +394,13 @@ export default function ResultsTable({
   };
 
   // Function to render Tx Implications content
-  const renderTxImplications = (implications?: ProcessedTxImplication[]) => {
-    return <TxImplicationCell implications={implications} />;
+  const renderTxImplications = (implications: ProcessedTxImplication[] | undefined, variant: Variant) => {
+    return (
+      <TxImplicationCell
+        implications={implications}
+        cooccurrences={variant.id ? cooccurrencesByVariant[variant.id] : undefined}
+      />
+    );
   };
 
   const visibleColumns = useMemo(
@@ -398,13 +452,49 @@ export default function ResultsTable({
     return sortedGroups;
   }, [groupedResults, visibleColumns, columnFilters, sortState, oncogenicityResults]);
 
-  const totalTableWidth = visibleColumns.reduce(
+  const visibleVariantIds = useMemo(
+    () => processedGroups.flatMap(([, variants]) => variants.map((variant) => variant.id).filter((id): id is string => Boolean(id))),
+    [processedGroups]
+  );
+
+  useEffect(() => {
+    onVisibleVariantIdsChange(visibleVariantIds);
+  }, [visibleVariantIds, onVisibleVariantIdsChange]);
+
+  // "Show in results table": scroll to the row and highlight it briefly
+  useEffect(() => {
+    if (!highlightRequest) {
+      return;
+    }
+
+    const { variantId } = highlightRequest;
+
+    if (!visibleVariantIds.includes(variantId)) {
+      onHighlightMissing(variantId);
+      return;
+    }
+
+    setHighlightedVariantId(variantId);
+    const scrollTimer = window.setTimeout(() => {
+      document.getElementById(`variant-row-${variantId}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 80);
+    const clearTimer = window.setTimeout(() => setHighlightedVariantId(null), 2400);
+
+    return () => {
+      window.clearTimeout(scrollTimer);
+      window.clearTimeout(clearTimer);
+    };
+    // Only react to new requests, not to later changes in visible rows
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [highlightRequest]);
+
+  const totalTableWidth = SELECTION_COLUMN_WIDTH + visibleColumns.reduce(
     (width, column) => width + (columnWidths[column.id] ?? column.defaultWidth),
     0
   );
   const txColumnWidth = columnWidths.txImplications ?? COLUMN_MAP.txImplications.defaultWidth;
   const hasExplicitTxColumnWidth = txColumnWidth !== COLUMN_MAP.txImplications.defaultWidth;
-  const minimumTableWidth = visibleColumns.reduce(
+  const minimumTableWidth = SELECTION_COLUMN_WIDTH + visibleColumns.reduce(
     (width, column) => width + getMinimumColumnWidth(column.id),
     0
   );
@@ -452,6 +542,7 @@ export default function ResultsTable({
       range: '',
       variant: '',
       genomicSourceClass: '',
+      variantAlleleFrequency: '',
       oncogenicityPrediction: '',
       molecularConsequences: '',
       dxImplications: '',
@@ -529,6 +620,21 @@ export default function ResultsTable({
   };
 
   const selectedOncogenicityResult = selectedOncogenicityKey ? oncogenicityResults[selectedOncogenicityKey] : undefined;
+  const isEvidenceSlow = useHasElapsed(
+    selectedOncogenicityResult?.evidenceStatus === 'loading' ? selectedOncogenicityResult.evidenceStartedAt : undefined,
+    ONCOGENICITY_SLOW_REQUEST_MS,
+  );
+
+  // Scroll to the extended evidence once it arrives for the request the user started
+  useEffect(() => {
+    if (
+      selectedOncogenicityResult?.evidenceStatus === 'ready'
+      && pendingEvidenceScrollKeyRef.current === selectedOncogenicityResult.key
+    ) {
+      pendingEvidenceScrollKeyRef.current = null;
+      extendedEvidenceRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [selectedOncogenicityResult?.evidenceStatus, selectedOncogenicityResult?.key]);
   const predictorTumorType = selectedCancerType.trim() || undefined;
 
   const computeOncogenicityPrediction = async (variant: Variant) => {
@@ -544,12 +650,13 @@ export default function ResultsTable({
         key,
         spdi: variant.variant,
         status: 'loading',
+        startedAt: Date.now(),
         gauge: 'undetermined',
         evidenceStatus: 'idle',
       },
     }));
 
-    try {
+    const requestPrediction = async () => {
       const response = await fetch('/api/oncogenicity/predict', {
         method: 'POST',
         headers: {
@@ -562,14 +669,35 @@ export default function ResultsTable({
       });
 
       if (!response.ok) {
-        throw new Error('Prediction request failed');
+        throw new Error(await getResponseErrorMessage(response, 'Prediction request failed'));
       }
 
       const payload = await response.json() as { hgvs?: string; observation?: OncogenicityPredictionResult['observation'] };
       const rawScore = payload.observation?.valueInteger;
       const normalizedScore = typeof rawScore === 'number' ? rawScore : Number(rawScore);
       const score = Number.isFinite(normalizedScore) ? normalizedScore : undefined;
-      const interpretation = getConceptDisplayText(payload.observation?.interpretation);
+
+      // A response without a score is treated as a failure; the predictor's annotation step fails intermittently
+      if (score === undefined) {
+        throw new Error(
+          getConceptNarrativeText(payload.observation?.dataAbsentReason) ?? 'Prediction did not return a score'
+        );
+      }
+
+      return { payload, score };
+    };
+
+    try {
+      const { payload, score } = await runWithRetries(requestPrediction, (retryAttempt, error) => {
+        setOncogenicityResults((currentResults) => ({
+          ...currentResults,
+          [key]: {
+            ...currentResults[key],
+            retryAttempt,
+            errorMessage: error instanceof Error ? error.message : undefined,
+          },
+        }));
+      });
 
       setOncogenicityResults((currentResults) => ({
         ...currentResults,
@@ -580,7 +708,7 @@ export default function ResultsTable({
           status: 'ready',
           gauge: getGaugeKindForScore(score),
           score,
-          interpretation,
+          interpretation: getConceptDisplayText(payload.observation?.interpretation),
           observation: payload.observation,
           evidenceStatus: 'idle',
         },
@@ -591,7 +719,7 @@ export default function ResultsTable({
         [key]: {
           key,
           spdi: variant.variant,
-          status: 'ready',
+          status: 'error',
           gauge: 'undetermined',
           evidenceStatus: 'idle',
           errorMessage: error instanceof Error ? error.message : 'Prediction unavailable',
@@ -605,21 +733,35 @@ export default function ResultsTable({
     setShowClinVarWorkInProgress(false);
   };
 
+  const scrollToExtendedEvidence = () => {
+    extendedEvidenceRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   const loadExtendedEvidence = async () => {
-    if (!selectedOncogenicityResult || selectedOncogenicityResult.evidenceStatus === 'loading' || selectedOncogenicityResult.evidenceStatus === 'ready') {
+    if (!selectedOncogenicityResult || selectedOncogenicityResult.evidenceStatus === 'loading') {
       return;
     }
 
+    if (selectedOncogenicityResult.evidenceStatus === 'ready') {
+      scrollToExtendedEvidence();
+      return;
+    }
+
+    const key = selectedOncogenicityResult.key;
+    pendingEvidenceScrollKeyRef.current = key;
+
     setOncogenicityResults((currentResults) => ({
       ...currentResults,
-      [selectedOncogenicityResult.key]: {
-        ...selectedOncogenicityResult,
+      [key]: {
+        ...currentResults[key],
         evidenceStatus: 'loading',
+        evidenceStartedAt: Date.now(),
+        evidenceRetryAttempt: undefined,
         evidenceError: undefined,
       },
     }));
 
-    try {
+    const requestEvidence = async () => {
       const response = await fetch('/api/oncogenicity/evidence', {
         method: 'POST',
         headers: {
@@ -632,17 +774,30 @@ export default function ResultsTable({
       });
 
       if (!response.ok) {
-        throw new Error('Extended evidence request failed');
+        throw new Error(await getResponseErrorMessage(response, 'Extended evidence request failed'));
       }
 
-      const payload = await response.json() as { evidence?: unknown; hgvs?: string };
+      return response.json() as Promise<{ evidence?: unknown; hgvs?: string }>;
+    };
+
+    try {
+      const payload = await runWithRetries(requestEvidence, (retryAttempt) => {
+        setOncogenicityResults((currentResults) => ({
+          ...currentResults,
+          [key]: {
+            ...currentResults[key],
+            evidenceRetryAttempt: retryAttempt,
+          },
+        }));
+      });
 
       setOncogenicityResults((currentResults) => ({
         ...currentResults,
-        [selectedOncogenicityResult.key]: {
-          ...currentResults[selectedOncogenicityResult.key],
-          hgvs: payload.hgvs || currentResults[selectedOncogenicityResult.key]?.hgvs,
+        [key]: {
+          ...currentResults[key],
+          hgvs: payload.hgvs || currentResults[key]?.hgvs,
           evidenceStatus: 'ready',
+          evidenceRetryAttempt: undefined,
           evidenceJson: payload.evidence,
           evidenceError: undefined,
         },
@@ -650,14 +805,28 @@ export default function ResultsTable({
     } catch (error) {
       setOncogenicityResults((currentResults) => ({
         ...currentResults,
-        [selectedOncogenicityResult.key]: {
-          ...currentResults[selectedOncogenicityResult.key],
+        [key]: {
+          ...currentResults[key],
           evidenceStatus: 'error',
+          evidenceRetryAttempt: undefined,
           evidenceError: error instanceof Error ? error.message : 'Unable to load extended evidence',
         },
       }));
     }
   };
+
+  const evidenceStatus = selectedOncogenicityResult?.evidenceStatus;
+  const evidenceButtonLabel = evidenceStatus === 'loading'
+    ? selectedOncogenicityResult?.evidenceRetryAttempt
+      ? `Retrying (${selectedOncogenicityResult.evidenceRetryAttempt} of ${ONCOGENICITY_RETRY_DELAYS_MS.length})...`
+      : isEvidenceSlow
+        ? 'Waking up prediction server, this can take up to a minute...'
+        : 'Loading evidence...'
+    : evidenceStatus === 'ready'
+      ? 'Evidence loaded below'
+      : evidenceStatus === 'error'
+        ? 'Retry loading evidence'
+        : 'View extended evidence details';
 
   return (
     <div className="-ml-64 w-full min-w-[1400px] rounded-2xl border-2 border-slate-400 bg-gray-100 p-6 shadow-sm">
@@ -692,7 +861,7 @@ export default function ResultsTable({
               Customize Table
             </button>
             {isCustomizeTableOpen && (
-              <div className="absolute left-0 z-10 mt-2 w-96 rounded-lg border border-gray-200 bg-white p-4 shadow-xl">
+              <div className="absolute left-0 z-30 mt-2 w-96 rounded-lg border border-gray-200 bg-white p-4 shadow-xl">
                 <div className="space-y-3">
                   {RESULTS_TABLE_COLUMNS.map((column) => {
                     const columnId = column.id;
@@ -745,6 +914,14 @@ export default function ResultsTable({
               </div>
             )}
           </div>
+          <button
+            type="button"
+            onClick={() => onSelectVariants(visibleVariantIds)}
+            disabled={visibleVariantIds.length === 0}
+            className="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Select all shown
+          </button>
         </div>
         <div className="text-sm text-gray-500">
           {visibleColumns.length} of {RESULTS_TABLE_COLUMNS.length} columns shown
@@ -755,9 +932,10 @@ export default function ResultsTable({
           Table filters are active.
         </div>
       )}
-      <div className="overflow-x-auto rounded-xl border-2 border-slate-300 bg-white">
+      <div className="max-h-[75vh] overflow-auto rounded-xl border-2 border-slate-300 bg-white">
         <table className="w-full border-collapse table-fixed" style={{ minWidth: Math.max(totalTableWidth, minimumTableWidth) }}>
           <colgroup>
+            <col style={{ width: SELECTION_COLUMN_WIDTH }} />
             {visibleColumns.map((column) => {
               const isExpandingTxColumn = column.id === 'txImplications' && !hasExplicitTxColumnWidth;
 
@@ -771,8 +949,11 @@ export default function ResultsTable({
           </colgroup>
           <thead>
             <tr className="bg-gray-200">
+              <th className="sticky top-0 z-10 border-r border-gray-300 bg-gray-200 p-0 shadow-[inset_0_-1px_0_0_rgb(209_213_219)]">
+                <span className="sr-only">Select variant</span>
+              </th>
               {visibleColumns.map((column) => (
-                <th key={column.id} className="relative border-r border-gray-300 p-0 text-left text-gray-700 last:border-r-0">
+                <th key={column.id} className="sticky top-0 z-10 border-r border-gray-300 bg-gray-200 p-0 text-left text-gray-700 shadow-[inset_0_-1px_0_0_rgb(209_213_219)] last:border-r-0">
                   <div
                     className="px-3 pb-3 pt-2 pr-5"
                   >
@@ -829,11 +1010,14 @@ export default function ResultsTable({
                 getOncogenicityKey={getOncogenicityKey}
                 onComputeOncogenicity={computeOncogenicityPrediction}
                 onOpenOncogenicityDetails={openOncogenicityDetails}
+                selectedVariantIds={selectedVariantIds}
+                onToggleVariantSelection={onToggleVariantSelection}
+                highlightedVariantId={highlightedVariantId}
               />
             ))}
             {processedGroups.length === 0 && (
               <tr>
-                <td colSpan={visibleColumns.length} className="p-4 text-center text-gray-500">
+                <td colSpan={visibleColumns.length + 1} className="p-4 text-center text-gray-500">
                   {hasActiveTableFilters ? 'No rows match the current table filters' : 'No results found'}
                 </td>
               </tr>
@@ -975,10 +1159,16 @@ export default function ResultsTable({
               <button
                 type="button"
                 onClick={loadExtendedEvidence}
-                disabled={selectedOncogenicityResult.evidenceStatus === 'loading'}
-                className="inline-flex items-center gap-2 rounded-md border border-blue-700 bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_3px_0_0_rgb(29_78_216)] transition-[transform,box-shadow,background-color] hover:bg-blue-700 hover:shadow-[0_2px_0_0_rgb(30_64_175)] active:translate-y-px active:shadow-[0_1px_0_0_rgb(30_64_175)] focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+                disabled={evidenceStatus === 'loading'}
+                className={evidenceStatus === 'ready'
+                  ? 'inline-flex items-center gap-2 rounded-md border border-gray-300 bg-gray-100 px-4 py-2.5 text-sm font-semibold text-gray-500 transition-colors hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2'
+                  : 'inline-flex items-center gap-2 rounded-md border border-blue-700 bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_3px_0_0_rgb(29_78_216)] transition-[transform,box-shadow,background-color] hover:bg-blue-700 hover:shadow-[0_2px_0_0_rgb(30_64_175)] active:translate-y-px active:shadow-[0_1px_0_0_rgb(30_64_175)] focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60'}
               >
-                {selectedOncogenicityResult.evidenceStatus === 'loading' ? 'Loading evidence...' : 'View extended evidence details'}
+                {evidenceStatus === 'loading' && (
+                  <span className="h-4 w-4 flex-shrink-0 animate-spin rounded-full border-2 border-blue-200 border-t-white" />
+                )}
+                {evidenceButtonLabel}
+                {evidenceStatus === 'ready' && <ArrowDownToLine className="h-4 w-4" aria-hidden="true" />}
               </button>
               <button
                 type="button"
@@ -1002,7 +1192,7 @@ export default function ResultsTable({
             )}
 
             {selectedOncogenicityResult.evidenceStatus === 'ready' && selectedOncogenicityResult.evidenceJson !== undefined && (
-              <section className="mt-6">
+              <section ref={extendedEvidenceRef} className="mt-6 scroll-mt-4">
                 <h3 className="text-lg font-semibold text-gray-900">Extended evidence details</h3>
                 <pre className="mt-3 overflow-x-auto rounded-xl border border-gray-200 bg-gray-950 p-4 text-xs leading-6 text-gray-100 whitespace-pre-wrap break-all">
                   {JSON.stringify(selectedOncogenicityResult.evidenceJson, null, 2)}

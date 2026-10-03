@@ -1,0 +1,59 @@
+{
+  "source": {
+    "citation": "Sanchez-Vega F, et al. Oncogenic Signaling Pathways in The Cancer Genome Atlas. Cell. 2018;173(2):321-337.e10. doi:10.1016/j.cell.2018.03.035",
+    "diagram": "Figure 2 (curated pathway templates), redrawn",
+    "genes": "Table S3 (curated pathway templates): gene membership and OG/TSG labels"
+  },
+  "pathways": [
+    {
+      "id": "rtk-ras",
+      "name": "RTK/RAS",
+      "file": "rtk-ras.json"
+    },
+    {
+      "id": "pi3k",
+      "name": "PI3K",
+      "file": "pi3k.json"
+    },
+    {
+      "id": "cell-cycle",
+      "name": "Cell cycle",
+      "file": "cell-cycle.json"
+    },
+    {
+      "id": "tp53",
+      "name": "TP53",
+      "file": "tp53.json"
+    },
+    {
+      "id": "nrf2",
+      "name": "NRF2",
+      "file": "nrf2.json"
+    },
+    {
+      "id": "tgf-beta",
+      "name": "TGFβ",
+      "file": "tgf-beta.json"
+    },
+    {
+      "id": "wnt",
+      "name": "WNT",
+      "file": "wnt.json"
+    },
+    {
+      "id": "hippo",
+      "name": "HIPPO",
+      "file": "hippo.json"
+    },
+    {
+      "id": "myc",
+      "name": "MYC",
+      "file": "myc.json"
+    },
+    {
+      "id": "notch",
+      "name": "NOTCH",
+      "file": "notch.json"
+    }
+  ]
+}

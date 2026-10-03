@@ -2,6 +2,7 @@ export type ColumnId =
     | 'range'
     | 'variant'
     | 'genomicSourceClass'
+    | 'variantAlleleFrequency'
     | 'oncogenicityPrediction'
     | 'molecularConsequences'
     | 'dxImplications'
@@ -18,6 +19,12 @@ export const RESULTS_TABLE_COLUMNS: ResultsTableColumnDefinition[] = [
     { id: 'range', label: 'Range', defaultWidth: 220, minWidth: 180 },
     { id: 'variant', label: 'Variant', defaultWidth: 220, minWidth: 180 },
     { id: 'genomicSourceClass', label: 'Genomic Source Class', defaultWidth: 220, minWidth: 180 },
+    {
+        id: 'variantAlleleFrequency',
+        label: 'Variant Allele Frequency',
+        defaultWidth: 180,
+        minWidth: 150,
+    },
     {
         id: 'oncogenicityPrediction',
         label: 'Oncogenicity Prediction',

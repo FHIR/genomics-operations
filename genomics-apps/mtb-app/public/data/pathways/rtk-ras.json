@@ -1,0 +1,1071 @@
+{
+  "id": "rtk-ras",
+  "name": "RTK/RAS",
+  "version": "1.0",
+  "source": {
+    "citation": "Sanchez-Vega F, et al. Oncogenic Signaling Pathways in The Cancer Genome Atlas. Cell. 2018;173(2):321-337.e10. doi:10.1016/j.cell.2018.03.035",
+    "diagram": "Figure 2 (curated pathway templates), redrawn",
+    "genes": "Table S3 (curated pathway templates): gene membership and OG/TSG labels"
+  },
+  "size": {
+    "width": 880,
+    "height": 830
+  },
+  "groups": [
+    {
+      "id": "rtks",
+      "label": "RTKs",
+      "x": 40,
+      "y": 30,
+      "width": 759,
+      "height": 176,
+      "members": [
+        "EGFR",
+        "ERBB2",
+        "ERBB3",
+        "ERBB4",
+        "MET",
+        "PDGFRA",
+        "FGFR1",
+        "FGFR2",
+        "FGFR3",
+        "FGFR4",
+        "KIT",
+        "IGF1R",
+        "RET",
+        "ROS1",
+        "ALK",
+        "FLT3",
+        "NTRK1-3",
+        "JAK2"
+      ],
+      "labelPosition": "bottom-right"
+    },
+    {
+      "id": "ras",
+      "label": "RAS",
+      "x": 330,
+      "y": 360,
+      "width": 509,
+      "height": 64,
+      "members": [
+        "KRAS",
+        "HRAS",
+        "NRAS",
+        "RIT1"
+      ],
+      "labelPosition": "bottom-right"
+    },
+    {
+      "id": "raf",
+      "label": "RAF",
+      "x": 392,
+      "y": 500,
+      "width": 384,
+      "height": 64,
+      "members": [
+        "ARAF",
+        "BRAF",
+        "RAF1"
+      ],
+      "labelPosition": "bottom-right"
+    },
+    {
+      "id": "mek",
+      "label": "MEK",
+      "x": 520,
+      "y": 640,
+      "width": 259,
+      "height": 64,
+      "members": [
+        "MAP2K1",
+        "MAP2K2"
+      ],
+      "labelPosition": "bottom-right"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "EGFR",
+      "label": "EGFR",
+      "type": "gene",
+      "x": 107.0,
+      "y": 62.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "EGFR"
+      ]
+    },
+    {
+      "id": "ERBB2",
+      "label": "ERBB2",
+      "type": "gene",
+      "x": 232.0,
+      "y": 62.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "ERBB2"
+      ]
+    },
+    {
+      "id": "ERBB3",
+      "label": "ERBB3",
+      "type": "gene",
+      "x": 357.0,
+      "y": 62.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "ERBB3"
+      ]
+    },
+    {
+      "id": "ERBB4",
+      "label": "ERBB4",
+      "type": "gene",
+      "x": 482.0,
+      "y": 62.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "ERBB4"
+      ]
+    },
+    {
+      "id": "MET",
+      "label": "MET",
+      "type": "gene",
+      "x": 607.0,
+      "y": 62.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "MET"
+      ]
+    },
+    {
+      "id": "PDGFRA",
+      "label": "PDGFRA",
+      "type": "gene",
+      "x": 732.0,
+      "y": 62.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "PDGFRA"
+      ]
+    },
+    {
+      "id": "FGFR1",
+      "label": "FGFR1",
+      "type": "gene",
+      "x": 107.0,
+      "y": 118.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "FGFR1"
+      ]
+    },
+    {
+      "id": "FGFR2",
+      "label": "FGFR2",
+      "type": "gene",
+      "x": 232.0,
+      "y": 118.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "FGFR2"
+      ]
+    },
+    {
+      "id": "FGFR3",
+      "label": "FGFR3",
+      "type": "gene",
+      "x": 357.0,
+      "y": 118.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "FGFR3"
+      ]
+    },
+    {
+      "id": "FGFR4",
+      "label": "FGFR4",
+      "type": "gene",
+      "x": 482.0,
+      "y": 118.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "FGFR4"
+      ]
+    },
+    {
+      "id": "KIT",
+      "label": "KIT",
+      "type": "gene",
+      "x": 607.0,
+      "y": 118.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "KIT"
+      ]
+    },
+    {
+      "id": "IGF1R",
+      "label": "IGF1R",
+      "type": "gene",
+      "x": 732.0,
+      "y": 118.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "IGF1R"
+      ]
+    },
+    {
+      "id": "RET",
+      "label": "RET",
+      "type": "gene",
+      "x": 107.0,
+      "y": 174.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "RET"
+      ]
+    },
+    {
+      "id": "ROS1",
+      "label": "ROS1",
+      "type": "gene",
+      "x": 232.0,
+      "y": 174.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "ROS1"
+      ]
+    },
+    {
+      "id": "ALK",
+      "label": "ALK",
+      "type": "gene",
+      "x": 357.0,
+      "y": 174.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "ALK"
+      ]
+    },
+    {
+      "id": "FLT3",
+      "label": "FLT3",
+      "type": "gene",
+      "x": 482.0,
+      "y": 174.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "FLT3"
+      ]
+    },
+    {
+      "id": "NTRK1-3",
+      "label": "NTRK1-3",
+      "type": "gene",
+      "x": 607.0,
+      "y": 174.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "NTRK1",
+        "NTRK2",
+        "NTRK3"
+      ]
+    },
+    {
+      "id": "JAK2",
+      "label": "JAK2",
+      "type": "gene",
+      "x": 732.0,
+      "y": 174.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "JAK2"
+      ]
+    },
+    {
+      "id": "CBL",
+      "label": "CBL",
+      "type": "gene",
+      "x": 100,
+      "y": 290,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "CBL"
+      ]
+    },
+    {
+      "id": "ERRFI1",
+      "label": "ERRFI1",
+      "type": "gene",
+      "x": 230,
+      "y": 290,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "ERRFI1"
+      ]
+    },
+    {
+      "id": "ABL1",
+      "label": "ABL1",
+      "type": "gene",
+      "x": 380,
+      "y": 290,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "ABL1"
+      ]
+    },
+    {
+      "id": "SOS1",
+      "label": "SOS1",
+      "type": "gene",
+      "x": 530,
+      "y": 290,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "SOS1"
+      ]
+    },
+    {
+      "id": "NF1",
+      "label": "NF1",
+      "type": "gene",
+      "x": 690,
+      "y": 290,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "NF1"
+      ]
+    },
+    {
+      "id": "RASA1",
+      "label": "RASA1",
+      "type": "gene",
+      "x": 815,
+      "y": 290,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "RASA1"
+      ]
+    },
+    {
+      "id": "KRAS",
+      "label": "KRAS",
+      "type": "gene",
+      "x": 397.0,
+      "y": 392.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "KRAS"
+      ]
+    },
+    {
+      "id": "HRAS",
+      "label": "HRAS",
+      "type": "gene",
+      "x": 522.0,
+      "y": 392.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "HRAS"
+      ]
+    },
+    {
+      "id": "NRAS",
+      "label": "NRAS",
+      "type": "gene",
+      "x": 647.0,
+      "y": 392.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "NRAS"
+      ]
+    },
+    {
+      "id": "RIT1",
+      "label": "RIT1",
+      "type": "gene",
+      "x": 772.0,
+      "y": 392.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "RIT1"
+      ]
+    },
+    {
+      "id": "PTPN11",
+      "label": "PTPN11",
+      "type": "gene",
+      "x": 220,
+      "y": 390,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "PTPN11"
+      ]
+    },
+    {
+      "id": "ARAF",
+      "label": "ARAF",
+      "type": "gene",
+      "x": 459.0,
+      "y": 532.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "ARAF"
+      ]
+    },
+    {
+      "id": "BRAF",
+      "label": "BRAF",
+      "type": "gene",
+      "x": 584.0,
+      "y": 532.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "BRAF"
+      ]
+    },
+    {
+      "id": "RAF1",
+      "label": "RAF1",
+      "type": "gene",
+      "x": 709.0,
+      "y": 532.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "RAF1"
+      ]
+    },
+    {
+      "id": "ERF",
+      "label": "ERF",
+      "type": "gene",
+      "x": 330,
+      "y": 560,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "ERF"
+      ]
+    },
+    {
+      "id": "MAP2K1",
+      "label": "MAP2K1",
+      "type": "gene",
+      "x": 587.0,
+      "y": 672.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "MAP2K1"
+      ]
+    },
+    {
+      "id": "MAP2K2",
+      "label": "MAP2K2",
+      "type": "gene",
+      "x": 712.0,
+      "y": 672.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "MAP2K2"
+      ]
+    },
+    {
+      "id": "MAPK1",
+      "label": "MAPK1",
+      "type": "gene",
+      "x": 330,
+      "y": 666,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "MAPK1"
+      ]
+    },
+    {
+      "id": "RAC1",
+      "label": "RAC1",
+      "type": "gene",
+      "x": 160,
+      "y": 666,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "RAC1"
+      ]
+    },
+    {
+      "id": "PROLIF",
+      "label": "Proliferation",
+      "type": "process",
+      "x": 170,
+      "y": 780,
+      "width": 150,
+      "height": 40
+    },
+    {
+      "id": "SURV",
+      "label": "Cell survival",
+      "type": "process",
+      "x": 330,
+      "y": 780,
+      "width": 150,
+      "height": 40
+    },
+    {
+      "id": "TRANSL",
+      "label": "Translation",
+      "type": "process",
+      "x": 490,
+      "y": 780,
+      "width": 150,
+      "height": 40
+    }
+  ],
+  "edges": [
+    {
+      "from": "CBL",
+      "to": "rtks",
+      "type": "inhibits"
+    },
+    {
+      "from": "ERRFI1",
+      "to": "rtks",
+      "type": "inhibits"
+    },
+    {
+      "from": "rtks",
+      "to": "SOS1",
+      "type": "activates"
+    },
+    {
+      "from": "ABL1",
+      "to": "SOS1",
+      "type": "activates"
+    },
+    {
+      "from": "NF1",
+      "to": "ras",
+      "type": "inhibits"
+    },
+    {
+      "from": "RASA1",
+      "to": "ras",
+      "type": "inhibits"
+    },
+    {
+      "from": "SOS1",
+      "to": "ras",
+      "type": "activates"
+    },
+    {
+      "from": "PTPN11",
+      "to": "ras",
+      "type": "activates"
+    },
+    {
+      "from": "ras",
+      "to": "raf",
+      "type": "activates"
+    },
+    {
+      "from": "raf",
+      "to": "mek",
+      "type": "activates"
+    },
+    {
+      "from": "mek",
+      "to": "MAPK1",
+      "type": "activates"
+    },
+    {
+      "from": "ERF",
+      "to": "MAPK1",
+      "type": "inhibits"
+    },
+    {
+      "from": "RAC1",
+      "to": "MAPK1",
+      "type": "activates"
+    },
+    {
+      "from": "MAPK1",
+      "to": "PROLIF",
+      "type": "activates"
+    },
+    {
+      "from": "MAPK1",
+      "to": "SURV",
+      "type": "activates"
+    },
+    {
+      "from": "MAPK1",
+      "to": "TRANSL",
+      "type": "activates"
+    }
+  ],
+  "genes": [
+    {
+      "symbol": "ABL1",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "EGFR",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "ERBB2",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "ERBB3",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "ERBB4",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "PDGFRA",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "PDGFRB",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "MET",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "FGFR1",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "FGFR2",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "FGFR3",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "FGFR4",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "FLT3",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "ALK",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "RET",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "ROS1",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "KIT",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "IGF1R",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "NTRK1",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "NTRK2",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "NTRK3",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "SOS1",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "GRB2",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "PTPN11",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "KRAS",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "HRAS",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "NRAS",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "RIT1",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "ARAF",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "BRAF",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "RAF1",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "RAC1",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "MAP2K1",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "MAP2K2",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "MAPK1",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "NF1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "RASA1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CBL",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "ERRFI1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CBLB",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "CBLC",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "INSR",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "INSRR",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "IRS1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "SOS2",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "SHC1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "SHC2",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "SHC3",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "SHC4",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "RASGRP1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "RASGRP2",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "RASGRP3",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "RASGRP4",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "RAPGEF1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "RAPGEF2",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "RASGRF1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "RASGRF2",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "FNTA",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "FNTB",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "RCE1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "ICMT",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "MRAS",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "PLXNB1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "MAPK3",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "ARHGAP35",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "RASA2",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "RASA3",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "RASAL1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "RASAL2",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "RASAL3",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "SPRED1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "SPRED2",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "SPRED3",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "DAB2IP",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "SHOC2",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "PPP1CA",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "SCRIB",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "PIN1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "KSR1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "KSR2",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "PEBP1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "ERF",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "PEA15",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "JAK2",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "IRS2",
+      "role": "OG",
+      "inDiagram": false
+    }
+  ]
+}

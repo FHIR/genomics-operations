@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { getTxImplicationDedupKey, ProcessedTxImplication } from '@/services/txService';
 import { useMemo } from 'react';
+import { CooccurrenceProfile } from '@/services/cooccurrenceService';
+import CooccurrenceBox from './CooccurrenceBox';
 
 interface TxImplicationCellProps {
     implications?: ProcessedTxImplication[];
+    cooccurrences?: CooccurrenceProfile[];
 }
 
 function ImplicationDisplay({ implication }: { implication: ProcessedTxImplication }) {
@@ -82,7 +85,7 @@ function ImplicationDisplay({ implication }: { implication: ProcessedTxImplicati
     );
 }
 
-export default function TxImplicationCell({ implications }: TxImplicationCellProps) {
+export default function TxImplicationCell({ implications, cooccurrences = [] }: TxImplicationCellProps) {
     const [viewMode, setViewMode] = useState<'limited' | 'distinct' | 'all'>('limited'); // Default to showing limited (first 2 distinct)
 
     // Calculate distinct implications
@@ -122,6 +125,7 @@ export default function TxImplicationCell({ implications }: TxImplicationCellPro
     if (implications.length === 0) {
         return (
             <div className="p-3 whitespace-normal break-words">
+                <CooccurrenceBox profiles={cooccurrences} />
                 <span className="text-gray-400">&lt;none found&gt;</span>
             </div>
         );
@@ -129,6 +133,9 @@ export default function TxImplicationCell({ implications }: TxImplicationCellPro
 
     return (
         <div className="p-3 whitespace-normal break-words">
+            {/* Co-occurring variants come first; the implications below are unchanged */}
+            <CooccurrenceBox profiles={cooccurrences} />
+
             {/* Show implications based on current mode */}
             {implicationsToShow.map((implication, index) => (
                 <ImplicationDisplay key={`${viewMode}-${index}`} implication={implication} />

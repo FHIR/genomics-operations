@@ -46,6 +46,8 @@ This workflow ensures that clinicians can:
 * **Comprehensive Data Display**: Therapeutic implications with evidence levels and medications, diagnostic implications with clinical significance, molecular consequences and variant impact, per-variant oncogenicity prediction for simple variants, and ClinVar integration with star ratings
 * **Ephemeral Oncogenicity Results**: Computed oncogenicity predictions remain visible only in the current page view and are cleared on a full page reload or in a new tab
 * **User Experience**: Responsive design optimized for clinical workflows, expandable result rows with detailed information, tooltips and help text for complex terminology
+* **Co-occurring Variants**: Flags CIViC molecular profiles (AND combinations of variants) when the patient has every component variant, shown as a collapsible box at the top of the Tx Implications cell
+* **Pathway Diagrams**: Select variants and view them on the 10 TCGA oncogenic signaling pathways (Sanchez-Vega et al., *Cell* 2018), with oncogenes in pink, tumor suppressor genes in blue, the patient's variants outlined, and co-occurring variants connected
 
 ---
 
@@ -76,18 +78,32 @@ src/
 │   ├── SearchForm.tsx      # Search input and controls
 │   ├── FeedbackForm.tsx    # User feedback collection
 │   ├── EmailSubscription.tsx # Email signup
+│   ├── pathways/           # Pathways view and SVG pathway diagram
+│   ├── CooccurrenceBox.tsx # Co-occurring variants box in the Tx cell
+│   ├── SelectionTray.tsx   # Selected-variants bar
 │   └── *Cell.tsx           # Table cell components
 ├── services/               # Data layer services
 │   ├── cachedVariantService.ts  # Cached variant lookups
 │   ├── variantService.ts        # Core variant API
 │   ├── txService.ts            # Therapeutic implications
 │   ├── dxService.ts            # Diagnostic implications
-│   └── mcService.ts            # Molecular consequences
+│   ├── mcService.ts            # Molecular consequences
+│   ├── cooccurrenceService.ts  # CIViC co-occurrence knowledge base and matching
+│   └── pathwayService.ts       # Pathway diagram loading
+├── lib/                    # Shared helpers (e.g., variant display labels)
 ├── types/                  # TypeScript type definitions
 │   └── variants.ts         # Variant and implication types
 ├── cancerFilter/           # Cancer type filtering logic
 ├── utils/                  # Utility functions
 └── public/                # Static assets
+
+public/data/
+├── MTB_KB_GeneLists.csv        # Cancer types and preset gene lists
+├── CIViC_Cooccurrence_KB.csv   # Co-occurrence profiles (built by scripts/build_civic_cooccurrence_kb.py)
+└── pathways/                   # 10 TCGA pathway diagrams (JSON)
+
+scripts/
+└── build_civic_cooccurrence_kb.py  # Rebuilds CIViC_Cooccurrence_KB.csv from the CIViC API
 ```
 
 ---
@@ -108,6 +124,27 @@ src/
    * Mixed queries: `BRAF, NC_000007.14:55174721-55174820`
 4. **Apply Filters**: Use `Filter Results` to open the sidebar and refine results with actionability, molecular consequence, therapeutic implication, and diagnostic filters
 5. **Review Results**: Expand rows to see detailed implications
+
+### Co-occurring Variants
+
+The Tx Implications cell starts with a **Potentially relevant co-occurring variants** box when the patient has every variant in a CIViC molecular profile that combines variants with AND (for example, `EGFR L858R AND EGFR T790M`). A component counts as present when the patient's therapeutic implications include either its CIViC variant ID or its single-variant CIViC molecular profile ID (Cat-VRS results are identified by molecular profile, e.g., `MET Amplification` = MP 266), so profiles involving copy number or other categorical variants are found only when Cat-VRS queries are enabled. Evidence is worded like other therapeutic implications; drugs are joined by CIViC's interaction type: combination `A + B`, substitutes `A or B`, sequential `A, then B`.
+
+The profiles come from `public/data/CIViC_Cooccurrence_KB.csv`, built from the CIViC GraphQL API by `scripts/build_civic_cooccurrence_kb.py` (Python standard library only). Rerun it by hand to refresh the data, then commit the CSV:
+
+```
+python scripts/build_civic_cooccurrence_kb.py
+```
+
+It keeps AND-only profiles with predictive evidence (accepted or submitted) and skips profiles with OR, NOT/wildtype parts, or fusions.
+
+### Pathways
+
+1. Select variants with the checkboxes in the first column of the results table, or use `Select all shown`.
+2. Click `View on pathways` in the bar at the bottom, or the `Pathways` tab.
+3. Pathways are ranked by how many selected genes each diagram contains; the view opens on the top-ranked one.
+4. Click a gene to see the patient's variants in it and jump back to the row with `Show in results table`.
+
+The 10 pathway diagrams are stored as JSON in `public/data/pathways/` (see the README there), redrawn from Figure 2 of Sanchez-Vega et al., *Cell* 2018, with gene membership and oncogene / tumor suppressor roles from Table S3. Selections are kept only in the current page view.
 
 ### Oncogenicity Prediction Column
 
@@ -155,6 +192,9 @@ Structural variants do not currently support oncogenicity prediction. Computed p
 * **ResultsTable**: Displays variants with expandable details
 * **FilterSidebar**: Advanced filtering interface, including actionability controls
 * **CancerSelect**: Cancer type selection with phenotype loading
+* **CooccurrenceBox**: Collapsible co-occurring variants box at the top of the Tx Implications cell
+* **SelectionTray**: Bar showing the selected variants, with `View on pathways`
+* **PathwaysView / PathwayDiagram**: Ranked pathway list, selected variants, SVG diagram, and gene details
 
 ### Services Architecture
 
@@ -164,6 +204,8 @@ The application uses a service layer pattern:
 * **cachedVariantService**: Caching layer for performance
 * **txService/dxService/mcService**: Specialized implication handlers
 * **cacheService**: Generic caching utilities
+* **cooccurrenceService**: Loads the CIViC co-occurrence knowledge base and matches it against the patient's results
+* **pathwayService**: Loads the stored pathway diagrams
 
 ---
 

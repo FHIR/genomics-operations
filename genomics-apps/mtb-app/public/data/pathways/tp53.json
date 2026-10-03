@@ -1,0 +1,216 @@
+{
+  "id": "tp53",
+  "name": "TP53",
+  "version": "1.0",
+  "source": {
+    "citation": "Sanchez-Vega F, et al. Oncogenic Signaling Pathways in The Cancer Genome Atlas. Cell. 2018;173(2):321-337.e10. doi:10.1016/j.cell.2018.03.035",
+    "diagram": "Figure 2 (curated pathway templates), redrawn",
+    "genes": "Table S3 (curated pathway templates): gene membership and OG/TSG labels"
+  },
+  "size": {
+    "width": 700,
+    "height": 520
+  },
+  "groups": [],
+  "nodes": [
+    {
+      "id": "MDM2/4",
+      "label": "MDM2/4",
+      "type": "gene",
+      "x": 330,
+      "y": 50,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "MDM2",
+        "MDM4"
+      ]
+    },
+    {
+      "id": "CDKN2A",
+      "label": "CDKN2A",
+      "type": "gene",
+      "x": 130,
+      "y": 130,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "CDKN2A"
+      ]
+    },
+    {
+      "id": "DRS",
+      "label": "DNA replication stress",
+      "type": "process",
+      "x": 570,
+      "y": 50,
+      "width": 190,
+      "height": 40
+    },
+    {
+      "id": "ATM",
+      "label": "ATM",
+      "type": "gene",
+      "x": 570,
+      "y": 150,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "ATM"
+      ]
+    },
+    {
+      "id": "CHEK2",
+      "label": "CHEK2",
+      "type": "gene",
+      "x": 570,
+      "y": 250,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "CHEK2"
+      ]
+    },
+    {
+      "id": "RPS6KA3",
+      "label": "RPS6KA3",
+      "type": "gene",
+      "x": 570,
+      "y": 360,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "RPS6KA3"
+      ]
+    },
+    {
+      "id": "ONCO",
+      "label": "Oncogenic stress",
+      "type": "process",
+      "x": 430,
+      "y": 250,
+      "width": 140,
+      "height": 40
+    },
+    {
+      "id": "TP53",
+      "label": "TP53",
+      "type": "gene",
+      "x": 330,
+      "y": 360,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "TP53"
+      ]
+    },
+    {
+      "id": "SURV",
+      "label": "Cell survival, proliferation",
+      "type": "process",
+      "x": 200,
+      "y": 470,
+      "width": 220,
+      "height": 40
+    },
+    {
+      "id": "SEN",
+      "label": "Senescence, apoptosis",
+      "type": "process",
+      "x": 480,
+      "y": 470,
+      "width": 200,
+      "height": 40
+    }
+  ],
+  "edges": [
+    {
+      "from": "CDKN2A",
+      "to": "MDM2/4",
+      "type": "inhibits"
+    },
+    {
+      "from": "CDKN2A",
+      "to": "TP53",
+      "type": "inhibits"
+    },
+    {
+      "from": "MDM2/4",
+      "to": "TP53",
+      "type": "inhibits"
+    },
+    {
+      "from": "DRS",
+      "to": "ATM",
+      "type": "activates"
+    },
+    {
+      "from": "ATM",
+      "to": "CHEK2",
+      "type": "activates"
+    },
+    {
+      "from": "CHEK2",
+      "to": "RPS6KA3",
+      "type": "activates"
+    },
+    {
+      "from": "RPS6KA3",
+      "to": "TP53",
+      "type": "activates"
+    },
+    {
+      "from": "ONCO",
+      "to": "TP53",
+      "type": "activates"
+    },
+    {
+      "from": "TP53",
+      "to": "SURV",
+      "type": "inhibits"
+    },
+    {
+      "from": "TP53",
+      "to": "SEN",
+      "type": "activates"
+    }
+  ],
+  "genes": [
+    {
+      "symbol": "TP53",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "MDM2",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "MDM4",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "ATM",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CHEK2",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "RPS6KA3",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CDKN2A",
+      "role": "TSG",
+      "inDiagram": true,
+      "note": "Shown in this panel of Figure 2; listed in Table S3 under Cell Cycle"
+    }
+  ]
+}

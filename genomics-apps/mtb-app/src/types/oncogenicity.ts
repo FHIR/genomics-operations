@@ -45,15 +45,43 @@ export interface OncogenicityPredictionResult {
     key: string;
     spdi: string;
     hgvs?: string;
-    status: 'loading' | 'ready';
+    status: 'loading' | 'ready' | 'error';
+    startedAt?: number; // When the current prediction request began (ms since epoch)
+    retryAttempt?: number; // Automatic retry in progress (1-based); undefined on the first try
     gauge: OncogenicityGaugeKind;
     score?: number;
     interpretation?: string;
     observation?: FhirObservation;
     errorMessage?: string;
     evidenceStatus: OncogenicityEvidenceStatus;
+    evidenceStartedAt?: number;
+    evidenceRetryAttempt?: number;
     evidenceJson?: unknown;
     evidenceError?: string;
+}
+
+// Wait before each automatic retry; the array length is the number of retries
+export const ONCOGENICITY_RETRY_DELAYS_MS = [1000, 2000, 4000];
+
+// After this long, a pending request is assumed to be waiting on a cold start of the predictor server
+export const ONCOGENICITY_SLOW_REQUEST_MS = 8000;
+
+export async function runWithRetries<T>(
+    attempt: () => Promise<T>,
+    onRetry: (retryAttempt: number, error: unknown) => void,
+): Promise<T> {
+    for (let retryIndex = 0; ; retryIndex += 1) {
+        try {
+            return await attempt();
+        } catch (error) {
+            if (retryIndex >= ONCOGENICITY_RETRY_DELAYS_MS.length) {
+                throw error;
+            }
+
+            onRetry(retryIndex + 1, error);
+            await new Promise((resolve) => setTimeout(resolve, ONCOGENICITY_RETRY_DELAYS_MS[retryIndex]));
+        }
+    }
 }
 
 function getFirstConcept(concept?: FhirCodeableConcept | FhirCodeableConcept[]): FhirCodeableConcept | undefined {

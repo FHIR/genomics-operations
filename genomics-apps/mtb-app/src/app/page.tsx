@@ -1,13 +1,18 @@
 'use client';
 
 import Link from "next/link"
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useLayoutEffect, useState, useRef, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import { Variant } from '@/types/variants';
 import { findSubjectVariantsWithCache } from '@/services/cachedVariantService';
 import SearchForm, { MrnSelector } from '../components/SearchForm';
 import SearchStatus from '../components/SearchStatus';
-import ResultsTable from '../components/ResultsTable';
+import ResultsTable, { HighlightRequest } from '../components/ResultsTable';
+import SelectionTray from '../components/SelectionTray';
+import PathwaysView from '../components/pathways/PathwaysView';
+import { loadPathways } from '@/services/pathwayService';
+import { CooccurrenceProfile, findCooccurrenceMatches, groupMatchesByVariant, loadCooccurrenceProfiles, restrictMatchesToVariants } from '@/services/cooccurrenceService';
+import { getVariantGene, getVariantShortLabel } from '@/lib/variantDisplay';
 import CancerSelect from "@/cancerFilter/cancerSelect";
 import RegionLoader from "@/cancerFilter/regionLoader";
 import { PresetSelection } from "@/cancerFilter/geneListKb";
@@ -58,6 +63,12 @@ export default function Home() {
   const [presetRequestId, setPresetRequestId] = useState(0);
   const [isSearchWorkspaceCollapsed, setIsSearchWorkspaceCollapsed] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [activeView, setActiveView] = useState<'results' | 'pathways'>('results');
+  const [selectedVariantIds, setSelectedVariantIds] = useState<Set<string>>(new Set());
+  const [visibleVariantIds, setVisibleVariantIds] = useState<string[]>([]);
+  const [highlightRequest, setHighlightRequest] = useState<HighlightRequest | null>(null);
+  const [trayMessage, setTrayMessage] = useState<string | null>(null);
+  const [cooccurrenceProfiles, setCooccurrenceProfiles] = useState<CooccurrenceProfile[]>([]);
   const [currentFilters, setCurrentFilters] = useState<FilterCriteria>({
     selectedImpacts: [],
     selectedConsequences: [],
@@ -69,6 +80,106 @@ export default function Home() {
     selectedTxPhenotypes: [],
     actionableFilter: DEFAULT_ACTIONABILITY_FILTER,
   });
+
+  // Load the pathway diagrams in the background so the Pathways view opens without a loading step
+  useEffect(() => {
+    loadPathways().catch((error) => console.error('Error loading pathway diagrams:', error));
+  }, []);
+
+  useEffect(() => {
+    loadCooccurrenceProfiles()
+      .then(setCooccurrenceProfiles)
+      .catch((error) => console.error('Error loading co-occurrence knowledge base:', error));
+  }, []);
+
+  // Co-occurrence is checked against all results, so filters never hide it; it reruns as results arrive
+  const cooccurrenceMatches = useMemo(
+    () => findCooccurrenceMatches(results, cooccurrenceProfiles),
+    [results, cooccurrenceProfiles]
+  );
+  const cooccurrencesByVariant = useMemo(() => groupMatchesByVariant(cooccurrenceMatches), [cooccurrenceMatches]);
+
+  const selectedVariants = useMemo(
+    () => results.filter((variant) => variant.id && selectedVariantIds.has(variant.id)),
+    [results, selectedVariantIds]
+  );
+  const visibleVariantIdSet = useMemo(() => new Set(visibleVariantIds), [visibleVariantIds]);
+  const hiddenSelectedCount = selectedVariants.filter((variant) => !visibleVariantIdSet.has(variant.id as string)).length;
+  const selectedCooccurrenceMatches = useMemo(
+    () => restrictMatchesToVariants(cooccurrenceMatches, selectedVariantIds),
+    [cooccurrenceMatches, selectedVariantIds]
+  );
+
+  // Keep the tab bar where it is on screen when switching views (or at the top of the window if it
+  // was scrolled out of view), and return to the previous scroll position in the results table
+  const tabBarRef = useRef<HTMLDivElement | null>(null);
+  const pendingTabBarTopRef = useRef<number | null>(null);
+  const resultsScrollYRef = useRef<number | null>(null);
+
+  const switchView = useCallback((view: 'results' | 'pathways') => {
+    if (view === activeView) {
+      return;
+    }
+    if (activeView === 'results') {
+      resultsScrollYRef.current = window.scrollY;
+    }
+    pendingTabBarTopRef.current = tabBarRef.current?.getBoundingClientRect().top ?? null;
+    setActiveView(view);
+  }, [activeView]);
+
+  useLayoutEffect(() => {
+    const previousTop = pendingTabBarTopRef.current;
+    pendingTabBarTopRef.current = null;
+    if (previousTop === null || !tabBarRef.current) {
+      return;
+    }
+    if (activeView === 'results' && resultsScrollYRef.current !== null) {
+      window.scrollTo({ top: resultsScrollYRef.current });
+      return;
+    }
+    window.scrollBy({ top: tabBarRef.current.getBoundingClientRect().top - Math.max(previousTop, 0) });
+  }, [activeView]);
+
+  const toggleVariantSelection = useCallback((variantId: string) => {
+    setSelectedVariantIds((current) => {
+      const next = new Set(current);
+      if (next.has(variantId)) {
+        next.delete(variantId);
+      } else {
+        next.add(variantId);
+      }
+      return next;
+    });
+  }, []);
+
+  const selectVariants = useCallback((variantIds: string[]) => {
+    setSelectedVariantIds((current) => new Set([...current, ...variantIds]));
+  }, []);
+
+  const clearSelection = useCallback(() => {
+    setSelectedVariantIds(new Set());
+    setActiveView('results');
+  }, []);
+
+  const showInResults = useCallback((variantId: string) => {
+    setTrayMessage(null);
+    setActiveView('results');
+    setHighlightRequest((current) => ({ variantId, requestId: (current?.requestId ?? 0) + 1 }));
+  }, []);
+
+  const handleHighlightMissing = useCallback((variantId: string) => {
+    const variant = results.find((candidate) => candidate.id === variantId);
+    const label = variant ? `${getVariantGene(variant) ?? variant.range} ${getVariantShortLabel(variant)}` : 'That variant';
+    setTrayMessage(`${label} is hidden by current filters.`);
+  }, [results]);
+
+  useEffect(() => {
+    if (!trayMessage) {
+      return;
+    }
+    const timer = window.setTimeout(() => setTrayMessage(null), 5000);
+    return () => window.clearTimeout(timer);
+  }, [trayMessage]);
 
   // Cleanup abort controllers when component unmounts
   useEffect(() => {
@@ -268,6 +379,8 @@ export default function Home() {
     setResults([]);
     setFilteredResults([]);
     setInvalidRanges([]);
+    setSelectedVariantIds(new Set());
+    setActiveView('results');
 
     const initialStatus: Record<string, string> = {};
     searchTerms.forEach(term => {
@@ -332,7 +445,7 @@ export default function Home() {
   };
   return (
     <div className="min-h-screen p-8 bg-white text-black">
-      <main className="max-w-4xl mx-auto">
+      <main className={`max-w-4xl mx-auto ${selectedVariants.length > 0 ? 'pb-24' : ''}`}>
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-5xl font-bold">
             Molecular Tumor Board <br /> Genetic Data Viewer
@@ -437,14 +550,64 @@ export default function Home() {
           results={results}
           currentFilters={currentFilters}
         />
-        <ResultsTable
-          results={filteredResults}
-          selectedCancerType={selectedCancerType}
-          onToggleFilters={() => setIsFilterOpen(!isFilterOpen)}
-          hasActiveFilters={hasActiveFilters}
-          enableCatVrsQueries={enableCatVrsQueries}
-          onEnableCatVrsQueriesChange={setEnableCatVrsQueries}
-        />
+        <div ref={tabBarRef} className="-ml-64 flex w-full min-w-[1400px] gap-1 border-b border-slate-300" role="tablist">
+          {(['results', 'pathways'] as const).map((view) => {
+            const isActive = activeView === view;
+            const isDisabled = view === 'pathways' && selectedVariants.length === 0;
+            return (
+              <button
+                key={view}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                disabled={isDisabled}
+                title={isDisabled ? 'Select variants in the results table first' : undefined}
+                onClick={() => switchView(view)}
+                className={`-mb-px rounded-t-lg border px-5 py-2.5 text-sm font-semibold ${isActive ? 'border-slate-300 border-b-gray-100 bg-gray-100 text-gray-900' : 'border-transparent text-gray-500 hover:text-gray-800'} disabled:cursor-not-allowed disabled:opacity-50`}
+              >
+                {view === 'results' ? `Results (${filteredResults.length})` : `Pathways${selectedVariants.length ? ` (${selectedVariants.length} selected)` : ''}`}
+              </button>
+            );
+          })}
+        </div>
+        {/* The results table stays mounted so its state (e.g., oncogenicity results) survives switching tabs */}
+        <div className={activeView === 'results' ? '' : 'hidden'}>
+          <ResultsTable
+            results={filteredResults}
+            selectedCancerType={selectedCancerType}
+            onToggleFilters={() => setIsFilterOpen(!isFilterOpen)}
+            hasActiveFilters={hasActiveFilters}
+            enableCatVrsQueries={enableCatVrsQueries}
+            onEnableCatVrsQueriesChange={setEnableCatVrsQueries}
+            cooccurrencesByVariant={cooccurrencesByVariant}
+            selectedVariantIds={selectedVariantIds}
+            onToggleVariantSelection={toggleVariantSelection}
+            onSelectVariants={selectVariants}
+            onVisibleVariantIdsChange={setVisibleVariantIds}
+            highlightRequest={highlightRequest}
+            onHighlightMissing={handleHighlightMissing}
+          />
+        </div>
+        {activeView === 'pathways' && (
+          // At least a window tall, so switching from the long results table doesn't pull the page up
+          <div className="-ml-64 min-h-screen w-full min-w-[1400px] rounded-2xl border-2 border-slate-400 bg-gray-100 p-6 shadow-sm">
+            <PathwaysView
+              selectedVariants={selectedVariants}
+              cooccurrenceMatches={selectedCooccurrenceMatches}
+              cooccurrencesByVariant={cooccurrencesByVariant}
+              onShowInResults={showInResults}
+            />
+          </div>
+        )}
+        {activeView === 'results' && (
+          <SelectionTray
+            selectedVariants={selectedVariants}
+            hiddenCount={hiddenSelectedCount}
+            message={trayMessage}
+            onClear={clearSelection}
+            onViewPathways={() => switchView('pathways')}
+          />
+        )}
         {isHowToUseOpen && (
           <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 px-4 py-8"

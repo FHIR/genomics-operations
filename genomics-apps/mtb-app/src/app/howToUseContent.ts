@@ -64,10 +64,35 @@ export const HOW_TO_USE_SECTIONS: HowToUseSection[] = [
         ],
     },
     {
+        title: 'Co-occurring Variants',
+        items: [
+            'When the patient has every variant named in a CIViC molecular profile that combines variants (for example, EGFR L858R AND EGFR T790M), the Tx Implications cell starts with a Potentially relevant co-occurring variants box. Click it to open or close it.',
+            'Each profile name links to CIViC, followed by its evidence in the same format as other therapeutic implications. Drugs given together are joined with +, interchangeable drugs with or, and drugs given in sequence with then.',
+            'Matching uses the CIViC variant and molecular profile identifiers returned with each variant\'s therapeutic implications. Profiles involving copy number changes or other categorical variants are only found when Enable Cat-VRS queries is checked. Profiles that use OR, NOT or wildtype, and fusion profiles, are not checked yet.',
+            'The box is not affected by the Filter Results options.',
+        ],
+    },
+    {
+        title: 'Selecting Variants and Pathways',
+        items: [
+            'Use the checkboxes in the first column of the results table, or Select all shown, to select variants. Selected variants stay selected when you change filters; the bar at the bottom shows how many are hidden by current filters.',
+            'Click View on pathways (or the Pathways tab) to see the selected variants on the 10 TCGA oncogenic signaling pathways, ranked by how many of your selected genes each diagram contains.',
+            'In the diagrams, pink boxes are oncogenes and blue boxes are tumor suppressor genes. Boxes with a thick dark outline contain your selected variants. A dashed purple arc connects genes in a matching co-occurrence profile.',
+            'Click a gene to see the patient\'s variants in it, their therapeutic implications, and a link back to the row in the results table.',
+            {
+                textBefore: 'The diagrams are redrawn from Figure 2 of ',
+                linkLabel: 'Sanchez-Vega et al., Cell 2018',
+                linkUrl: 'https://doi.org/10.1016/j.cell.2018.03.035',
+                textAfter: ', with gene roles from the paper\'s Table S3. Selections are kept only in the current page view.',
+            },
+        ],
+    },
+    {
         title: 'Oncogenicity Prediction Column',
         items: [
             'The Oncogenicity Prediction column applies only to simple variants (SNVs, MNVs, and InDels). Structural variants currently show that oncogenicity prediction is not available.',
             'For a simple variant, click Compute prediction to run the oncogenicity predictor. The cell then shows a color-coded gauge, and selecting the gauge opens a detailed modal.',
+            'The first prediction after a period of inactivity can take up to a minute while the prediction server wakes up. If a prediction fails, it is retried automatically; if it still fails, the cell shows Prediction failed (hover for the reason) with a Retry button.',
             'The detailed modal shows the overall score, overall prediction, HGVS conversion, original SPDI, evidence-line scores, and caveats. You can also request extended evidence details from the same modal.',
             'Computed oncogenicity predictions are kept only in the current page view. They are cleared if you reload the page or open the app in a new tab.',
         ],
@@ -95,6 +120,8 @@ export const HOW_TO_USE_SECTIONS: HowToUseSection[] = [
             'Click Actionable Genes to populate the search box with the predefined NSCLC actionable gene list, then run the search.',
             'Use the Filter Results button to confirm that Actionable, this tumor type is selected by default, or switch actionability to Actionable, any tumor type, Possibly actionable, or None.',
             'Use the same sidebar to apply additional filters for molecular consequences, therapeutic implications, and diagnostic implications.',
+            'With Enable Cat-VRS queries checked, the Tx Implications for EGFR L858R start with Potentially relevant co-occurring variants, including EGFR L858R AND MET Amplification.',
+            'Tick the EGFR and MET variants and click View on pathways to see them on the RTK/RAS pathway, joined by a co-occurring variants arc.',
         ],
     },
 

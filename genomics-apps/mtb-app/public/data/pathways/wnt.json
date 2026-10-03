@@ -1,0 +1,701 @@
+{
+  "id": "wnt",
+  "name": "WNT",
+  "version": "1.0",
+  "source": {
+    "citation": "Sanchez-Vega F, et al. Oncogenic Signaling Pathways in The Cancer Genome Atlas. Cell. 2018;173(2):321-337.e10. doi:10.1016/j.cell.2018.03.035",
+    "diagram": "Figure 2 (curated pathway templates), redrawn",
+    "genes": "Table S3 (curated pathway templates): gene membership and OG/TSG labels"
+  },
+  "size": {
+    "width": 760,
+    "height": 620
+  },
+  "groups": [
+    {
+      "id": "rec",
+      "label": "WNT dual receptor complex",
+      "x": 250,
+      "y": 200,
+      "width": 259,
+      "height": 64,
+      "members": [
+        "FZDs",
+        "LRP5/6"
+      ],
+      "labelPosition": "bottom-right"
+    },
+    {
+      "id": "tcf",
+      "label": "TCF/LEF",
+      "x": 313,
+      "y": 460,
+      "width": 134,
+      "height": 120,
+      "members": [
+        "TCF7",
+        "TCF7L1/2"
+      ],
+      "labelPosition": "bottom-right"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "WIF1",
+      "label": "WIF1",
+      "type": "gene",
+      "x": 380,
+      "y": 40,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "WIF1"
+      ]
+    },
+    {
+      "id": "WNT ligands",
+      "label": "WNT ligands",
+      "type": "gene",
+      "x": 380,
+      "y": 130,
+      "width": 130,
+      "height": 40,
+      "genes": [
+        "WNT1",
+        "WNT10A",
+        "WNT10B",
+        "WNT11",
+        "WNT16",
+        "WNT2",
+        "WNT3A",
+        "WNT4",
+        "WNT5A",
+        "WNT5B",
+        "WNT6",
+        "WNT7A",
+        "WNT7B",
+        "WNT8A",
+        "WNT8B",
+        "WNT9A",
+        "WNT9B"
+      ]
+    },
+    {
+      "id": "SFRP1-5",
+      "label": "SFRP1-5",
+      "type": "gene",
+      "x": 190,
+      "y": 130,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "SFRP1",
+        "SFRP2",
+        "SFRP4",
+        "SFRP5"
+      ]
+    },
+    {
+      "id": "FZDs",
+      "label": "FZDs",
+      "type": "gene",
+      "x": 317.0,
+      "y": 232.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "FZD1",
+        "FZD2",
+        "FZD3",
+        "FZD4",
+        "FZD5",
+        "FZD6",
+        "FZD7",
+        "FZD8",
+        "FZD9",
+        "FZD10"
+      ]
+    },
+    {
+      "id": "LRP5/6",
+      "label": "LRP5/6",
+      "type": "gene",
+      "x": 442.0,
+      "y": 232.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "LRP5",
+        "LRP6"
+      ]
+    },
+    {
+      "id": "RNF43",
+      "label": "RNF43",
+      "type": "gene",
+      "x": 100,
+      "y": 210,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "RNF43"
+      ]
+    },
+    {
+      "id": "ZNRF3",
+      "label": "ZNRF3",
+      "type": "gene",
+      "x": 100,
+      "y": 265,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "ZNRF3"
+      ]
+    },
+    {
+      "id": "DKK1-4",
+      "label": "DKK1-4",
+      "type": "gene",
+      "x": 640,
+      "y": 237,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "DKK1",
+        "DKK2",
+        "DKK3",
+        "DKK4"
+      ]
+    },
+    {
+      "id": "GSK3B",
+      "label": "GSK3B",
+      "type": "gene",
+      "x": 190,
+      "y": 350,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "GSK3B"
+      ]
+    },
+    {
+      "id": "APC",
+      "label": "APC",
+      "type": "gene",
+      "x": 190,
+      "y": 410,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "APC"
+      ]
+    },
+    {
+      "id": "CTNNB1",
+      "label": "CTNNB1",
+      "type": "gene",
+      "x": 380,
+      "y": 380,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "CTNNB1"
+      ]
+    },
+    {
+      "id": "AXIN1/2",
+      "label": "AXIN1/2",
+      "type": "gene",
+      "x": 570,
+      "y": 350,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "AXIN1",
+        "AXIN2"
+      ]
+    },
+    {
+      "id": "AMER1",
+      "label": "AMER1",
+      "type": "gene",
+      "x": 570,
+      "y": 410,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "AMER1"
+      ]
+    },
+    {
+      "id": "TCF7",
+      "label": "TCF7",
+      "type": "gene",
+      "x": 380.0,
+      "y": 492.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "TCF7"
+      ]
+    },
+    {
+      "id": "TCF7L1/2",
+      "label": "TCF7L1/2",
+      "type": "gene",
+      "x": 380.0,
+      "y": 548.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "TCF7L1",
+        "TCF7L2"
+      ]
+    },
+    {
+      "id": "TLE1-4",
+      "label": "TLE1-4 (Groucho)",
+      "type": "gene",
+      "x": 600,
+      "y": 512,
+      "width": 150,
+      "height": 40,
+      "genes": [
+        "TLE1",
+        "TLE2",
+        "TLE3",
+        "TLE4"
+      ]
+    },
+    {
+      "id": "PROLIF",
+      "label": "Cell proliferation",
+      "type": "process",
+      "x": 150,
+      "y": 512,
+      "width": 160,
+      "height": 40
+    }
+  ],
+  "edges": [
+    {
+      "from": "WIF1",
+      "to": "WNT ligands",
+      "type": "inhibits"
+    },
+    {
+      "from": "SFRP1-5",
+      "to": "WNT ligands",
+      "type": "inhibits"
+    },
+    {
+      "from": "WNT ligands",
+      "to": "rec",
+      "type": "activates"
+    },
+    {
+      "from": "RNF43",
+      "to": "rec",
+      "type": "inhibits"
+    },
+    {
+      "from": "ZNRF3",
+      "to": "rec",
+      "type": "inhibits"
+    },
+    {
+      "from": "DKK1-4",
+      "to": "rec",
+      "type": "inhibits"
+    },
+    {
+      "from": "rec",
+      "to": "GSK3B",
+      "type": "activates"
+    },
+    {
+      "from": "rec",
+      "to": "AXIN1/2",
+      "type": "activates"
+    },
+    {
+      "from": "GSK3B",
+      "to": "CTNNB1",
+      "type": "inhibits"
+    },
+    {
+      "from": "APC",
+      "to": "CTNNB1",
+      "type": "inhibits"
+    },
+    {
+      "from": "AXIN1/2",
+      "to": "CTNNB1",
+      "type": "inhibits"
+    },
+    {
+      "from": "AMER1",
+      "to": "CTNNB1",
+      "type": "inhibits"
+    },
+    {
+      "from": "CTNNB1",
+      "to": "tcf",
+      "type": "activates"
+    },
+    {
+      "from": "TLE1-4",
+      "to": "tcf",
+      "type": "inhibits"
+    },
+    {
+      "from": "tcf",
+      "to": "PROLIF",
+      "type": "activates"
+    }
+  ],
+  "genes": [
+    {
+      "symbol": "CHD8",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "LEF1",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "LGR4",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "LGR5",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "LRP5",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "LRP6",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "LZTR1",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "NDP",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "PORCN",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "RSPO1",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "SFRP1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "SFRP2",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "SFRP4",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "SFRP5",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "SOST",
+      "role": "TSG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "TCF7L1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "TLE1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "TLE2",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "TLE3",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "TLE4",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "WIF1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "ZNRF3",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CTNNB1",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "DVL1",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "DVL2",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "DVL3",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "FRAT1",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "FRAT2",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "FZD1",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "FZD10",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "FZD2",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "FZD3",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "FZD4",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "FZD5",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "FZD6",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "FZD7",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "FZD8",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "FZD9",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "WNT1",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "WNT10A",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "WNT10B",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "WNT11",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "WNT16",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "WNT2",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "WNT3A",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "WNT4",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "WNT5A",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "WNT5B",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "WNT6",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "WNT7A",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "WNT7B",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "WNT8A",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "WNT8B",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "WNT9A",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "WNT9B",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "AMER1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "APC",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "AXIN1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "AXIN2",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "DKK1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "DKK2",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "DKK3",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "DKK4",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "GSK3B",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "RNF43",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "TCF7",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "TCF7L2",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CHD4",
+      "role": null,
+      "inDiagram": false
+    }
+  ]
+}

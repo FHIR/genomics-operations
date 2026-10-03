@@ -10,6 +10,7 @@ export interface Variant {
     variant: string; // The variant identifier
     variantType?: 'simple' | 'structural';
     genomicSourceClass?: string;
+    variantAlleleFrequency?: number; // Sample VAF (LOINC 81258-6)
     oncogenicityPrediction?: string; // Optional oncogenicity assessment when available
     dxImplications: DxImplication[]; // Diagnostic implications
     txImplications: ProcessedTxImplication[]; // Therapeutic implications

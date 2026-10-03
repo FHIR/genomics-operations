@@ -1,0 +1,237 @@
+{
+  "id": "cell-cycle",
+  "name": "Cell cycle",
+  "version": "1.0",
+  "source": {
+    "citation": "Sanchez-Vega F, et al. Oncogenic Signaling Pathways in The Cancer Genome Atlas. Cell. 2018;173(2):321-337.e10. doi:10.1016/j.cell.2018.03.035",
+    "diagram": "Figure 2 (curated pathway templates), redrawn",
+    "genes": "Table S3 (curated pathway templates): gene membership and OG/TSG labels"
+  },
+  "size": {
+    "width": 600,
+    "height": 360
+  },
+  "groups": [
+    {
+      "id": "cyc",
+      "label": "Cyclin/CDKs",
+      "x": 200,
+      "y": 100,
+      "width": 134,
+      "height": 176,
+      "members": [
+        "CCNE1",
+        "CCND1/2/3",
+        "CDK2/4/6"
+      ],
+      "labelPosition": "bottom-left"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "CDKN1A/B",
+      "label": "CDKN1A/B",
+      "type": "gene",
+      "x": 180,
+      "y": 40,
+      "width": 120,
+      "height": 40,
+      "genes": [
+        "CDKN1A",
+        "CDKN1B"
+      ]
+    },
+    {
+      "id": "CDKN2A/B/C",
+      "label": "CDKN2A/B/C",
+      "type": "gene",
+      "x": 340,
+      "y": 40,
+      "width": 130,
+      "height": 40,
+      "genes": [
+        "CDKN2A",
+        "CDKN2B",
+        "CDKN2C"
+      ]
+    },
+    {
+      "id": "CCNE1",
+      "label": "CCNE1",
+      "type": "gene",
+      "x": 267.0,
+      "y": 132.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "CCNE1"
+      ]
+    },
+    {
+      "id": "CCND1/2/3",
+      "label": "CCND1/2/3",
+      "type": "gene",
+      "x": 267.0,
+      "y": 188.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "CCND1",
+        "CCND2",
+        "CCND3"
+      ]
+    },
+    {
+      "id": "CDK2/4/6",
+      "label": "CDK2/4/6",
+      "type": "gene",
+      "x": 267.0,
+      "y": 244.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "CDK2",
+        "CDK4",
+        "CDK6"
+      ]
+    },
+    {
+      "id": "RB1",
+      "label": "RB1",
+      "type": "gene",
+      "x": 470,
+      "y": 132,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "RB1"
+      ]
+    },
+    {
+      "id": "E2F1/3",
+      "label": "E2F1/3",
+      "type": "gene",
+      "x": 470,
+      "y": 240,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "E2F1",
+        "E2F3"
+      ]
+    },
+    {
+      "id": "CC",
+      "label": "Cell cycle",
+      "type": "process",
+      "x": 470,
+      "y": 320,
+      "width": 140,
+      "height": 40
+    }
+  ],
+  "edges": [
+    {
+      "from": "CDKN1A/B",
+      "to": "cyc",
+      "type": "inhibits"
+    },
+    {
+      "from": "CDKN2A/B/C",
+      "to": "cyc",
+      "type": "inhibits"
+    },
+    {
+      "from": "cyc",
+      "to": "RB1",
+      "type": "inhibits"
+    },
+    {
+      "from": "RB1",
+      "to": "E2F1/3",
+      "type": "inhibits"
+    },
+    {
+      "from": "E2F1/3",
+      "to": "CC",
+      "type": "activates"
+    }
+  ],
+  "genes": [
+    {
+      "symbol": "CDKN1A",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CDKN1B",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CDKN2A",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CDKN2B",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CDKN2C",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CCND1",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CCND2",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CCND3",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CCNE1",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CDK2",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CDK4",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "CDK6",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "RB1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "E2F1",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "E2F3",
+      "role": "OG",
+      "inDiagram": true
+    }
+  ]
+}

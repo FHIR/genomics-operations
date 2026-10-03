@@ -1,0 +1,418 @@
+{
+  "id": "pi3k",
+  "name": "PI3K",
+  "version": "1.0",
+  "source": {
+    "citation": "Sanchez-Vega F, et al. Oncogenic Signaling Pathways in The Cancer Genome Atlas. Cell. 2018;173(2):321-337.e10. doi:10.1016/j.cell.2018.03.035",
+    "diagram": "Figure 2 (curated pathway templates), redrawn",
+    "genes": "Table S3 (curated pathway templates): gene membership and OG/TSG labels"
+  },
+  "size": {
+    "width": 740,
+    "height": 620
+  },
+  "groups": [
+    {
+      "id": "mtorc2",
+      "label": "mTORC2",
+      "x": 110,
+      "y": 418,
+      "width": 340,
+      "height": 64,
+      "members": [
+        "RICTOR",
+        "MTOR"
+      ],
+      "labelPosition": "bottom-left"
+    },
+    {
+      "id": "mtorc1",
+      "label": "mTORC1",
+      "x": 310,
+      "y": 410,
+      "width": 340,
+      "height": 80,
+      "members": [
+        "MTOR",
+        "RPTOR"
+      ],
+      "labelPosition": "bottom-right"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "PTEN",
+      "label": "PTEN",
+      "type": "gene",
+      "x": 380,
+      "y": 40,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "PTEN"
+      ]
+    },
+    {
+      "id": "PIK3CA/B",
+      "label": "PIK3CA/B",
+      "type": "gene",
+      "x": 380,
+      "y": 130,
+      "width": 120,
+      "height": 40,
+      "genes": [
+        "PIK3CA",
+        "PIK3CB"
+      ]
+    },
+    {
+      "id": "INPP4B",
+      "label": "INPP4B",
+      "type": "gene",
+      "x": 180,
+      "y": 130,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "INPP4B"
+      ]
+    },
+    {
+      "id": "PIK3R2",
+      "label": "PIK3R2",
+      "type": "gene",
+      "x": 590,
+      "y": 70,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "PIK3R2"
+      ]
+    },
+    {
+      "id": "PIK3R1/3",
+      "label": "PIK3R1/3",
+      "type": "gene",
+      "x": 590,
+      "y": 130,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "PIK3R1",
+        "PIK3R3"
+      ]
+    },
+    {
+      "id": "AKT1/2/3",
+      "label": "AKT1/2/3",
+      "type": "gene",
+      "x": 380,
+      "y": 230,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "AKT1",
+        "AKT2",
+        "AKT3"
+      ]
+    },
+    {
+      "id": "PPP2R1A",
+      "label": "PPP2R1A",
+      "type": "gene",
+      "x": 590,
+      "y": 230,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "PPP2R1A"
+      ]
+    },
+    {
+      "id": "TSC1/2",
+      "label": "TSC1/2",
+      "type": "gene",
+      "x": 380,
+      "y": 330,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "TSC1",
+        "TSC2"
+      ]
+    },
+    {
+      "id": "STK11",
+      "label": "STK11",
+      "type": "gene",
+      "x": 180,
+      "y": 330,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "STK11"
+      ]
+    },
+    {
+      "id": "RHEB",
+      "label": "RHEB",
+      "type": "gene",
+      "x": 590,
+      "y": 330,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "RHEB"
+      ]
+    },
+    {
+      "id": "RICTOR",
+      "label": "RICTOR",
+      "type": "gene",
+      "x": 180,
+      "y": 450,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "RICTOR"
+      ]
+    },
+    {
+      "id": "MTOR",
+      "label": "MTOR",
+      "type": "gene",
+      "x": 380,
+      "y": 450,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "MTOR"
+      ]
+    },
+    {
+      "id": "RPTOR",
+      "label": "RPTOR",
+      "type": "gene",
+      "x": 580,
+      "y": 450,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "RPTOR"
+      ]
+    },
+    {
+      "id": "GROWTH",
+      "label": "Cell growth",
+      "type": "process",
+      "x": 380,
+      "y": 570,
+      "width": 150,
+      "height": 40
+    }
+  ],
+  "edges": [
+    {
+      "from": "PTEN",
+      "to": "PIK3CA/B",
+      "type": "inhibits"
+    },
+    {
+      "from": "INPP4B",
+      "to": "PIK3CA/B",
+      "type": "activates"
+    },
+    {
+      "from": "PIK3R1/3",
+      "to": "PIK3CA/B",
+      "type": "inhibits"
+    },
+    {
+      "from": "PIK3CA/B",
+      "to": "AKT1/2/3",
+      "type": "activates"
+    },
+    {
+      "from": "PPP2R1A",
+      "to": "AKT1/2/3",
+      "type": "inhibits"
+    },
+    {
+      "from": "AKT1/2/3",
+      "to": "TSC1/2",
+      "type": "inhibits"
+    },
+    {
+      "from": "STK11",
+      "to": "TSC1/2",
+      "type": "activates"
+    },
+    {
+      "from": "TSC1/2",
+      "to": "RHEB",
+      "type": "inhibits"
+    },
+    {
+      "from": "RHEB",
+      "to": "mtorc1",
+      "type": "activates"
+    },
+    {
+      "from": "mtorc2",
+      "to": "STK11",
+      "type": "activates"
+    },
+    {
+      "from": "mtorc1",
+      "to": "GROWTH",
+      "type": "activates"
+    }
+  ],
+  "genes": [
+    {
+      "symbol": "EIF4EBP1",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "AKT1",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "AKT2",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "AKT3",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "AKT1S1",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "DEPDC5",
+      "role": null,
+      "inDiagram": false
+    },
+    {
+      "symbol": "DEPTOR",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "INPP4B",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "MAPKAP1",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "MLST8",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "MTOR",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "NPRL2",
+      "role": "TSG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "NPRL3",
+      "role": "TSG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "PDK1",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "PIK3CA",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "PIK3CB",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "PIK3R1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "PIK3R2",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "PIK3R3",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "PPP2R1A",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "PTEN",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "RHEB",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "RICTOR",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "RPTOR",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "RPS6",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "RPS6KB1",
+      "role": "OG",
+      "inDiagram": false
+    },
+    {
+      "symbol": "STK11",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "TSC1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "TSC2",
+      "role": "TSG",
+      "inDiagram": true
+    }
+  ]
+}

@@ -1,0 +1,320 @@
+{
+  "id": "myc",
+  "name": "MYC",
+  "version": "1.0",
+  "source": {
+    "citation": "Sanchez-Vega F, et al. Oncogenic Signaling Pathways in The Cancer Genome Atlas. Cell. 2018;173(2):321-337.e10. doi:10.1016/j.cell.2018.03.035",
+    "diagram": "Figure 2 (curated pathway templates), redrawn",
+    "genes": "Table S3 (curated pathway templates): gene membership and OG/TSG labels"
+  },
+  "size": {
+    "width": 740,
+    "height": 500
+  },
+  "groups": [
+    {
+      "id": "mycc",
+      "label": "MAX/MYC complex",
+      "x": 310,
+      "y": 30,
+      "width": 384,
+      "height": 64,
+      "members": [
+        "MYC",
+        "MYCN",
+        "MYCL"
+      ],
+      "labelPosition": "bottom-right"
+    },
+    {
+      "id": "mga",
+      "label": "MAX/MGA complex",
+      "x": 310,
+      "y": 150,
+      "width": 259,
+      "height": 64,
+      "members": [
+        "MAX",
+        "MGA"
+      ],
+      "labelPosition": "bottom-right"
+    },
+    {
+      "id": "mxd",
+      "label": "MAX/MXD complex",
+      "x": 310,
+      "y": 270,
+      "width": 384,
+      "height": 64,
+      "members": [
+        "MXD1/3/4",
+        "MXI1",
+        "MNT"
+      ],
+      "labelPosition": "bottom-right"
+    },
+    {
+      "id": "mondo",
+      "label": "MLX/MONDO complex",
+      "x": 310,
+      "y": 390,
+      "width": 384,
+      "height": 64,
+      "members": [
+        "MLX",
+        "MLXIP",
+        "MLXIPL"
+      ],
+      "labelPosition": "bottom-right"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "MYC",
+      "label": "MYC",
+      "type": "gene",
+      "x": 377.0,
+      "y": 62.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "MYC"
+      ]
+    },
+    {
+      "id": "MYCN",
+      "label": "MYCN",
+      "type": "gene",
+      "x": 502.0,
+      "y": 62.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "MYCN"
+      ]
+    },
+    {
+      "id": "MYCL",
+      "label": "MYCL",
+      "type": "gene",
+      "x": 627.0,
+      "y": 62.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "MYCL"
+      ]
+    },
+    {
+      "id": "MAX",
+      "label": "MAX",
+      "type": "gene",
+      "x": 377.0,
+      "y": 182.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "MAX"
+      ]
+    },
+    {
+      "id": "MGA",
+      "label": "MGA",
+      "type": "gene",
+      "x": 502.0,
+      "y": 182.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "MGA"
+      ]
+    },
+    {
+      "id": "MXD1/3/4",
+      "label": "MXD1/3/4",
+      "type": "gene",
+      "x": 377.0,
+      "y": 302.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "MXD1",
+        "MXD3",
+        "MXD4"
+      ]
+    },
+    {
+      "id": "MXI1",
+      "label": "MXI1",
+      "type": "gene",
+      "x": 502.0,
+      "y": 302.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "MXI1"
+      ]
+    },
+    {
+      "id": "MNT",
+      "label": "MNT",
+      "type": "gene",
+      "x": 627.0,
+      "y": 302.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "MNT"
+      ]
+    },
+    {
+      "id": "MLX",
+      "label": "MLX",
+      "type": "gene",
+      "x": 377.0,
+      "y": 422.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "MLX"
+      ]
+    },
+    {
+      "id": "MLXIP",
+      "label": "MLXIP",
+      "type": "gene",
+      "x": 502.0,
+      "y": 422.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "MLXIP"
+      ]
+    },
+    {
+      "id": "MLXIPL",
+      "label": "MLXIPL",
+      "type": "gene",
+      "x": 627.0,
+      "y": 422.0,
+      "width": 110,
+      "height": 40,
+      "genes": [
+        "MLXIPL"
+      ]
+    },
+    {
+      "id": "OUT",
+      "label": "Cell growth, proliferation, apoptosis",
+      "type": "process",
+      "x": 140,
+      "y": 270,
+      "width": 240,
+      "height": 40
+    }
+  ],
+  "edges": [
+    {
+      "from": "mycc",
+      "to": "MAX",
+      "type": "binds"
+    },
+    {
+      "from": "MAX",
+      "to": "mxd",
+      "type": "binds"
+    },
+    {
+      "from": "mxd",
+      "to": "mondo",
+      "type": "binds"
+    },
+    {
+      "from": "MYC",
+      "to": "OUT",
+      "type": "activates"
+    },
+    {
+      "from": "MAX",
+      "to": "OUT",
+      "type": "inhibits"
+    },
+    {
+      "from": "MXD1/3/4",
+      "to": "OUT",
+      "type": "inhibits"
+    },
+    {
+      "from": "MLXIP",
+      "to": "OUT",
+      "type": "activates"
+    }
+  ],
+  "genes": [
+    {
+      "symbol": "MAX",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "MGA",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "MLX",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "MLXIP",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "MLXIPL",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "MNT",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "MXD1",
+      "role": null,
+      "inDiagram": true
+    },
+    {
+      "symbol": "MXD3",
+      "role": null,
+      "inDiagram": true
+    },
+    {
+      "symbol": "MXD4",
+      "role": null,
+      "inDiagram": true
+    },
+    {
+      "symbol": "MXI1",
+      "role": "TSG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "MYC",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "MYCL",
+      "role": "OG",
+      "inDiagram": true
+    },
+    {
+      "symbol": "MYCN",
+      "role": "OG",
+      "inDiagram": true
+    }
+  ]
+}

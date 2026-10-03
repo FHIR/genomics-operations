@@ -147,6 +147,9 @@ const extractStructuralVariantString = (resource: FhirVariantResource): string =
 const extractGenomicSourceClass = (resource: FhirVariantResource): string =>
     findComponent(resource, '48002-0')?.valueCodeableConcept?.coding?.[0]?.display || '<unknown>';
 
+const extractVariantAlleleFrequency = (resource: FhirVariantResource): number | undefined =>
+    findComponent(resource, '81258-6')?.valueQuantity?.value;
+
 const extractVariantResources = (data: FhirResponse): FhirVariantResource[] =>
     data.parameter
         ?.find(p => p.name === 'variants')
@@ -198,6 +201,7 @@ export const findSubjectVariants = async (
                 variant: extractVariantString(resource),
                 variantType: 'simple' as const,
                 genomicSourceClass: extractGenomicSourceClass(resource),
+                variantAlleleFrequency: extractVariantAlleleFrequency(resource),
                 dxImplications: [],
                 txImplications: [],
                 molecularConsequences: []
@@ -209,6 +213,7 @@ export const findSubjectVariants = async (
                 variant: extractStructuralVariantString(resource),
                 variantType: 'structural' as const,
                 genomicSourceClass: extractGenomicSourceClass(resource),
+                variantAlleleFrequency: extractVariantAlleleFrequency(resource),
                 dxImplications: [],
                 txImplications: [],
                 molecularConsequences: []

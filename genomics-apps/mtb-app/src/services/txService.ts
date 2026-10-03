@@ -26,6 +26,8 @@ export interface ProcessedTxImplication {
     therapeuticImplicationDisplay?: string;
     categoricalVariantName?: string;
     sourceObservationIds?: string[];
+    civicVariantIds?: string[]; // Every CIViC variant this implication matched (used for co-occurrence checks)
+    civicProfileIds?: string[]; // CIViC molecular profiles this implication matched (Cat-VRS results identify these)
 }
 
 const getTxImplicationIdentityKey = (implication: ProcessedTxImplication) => [
@@ -46,6 +48,12 @@ const mergeSourceObservationIds = (
     const mergedIds = [...(primary ?? []), ...(secondary ?? [])].filter(Boolean);
 
     return mergedIds.length > 0 ? [...new Set(mergedIds)].sort() : undefined;
+};
+
+const mergeCivicVariantIds = (primary?: string[], secondary?: string[]) => {
+    const mergedIds = [...(primary ?? []), ...(secondary ?? [])].filter(Boolean);
+
+    return mergedIds.length > 0 ? [...new Set(mergedIds)] : undefined;
 };
 
 const preferLongerValue = (primary?: string, secondary?: string) => {
@@ -77,6 +85,8 @@ const mergeTxImplication = (
     therapeuticImplicationDisplay: secondary.therapeuticImplicationDisplay || primary.therapeuticImplicationDisplay,
     categoricalVariantName: secondary.categoricalVariantName || primary.categoricalVariantName,
     sourceObservationIds: mergeSourceObservationIds(primary.sourceObservationIds, secondary.sourceObservationIds),
+    civicVariantIds: mergeCivicVariantIds(primary.civicVariantIds, secondary.civicVariantIds),
+    civicProfileIds: mergeCivicVariantIds(primary.civicProfileIds, secondary.civicProfileIds),
 });
 
 export const getTxImplicationDedupKey = (implication: ProcessedTxImplication) => [
@@ -150,6 +160,17 @@ const getCivicHyperlink = (resource: FhirObservation) => {
     return buildUrl ? buildUrl(identifier.value) : '';
 };
 
+const getCivicIds = (resource: FhirObservation, system: string) => {
+    const ids = (resource.identifier ?? [])
+        .filter((identifier) => identifier.system === system && identifier.value)
+        .map((identifier) => String(identifier.value));
+
+    return ids.length > 0 ? [...new Set(ids)] : undefined;
+};
+
+const getCivicVariantIds = (resource: FhirObservation) => getCivicIds(resource, 'https://civicdb.org/variant');
+const getCivicProfileIds = (resource: FhirObservation) => getCivicIds(resource, 'https://civicdb.org/molecular-profiles');
+
 // Helper to extract CIViC hyperlink
 const txExtraFieldsExtractor = (resource: FhirObservation): Partial<ProcessedTxImplication> => {
     const evidenceLevel = getEvidenceLevelValue(resource);
@@ -169,6 +190,8 @@ const txExtraFieldsExtractor = (resource: FhirObservation): Partial<ProcessedTxI
             therapeuticImplicationDisplay: therapeuticImplicationCoding?.display || therapeuticImplicationCoding?.code || '',
             categoricalVariantName,
             sourceObservationIds: getDerivedFromObservationIds(resource),
+            civicVariantIds: getCivicVariantIds(resource),
+            civicProfileIds: getCivicProfileIds(resource),
         };
     }
 
@@ -177,6 +200,8 @@ const txExtraFieldsExtractor = (resource: FhirObservation): Partial<ProcessedTxI
         hyperlink: getCivicHyperlink(resource),
         categoricalVariantName,
         sourceObservationIds: getDerivedFromObservationIds(resource),
+        civicVariantIds: getCivicVariantIds(resource),
+        civicProfileIds: getCivicProfileIds(resource),
     };
 };
 
