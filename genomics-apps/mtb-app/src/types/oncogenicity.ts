@@ -43,8 +43,7 @@ export type OncogenicityEvidenceStatus = 'idle' | 'loading' | 'ready' | 'error';
 
 export interface OncogenicityPredictionResult {
     key: string;
-    spdi: string;
-    hgvs?: string;
+    variant: string;
     status: 'loading' | 'ready' | 'error';
     startedAt?: number; // When the current prediction request began (ms since epoch)
     retryAttempt?: number; // Automatic retry in progress (1-based); undefined on the first try

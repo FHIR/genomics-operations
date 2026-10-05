@@ -93,7 +93,7 @@ export const HOW_TO_USE_SECTIONS: HowToUseSection[] = [
             'The Oncogenicity Prediction column applies only to simple variants (SNVs, MNVs, and InDels). Structural variants currently show that oncogenicity prediction is not available.',
             'For a simple variant, click Compute prediction to run the oncogenicity predictor. The cell then shows a color-coded gauge, and selecting the gauge opens a detailed modal.',
             'The first prediction after a period of inactivity can take up to a minute while the prediction server wakes up. If a prediction fails, it is retried automatically; if it still fails, the cell shows Prediction failed (hover for the reason) with a Retry button.',
-            'The detailed modal shows the overall score, overall prediction, HGVS conversion, original SPDI, evidence-line scores, and caveats. You can also request extended evidence details from the same modal.',
+            'The detailed modal shows the overall score, overall prediction, submitted variant, evidence-line scores, and caveats. You can also request extended evidence details from the same modal.',
             'Computed oncogenicity predictions are kept only in the current page view. They are cleared if you reload the page or open the app in a new tab.',
         ],
     },

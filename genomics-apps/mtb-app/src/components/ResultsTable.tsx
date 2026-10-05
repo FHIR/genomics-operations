@@ -648,7 +648,7 @@ export default function ResultsTable({
       ...currentResults,
       [key]: {
         key,
-        spdi: variant.variant,
+        variant: variant.variant,
         status: 'loading',
         startedAt: Date.now(),
         gauge: 'undetermined',
@@ -663,7 +663,7 @@ export default function ResultsTable({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          spdi: variant.variant,
+          variant: variant.variant,
           tumorType: predictorTumorType,
         }),
       });
@@ -672,7 +672,7 @@ export default function ResultsTable({
         throw new Error(await getResponseErrorMessage(response, 'Prediction request failed'));
       }
 
-      const payload = await response.json() as { hgvs?: string; observation?: OncogenicityPredictionResult['observation'] };
+      const payload = await response.json() as { observation?: OncogenicityPredictionResult['observation'] };
       const rawScore = payload.observation?.valueInteger;
       const normalizedScore = typeof rawScore === 'number' ? rawScore : Number(rawScore);
       const score = Number.isFinite(normalizedScore) ? normalizedScore : undefined;
@@ -703,8 +703,7 @@ export default function ResultsTable({
         ...currentResults,
         [key]: {
           key,
-          spdi: variant.variant,
-          hgvs: payload.hgvs,
+          variant: variant.variant,
           status: 'ready',
           gauge: getGaugeKindForScore(score),
           score,
@@ -718,7 +717,7 @@ export default function ResultsTable({
         ...currentResults,
         [key]: {
           key,
-          spdi: variant.variant,
+          variant: variant.variant,
           status: 'error',
           gauge: 'undetermined',
           evidenceStatus: 'idle',
@@ -768,7 +767,7 @@ export default function ResultsTable({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          spdi: selectedOncogenicityResult.spdi,
+          variant: selectedOncogenicityResult.variant,
           tumorType: predictorTumorType,
         }),
       });
@@ -777,7 +776,7 @@ export default function ResultsTable({
         throw new Error(await getResponseErrorMessage(response, 'Extended evidence request failed'));
       }
 
-      return response.json() as Promise<{ evidence?: unknown; hgvs?: string }>;
+      return response.json() as Promise<{ evidence?: unknown }>;
     };
 
     try {
@@ -795,7 +794,6 @@ export default function ResultsTable({
         ...currentResults,
         [key]: {
           ...currentResults[key],
-          hgvs: payload.hgvs || currentResults[key]?.hgvs,
           evidenceStatus: 'ready',
           evidenceRetryAttempt: undefined,
           evidenceJson: payload.evidence,
@@ -1100,15 +1098,9 @@ export default function ResultsTable({
                   </dd>
                 </div>
                 <div className="sm:col-span-2">
-                  <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">HGVS variant</dt>
-                  <dd className="mt-1 break-all font-mono text-sm text-gray-900">
-                    {selectedOncogenicityResult.hgvs ?? 'Unavailable'}
-                  </dd>
-                </div>
-                <div className="sm:col-span-2">
-                  <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">Submitted SPDI</dt>
+                  <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">Submitted Variant</dt>
                   <dd className="mt-1 break-all font-mono text-sm text-gray-700">
-                    {selectedOncogenicityResult.spdi}
+                    {selectedOncogenicityResult.variant}
                   </dd>
                 </div>
               </dl>

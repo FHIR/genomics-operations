@@ -1,4 +1,3 @@
-const NCBI_VARIATION_BASE_URL = 'https://api.ncbi.nlm.nih.gov/variation/v0';
 const PREDICTOR_BASE_URL = 'https://oncogenicity-predictor.onrender.com';
 
 async function fetchJsonResponse(url: string) {
@@ -13,30 +12,8 @@ async function fetchJsonResponse(url: string) {
     return response;
 }
 
-async function fetchJson<T>(url: string): Promise<T> {
-    const response = await fetchJsonResponse(url);
-
-    if (!response.ok) {
-        throw new Error(`Request failed: ${response.status} ${response.statusText}`);
-    }
-
-    return response.json() as Promise<T>;
-}
-
-export async function convertSpdiToHgvs(spdi: string) {
-    const url = `${NCBI_VARIATION_BASE_URL}/spdi/${encodeURIComponent(spdi)}/hgvs`;
-    const response = await fetchJson<{ data?: { hgvs?: string } }>(url);
-    const hgvs = response.data?.hgvs;
-
-    if (!hgvs) {
-        throw new Error('HGVS conversion did not return a value');
-    }
-
-    return hgvs;
-}
-
-export async function fetchPredictionObservation(hgvs: string, tumorType?: string) {
-    const params = new URLSearchParams({ variant: hgvs });
+export async function fetchPredictionObservation(variant: string, tumorType?: string) {
+    const params = new URLSearchParams({ variant });
     if (tumorType) {
         params.set('tumorType', tumorType);
     }
@@ -49,8 +26,8 @@ export async function fetchPredictionObservation(hgvs: string, tumorType?: strin
     return response.json() as Promise<unknown>;
 }
 
-export async function fetchEvidenceSummary(hgvs: string, tumorType?: string) {
-    const params = new URLSearchParams({ variant: hgvs });
+export async function fetchEvidenceSummary(variant: string, tumorType?: string) {
+    const params = new URLSearchParams({ variant });
     if (tumorType) {
         params.set('tumorType', tumorType);
     }
