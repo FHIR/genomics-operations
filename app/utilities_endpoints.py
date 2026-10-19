@@ -145,20 +145,24 @@ def get_feature_coordinates(
                 ord_dict['build37CDSEnd'] = res['cdsMatches'][0]['build37CDSEnd']
                 ord_dict['build37Strand'] = res['cdsMatches'][0]['build37Strand']
 
+            exons = sorted(res['exonMatches'], key=lambda d: d['exonNumber'])
+            cds = res['cdsMatches'][0] if res['cdsMatches'] else None
+            hgvs_coordinates = common.get_hgvs_exon_coordinates(exons, cds) if exons else None
+
             ord_dict['exons'] = []
-            for exon in res['exonMatches']:
+            for i, exon in enumerate(exons):
                 exon_dict = OrderedDict()
 
                 exon_dict['exonNumber'] = exon['exonNumber']
                 exon_dict['build37Coordinates'] = f"{exon['build37RefSeq']}:{exon['build37Start']}-{exon['build37End']}"
                 exon_dict['build38Coordinates'] = f"{exon['build38RefSeq']}:{exon['build38Start']}-{exon['build38End']}"
+                if hgvs_coordinates:
+                    exon_dict.update(hgvs_coordinates[i])
 
                 ord_dict['exons'].append(exon_dict)
 
             if not ord_dict['exons']:
                 ord_dict.pop('exons')
-            else:
-                ord_dict['exons'] = sorted(ord_dict['exons'], key=lambda d: d['exonNumber'])
 
             output.append(ord_dict)
 

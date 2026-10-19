@@ -1880,6 +1880,82 @@ def query_transcript(transcript):
     return results
 
 
+def _hgvs_c_position(n, cs, ce):
+    if n < cs:
+        return str(n - cs)
+    if n > ce:
+        return f"*{n - ce}"
+    return str(n - cs + 1)
+
+
+def _transcript_coordinates_for_build(exons, cds, build):
+    # Genomic coordinates are 0-based half-open. Exons must be sorted by exonNumber (transcript 5'->3').
+    # Returns ([(n_start, n_end), ...], (cs, ce) or None), or None if the CDS can't be placed.
+    n_ranges = []
+    n = 0
+    for exon in exons:
+        length = exon[f'{build}End'] - exon[f'{build}Start']
+        n_ranges.append((n + 1, n + length))
+        n += length
+
+    if not cds:
+        return n_ranges, None
+
+    strand = cds[f'{build}Strand']
+    if strand == '+':
+        first, last = cds[f'{build}CDSStart'] + 1, cds[f'{build}CDSEnd']
+    elif strand == '-':
+        first, last = cds[f'{build}CDSEnd'], cds[f'{build}CDSStart'] + 1
+    else:
+        return None
+
+    def to_n(pos):
+        # pos is a 1-based genomic position
+        for exon, (n_start, _) in zip(exons, n_ranges):
+            start, end = exon[f'{build}Start'], exon[f'{build}End']
+            if start < pos <= end:
+                offset = pos - (start + 1) if strand == '+' else end - pos
+                return n_start + offset
+        return None
+
+    cs, ce = to_n(first), to_n(last)
+    if cs is None or ce is None:
+        return None
+
+    return n_ranges, (cs, ce)
+
+
+def get_hgvs_exon_coordinates(exons, cds):
+    """
+    Compute HGVS transcript coordinates for each exon.
+
+    exons: exon records sorted by exonNumber. cds: the CDS record, or None.
+    Returns a list (parallel to exons) of dicts with 'hgvsNCoordinates' and, when a CDS is available,
+    'hgvsCCoordinates'. Returns None if the coordinates can't be computed reliably (build 37 and
+    build 38 disagree, or the CDS start/end doesn't fall within an exon).
+    """
+    try:
+        b38 = _transcript_coordinates_for_build(exons, cds, 'build38')
+        b37 = _transcript_coordinates_for_build(exons, cds, 'build37')
+    except (KeyError, TypeError):
+        return None
+
+    if b38 is None or b37 is None or b38 != b37:
+        return None
+
+    n_ranges, cds_bounds = b38
+    output = []
+    for n_start, n_end in n_ranges:
+        coords = OrderedDict()
+        if cds_bounds:
+            cs, ce = cds_bounds
+            coords['hgvsCCoordinates'] = f"c.{_hgvs_c_position(n_start, cs, ce)}_{_hgvs_c_position(n_end, cs, ce)}"
+        coords['hgvsNCoordinates'] = f"n.{n_start}_{n_end}"
+        output.append(coords)
+
+    return output
+
+
 def query_molecular_consequences_by_variants(normalized_variant_list, feature_consequence_list, query, population=False):
     variant_list = []
     for item in normalized_variant_list:

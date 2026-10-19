@@ -1251,7 +1251,7 @@ paths:
 
   /utilities/get-feature-coordinates:
     get:
-      description: 'This utility returns genomic feature coordinates and other annotations. All data are from <a href="https://www.ncbi.nlm.nih.gov/genome/guide/human/">NCBI Human Genome Resources</a>. For chromosomes, build 37 and build 38 reference sequences are returned. For genes, genomic coordinates are returned, along with a list of transcripts. MANE transcript is flagged. For transcripts, genomic coordinates are returned, along with the gene name and composite exons, along with exon coordinates. For proteins, the corresponding transcript is returned.'
+      description: 'This utility returns genomic feature coordinates and other annotations. All data are from <a href="https://www.ncbi.nlm.nih.gov/genome/guide/human/">NCBI Human Genome Resources</a>. For chromosomes, build 37 and build 38 reference sequences are returned. For genes, genomic coordinates are returned, along with a list of transcripts. MANE transcript is flagged. For transcripts, genomic coordinates are returned, along with the gene name and composite exons, along with exon coordinates. Each exon also includes its HGVS transcript coordinates: hgvsNCoordinates (n. numbering) and, for coding transcripts, hgvsCCoordinates (c. numbering, which is also the r. numbering; 5'' UTR positions are negative and 3'' UTR positions are prefixed with *). HGVS coordinates are omitted when they cannot be computed reliably (e.g. build 37 and build 38 exon lengths disagree). Genomic coordinates are 0-based, half-open (as in SPDI). For proteins, the corresponding transcript is returned.'
       summary: "Get Feature Coordinates"
       operationId: "app.utilities_endpoints.get_feature_coordinates"
       tags:

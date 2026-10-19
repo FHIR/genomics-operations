@@ -1,0 +1,214 @@
+[
+    {
+        "MANE": true,
+        "build37CDSEnd": 55273310,
+        "build37CDSStart": 55086970,
+        "build37Coordinates": "NC_000007.13:55086709-55279321",
+        "build37Strand": "+",
+        "build38CDSEnd": 55205617,
+        "build38CDSStart": 55019277,
+        "build38Coordinates": "NC_000007.14:55019016-55211628",
+        "build38Strand": "+",
+        "exons": [
+            {
+                "build37Coordinates": "NC_000007.13:55086709-55087058",
+                "build38Coordinates": "NC_000007.14:55019016-55019365",
+                "exonNumber": 1,
+                "hgvsCCoordinates": "c.-261_88",
+                "hgvsNCoordinates": "n.1_349"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55209978-55210130",
+                "build38Coordinates": "NC_000007.14:55142285-55142437",
+                "exonNumber": 2,
+                "hgvsCCoordinates": "c.89_240",
+                "hgvsNCoordinates": "n.350_501"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55210997-55211181",
+                "build38Coordinates": "NC_000007.14:55143304-55143488",
+                "exonNumber": 3,
+                "hgvsCCoordinates": "c.241_424",
+                "hgvsNCoordinates": "n.502_685"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55214298-55214433",
+                "build38Coordinates": "NC_000007.14:55146605-55146740",
+                "exonNumber": 4,
+                "hgvsCCoordinates": "c.425_559",
+                "hgvsNCoordinates": "n.686_820"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55218986-55219055",
+                "build38Coordinates": "NC_000007.14:55151293-55151362",
+                "exonNumber": 5,
+                "hgvsCCoordinates": "c.560_628",
+                "hgvsNCoordinates": "n.821_889"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55220238-55220357",
+                "build38Coordinates": "NC_000007.14:55152545-55152664",
+                "exonNumber": 6,
+                "hgvsCCoordinates": "c.629_747",
+                "hgvsNCoordinates": "n.890_1008"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55221703-55221845",
+                "build38Coordinates": "NC_000007.14:55154010-55154152",
+                "exonNumber": 7,
+                "hgvsCCoordinates": "c.748_889",
+                "hgvsNCoordinates": "n.1009_1150"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55223522-55223639",
+                "build38Coordinates": "NC_000007.14:55155829-55155946",
+                "exonNumber": 8,
+                "hgvsCCoordinates": "c.890_1006",
+                "hgvsNCoordinates": "n.1151_1267"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55224225-55224352",
+                "build38Coordinates": "NC_000007.14:55156532-55156659",
+                "exonNumber": 9,
+                "hgvsCCoordinates": "c.1007_1133",
+                "hgvsNCoordinates": "n.1268_1394"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55224451-55224525",
+                "build38Coordinates": "NC_000007.14:55156758-55156832",
+                "exonNumber": 10,
+                "hgvsCCoordinates": "c.1134_1207",
+                "hgvsNCoordinates": "n.1395_1468"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55225355-55225446",
+                "build38Coordinates": "NC_000007.14:55157662-55157753",
+                "exonNumber": 11,
+                "hgvsCCoordinates": "c.1208_1298",
+                "hgvsNCoordinates": "n.1469_1559"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55227831-55228031",
+                "build38Coordinates": "NC_000007.14:55160138-55160338",
+                "exonNumber": 12,
+                "hgvsCCoordinates": "c.1299_1498",
+                "hgvsNCoordinates": "n.1560_1759"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55229191-55229324",
+                "build38Coordinates": "NC_000007.14:55161498-55161631",
+                "exonNumber": 13,
+                "hgvsCCoordinates": "c.1499_1631",
+                "hgvsNCoordinates": "n.1760_1892"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55231425-55231516",
+                "build38Coordinates": "NC_000007.14:55163732-55163823",
+                "exonNumber": 14,
+                "hgvsCCoordinates": "c.1632_1722",
+                "hgvsNCoordinates": "n.1893_1983"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55232972-55233130",
+                "build38Coordinates": "NC_000007.14:55165279-55165437",
+                "exonNumber": 15,
+                "hgvsCCoordinates": "c.1723_1880",
+                "hgvsNCoordinates": "n.1984_2141"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55238867-55238906",
+                "build38Coordinates": "NC_000007.14:55171174-55171213",
+                "exonNumber": 16,
+                "hgvsCCoordinates": "c.1881_1919",
+                "hgvsNCoordinates": "n.2142_2180"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55240675-55240817",
+                "build38Coordinates": "NC_000007.14:55172982-55173124",
+                "exonNumber": 17,
+                "hgvsCCoordinates": "c.1920_2061",
+                "hgvsNCoordinates": "n.2181_2322"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55241613-55241736",
+                "build38Coordinates": "NC_000007.14:55173920-55174043",
+                "exonNumber": 18,
+                "hgvsCCoordinates": "c.2062_2184",
+                "hgvsNCoordinates": "n.2323_2445"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55242414-55242513",
+                "build38Coordinates": "NC_000007.14:55174721-55174820",
+                "exonNumber": 19,
+                "hgvsCCoordinates": "c.2185_2283",
+                "hgvsNCoordinates": "n.2446_2544"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55248985-55249171",
+                "build38Coordinates": "NC_000007.14:55181292-55181478",
+                "exonNumber": 20,
+                "hgvsCCoordinates": "c.2284_2469",
+                "hgvsNCoordinates": "n.2545_2730"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55259411-55259567",
+                "build38Coordinates": "NC_000007.14:55191718-55191874",
+                "exonNumber": 21,
+                "hgvsCCoordinates": "c.2470_2625",
+                "hgvsNCoordinates": "n.2731_2886"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55260458-55260534",
+                "build38Coordinates": "NC_000007.14:55192765-55192841",
+                "exonNumber": 22,
+                "hgvsCCoordinates": "c.2626_2701",
+                "hgvsNCoordinates": "n.2887_2962"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55266409-55266556",
+                "build38Coordinates": "NC_000007.14:55198716-55198863",
+                "exonNumber": 23,
+                "hgvsCCoordinates": "c.2702_2848",
+                "hgvsNCoordinates": "n.2963_3109"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55268008-55268106",
+                "build38Coordinates": "NC_000007.14:55200315-55200413",
+                "exonNumber": 24,
+                "hgvsCCoordinates": "c.2849_2946",
+                "hgvsNCoordinates": "n.3110_3207"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55268880-55269048",
+                "build38Coordinates": "NC_000007.14:55201187-55201355",
+                "exonNumber": 25,
+                "hgvsCCoordinates": "c.2947_3114",
+                "hgvsNCoordinates": "n.3208_3375"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55269427-55269475",
+                "build38Coordinates": "NC_000007.14:55201734-55201782",
+                "exonNumber": 26,
+                "hgvsCCoordinates": "c.3115_3162",
+                "hgvsNCoordinates": "n.3376_3423"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55270209-55270318",
+                "build38Coordinates": "NC_000007.14:55202516-55202625",
+                "exonNumber": 27,
+                "hgvsCCoordinates": "c.3163_3271",
+                "hgvsNCoordinates": "n.3424_3532"
+            },
+            {
+                "build37Coordinates": "NC_000007.13:55272948-55279321",
+                "build38Coordinates": "NC_000007.14:55205255-55211628",
+                "exonNumber": 28,
+                "hgvsCCoordinates": "c.3272_*6011",
+                "hgvsNCoordinates": "n.3533_9905"
+            }
+        ],
+        "geneSymbol": "EGFR",
+        "transcript": "NM_005228.5",
+        "transcriptLink": "https://www.ncbi.nlm.nih.gov/nuccore/NM_005228.5"
+    }
+]

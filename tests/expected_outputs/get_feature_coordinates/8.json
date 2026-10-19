@@ -1,0 +1,95 @@
+[
+    {
+        "MANE": true,
+        "build37CDSEnd": 7579912,
+        "build37CDSStart": 7572926,
+        "build37Coordinates": "NC_000017.10:7571738-7590808",
+        "build37Strand": "-",
+        "build38CDSEnd": 7676594,
+        "build38CDSStart": 7669608,
+        "build38Coordinates": "NC_000017.11:7668420-7687490",
+        "build38Strand": "-",
+        "exons": [
+            {
+                "build37Coordinates": "NC_000017.10:7571738-7573008",
+                "build38Coordinates": "NC_000017.11:7668420-7669690",
+                "exonNumber": 11,
+                "hgvsCCoordinates": "c.1101_*1188",
+                "hgvsNCoordinates": "n.1243_2512"
+            },
+            {
+                "build37Coordinates": "NC_000017.10:7573926-7574033",
+                "build38Coordinates": "NC_000017.11:7670608-7670715",
+                "exonNumber": 10,
+                "hgvsCCoordinates": "c.994_1100",
+                "hgvsNCoordinates": "n.1136_1242"
+            },
+            {
+                "build37Coordinates": "NC_000017.10:7576852-7576926",
+                "build38Coordinates": "NC_000017.11:7673534-7673608",
+                "exonNumber": 9,
+                "hgvsCCoordinates": "c.920_993",
+                "hgvsNCoordinates": "n.1062_1135"
+            },
+            {
+                "build37Coordinates": "NC_000017.10:7577018-7577155",
+                "build38Coordinates": "NC_000017.11:7673700-7673837",
+                "exonNumber": 8,
+                "hgvsCCoordinates": "c.783_919",
+                "hgvsNCoordinates": "n.925_1061"
+            },
+            {
+                "build37Coordinates": "NC_000017.10:7577498-7577608",
+                "build38Coordinates": "NC_000017.11:7674180-7674290",
+                "exonNumber": 7,
+                "hgvsCCoordinates": "c.673_782",
+                "hgvsNCoordinates": "n.815_924"
+            },
+            {
+                "build37Coordinates": "NC_000017.10:7578176-7578289",
+                "build38Coordinates": "NC_000017.11:7674858-7674971",
+                "exonNumber": 6,
+                "hgvsCCoordinates": "c.560_672",
+                "hgvsNCoordinates": "n.702_814"
+            },
+            {
+                "build37Coordinates": "NC_000017.10:7578370-7578554",
+                "build38Coordinates": "NC_000017.11:7675052-7675236",
+                "exonNumber": 5,
+                "hgvsCCoordinates": "c.376_559",
+                "hgvsNCoordinates": "n.518_701"
+            },
+            {
+                "build37Coordinates": "NC_000017.10:7579311-7579590",
+                "build38Coordinates": "NC_000017.11:7675993-7676272",
+                "exonNumber": 4,
+                "hgvsCCoordinates": "c.97_375",
+                "hgvsNCoordinates": "n.239_517"
+            },
+            {
+                "build37Coordinates": "NC_000017.10:7579699-7579721",
+                "build38Coordinates": "NC_000017.11:7676381-7676403",
+                "exonNumber": 3,
+                "hgvsCCoordinates": "c.75_96",
+                "hgvsNCoordinates": "n.217_238"
+            },
+            {
+                "build37Coordinates": "NC_000017.10:7579838-7579940",
+                "build38Coordinates": "NC_000017.11:7676520-7676622",
+                "exonNumber": 2,
+                "hgvsCCoordinates": "c.-28_74",
+                "hgvsNCoordinates": "n.115_216"
+            },
+            {
+                "build37Coordinates": "NC_000017.10:7590694-7590808",
+                "build38Coordinates": "NC_000017.11:7687376-7687490",
+                "exonNumber": 1,
+                "hgvsCCoordinates": "c.-142_-29",
+                "hgvsNCoordinates": "n.1_114"
+            }
+        ],
+        "geneSymbol": "TP53",
+        "transcript": "NM_000546.6",
+        "transcriptLink": "https://www.ncbi.nlm.nih.gov/nuccore/NM_000546.6"
+    }
+]

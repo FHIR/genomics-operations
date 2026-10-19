@@ -61,3 +61,19 @@ def test_get_feature_coordinates_6(client):
     response = client.get(url)
 
     tu.compare_actual_and_expected_output(f'{tu.GET_FEATURE_COORDINATES_OUTPUT_DIR}6.json', response.json)
+
+
+def test_get_feature_coordinates_7(client):
+    # Plus strand transcript (EGFR) with HGVS exon coordinates
+    url = tu.get_feature_coordinates_query('transcript=NM_005228.5')
+    response = client.get(url)
+
+    tu.compare_actual_and_expected_output(f'{tu.GET_FEATURE_COORDINATES_OUTPUT_DIR}7.json', response.json)
+
+
+def test_get_feature_coordinates_8(client):
+    # Minus strand transcript (TP53) with HGVS exon coordinates
+    url = tu.get_feature_coordinates_query('transcript=NM_000546.6')
+    response = client.get(url)
+
+    tu.compare_actual_and_expected_output(f'{tu.GET_FEATURE_COORDINATES_OUTPUT_DIR}8.json', response.json)
