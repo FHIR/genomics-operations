@@ -1,0 +1,5987 @@
+{
+  "resourceType": "Bundle",
+  "id": "mtb-hcc1143-transaction",
+  "meta": {
+    "tag": [
+      {
+        "system": "http://elimu.io/fhir/tags",
+        "code": "mtb-demo",
+        "display": "MTB app synthetic demo data"
+      }
+    ]
+  },
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Patient/mtb-hcc1143",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "mtb-hcc1143",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-patient"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "valueCode": "F"
+          }
+        ],
+        "identifier": [
+          {
+            "use": "usual",
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "MR",
+                  "display": "Medical Record Number"
+                }
+              ]
+            },
+            "system": "http://elimu.io/fhir/mrn",
+            "value": "HCC1143"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "family": "Breast",
+            "given": [
+              "Betty"
+            ]
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1972-01-18"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/mtb-hcc1143"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Practitioner/mtb-hcc1143-oncologist",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "mtb-hcc1143-oncologist",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://elimu.io/fhir/practitioner-id",
+            "value": "mtb-hcc1143-oncologist"
+          }
+        ],
+        "name": [
+          {
+            "family": "Oncologist",
+            "given": [
+              "Olivia"
+            ],
+            "prefix": [
+              "Dr."
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "394593009",
+                  "display": "Medical oncology"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/mtb-hcc1143-oncologist"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Practitioner/mtb-hcc1143-surgeon",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "mtb-hcc1143-surgeon",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://elimu.io/fhir/practitioner-id",
+            "value": "mtb-hcc1143-surgeon"
+          }
+        ],
+        "name": [
+          {
+            "family": "Surgeon",
+            "given": [
+              "Sam"
+            ],
+            "prefix": [
+              "Dr."
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "394609007",
+                  "display": "General surgery"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/mtb-hcc1143-surgeon"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Practitioner/mtb-hcc1143-pathologist",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "mtb-hcc1143-pathologist",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://elimu.io/fhir/practitioner-id",
+            "value": "mtb-hcc1143-pathologist"
+          }
+        ],
+        "name": [
+          {
+            "family": "Pathologist",
+            "given": [
+              "Paul"
+            ],
+            "prefix": [
+              "Dr."
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "394915009",
+                  "display": "General pathology (specialty)"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/mtb-hcc1143-pathologist"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Practitioner/mtb-hcc1143-radiologist",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "mtb-hcc1143-radiologist",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://elimu.io/fhir/practitioner-id",
+            "value": "mtb-hcc1143-radiologist"
+          }
+        ],
+        "name": [
+          {
+            "family": "Radiologist",
+            "given": [
+              "Rita"
+            ],
+            "prefix": [
+              "Dr."
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "394914008",
+                  "display": "Radiology - specialty"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/mtb-hcc1143-radiologist"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Practitioner/mtb-hcc1143-radiation-oncologist",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "mtb-hcc1143-radiation-oncologist",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://elimu.io/fhir/practitioner-id",
+            "value": "mtb-hcc1143-radiation-oncologist"
+          }
+        ],
+        "name": [
+          {
+            "family": "Radonc",
+            "given": [
+              "Ray"
+            ],
+            "prefix": [
+              "Dr."
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "419815003",
+                  "display": "Radiation oncology"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/mtb-hcc1143-radiation-oncologist"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Specimen/mtb-hcc1143-specimen-breast-core",
+      "resource": {
+        "resourceType": "Specimen",
+        "id": "mtb-hcc1143-specimen-breast-core",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-human-specimen"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "unavailable",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0487",
+              "code": "TISS",
+              "display": "Tissue"
+            },
+            {
+              "system": "http://snomed.info/sct",
+              "code": "258415003",
+              "display": "Biopsy specimen"
+            }
+          ]
+        },
+        "note": [
+          {
+            "text": "Right breast 10 o'clock mass, ultrasound-guided core needle biopsy"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "collection": {
+          "collector": {
+            "reference": "Practitioner/mtb-hcc1143-radiologist",
+            "display": "Dr. Rita Radiologist"
+          },
+          "collectedDateTime": "2024-04-26",
+          "method": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "432550005",
+                "display": "Core needle biopsy of breast using ultrasound guidance"
+              }
+            ]
+          },
+          "bodySite": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "110496004",
+                "display": "Upper outer quadrant of right breast"
+              }
+            ]
+          }
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Specimen/mtb-hcc1143-specimen-breast-core"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Specimen/mtb-hcc1143-specimen-partial-mastectomy",
+      "resource": {
+        "resourceType": "Specimen",
+        "id": "mtb-hcc1143-specimen-partial-mastectomy",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-human-specimen"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "available",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0487",
+              "code": "TISS",
+              "display": "Tissue"
+            },
+            {
+              "system": "http://snomed.info/sct",
+              "code": "119376003",
+              "display": "Tissue specimen"
+            }
+          ]
+        },
+        "note": [
+          {
+            "text": "Right partial mastectomy specimen; source of the tumor genomic profiling"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "collection": {
+          "collector": {
+            "reference": "Practitioner/mtb-hcc1143-surgeon",
+            "display": "Dr. Sam Surgeon"
+          },
+          "collectedDateTime": "2024-05-20",
+          "method": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "736754007",
+                "display": "Excision of part of right breast"
+              }
+            ]
+          },
+          "bodySite": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "110496004",
+                "display": "Upper outer quadrant of right breast"
+              }
+            ]
+          }
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Specimen/mtb-hcc1143-specimen-partial-mastectomy"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Specimen/mtb-hcc1143-specimen-lung-core",
+      "resource": {
+        "resourceType": "Specimen",
+        "id": "mtb-hcc1143-specimen-lung-core",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-human-specimen"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "available",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0487",
+              "code": "TISS",
+              "display": "Tissue"
+            },
+            {
+              "system": "http://snomed.info/sct",
+              "code": "258415003",
+              "display": "Biopsy specimen"
+            }
+          ]
+        },
+        "note": [
+          {
+            "text": "Right upper lobe nodule, CT-guided core biopsy"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "collection": {
+          "collector": {
+            "reference": "Practitioner/mtb-hcc1143-radiologist",
+            "display": "Dr. Rita Radiologist"
+          },
+          "collectedDateTime": "2026-09-09",
+          "method": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "6491000087100",
+                "display": "CT guided biopsy of right lung"
+              }
+            ]
+          },
+          "bodySite": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "3341006",
+                "display": "Right lung structure"
+              }
+            ]
+          }
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Specimen/mtb-hcc1143-specimen-lung-core"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Condition/mtb-hcc1143-primary-cancer",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "mtb-hcc1143-primary-cancer",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-primary-cancer-condition"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-histology-morphology-behavior",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "82711006",
+                  "display": "Infiltrating duct carcinoma"
+                },
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/icd-o-3",
+                  "code": "8500/3",
+                  "display": "Infiltrating duct carcinoma, NOS"
+                }
+              ]
+            }
+          }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "recurrence",
+              "display": "Recurrence"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "408643008",
+              "display": "Infiltrating duct carcinoma of breast"
+            },
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "C50.411",
+              "display": "Malignant neoplasm of upper-outer quadrant of right female breast"
+            }
+          ],
+          "text": "Infiltrating duct carcinoma of right breast"
+        },
+        "bodySite": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-laterality-qualifier",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://snomed.info/sct",
+                      "code": "24028007",
+                      "display": "Right"
+                    }
+                  ]
+                }
+              }
+            ],
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "110496004",
+                "display": "Upper outer quadrant of right breast"
+              },
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/icd-o-3",
+                "code": "C50.4",
+                "display": "Upper-outer quadrant of breast"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "onsetDateTime": "2024-04-26",
+        "recordedDate": "2024-04-26",
+        "asserter": {
+          "reference": "Practitioner/mtb-hcc1143-oncologist",
+          "display": "Dr. Olivia Oncologist"
+        },
+        "stage": [
+          {
+            "summary": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "1222766008",
+                  "display": "IIA (AJCC)"
+                }
+              ],
+              "text": "Stage IIA (AJCC)"
+            },
+            "assessment": [
+              {
+                "reference": "Observation/mtb-hcc1143-tnm-pathologic-stage-group"
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "897275008",
+                  "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+                }
+              ]
+            }
+          },
+          {
+            "summary": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "1222724007",
+                  "display": "IA (AJCC)"
+                }
+              ],
+              "text": "Stage IA (AJCC)"
+            },
+            "assessment": [
+              {
+                "reference": "Observation/mtb-hcc1143-tnm-clinical-stage-group"
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "897275008",
+                  "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+                }
+              ]
+            }
+          }
+        ],
+        "evidence": [
+          {
+            "detail": [
+              {
+                "reference": "DiagnosticReport/mtb-hcc1143-path-breast-core"
+              },
+              {
+                "reference": "DiagnosticReport/mtb-hcc1143-path-partial-mastectomy"
+              }
+            ]
+          }
+        ],
+        "note": [
+          {
+            "text": "Triple-negative (ER 0%, PR 0%, HER2 IHC 0). Recurrence with lung and mediastinal nodal metastases, 2026-08."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/mtb-hcc1143-primary-cancer"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Condition/mtb-hcc1143-lung-metastases",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "mtb-hcc1143-lung-metastases",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-secondary-cancer-condition"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/condition-related",
+            "valueReference": {
+              "reference": "Condition/mtb-hcc1143-primary-cancer",
+              "display": "Infiltrating duct carcinoma of right breast"
+            }
+          }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "94391008",
+              "display": "Metastatic malignant neoplasm to lung"
+            },
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "C78.00",
+              "display": "Secondary malignant neoplasm of unspecified lung"
+            }
+          ]
+        },
+        "bodySite": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "3341006",
+                "display": "Right lung structure"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "44029006",
+                "display": "Left lung structure"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "onsetDateTime": "2026-08-24",
+        "recordedDate": "2026-09-12",
+        "asserter": {
+          "reference": "Practitioner/mtb-hcc1143-oncologist",
+          "display": "Dr. Olivia Oncologist"
+        },
+        "evidence": [
+          {
+            "detail": [
+              {
+                "reference": "DiagnosticReport/mtb-hcc1143-ct-chest-2026-08-24"
+              },
+              {
+                "reference": "DiagnosticReport/mtb-hcc1143-path-lung-biopsy"
+              }
+            ]
+          }
+        ],
+        "note": [
+          {
+            "text": "Bilateral pulmonary nodules, largest 2.1 cm right upper lobe (biopsy-proven)."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/mtb-hcc1143-lung-metastases"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Condition/mtb-hcc1143-mediastinal-node-metastases",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "mtb-hcc1143-mediastinal-node-metastases",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-secondary-cancer-condition"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/condition-related",
+            "valueReference": {
+              "reference": "Condition/mtb-hcc1143-primary-cancer",
+              "display": "Infiltrating duct carcinoma of right breast"
+            }
+          }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "94351005",
+              "display": "Metastatic malignant neoplasm to intrathoracic lymph nodes"
+            },
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "C77.1",
+              "display": "Secondary and unspecified malignant neoplasm of intrathoracic lymph nodes"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "onsetDateTime": "2026-08-24",
+        "recordedDate": "2026-09-12",
+        "asserter": {
+          "reference": "Practitioner/mtb-hcc1143-oncologist",
+          "display": "Dr. Olivia Oncologist"
+        },
+        "evidence": [
+          {
+            "detail": [
+              {
+                "reference": "DiagnosticReport/mtb-hcc1143-pet-ct-2026-08-31"
+              }
+            ]
+          }
+        ],
+        "note": [
+          {
+            "text": "Subcarinal and right paratracheal nodes, FDG-avid."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/mtb-hcc1143-mediastinal-node-metastases"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-tnm-clinical-t",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-tnm-clinical-t",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-primary-tumor-category"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "399504009",
+              "display": "cT category"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-hcc1143-primary-cancer",
+            "display": "Infiltrating duct carcinoma of right breast"
+          }
+        ],
+        "effectiveDateTime": "2024-04-30",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-oncologist",
+            "display": "Dr. Olivia Oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1228899006",
+              "display": "cT1c (AJCC)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "note": [
+          {
+            "text": "1.9 cm on ultrasound"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-tnm-clinical-t"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-tnm-clinical-n",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-tnm-clinical-n",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-regional-nodes-category"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "399534004",
+              "display": "cN category"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-hcc1143-primary-cancer",
+            "display": "Infiltrating duct carcinoma of right breast"
+          }
+        ],
+        "effectiveDateTime": "2024-04-30",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-oncologist",
+            "display": "Dr. Olivia Oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1229967007",
+              "display": "cN0 (AJCC)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "note": [
+          {
+            "text": "No suspicious axillary nodes on ultrasound"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-tnm-clinical-n"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-tnm-clinical-m",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-tnm-clinical-m",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-distant-metastases-category"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "399387003",
+              "display": "cM category"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-hcc1143-primary-cancer",
+            "display": "Infiltrating duct carcinoma of right breast"
+          }
+        ],
+        "effectiveDateTime": "2024-04-30",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-oncologist",
+            "display": "Dr. Olivia Oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1229901006",
+              "display": "cM0 (AJCC)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-tnm-clinical-m"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-tnm-clinical-stage-group",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-tnm-clinical-stage-group",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-stage-group"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "399537006",
+              "display": "Clinical TNM stage grouping"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-hcc1143-primary-cancer",
+            "display": "Infiltrating duct carcinoma of right breast"
+          }
+        ],
+        "effectiveDateTime": "2024-04-30",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-oncologist",
+            "display": "Dr. Olivia Oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1222724007",
+              "display": "IA (AJCC)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "hasMember": [
+          {
+            "reference": "Observation/mtb-hcc1143-tnm-clinical-t"
+          },
+          {
+            "reference": "Observation/mtb-hcc1143-tnm-clinical-n"
+          },
+          {
+            "reference": "Observation/mtb-hcc1143-tnm-clinical-m"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-tnm-clinical-stage-group"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-tnm-pathologic-t",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-tnm-pathologic-t",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-primary-tumor-category"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "384625004",
+              "display": "pT category"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-hcc1143-primary-cancer",
+            "display": "Infiltrating duct carcinoma of right breast"
+          }
+        ],
+        "effectiveDateTime": "2024-05-28",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-oncologist",
+            "display": "Dr. Olivia Oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1229852009",
+              "display": "pT2 (AJCC)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "note": [
+          {
+            "text": "2.3 cm invasive carcinoma"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-tnm-pathologic-t"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-tnm-pathologic-n",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-tnm-pathologic-n",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-regional-nodes-category"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "371494008",
+              "display": "pN category"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-hcc1143-primary-cancer",
+            "display": "Infiltrating duct carcinoma of right breast"
+          }
+        ],
+        "effectiveDateTime": "2024-05-28",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-oncologist",
+            "display": "Dr. Olivia Oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1229947003",
+              "display": "pN0 (AJCC)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "note": [
+          {
+            "text": "0 of 3 sentinel lymph nodes involved"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-tnm-pathologic-n"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-tnm-pathologic-stage-group",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-tnm-pathologic-stage-group",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-stage-group"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "399588009",
+              "display": "Pathologic TNM stage grouping"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-hcc1143-primary-cancer",
+            "display": "Infiltrating duct carcinoma of right breast"
+          }
+        ],
+        "effectiveDateTime": "2024-05-28",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-oncologist",
+            "display": "Dr. Olivia Oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1222766008",
+              "display": "IIA (AJCC)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "hasMember": [
+          {
+            "reference": "Observation/mtb-hcc1143-tnm-pathologic-t"
+          },
+          {
+            "reference": "Observation/mtb-hcc1143-tnm-pathologic-n"
+          },
+          {
+            "reference": "Observation/mtb-hcc1143-tnm-clinical-m"
+          }
+        ],
+        "note": [
+          {
+            "text": "Anatomic stage group. (AJCC 8th edition prognostic stage for a grade 3 triple-negative T2N0 tumor is higher.)"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-tnm-pathologic-stage-group"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-histologic-grade",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-histologic-grade",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-histologic-grade"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl",
+              "code": "C18000",
+              "display": "Histologic Grade"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-hcc1143-primary-cancer",
+            "display": "Infiltrating duct carcinoma of right breast"
+          }
+        ],
+        "effectiveDateTime": "2024-05-20",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1155707008",
+              "display": "High histologic grade"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "449205006",
+              "display": "Nottingham histologic grading system"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-hcc1143-specimen-partial-mastectomy"
+        },
+        "note": [
+          {
+            "text": "Nottingham grade 3 (tubules 3, pleomorphism 3, mitoses 3; score 9/9)"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-histologic-grade"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/BodyStructure/mtb-hcc1143-tumor-breast",
+      "resource": {
+        "resourceType": "BodyStructure",
+        "id": "mtb-hcc1143-tumor-breast",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "use": "usual",
+            "type": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/resource-types",
+                  "code": "BodyStructure",
+                  "display": "BodyStructure"
+                }
+              ]
+            },
+            "system": "http://elimu.io/fhir/tumor-id",
+            "value": "HCC1143-right-breast-primary"
+          }
+        ],
+        "morphology": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "82711006",
+              "display": "Infiltrating duct carcinoma"
+            }
+          ]
+        },
+        "location": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "110496004",
+              "display": "Upper outer quadrant of right breast"
+            }
+          ]
+        },
+        "locationQualifier": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "24028007",
+                "display": "Right"
+              }
+            ]
+          }
+        ],
+        "description": "Primary tumor, right breast 10 o'clock",
+        "patient": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "BodyStructure/mtb-hcc1143-tumor-breast"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-tumor-size-2024-04-22",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-tumor-size-2024-04-22",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-size"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "imaging",
+                "display": "Imaging"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "21889-1",
+              "display": "Size Tumor"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-04-22",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-radiologist",
+            "display": "Dr. Rita Radiologist"
+          }
+        ],
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "16310003",
+              "display": "Ultrasonography"
+            }
+          ]
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "33728-7",
+                  "display": "Size.maximum dimension in Tumor"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 1.9,
+              "unit": "cm",
+              "system": "http://unitsofmeasure.org",
+              "code": "cm"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "33729-5",
+                  "display": "Size additional dimension in Tumor"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 1.5,
+              "unit": "cm",
+              "system": "http://unitsofmeasure.org",
+              "code": "cm"
+            }
+          }
+        ],
+        "focus": [
+          {
+            "reference": "BodyStructure/mtb-hcc1143-tumor-breast"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-tumor-size-2024-04-22"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-tumor-size-2024-05-20",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-tumor-size-2024-05-20",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-size"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "21889-1",
+              "display": "Size Tumor"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-05-20",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "787377000",
+              "display": "Gross examination and sampling of tissue specimen"
+            }
+          ]
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "33728-7",
+                  "display": "Size.maximum dimension in Tumor"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 2.3,
+              "unit": "cm",
+              "system": "http://unitsofmeasure.org",
+              "code": "cm"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "33729-5",
+                  "display": "Size additional dimension in Tumor"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 1.8,
+              "unit": "cm",
+              "system": "http://unitsofmeasure.org",
+              "code": "cm"
+            }
+          }
+        ],
+        "specimen": {
+          "reference": "Specimen/mtb-hcc1143-specimen-partial-mastectomy"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-tumor-size-2024-05-20"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-hcc1143-mammogram-2024-04-22",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-hcc1143-mammogram-2024-04-22",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP29684-5",
+                "display": "Radiology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "24605-8",
+              "display": "MG Breast Diagnostic"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-04-22",
+        "issued": "2024-04-22T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-radiologist",
+            "display": "Dr. Rita Radiologist"
+          }
+        ],
+        "conclusion": "Irregular, spiculated mass at 10 o'clock in the right breast, posterior depth, with associated architectural distortion. No suspicious calcifications. Left breast unremarkable. BI-RADS 5."
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-hcc1143-mammogram-2024-04-22"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-hcc1143-us-breast-2024-04-22",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-hcc1143-us-breast-2024-04-22",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP29684-5",
+                "display": "Radiology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "24601-7",
+              "display": "US Breast"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-04-22",
+        "issued": "2024-04-22T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-radiologist",
+            "display": "Dr. Rita Radiologist"
+          }
+        ],
+        "conclusion": "Right breast 10 o'clock, 6 cm from the nipple: irregular hypoechoic mass with angular margins, 1.9 x 1.5 cm. Right axilla: no morphologically abnormal lymph nodes. BI-RADS 5; ultrasound-guided biopsy recommended."
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-hcc1143-us-breast-2024-04-22"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-hcc1143-path-breast-core",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-hcc1143-path-breast-core",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP7839-6",
+                "display": "Pathology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11526-1",
+              "display": "Pathology study"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-04-26",
+        "issued": "2024-04-26T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "conclusion": "Right breast 10 o'clock, ultrasound-guided core biopsy: invasive ductal carcinoma, Nottingham grade 3. ER negative (0%), PR negative (0%), HER2 negative (IHC 0). Ki-67 approximately 70%.",
+        "specimen": [
+          {
+            "reference": "Specimen/mtb-hcc1143-specimen-breast-core"
+          }
+        ],
+        "conclusionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "82711006",
+                "display": "Infiltrating duct carcinoma"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-hcc1143-path-breast-core"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-hcc1143-path-partial-mastectomy",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-hcc1143-path-partial-mastectomy",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP7839-6",
+                "display": "Pathology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11526-1",
+              "display": "Pathology study"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-05-20",
+        "issued": "2024-05-20T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "conclusion": "Right breast partial mastectomy and sentinel lymph node biopsy: invasive ductal carcinoma, Nottingham grade 3 (score 9/9), 2.3 cm. No lymphovascular invasion. Margins negative (closest 4 mm, posterior). Sentinel lymph nodes: 0 of 3 involved. pT2 pN0.",
+        "specimen": [
+          {
+            "reference": "Specimen/mtb-hcc1143-specimen-partial-mastectomy"
+          }
+        ],
+        "conclusionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "82711006",
+                "display": "Infiltrating duct carcinoma"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-hcc1143-path-partial-mastectomy"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-hcc1143-germline-2024-06-07",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-hcc1143-germline-2024-06-07",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP7839-6",
+                "display": "Pathology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "51969-4",
+              "display": "Genetic analysis report"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-06-07",
+        "issued": "2024-06-07T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "conclusion": "Germline multigene hereditary cancer panel (peripheral blood): no pathogenic or likely pathogenic variants identified, including BRCA1, BRCA2, PALB2, TP53, PTEN, CHEK2 and ATM."
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-hcc1143-germline-2024-06-07"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-hcc1143-molecular-2024-06-14",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-hcc1143-molecular-2024-06-14",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP7839-6",
+                "display": "Pathology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "51969-4",
+              "display": "Genetic analysis report"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-06-14",
+        "issued": "2024-06-14T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "conclusion": "Tumor genomic profiling (partial mastectomy specimen, with matched normal): TP53 c.743G>A (p.Arg248Gln), homozygous. No pathogenic alterations in PIK3CA, AKT1, PTEN, BRCA1 or BRCA2. Microsatellite stable. Detailed variant-level results are maintained on the genomics server, not in this report.",
+        "specimen": [
+          {
+            "reference": "Specimen/mtb-hcc1143-specimen-partial-mastectomy"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-hcc1143-molecular-2024-06-14"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-hcc1143-mammogram-2025-05-19",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-hcc1143-mammogram-2025-05-19",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP29684-5",
+                "display": "Radiology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "24605-8",
+              "display": "MG Breast Diagnostic"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2025-05-19",
+        "issued": "2025-05-19T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-radiologist",
+            "display": "Dr. Rita Radiologist"
+          }
+        ],
+        "conclusion": "Post-lumpectomy and radiation changes in the right breast. No suspicious mass or calcifications. Left breast unremarkable. BI-RADS 2."
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-hcc1143-mammogram-2025-05-19"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-hcc1143-ct-chest-2026-08-24",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-hcc1143-ct-chest-2026-08-24",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP29684-5",
+                "display": "Radiology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "24628-0",
+              "display": "CT Chest W contrast IV"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-08-24",
+        "issued": "2026-08-24T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-radiologist",
+            "display": "Dr. Rita Radiologist"
+          }
+        ],
+        "conclusion": "Multiple new bilateral pulmonary nodules, the largest 2.1 cm in the right upper lobe, highly suspicious for metastases. Enlarged subcarinal (1.6 cm) and right paratracheal (1.3 cm) lymph nodes. No pleural effusion. Post-surgical changes in the right breast."
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-hcc1143-ct-chest-2026-08-24"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-hcc1143-pet-ct-2026-08-31",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-hcc1143-pet-ct-2026-08-31",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP29684-5",
+                "display": "Radiology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "81554-8",
+              "display": "PET+CT Guidance for localization of tumor of Skull base to mid-thigh-- W 18F-FDG IV"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-08-31",
+        "issued": "2026-08-31T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-radiologist",
+            "display": "Dr. Rita Radiologist"
+          }
+        ],
+        "conclusion": "FDG-avid bilateral pulmonary nodules (SUVmax 8.9) and subcarinal and right paratracheal lymph nodes (SUVmax 7.2). No FDG-avid hepatic, osseous or adrenal disease. No residual disease in the right breast."
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-hcc1143-pet-ct-2026-08-31"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-hcc1143-mri-brain-2026-09-02",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-hcc1143-mri-brain-2026-09-02",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP29684-5",
+                "display": "Radiology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "24587-8",
+              "display": "MR Brain WO and W contrast IV"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-09-02",
+        "issued": "2026-09-02T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-radiologist",
+            "display": "Dr. Rita Radiologist"
+          }
+        ],
+        "conclusion": "No evidence of intracranial metastatic disease."
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-hcc1143-mri-brain-2026-09-02"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-hcc1143-path-lung-biopsy",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-hcc1143-path-lung-biopsy",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP7839-6",
+                "display": "Pathology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11526-1",
+              "display": "Pathology study"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-09-09",
+        "issued": "2026-09-09T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "conclusion": "Right upper lobe nodule, CT-guided core biopsy: metastatic carcinoma consistent with the known breast primary (GATA3 positive, TTF-1 negative). ER negative (0%), PR negative (0%), HER2 negative (IHC 0). PD-L1 (22C3) combined positive score 12.",
+        "specimen": [
+          {
+            "reference": "Specimen/mtb-hcc1143-specimen-lung-core"
+          }
+        ],
+        "conclusionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "82711006",
+                "display": "Infiltrating duct carcinoma"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-hcc1143-path-lung-biopsy"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-er-2024-04-26",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-er-2024-04-26",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-hcc1143-primary-cancer",
+              "display": "Infiltrating duct carcinoma of right breast"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85337-4",
+              "display": "Estrogen receptor Ag [Presence] in Breast cancer specimen by Immune stain"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-04-26",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA6577-6",
+              "display": "Negative"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-hcc1143-specimen-breast-core"
+        },
+        "note": [
+          {
+            "text": "ER 0% of tumor nuclei staining"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-er-2024-04-26"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-pr-2024-04-26",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-pr-2024-04-26",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-hcc1143-primary-cancer",
+              "display": "Infiltrating duct carcinoma of right breast"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85339-0",
+              "display": "Progesterone receptor Ag [Presence] in Breast cancer specimen by Immune stain"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-04-26",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA6577-6",
+              "display": "Negative"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-hcc1143-specimen-breast-core"
+        },
+        "note": [
+          {
+            "text": "PR 0% of tumor nuclei staining"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-pr-2024-04-26"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-her2-2024-04-26",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-her2-2024-04-26",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-hcc1143-primary-cancer",
+              "display": "Infiltrating duct carcinoma of right breast"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85319-2",
+              "display": "HER2 Ag [Presence] in Breast cancer specimen by Immune stain"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-04-26",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA6577-6",
+              "display": "Negative"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-hcc1143-specimen-breast-core"
+        },
+        "note": [
+          {
+            "text": "HER2 IHC score 0"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-her2-2024-04-26"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-er-2026-09-09",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-er-2026-09-09",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-hcc1143-primary-cancer",
+              "display": "Infiltrating duct carcinoma of right breast"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85337-4",
+              "display": "Estrogen receptor Ag [Presence] in Breast cancer specimen by Immune stain"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-09-09",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA6577-6",
+              "display": "Negative"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-hcc1143-specimen-lung-core"
+        },
+        "note": [
+          {
+            "text": "ER 0% of tumor nuclei staining"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-er-2026-09-09"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-pr-2026-09-09",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-pr-2026-09-09",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-hcc1143-primary-cancer",
+              "display": "Infiltrating duct carcinoma of right breast"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85339-0",
+              "display": "Progesterone receptor Ag [Presence] in Breast cancer specimen by Immune stain"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-09-09",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA6577-6",
+              "display": "Negative"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-hcc1143-specimen-lung-core"
+        },
+        "note": [
+          {
+            "text": "PR 0% of tumor nuclei staining"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-pr-2026-09-09"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-her2-2026-09-09",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-her2-2026-09-09",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-hcc1143-primary-cancer",
+              "display": "Infiltrating duct carcinoma of right breast"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85319-2",
+              "display": "HER2 Ag [Presence] in Breast cancer specimen by Immune stain"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-09-09",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA6577-6",
+              "display": "Negative"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-hcc1143-specimen-lung-core"
+        },
+        "note": [
+          {
+            "text": "HER2 IHC score 0"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-her2-2026-09-09"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-ki67-2024-04-26",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-ki67-2024-04-26",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-hcc1143-primary-cancer",
+              "display": "Infiltrating duct carcinoma of right breast"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85330-9",
+              "display": "Cells.Ki-67 nuclear Ag/cells in Breast cancer specimen by Immune stain"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-04-26",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 70,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-hcc1143-specimen-breast-core"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-ki67-2024-04-26"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-pdl1-cps-2026-09-09",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-pdl1-cps-2026-09-09",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-hcc1143-primary-cancer",
+              "display": "Infiltrating duct carcinoma of right breast"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85147-7",
+              "display": "PD-L1 by clone 22C3 in Tissue by Immune stain Report"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-09-09",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueString": "Combined positive score (CPS) 12",
+        "specimen": {
+          "reference": "Specimen/mtb-hcc1143-specimen-lung-core"
+        },
+        "note": [
+          {
+            "text": "PD-L1 IHC 22C3 pharmDx on lung metastasis. CPS >= 10."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-pdl1-cps-2026-09-09"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-ca15-3-2024-04-26",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-ca15-3-2024-04-26",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-hcc1143-primary-cancer",
+              "display": "Infiltrating duct carcinoma of right breast"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6875-9",
+              "display": "Cancer Ag 15-3 [Units/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-04-26",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 24,
+          "unit": "U/mL",
+          "system": "http://unitsofmeasure.org",
+          "code": "[iU]/mL"
+        },
+        "referenceRange": [
+          {
+            "high": {
+              "value": 30,
+              "unit": "U/mL",
+              "system": "http://unitsofmeasure.org",
+              "code": "[iU]/mL"
+            },
+            "text": "<=30 U/mL"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-ca15-3-2024-04-26"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-ca15-3-2025-05-19",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-ca15-3-2025-05-19",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-hcc1143-primary-cancer",
+              "display": "Infiltrating duct carcinoma of right breast"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6875-9",
+              "display": "Cancer Ag 15-3 [Units/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2025-05-19",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 19,
+          "unit": "U/mL",
+          "system": "http://unitsofmeasure.org",
+          "code": "[iU]/mL"
+        },
+        "referenceRange": [
+          {
+            "high": {
+              "value": 30,
+              "unit": "U/mL",
+              "system": "http://unitsofmeasure.org",
+              "code": "[iU]/mL"
+            },
+            "text": "<=30 U/mL"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-ca15-3-2025-05-19"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-ca15-3-2026-08-28",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-ca15-3-2026-08-28",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-hcc1143-primary-cancer",
+              "display": "Infiltrating duct carcinoma of right breast"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6875-9",
+              "display": "Cancer Ag 15-3 [Units/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-08-28",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 71,
+          "unit": "U/mL",
+          "system": "http://unitsofmeasure.org",
+          "code": "[iU]/mL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "H",
+                "display": "High"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "high": {
+              "value": 30,
+              "unit": "U/mL",
+              "system": "http://unitsofmeasure.org",
+              "code": "[iU]/mL"
+            },
+            "text": "<=30 U/mL"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-ca15-3-2026-08-28"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-disease-status-2026-08-24",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-disease-status-2026-08-24",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-disease-status"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-disease-status-evidence-type",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "363679005",
+                  "display": "Imaging"
+                }
+              ]
+            }
+          }
+        ],
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "97509-4",
+              "display": "Cancer disease progression"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-hcc1143-primary-cancer",
+            "display": "Infiltrating duct carcinoma of right breast"
+          }
+        ],
+        "effectiveDateTime": "2026-08-24",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-oncologist",
+            "display": "Dr. Olivia Oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "271299001",
+              "display": "Patient's condition worsened"
+            }
+          ]
+        },
+        "note": [
+          {
+            "text": "Distant recurrence: bilateral lung and mediastinal nodal metastases."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-disease-status-2026-08-24"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-ecog-2024-04-26",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-ecog-2024-04-26",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-ecog-performance-status"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "survey",
+                "display": "Survey"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "89247-1",
+              "display": "ECOG Performance Status score"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-04-26",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-oncologist",
+            "display": "Dr. Olivia Oncologist"
+          }
+        ],
+        "valueInteger": 0,
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LA9622-7",
+                "display": "Fully active, able to carry on all pre-disease performance without restriction"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-ecog-2024-04-26"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-ecog-2026-09-15",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-ecog-2026-09-15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-ecog-performance-status"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "survey",
+                "display": "Survey"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "89247-1",
+              "display": "ECOG Performance Status score"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-09-15",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-oncologist",
+            "display": "Dr. Olivia Oncologist"
+          }
+        ],
+        "valueInteger": 1,
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LA9623-5",
+                "display": "Restricted in physically strenuous activity but ambulatory and able to carry out work of a light or sedentary nature, e.g., light house work, office work"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-ecog-2026-09-15"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/mtb-hcc1143-medrx-doxorubicin",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "mtb-hcc1143-medrx-doxorubicin",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-medication-request"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "373808002",
+                  "display": "Curative - procedure intent"
+                }
+              ]
+            }
+          }
+        ],
+        "status": "completed",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "outpatient",
+                "display": "Outpatient"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "1790099",
+              "display": "10 ML doxorubicin hydrochloride 2 MG/ML Injection"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "authoredOn": "2024-06-24",
+        "requester": {
+          "reference": "Practitioner/mtb-hcc1143-oncologist",
+          "display": "Dr. Olivia Oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-hcc1143-primary-cancer",
+            "display": "Infiltrating duct carcinoma of right breast"
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "text": "Doxorubicin 60 mg/m2 IV on day 1 every 14 days x 4 cycles (dose-dense AC)",
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "47625008",
+                  "display": "Intravenous route"
+                }
+              ]
+            },
+            "timing": {
+              "repeat": {
+                "boundsPeriod": {
+                  "start": "2024-06-24",
+                  "end": "2024-08-05"
+                },
+                "count": 4,
+                "frequency": 1,
+                "period": 14,
+                "periodUnit": "d"
+              }
+            },
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "value": 60,
+                  "unit": "mg/m2",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "mg/m2"
+                }
+              }
+            ]
+          }
+        ],
+        "note": [
+          {
+            "text": "Adjuvant dose-dense AC, cycles 2024-06-24, 07-08, 07-22, 08-05."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/mtb-hcc1143-medrx-doxorubicin"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/mtb-hcc1143-medrx-cyclophosphamide",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "mtb-hcc1143-medrx-cyclophosphamide",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-medication-request"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "373808002",
+                  "display": "Curative - procedure intent"
+                }
+              ]
+            }
+          }
+        ],
+        "status": "completed",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "outpatient",
+                "display": "Outpatient"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "1734917",
+              "display": "cyclophosphamide 500 MG Injection"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "authoredOn": "2024-06-24",
+        "requester": {
+          "reference": "Practitioner/mtb-hcc1143-oncologist",
+          "display": "Dr. Olivia Oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-hcc1143-primary-cancer",
+            "display": "Infiltrating duct carcinoma of right breast"
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "text": "Cyclophosphamide 600 mg/m2 IV on day 1 every 14 days x 4 cycles (dose-dense AC)",
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "47625008",
+                  "display": "Intravenous route"
+                }
+              ]
+            },
+            "timing": {
+              "repeat": {
+                "boundsPeriod": {
+                  "start": "2024-06-24",
+                  "end": "2024-08-05"
+                },
+                "count": 4,
+                "frequency": 1,
+                "period": 14,
+                "periodUnit": "d"
+              }
+            },
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "value": 600,
+                  "unit": "mg/m2",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "mg/m2"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/mtb-hcc1143-medrx-cyclophosphamide"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/mtb-hcc1143-medrx-pegfilgrastim",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "mtb-hcc1143-medrx-pegfilgrastim",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-medication-request"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "399707004",
+                  "display": "Supportive - procedure intent"
+                }
+              ]
+            }
+          }
+        ],
+        "status": "completed",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "outpatient",
+                "display": "Outpatient"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "727539",
+              "display": "0.6 ML pegfilgrastim 10 MG/ML Prefilled Syringe"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "authoredOn": "2024-06-25",
+        "requester": {
+          "reference": "Practitioner/mtb-hcc1143-oncologist",
+          "display": "Dr. Olivia Oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-hcc1143-primary-cancer",
+            "display": "Infiltrating duct carcinoma of right breast"
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "text": "Pegfilgrastim 6 mg subcutaneously on day 2 of each dose-dense AC cycle",
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "34206005",
+                  "display": "Subcutaneous route"
+                }
+              ]
+            },
+            "timing": {
+              "repeat": {
+                "boundsPeriod": {
+                  "start": "2024-06-25",
+                  "end": "2024-08-06"
+                },
+                "count": 4,
+                "frequency": 1,
+                "period": 14,
+                "periodUnit": "d"
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/mtb-hcc1143-medrx-pegfilgrastim"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/mtb-hcc1143-medrx-paclitaxel",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "mtb-hcc1143-medrx-paclitaxel",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-medication-request"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "373808002",
+                  "display": "Curative - procedure intent"
+                }
+              ]
+            }
+          }
+        ],
+        "status": "completed",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "outpatient",
+                "display": "Outpatient"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "312199",
+              "display": "paclitaxel 6 MG/ML Injectable Solution"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "authoredOn": "2024-08-19",
+        "requester": {
+          "reference": "Practitioner/mtb-hcc1143-oncologist",
+          "display": "Dr. Olivia Oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-hcc1143-primary-cancer",
+            "display": "Infiltrating duct carcinoma of right breast"
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "text": "Paclitaxel 80 mg/m2 IV weekly x 12",
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "47625008",
+                  "display": "Intravenous route"
+                }
+              ]
+            },
+            "timing": {
+              "repeat": {
+                "boundsPeriod": {
+                  "start": "2024-08-19",
+                  "end": "2024-11-04"
+                },
+                "count": 12,
+                "frequency": 1,
+                "period": 1,
+                "periodUnit": "wk"
+              }
+            },
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "value": 80,
+                  "unit": "mg/m2",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "mg/m2"
+                }
+              }
+            ]
+          }
+        ],
+        "note": [
+          {
+            "text": "Adjuvant weekly paclitaxel after dose-dense AC."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/mtb-hcc1143-medrx-paclitaxel"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/BodyStructure/mtb-hcc1143-rt-volume-right-breast",
+      "resource": {
+        "resourceType": "BodyStructure",
+        "id": "mtb-hcc1143-rt-volume-right-breast",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-volume"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "use": "usual",
+            "system": "http://elimu.io/fhir/rt-volume",
+            "value": "PTV_R_Breast"
+          }
+        ],
+        "morphology": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "228793007",
+              "display": "Planning target volume"
+            }
+          ]
+        },
+        "location": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "76752008",
+              "display": "Breast structure"
+            }
+          ]
+        },
+        "locationQualifier": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "24028007",
+                "display": "Right"
+              }
+            ]
+          }
+        ],
+        "description": "Right whole breast",
+        "patient": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "BodyStructure/mtb-hcc1143-rt-volume-right-breast"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Procedure/mtb-hcc1143-rt-course-right-breast",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "mtb-hcc1143-rt-course-right-breast",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-course-summary"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "373808002",
+                  "display": "Curative - procedure intent"
+                }
+              ]
+            }
+          },
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-modality-and-technique",
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-modality",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://snomed.info/sct",
+                      "code": "1156506007",
+                      "display": "External beam radiation therapy using photons"
+                    }
+                  ]
+                }
+              },
+              {
+                "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-technique",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://snomed.info/sct",
+                      "code": "1162782007",
+                      "display": "Three dimensional external beam radiation therapy"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-sessions",
+            "valueUnsignedInt": 15
+          },
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-dose-delivered-to-volume",
+            "extension": [
+              {
+                "url": "volume",
+                "valueReference": {
+                  "reference": "BodyStructure/mtb-hcc1143-rt-volume-right-breast"
+                }
+              },
+              {
+                "url": "totalDoseDelivered",
+                "valueQuantity": {
+                  "value": 4005,
+                  "unit": "cGy",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "cGy"
+                }
+              },
+              {
+                "url": "fractionsDelivered",
+                "valueUnsignedInt": 15
+              }
+            ]
+          }
+        ],
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1217123003",
+              "display": "Radiotherapy course of treatment"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "performedPeriod": {
+          "start": "2024-11-25",
+          "end": "2024-12-13"
+        },
+        "performer": [
+          {
+            "actor": {
+              "reference": "Practitioner/mtb-hcc1143-radiation-oncologist",
+              "display": "Dr. Ray Radonc"
+            }
+          }
+        ],
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-hcc1143-primary-cancer",
+            "display": "Infiltrating duct carcinoma of right breast"
+          }
+        ],
+        "bodySite": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-laterality-qualifier",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://snomed.info/sct",
+                      "code": "24028007",
+                      "display": "Right"
+                    }
+                  ]
+                }
+              }
+            ],
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "76752008",
+                "display": "Breast structure"
+              }
+            ]
+          }
+        ],
+        "note": [
+          {
+            "text": "Adjuvant hypofractionated whole-breast radiotherapy, 40.05 Gy in 15 fractions."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/mtb-hcc1143-rt-course-right-breast"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Procedure/mtb-hcc1143-proc-breast-core",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "mtb-hcc1143-proc-breast-core",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "432550005",
+              "display": "Core needle biopsy of breast using ultrasound guidance"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "performedDateTime": "2024-04-26",
+        "performer": [
+          {
+            "actor": {
+              "reference": "Practitioner/mtb-hcc1143-radiologist",
+              "display": "Dr. Rita Radiologist"
+            }
+          }
+        ],
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-hcc1143-primary-cancer",
+            "display": "Infiltrating duct carcinoma of right breast"
+          }
+        ],
+        "bodySite": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "110496004",
+                "display": "Upper outer quadrant of right breast"
+              }
+            ]
+          }
+        ],
+        "report": [
+          {
+            "reference": "DiagnosticReport/mtb-hcc1143-path-breast-core"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/mtb-hcc1143-proc-breast-core"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Procedure/mtb-hcc1143-proc-partial-mastectomy",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "mtb-hcc1143-proc-partial-mastectomy",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-surgical-procedure"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "736754007",
+              "display": "Excision of part of right breast"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "performedDateTime": "2024-05-20",
+        "performer": [
+          {
+            "actor": {
+              "reference": "Practitioner/mtb-hcc1143-surgeon",
+              "display": "Dr. Sam Surgeon"
+            }
+          }
+        ],
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-hcc1143-primary-cancer",
+            "display": "Infiltrating duct carcinoma of right breast"
+          }
+        ],
+        "bodySite": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "110496004",
+                "display": "Upper outer quadrant of right breast"
+              }
+            ]
+          }
+        ],
+        "report": [
+          {
+            "reference": "DiagnosticReport/mtb-hcc1143-path-partial-mastectomy"
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "373808002",
+                  "display": "Curative - procedure intent"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/mtb-hcc1143-proc-partial-mastectomy"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Procedure/mtb-hcc1143-proc-sentinel-node",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "mtb-hcc1143-proc-sentinel-node",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-surgical-procedure"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "396487001",
+              "display": "Sentinel lymph node biopsy"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "performedDateTime": "2024-05-20",
+        "performer": [
+          {
+            "actor": {
+              "reference": "Practitioner/mtb-hcc1143-surgeon",
+              "display": "Dr. Sam Surgeon"
+            }
+          }
+        ],
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-hcc1143-primary-cancer",
+            "display": "Infiltrating duct carcinoma of right breast"
+          }
+        ],
+        "bodySite": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-laterality-qualifier",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://snomed.info/sct",
+                      "code": "24028007",
+                      "display": "Right"
+                    }
+                  ]
+                }
+              }
+            ],
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "68171009",
+                "display": "Axillary lymph node structure"
+              }
+            ]
+          }
+        ],
+        "report": [
+          {
+            "reference": "DiagnosticReport/mtb-hcc1143-path-partial-mastectomy"
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "373808002",
+                  "display": "Curative - procedure intent"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/mtb-hcc1143-proc-sentinel-node"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Procedure/mtb-hcc1143-proc-lung-biopsy",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "mtb-hcc1143-proc-lung-biopsy",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "6491000087100",
+              "display": "CT guided biopsy of right lung"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "performedDateTime": "2026-09-09",
+        "performer": [
+          {
+            "actor": {
+              "reference": "Practitioner/mtb-hcc1143-radiologist",
+              "display": "Dr. Rita Radiologist"
+            }
+          }
+        ],
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-hcc1143-primary-cancer",
+            "display": "Infiltrating duct carcinoma of right breast"
+          }
+        ],
+        "bodySite": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "3341006",
+                "display": "Right lung structure"
+              }
+            ]
+          }
+        ],
+        "report": [
+          {
+            "reference": "DiagnosticReport/mtb-hcc1143-path-lung-biopsy"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/mtb-hcc1143-proc-lung-biopsy"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Condition/mtb-hcc1143-hypothyroidism",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "mtb-hcc1143-hypothyroidism",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-problems-health-concerns"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "40930008",
+              "display": "Hypothyroidism"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "onsetDateTime": "2015",
+        "recordedDate": "2015-03-02"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/mtb-hcc1143-hypothyroidism"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/mtb-hcc1143-medrx-levothyroxine",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "mtb-hcc1143-medrx-levothyroxine",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "966222",
+              "display": "levothyroxine sodium 0.075 MG Oral Tablet"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "authoredOn": "2026-01-12",
+        "requester": {
+          "reference": "Practitioner/mtb-hcc1143-oncologist",
+          "display": "Dr. Olivia Oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-hcc1143-hypothyroidism"
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "text": "Levothyroxine 75 mcg by mouth once daily",
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "26643006",
+                  "display": "Oral route"
+                }
+              ]
+            },
+            "timing": {
+              "repeat": {
+                "frequency": 1,
+                "period": 1,
+                "periodUnit": "d"
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/mtb-hcc1143-medrx-levothyroxine"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/AllergyIntolerance/mtb-hcc1143-no-known-allergy",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "mtb-hcc1143-no-known-allergy",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-allergyintolerance"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "716186003",
+              "display": "No known allergy"
+            }
+          ]
+        },
+        "patient": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "recordedDate": "2024-04-26"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "AllergyIntolerance/mtb-hcc1143-no-known-allergy"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-smoking-status",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-smoking-status",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history",
+                "display": "Social History"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "72166-2",
+              "display": "Tobacco smoking status"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-04-26",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-oncologist",
+            "display": "Dr. Olivia Oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "8517006",
+              "display": "Ex-smoker"
+            }
+          ]
+        },
+        "note": [
+          {
+            "text": "Quit 2010; about 10 pack-years."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-smoking-status"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/FamilyMemberHistory/mtb-hcc1143-family-history-mother",
+      "resource": {
+        "resourceType": "FamilyMemberHistory",
+        "id": "mtb-hcc1143-family-history-mother",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "completed",
+        "patient": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "date": "2024-04-26",
+        "relationship": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+              "code": "MTH",
+              "display": "mother"
+            }
+          ]
+        },
+        "sex": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/administrative-gender",
+              "code": "female",
+              "display": "Female"
+            }
+          ]
+        },
+        "condition": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "254837009",
+                  "display": "Malignant neoplasm of breast"
+                }
+              ]
+            },
+            "onsetAge": {
+              "value": 64,
+              "unit": "yr",
+              "system": "http://unitsofmeasure.org",
+              "code": "a"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "FamilyMemberHistory/mtb-hcc1143-family-history-mother"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-weight-2024-04-26",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-weight-2024-04-26",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/bodyweight",
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-weight"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "29463-7",
+              "display": "Body weight"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-04-26",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-oncologist",
+            "display": "Dr. Olivia Oncologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 84.0,
+          "unit": "kg",
+          "system": "http://unitsofmeasure.org",
+          "code": "kg"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-weight-2024-04-26"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-weight-2026-09-15",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-weight-2026-09-15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/bodyweight",
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-weight"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "29463-7",
+              "display": "Body weight"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-09-15",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-oncologist",
+            "display": "Dr. Olivia Oncologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 80.6,
+          "unit": "kg",
+          "system": "http://unitsofmeasure.org",
+          "code": "kg"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-weight-2026-09-15"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-height-2024-04-26",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-height-2024-04-26",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/bodyheight",
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-height"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8302-2",
+              "display": "Body height"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-04-26",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-oncologist",
+            "display": "Dr. Olivia Oncologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 165,
+          "unit": "cm",
+          "system": "http://unitsofmeasure.org",
+          "code": "cm"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-height-2024-04-26"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-lab-2160-0-2026-09-15",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-lab-2160-0-2026-09-15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2160-0",
+              "display": "Creatinine [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-09-15",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 0.8,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 0.5,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            },
+            "high": {
+              "value": 1.1,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-lab-2160-0-2026-09-15"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-lab-98979-8-2026-09-15",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-lab-98979-8-2026-09-15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "98979-8",
+              "display": "Glomerular filtration rate [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (CKD-EPI 2021)/1.73 sq M"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-09-15",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 86,
+          "unit": "mL/min/{1.73_m2}",
+          "system": "http://unitsofmeasure.org",
+          "code": "mL/min/{1.73_m2}"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 60,
+              "unit": "mL/min/{1.73_m2}",
+              "system": "http://unitsofmeasure.org",
+              "code": "mL/min/{1.73_m2}"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-lab-98979-8-2026-09-15"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-lab-1920-8-2026-09-15",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-lab-1920-8-2026-09-15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1920-8",
+              "display": "Aspartate aminotransferase [Enzymatic activity/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-09-15",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 24,
+          "unit": "U/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "U/L"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 10,
+              "unit": "U/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "U/L"
+            },
+            "high": {
+              "value": 40,
+              "unit": "U/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "U/L"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-lab-1920-8-2026-09-15"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-lab-1742-6-2026-09-15",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-lab-1742-6-2026-09-15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1742-6",
+              "display": "Alanine aminotransferase [Enzymatic activity/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-09-15",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 21,
+          "unit": "U/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "U/L"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 7,
+              "unit": "U/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "U/L"
+            },
+            "high": {
+              "value": 56,
+              "unit": "U/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "U/L"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-lab-1742-6-2026-09-15"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-lab-6768-6-2026-09-15",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-lab-6768-6-2026-09-15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6768-6",
+              "display": "Alkaline phosphatase [Enzymatic activity/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-09-15",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 88,
+          "unit": "U/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "U/L"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 44,
+              "unit": "U/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "U/L"
+            },
+            "high": {
+              "value": 147,
+              "unit": "U/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "U/L"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-lab-6768-6-2026-09-15"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-lab-1975-2-2026-09-15",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-lab-1975-2-2026-09-15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1975-2",
+              "display": "Bilirubin.total [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-09-15",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 0.6,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 0.1,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            },
+            "high": {
+              "value": 1.2,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-lab-1975-2-2026-09-15"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-lab-718-7-2026-09-15",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-lab-718-7-2026-09-15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hemoglobin [Mass/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-09-15",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 11.6,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 12.0,
+              "unit": "g/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "g/dL"
+            },
+            "high": {
+              "value": 15.5,
+              "unit": "g/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "g/dL"
+            }
+          }
+        ],
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "L",
+                "display": "Low"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-lab-718-7-2026-09-15"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-lab-6690-2-2026-09-15",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-lab-6690-2-2026-09-15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "Leukocytes [#/volume] in Blood by Automated count"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-09-15",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 6.4,
+          "unit": "10*3/uL",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*3/uL"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 4.0,
+              "unit": "10*3/uL",
+              "system": "http://unitsofmeasure.org",
+              "code": "10*3/uL"
+            },
+            "high": {
+              "value": 11.0,
+              "unit": "10*3/uL",
+              "system": "http://unitsofmeasure.org",
+              "code": "10*3/uL"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-lab-6690-2-2026-09-15"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-lab-751-8-2026-09-15",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-lab-751-8-2026-09-15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "751-8",
+              "display": "Neutrophils [#/volume] in Blood by Automated count"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-09-15",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 4.1,
+          "unit": "10*3/uL",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*3/uL"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 1.8,
+              "unit": "10*3/uL",
+              "system": "http://unitsofmeasure.org",
+              "code": "10*3/uL"
+            },
+            "high": {
+              "value": 7.7,
+              "unit": "10*3/uL",
+              "system": "http://unitsofmeasure.org",
+              "code": "10*3/uL"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-lab-751-8-2026-09-15"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-lab-777-3-2026-09-15",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-lab-777-3-2026-09-15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "777-3",
+              "display": "Platelets [#/volume] in Blood by Automated count"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2026-09-15",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 268,
+          "unit": "10*3/uL",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*3/uL"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 150,
+              "unit": "10*3/uL",
+              "system": "http://unitsofmeasure.org",
+              "code": "10*3/uL"
+            },
+            "high": {
+              "value": 400,
+              "unit": "10*3/uL",
+              "system": "http://unitsofmeasure.org",
+              "code": "10*3/uL"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-lab-777-3-2026-09-15"
+      }
+    }
+  ]
+}

@@ -53,6 +53,31 @@ Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; L
 Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,ROS1
 Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,STK11
 Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,TP53
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,ARID1A
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,ARID2
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,AXIN1
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,CD44
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,CDK9
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,CEACAM1
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,DNAJB1
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,EGFR
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,FGF19
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,FGF3
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,FGF4
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,FGFR1
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,FGFR2
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,FGFR4
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,GALNT14
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,JAK1
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,KIF23
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,KRAS
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,NEDD9
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,PBLD
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,PRKACA
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,PROM1
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,PTPN6
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,RAF1
+Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,VEGFC
 Any,,ACMG Secondary Findings,ABCD1
 Any,,ACMG Secondary Findings,ACTA2
 Any,,ACMG Secondary Findings,ACTC1

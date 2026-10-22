@@ -34,7 +34,8 @@ const patientIDs: string[] = [
   "HG00403", "NA19190", "XYZ123",
   "HG00406", "NA19210", "XYZ234",
   "HG02657", "NA19238", "XYZ345",
-  "huC30902", "NA19239", "L2345"
+  "huC30902", "NA19239", "L2345",
+  "MRN1234", "TCGA-DD-A1EH"
 ].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 
 export function MrnSelector({

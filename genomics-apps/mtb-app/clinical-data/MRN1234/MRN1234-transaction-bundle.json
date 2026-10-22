@@ -1,0 +1,4232 @@
+{
+  "resourceType": "Bundle",
+  "id": "mtb-mrn1234-transaction",
+  "meta": {
+    "tag": [
+      {
+        "system": "http://elimu.io/fhir/tags",
+        "code": "mtb-demo",
+        "display": "MTB app synthetic demo data"
+      }
+    ]
+  },
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Practitioner/mtb-mrn1234-practitioner-mary-obgyn",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "mtb-mrn1234-practitioner-mary-obgyn",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "2345123675"
+          },
+          {
+            "system": "http://elimu.io/fhir/practitioner-id",
+            "value": "mtb-mrn1234-practitioner-mary-obgyn"
+          }
+        ],
+        "name": [
+          {
+            "family": "Obgyn",
+            "given": [
+              "Mary"
+            ],
+            "prefix": [
+              "Dr."
+            ]
+          }
+        ],
+        "gender": "female"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/mtb-mrn1234-practitioner-mary-obgyn"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Practitioner/mtb-mrn1234-practitioner-jane-radiotech",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "mtb-mrn1234-practitioner-jane-radiotech",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "2345123675"
+          },
+          {
+            "system": "http://elimu.io/fhir/practitioner-id",
+            "value": "mtb-mrn1234-practitioner-jane-radiotech"
+          }
+        ],
+        "name": [
+          {
+            "family": "Radiologist",
+            "given": [
+              "Jane"
+            ],
+            "prefix": [
+              "Dr."
+            ]
+          }
+        ],
+        "gender": "female"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/mtb-mrn1234-practitioner-jane-radiotech"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Practitioner/mtb-mrn1234-practitioner-kyle-anydoc",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "mtb-mrn1234-practitioner-kyle-anydoc",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "9988776651"
+          },
+          {
+            "system": "http://elimu.io/fhir/practitioner-id",
+            "value": "mtb-mrn1234-practitioner-kyle-anydoc"
+          }
+        ],
+        "name": [
+          {
+            "family": "Anydoc",
+            "given": [
+              "Kyle"
+            ],
+            "prefix": [
+              "Dr."
+            ]
+          }
+        ],
+        "gender": "male"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/mtb-mrn1234-practitioner-kyle-anydoc"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Organization/mtb-mrn1234-organization-bedrock-medicine",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "mtb-mrn1234-organization-bedrock-medicine",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "1265710008"
+          }
+        ],
+        "active": true,
+        "name": "Bedrock Medicine",
+        "address": [
+          {
+            "line": [
+              "55 Secant Street"
+            ],
+            "city": "Cambridge",
+            "state": "MA",
+            "postalCode": "02141",
+            "country": "USA"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/mtb-mrn1234-organization-bedrock-medicine"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Specimen/mtb-mrn1234-specimen-partial-mastectomy",
+      "resource": {
+        "resourceType": "Specimen",
+        "id": "mtb-mrn1234-specimen-partial-mastectomy",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-human-specimen"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "available",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0487",
+              "code": "TUMOR",
+              "display": "Tumor"
+            },
+            {
+              "system": "http://snomed.info/sct",
+              "code": "119376003",
+              "display": "Tissue specimen"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234",
+          "display": "Jenny M"
+        },
+        "receivedTime": "2026-03-15",
+        "collection": {
+          "collector": {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist",
+            "display": "Dr. Owen Oncologist"
+          },
+          "collectedDateTime": "2026-03-15",
+          "method": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "64368001",
+                "display": "Partial mastectomy"
+              }
+            ]
+          },
+          "bodySite": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "80248007",
+                "display": "Left breast structure"
+              }
+            ]
+          }
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Specimen/mtb-mrn1234-specimen-partial-mastectomy"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Condition/mtb-mrn1234-depression",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "mtb-mrn1234-depression",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-problems-health-concerns"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "35489007",
+              "display": "Depressive disorder"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234",
+          "display": "Jenny M"
+        },
+        "onsetDateTime": "2017"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/mtb-mrn1234-depression"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Condition/mtb-mrn1234-anxiety",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "mtb-mrn1234-anxiety",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-problems-health-concerns"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "48694002",
+              "display": "Anxiety"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234",
+          "display": "Jenny M"
+        },
+        "onsetDateTime": "2017"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/mtb-mrn1234-anxiety"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Condition/mtb-mrn1234-hypertension",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "mtb-mrn1234-hypertension",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-problems-health-concerns"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "38341003",
+              "display": "Hypertensive disorder"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234",
+          "display": "Jenny M"
+        },
+        "onsetDateTime": "2020"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/mtb-mrn1234-hypertension"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-histologic-grade",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-histologic-grade",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "44648-4",
+              "display": "Histologic grade [Score] in Breast cancer specimen by Nottingham"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234",
+          "display": "Jenny M"
+        },
+        "effectiveDateTime": "2026-03-15",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-peter-pathologist",
+            "display": "Dr. Peter Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA27824-4",
+              "display": "Nottingham grade 2"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-mrn1234-specimen-partial-mastectomy"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-histologic-grade"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-tnm-pathologic-t",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-tnm-pathologic-t",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-primary-tumor-category"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "384625004",
+              "display": "pT category"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234",
+          "display": "Jenny M"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-mrn1234-primary-cancer",
+            "display": "Infiltrating duct carcinoma of left breast"
+          }
+        ],
+        "effectiveDateTime": "2026-03-15",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1229859000",
+              "display": "pT3 (AJCC)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-tnm-pathologic-t"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-tnm-pathologic-n",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-tnm-pathologic-n",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-regional-nodes-category"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "371494008",
+              "display": "pN category"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234",
+          "display": "Jenny M"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-mrn1234-primary-cancer",
+            "display": "Infiltrating duct carcinoma of left breast"
+          }
+        ],
+        "effectiveDateTime": "2026-03-15",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1229947003",
+              "display": "pN0 (AJCC)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "note": [
+          {
+            "text": "0 of 3 sentinel lymph nodes involved"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-tnm-pathologic-n"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-tnm-pathologic-stage-group",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-tnm-pathologic-stage-group",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-stage-group"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "399588009",
+              "display": "Pathologic TNM stage grouping"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234",
+          "display": "Jenny M"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-mrn1234-primary-cancer",
+            "display": "Infiltrating duct carcinoma of left breast"
+          }
+        ],
+        "effectiveDateTime": "2026-03-19",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1222769001",
+              "display": "IIB (AJCC)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "hasMember": [
+          {
+            "reference": "Observation/mtb-mrn1234-tnm-pathologic-t"
+          },
+          {
+            "reference": "Observation/mtb-mrn1234-tnm-pathologic-n"
+          },
+          {
+            "reference": "Observation/mtb-mrn1234-tnm-clinical-m"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-tnm-pathologic-stage-group"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/BodyStructure/mtb-mrn1234-rt-volume-left-breast",
+      "resource": {
+        "resourceType": "BodyStructure",
+        "id": "mtb-mrn1234-rt-volume-left-breast",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-volume"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "use": "usual",
+            "system": "http://elimu.io/fhir/rt-volume",
+            "value": "PTV_L_Breast"
+          }
+        ],
+        "morphology": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "228793007",
+              "display": "Planning target volume"
+            }
+          ]
+        },
+        "location": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "76752008",
+              "display": "Breast structure"
+            }
+          ]
+        },
+        "locationQualifier": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "7771000",
+                "display": "Left"
+              }
+            ]
+          }
+        ],
+        "description": "Left whole breast",
+        "patient": {
+          "reference": "Patient/mtb-mrn1234",
+          "display": "Jenny M"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "BodyStructure/mtb-mrn1234-rt-volume-left-breast"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/BodyStructure/mtb-mrn1234-rt-volume-regional-nodes",
+      "resource": {
+        "resourceType": "BodyStructure",
+        "id": "mtb-mrn1234-rt-volume-regional-nodes",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-volume"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "use": "usual",
+            "system": "http://elimu.io/fhir/rt-volume",
+            "value": "PTV_L_Nodes"
+          }
+        ],
+        "morphology": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "228793007",
+              "display": "Planning target volume"
+            }
+          ]
+        },
+        "location": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "68171009",
+              "display": "Axillary lymph node structure"
+            }
+          ]
+        },
+        "locationQualifier": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "7771000",
+                "display": "Left"
+              }
+            ]
+          }
+        ],
+        "description": "Left regional lymph nodes",
+        "patient": {
+          "reference": "Patient/mtb-mrn1234",
+          "display": "Jenny M"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "BodyStructure/mtb-mrn1234-rt-volume-regional-nodes"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/FamilyMemberHistory/mtb-mrn1234-family-history-sister",
+      "resource": {
+        "resourceType": "FamilyMemberHistory",
+        "id": "mtb-mrn1234-family-history-sister",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "completed",
+        "patient": {
+          "reference": "Patient/mtb-mrn1234",
+          "display": "Jenny M"
+        },
+        "relationship": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+              "code": "SIS",
+              "display": "sister"
+            }
+          ]
+        },
+        "condition": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "254837009",
+                  "display": "Malignant neoplasm of breast"
+                }
+              ]
+            },
+            "onsetAge": {
+              "value": 64,
+              "unit": "yr",
+              "system": "http://unitsofmeasure.org",
+              "code": "a"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "FamilyMemberHistory/mtb-mrn1234-family-history-sister"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-mrn1234-genomics-report-2026-02-26",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-mrn1234-genomics-report-2026-02-26",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP7839-6",
+                "display": "Pathology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "51969-4",
+              "display": "Genetic analysis report"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234",
+          "display": "Jenny M"
+        },
+        "effectiveDateTime": "2026-02-26",
+        "issued": "2018-03-15T17:00:00-05:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ],
+        "specimen": [
+          {
+            "reference": "Specimen/mtb-mrn1234-specimen-breast-biopsy"
+          }
+        ],
+        "conclusion": "Seven-gene panel (BRCA1, BRCA2, CDH1, PALB2, PTEN, STK11, TP53): pathogenic PALB2 NM_024675.3:c.3549C>A (p.Tyr1183Ter), ClinVar 128144. No other pathogenic variants. Detailed variant-level results are maintained on the genomics server, not in this report."
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-mrn1234-genomics-report-2026-02-26"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Patient/mtb-mrn1234",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "mtb-mrn1234",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-patient"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "code": "2106-3",
+                  "display": "White"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "White"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "code": "2186-5",
+                  "display": "Not Hispanic or Latino"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Not Hispanic or Latino"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "valueCode": "F"
+          }
+        ],
+        "identifier": [
+          {
+            "use": "usual",
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "MR",
+                  "display": "Medical Record Number"
+                }
+              ]
+            },
+            "system": "http://elimu.io/fhir/mrn",
+            "value": "MRN1234"
+          }
+        ],
+        "name": [
+          {
+            "family": "M",
+            "given": [
+              "Jenny"
+            ]
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1972-12-15",
+        "address": [
+          {
+            "line": [
+              "123 Main St"
+            ],
+            "city": "Anytown",
+            "postalCode": "12345",
+            "country": "United States"
+          }
+        ],
+        "contact": [
+          {
+            "telecom": [
+              {
+                "system": "phone",
+                "value": "555-867-5309",
+                "use": "home"
+              },
+              {
+                "system": "email",
+                "value": "example@example.com"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "en-US"
+                }
+              ],
+              "text": "English"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/mtb-mrn1234"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Procedure/mtb-mrn1234-proc-breast-biopsy",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "mtb-mrn1234-proc-breast-biopsy",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "723990008",
+              "display": "Biopsy of breast using ultrasonographic guidance (procedure)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "performedDateTime": "2026-02-17",
+        "asserter": {
+          "reference": "Practitioner/mtb-mrn1234-practitioner-mary-obgyn"
+        },
+        "performer": [
+          {
+            "actor": {
+              "reference": "Practitioner/mtb-mrn1234-practitioner-mary-obgyn"
+            }
+          }
+        ],
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-mrn1234-primary-cancer"
+          }
+        ],
+        "bodySite": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "80248007",
+                "display": "Left breast structure (body structure)"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/mtb-mrn1234-proc-breast-biopsy"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-weight-2026-02-17",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-weight-2026-02-17",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/bodyweight"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "29463-7"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "effectiveDateTime": "2026-02-17",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 155,
+          "unit": "lb",
+          "system": "http://unitsofmeasure.org",
+          "code": "[lb_av]"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-weight-2026-02-17"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-lab-neutrophils-2026-05-03",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-lab-neutrophils-2026-05-03",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "26499-4",
+              "display": "Neutrophils [#/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "effectiveDateTime": "2018-05-20T00:00:00Z",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 3000,
+          "unit": "/uL",
+          "system": "http://unitsofmeasure.org",
+          "code": "/uL"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 2500,
+              "unit": "/uL",
+              "system": "http://unitsofmeasure.org",
+              "code": "/uL"
+            },
+            "high": {
+              "value": 5000,
+              "unit": "/uL",
+              "system": "http://unitsofmeasure.org",
+              "code": "/uL"
+            },
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/referencerange-meaning",
+                  "code": "normal",
+                  "display": "Normal Range"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-lab-neutrophils-2026-05-03"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-smoking-status",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-smoking-status",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "72166-2",
+              "display": "Tobacco smoking status"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "effectiveDateTime": "2026-02-27",
+        "issued": "2018-03-16T00:00:00Z",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "449868002",
+              "display": "Smokes tobacco daily (finding)"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-smoking-status"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Procedure/mtb-mrn1234-proc-mammogram",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "mtb-mrn1234-proc-mammogram",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "71651007",
+              "display": "Mammography (procedure)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "performedDateTime": "2026-01-15",
+        "asserter": {
+          "reference": "Practitioner/mtb-mrn1234-practitioner-mary-obgyn"
+        },
+        "performer": [
+          {
+            "actor": {
+              "reference": "Practitioner/mtb-mrn1234-practitioner-jane-radiotech"
+            }
+          }
+        ],
+        "reasonCode": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "360156006",
+                "display": "Screening - procedure intent (qualifier value)"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/mtb-mrn1234-proc-mammogram"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/FamilyMemberHistory/mtb-mrn1234-family-history-maternal-aunt",
+      "resource": {
+        "resourceType": "FamilyMemberHistory",
+        "id": "mtb-mrn1234-family-history-maternal-aunt",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "completed",
+        "patient": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "relationship": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+              "code": "MAUNT",
+              "display": "maternal aunt"
+            }
+          ]
+        },
+        "condition": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "363443007",
+                  "display": "Malignant neoplasm of ovary"
+                }
+              ]
+            },
+            "onsetAge": {
+              "value": 69,
+              "system": "http://unitsofmeasure.org",
+              "code": "a"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "FamilyMemberHistory/mtb-mrn1234-family-history-maternal-aunt"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/FamilyMemberHistory/mtb-mrn1234-family-history-paternal-uncle",
+      "resource": {
+        "resourceType": "FamilyMemberHistory",
+        "id": "mtb-mrn1234-family-history-paternal-uncle",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "completed",
+        "patient": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "relationship": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+              "code": "PUNCLE",
+              "display": "paternal uncle"
+            }
+          ]
+        },
+        "deceasedBoolean": true,
+        "condition": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "363418001",
+                  "display": "Malignant neoplasm of pancreas"
+                }
+              ]
+            },
+            "contributedToDeath": true
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "FamilyMemberHistory/mtb-mrn1234-family-history-paternal-uncle"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-mrn1234-path-report-partial-mastectomy",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-mrn1234-path-report-partial-mastectomy",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-lab"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "LAB"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "22637-3",
+              "display": "Pathology report final diagnosis Narrative"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "effectiveDateTime": "2018-04-01T00:00:00Z",
+        "issued": "2018-04-05T00:00:00Z",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "resultsInterpreter": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-peter-pathologist"
+          }
+        ],
+        "specimen": [
+          {
+            "reference": "Specimen/mtb-mrn1234-specimen-partial-mastectomy"
+          }
+        ],
+        "result": [
+          {
+            "reference": "Observation/mtb-mrn1234-path-invasion"
+          },
+          {
+            "reference": "Observation/mtb-mrn1234-path-margins"
+          },
+          {
+            "reference": "Observation/mtb-mrn1234-path-sentinel-nodes"
+          },
+          {
+            "reference": "Observation/mtb-mrn1234-tumor-size"
+          },
+          {
+            "reference": "Observation/mtb-mrn1234-path-dcis"
+          },
+          {
+            "reference": "Observation/mtb-mrn1234-her2"
+          },
+          {
+            "reference": "Observation/mtb-mrn1234-er"
+          },
+          {
+            "reference": "Observation/mtb-mrn1234-pr"
+          },
+          {
+            "reference": "Observation/mtb-mrn1234-histologic-grade"
+          }
+        ],
+        "conclusion": "Left breast partial mastectomy: invasive ductal carcinoma, Nottingham grade 2, 2.5 cm. No lymphovascular invasion; margins uninvolved. DCIS with extensive intraductal component. Sentinel lymph nodes 0 of 3 involved. ER positive, PR negative, HER2 negative."
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-mrn1234-path-report-partial-mastectomy"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-pack-years",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-pack-years",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history",
+                "display": "Social History"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "401201003",
+              "display": "Cigarette pack-years (observable entity)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "effectiveDateTime": "2026-02-27",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 20,
+          "unit": "Pack-Years",
+          "system": "http://unitsofmeasure.org",
+          "code": "1"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-pack-years"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-path-invasion",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-path-invasion",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "370052007",
+              "display": "Status of invasion by tumor"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "effectiveDateTime": "2018-04-01T00:00:00Z",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "260385009",
+              "display": "Negative (qualifier value)"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-mrn1234-specimen-partial-mastectomy"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-path-invasion"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-path-margins",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-path-margins",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "44669-0",
+              "display": "Margin involvement in Breast tumor"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "effectiveDateTime": "2018-04-01T00:00:00Z",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA27151-2",
+              "display": "Uninvolved by invasive carcinoma"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-mrn1234-specimen-partial-mastectomy"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-path-margins"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-path-sentinel-nodes",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-path-sentinel-nodes",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "92832-5",
+              "display": "Sentinel lymph nodes with metastasis [#] in Cancer specimen"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "effectiveDateTime": "2018-04-01T00:00:00Z",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "specimen": {
+          "reference": "Specimen/mtb-mrn1234-specimen-partial-mastectomy"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92833-3",
+                  "display": "Lymph nodes examined [#] in Cancer specimen by Light microscopy"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 3,
+              "unit": "Count",
+              "system": "http://unitsofmeasure.org",
+              "code": "1"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-path-sentinel-nodes"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-path-dcis",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-path-dcis",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85336-6",
+              "display": "DCIS intraductal extension in Breast cancer specimen Qualitative by Light microscopy"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "effectiveDateTime": "2018-04-01T00:00:00Z",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA27261-9",
+              "display": "DCIS present with extensive intraductal component (EIC)"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-mrn1234-specimen-partial-mastectomy"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-path-dcis"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Encounter/mtb-mrn1234-encounter-2026-01-15",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "mtb-mrn1234-encounter-2026-01-15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "99213"
+              }
+            ],
+            "text": "Office Visit"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+            }
+          }
+        ],
+        "period": {
+          "start": "2026-01-15"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/mtb-mrn1234-encounter-2026-01-15"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Encounter/mtb-mrn1234-encounter-2026-10-15",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "mtb-mrn1234-encounter-2026-10-15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "99213"
+              }
+            ],
+            "text": "Office Visit"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+            }
+          }
+        ],
+        "period": {
+          "start": "2026-10-15"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/mtb-mrn1234-encounter-2026-10-15"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Encounter/mtb-mrn1234-encounter-2026-03-15",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "mtb-mrn1234-encounter-2026-03-15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "99213"
+              }
+            ],
+            "text": "Office Visit"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+            }
+          }
+        ],
+        "period": {
+          "start": "2026-03-15"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/mtb-mrn1234-encounter-2026-03-15"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Encounter/mtb-mrn1234-encounter-2026-07-15",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "mtb-mrn1234-encounter-2026-07-15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "99213"
+              }
+            ],
+            "text": "Office Visit"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+            }
+          }
+        ],
+        "period": {
+          "start": "2026-07-15"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/mtb-mrn1234-encounter-2026-07-15"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Condition/mtb-mrn1234-primary-cancer",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "mtb-mrn1234-primary-cancer",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-primary-cancer-condition"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-histology-morphology-behavior",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "82711006",
+                  "display": "Infiltrating duct carcinoma (morphologic abnormality)"
+                }
+              ]
+            }
+          }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "remission"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "408643008",
+              "display": "Infiltrating duct carcinoma of breast"
+            },
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "C50.912",
+              "display": "Malignant neoplasm of unspecified site of left female breast"
+            }
+          ],
+          "text": "Infiltrating duct carcinoma of left breast"
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "onsetDateTime": "2026-02-27",
+        "asserter": {
+          "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+        },
+        "stage": [
+          {
+            "summary": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "1222769001",
+                  "display": "IIB (AJCC)"
+                }
+              ]
+            },
+            "type": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "897275008",
+                  "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+                }
+              ]
+            },
+            "assessment": [
+              {
+                "reference": "Observation/mtb-mrn1234-tnm-pathologic-stage-group"
+              }
+            ]
+          },
+          {
+            "summary": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "1222769001",
+                  "display": "IIB (AJCC)"
+                }
+              ]
+            },
+            "type": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "897275008",
+                  "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+                }
+              ]
+            },
+            "assessment": [
+              {
+                "reference": "Observation/mtb-mrn1234-tnm-clinical-stage-group"
+              }
+            ]
+          }
+        ],
+        "bodySite": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-laterality-qualifier",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://snomed.info/sct",
+                      "code": "7771000",
+                      "display": "Left"
+                    }
+                  ]
+                }
+              }
+            ],
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "76752008",
+                "display": "Breast structure"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/mtb-mrn1234-primary-cancer"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/mtb-mrn1234-medrx-cyclophosphamide",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "mtb-mrn1234-medrx-cyclophosphamide",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-medication-request"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "373808002",
+                  "display": "Curative - procedure intent (qualifier value)"
+                }
+              ]
+            }
+          }
+        ],
+        "status": "completed",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "outpatient"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "3002",
+              "display": "cyclophosphamide"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "authoredOn": "2026-03-26",
+        "requester": {
+          "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-mrn1234-primary-cancer"
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "text": "cyclophosphamide (600 mg/m² IV), 932.59mg",
+            "timing": {
+              "repeat": {
+                "boundsPeriod": {
+                  "start": "2026-03-26",
+                  "end": "2026-05-07"
+                },
+                "count": 4,
+                "frequency": 1,
+                "period": 14,
+                "periodUnit": "d"
+              }
+            },
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "47625008",
+                  "display": "Intravenous route (qualifier value)"
+                }
+              ]
+            },
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "value": 932.59,
+                  "unit": "mg",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "mg"
+                }
+              }
+            ],
+            "maxDosePerPeriod": {
+              "numerator": {
+                "value": 1
+              },
+              "denominator": {
+                "value": 3,
+                "unit": "week",
+                "system": "http://unitsofmeasure.org",
+                "code": "wk"
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/mtb-mrn1234-medrx-cyclophosphamide"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/mtb-mrn1234-medrx-doxorubicin",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "mtb-mrn1234-medrx-doxorubicin",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-medication-request"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "373808002",
+                  "display": "Curative - procedure intent (qualifier value)"
+                }
+              ]
+            }
+          }
+        ],
+        "status": "completed",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "outpatient"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "3639",
+              "display": "DOXOrubicin"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "authoredOn": "2026-03-26",
+        "requester": {
+          "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-mrn1234-primary-cancer"
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "text": "doxorubicin (60 mg/m² IV)",
+            "timing": {
+              "repeat": {
+                "boundsPeriod": {
+                  "start": "2026-03-26",
+                  "end": "2026-05-07"
+                },
+                "count": 4,
+                "frequency": 1,
+                "period": 14,
+                "periodUnit": "d"
+              }
+            },
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "47625008",
+                  "display": "Intravenous route (qualifier value)"
+                }
+              ]
+            },
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "value": 60,
+                  "unit": "mg/m2",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "mg/m2"
+                }
+              }
+            ],
+            "maxDosePerPeriod": {
+              "numerator": {
+                "value": 1
+              },
+              "denominator": {
+                "value": 3,
+                "unit": "week",
+                "system": "http://unitsofmeasure.org",
+                "code": "wk"
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/mtb-mrn1234-medrx-doxorubicin"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/mtb-mrn1234-medrx-paclitaxel",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "mtb-mrn1234-medrx-paclitaxel",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-medication-request"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "373808002",
+                  "display": "Curative - procedure intent (qualifier value)"
+                }
+              ]
+            }
+          }
+        ],
+        "status": "completed",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "outpatient"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "56946",
+              "display": "PACLitaxel"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "authoredOn": "2026-03-26",
+        "requester": {
+          "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-mrn1234-primary-cancer"
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "text": "PACLitaxel (175 mg/m² IV), 272.01mg",
+            "timing": {
+              "repeat": {
+                "boundsPeriod": {
+                  "start": "2026-05-21",
+                  "end": "2026-07-02"
+                },
+                "count": 4,
+                "frequency": 1,
+                "period": 14,
+                "periodUnit": "d"
+              }
+            },
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "47625008",
+                  "display": "Intravenous route (qualifier value)"
+                }
+              ]
+            },
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "value": 272.01,
+                  "unit": "mg",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "mg"
+                }
+              }
+            ],
+            "maxDosePerPeriod": {
+              "numerator": {
+                "value": 1
+              },
+              "denominator": {
+                "value": 3,
+                "unit": "week",
+                "system": "http://unitsofmeasure.org",
+                "code": "wk"
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/mtb-mrn1234-medrx-paclitaxel"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/mtb-mrn1234-medrx-anastrozole",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "mtb-mrn1234-medrx-anastrozole",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-medication-request"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "373808002",
+                  "display": "Curative - procedure intent (qualifier value)"
+                }
+              ]
+            }
+          }
+        ],
+        "status": "active",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "community"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "84857",
+              "display": "anastrozole"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "authoredOn": "2026-09-13",
+        "requester": {
+          "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-mrn1234-primary-cancer"
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "text": "1mg orally once daily",
+            "timing": {
+              "repeat": {
+                "boundsPeriod": {
+                  "start": "2026-09-13"
+                }
+              }
+            },
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "26643006",
+                  "display": "Oral route (qualifier value)"
+                }
+              ]
+            },
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "value": 1,
+                  "unit": "mg",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "mg"
+                }
+              }
+            ],
+            "maxDosePerPeriod": {
+              "numerator": {
+                "value": 1
+              },
+              "denominator": {
+                "value": 1,
+                "unit": "day",
+                "system": "http://unitsofmeasure.org",
+                "code": "d"
+              }
+            }
+          }
+        ],
+        "note": [
+          {
+            "text": "Adjuvant endocrine therapy for ER-positive disease."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/mtb-mrn1234-medrx-anastrozole"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-disease-status-2026-10-15",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-disease-status-2026-10-15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-disease-status"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-disease-status-evidence-type",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "363679005",
+                  "display": "Imaging (procedure)"
+                }
+              ]
+            }
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "97509-4",
+              "display": "Cancer Disease Progression"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-mrn1234-primary-cancer"
+          }
+        ],
+        "effectiveDateTime": "2026-10-15",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "268910001",
+              "display": "Patient's condition improved (finding)"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-disease-status-2026-10-15"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Procedure/mtb-mrn1234-proc-partial-mastectomy",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "mtb-mrn1234-proc-partial-mastectomy",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-surgical-procedure"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "373808002",
+                  "display": "Curative - procedure intent (qualifier value)"
+                }
+              ]
+            }
+          }
+        ],
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "64368001",
+              "display": "Excision of part of breast (procedure)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "performedDateTime": "2026-03-15",
+        "asserter": {
+          "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-mrn1234-primary-cancer"
+          }
+        ],
+        "bodySite": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "80248007",
+                "display": "Left breast structure (body structure)"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/mtb-mrn1234-proc-partial-mastectomy"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-comorbidities",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-comorbidities",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-comorbidities"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-mrn1234-depression"
+            }
+          },
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-mrn1234-anxiety"
+            }
+          },
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-mrn1234-hypertension"
+            }
+          },
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition-absent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "414916001",
+                  "display": "Obesity (disorder)"
+                }
+              ]
+            }
+          },
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition-absent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "19829001",
+                  "display": "Disorder of lung (disorder)"
+                }
+              ]
+            }
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "398192003",
+              "display": "Co-morbid conditions (finding)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-mrn1234-primary-cancer"
+          }
+        ],
+        "effectiveDateTime": "2026-02-27",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-comorbidities"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Procedure/mtb-mrn1234-rt-course",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "mtb-mrn1234-rt-course",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-course-summary"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-sessions",
+            "valueUnsignedInt": 31
+          },
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "373808002",
+                  "display": "Curative - procedure intent"
+                }
+              ]
+            }
+          },
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-modality-and-technique",
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-modality",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://snomed.info/sct",
+                      "code": "1156506007",
+                      "display": "External beam radiation therapy using photons (procedure)"
+                    }
+                  ]
+                }
+              },
+              {
+                "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-technique",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://snomed.info/sct",
+                      "code": "1156530009",
+                      "display": "Volumetric Modulated Arc Therapy (procedure)"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-modality-and-technique",
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-modality",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://snomed.info/sct",
+                      "code": "45643008",
+                      "display": "Teleradiotherapy using electrons"
+                    }
+                  ]
+                }
+              },
+              {
+                "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-technique",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://snomed.info/sct",
+                      "code": "1162782007",
+                      "display": "Three dimensional external beam radiation therapy (procedure)"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-dose-delivered-to-volume",
+            "extension": [
+              {
+                "url": "volume",
+                "valueReference": {
+                  "reference": "BodyStructure/mtb-mrn1234-rt-volume-left-breast"
+                }
+              },
+              {
+                "url": "totalDoseDelivered",
+                "valueQuantity": {
+                  "value": 6000,
+                  "system": "http://unitsofmeasure.org",
+                  "code": "cGy"
+                }
+              },
+              {
+                "url": "fractionsDelivered",
+                "valueUnsignedInt": 30
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-dose-delivered-to-volume",
+            "extension": [
+              {
+                "url": "volume",
+                "valueReference": {
+                  "reference": "BodyStructure/mtb-mrn1234-rt-volume-regional-nodes"
+                }
+              },
+              {
+                "url": "totalDoseDelivered",
+                "valueQuantity": {
+                  "value": 5000,
+                  "system": "http://unitsofmeasure.org",
+                  "code": "cGy"
+                }
+              },
+              {
+                "url": "fractionsDelivered",
+                "valueUnsignedInt": 25
+              }
+            ]
+          }
+        ],
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1217123003",
+              "display": "Radiotherapy course of treatment (regime/therapy)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "performedPeriod": {
+          "start": "2026-07-29",
+          "end": "2026-10-08"
+        },
+        "asserter": {
+          "reference": "Practitioner/mtb-mrn1234-practitioner-kyle-anydoc"
+        },
+        "bodySite": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-laterality-qualifier",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://snomed.info/sct",
+                      "code": "7771000",
+                      "display": "Left"
+                    }
+                  ]
+                }
+              }
+            ],
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "76752008",
+                "display": "Breast structure"
+              }
+            ]
+          }
+        ],
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-mrn1234-primary-cancer",
+            "display": "Infiltrating duct carcinoma of left breast"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/mtb-mrn1234-rt-course"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-tnm-clinical-stage-group",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-tnm-clinical-stage-group",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-stage-group"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "399537006",
+              "display": "Clinical TNM stage grouping"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-mrn1234-primary-cancer",
+            "display": "Infiltrating duct carcinoma of left breast"
+          }
+        ],
+        "effectiveDateTime": "2026-02-27",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1222769001",
+              "display": "American Joint Committee on Cancer stage IIB (qualifier value)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "hasMember": [
+          {
+            "reference": "Observation/mtb-mrn1234-tnm-clinical-t"
+          },
+          {
+            "reference": "Observation/mtb-mrn1234-tnm-clinical-n"
+          },
+          {
+            "reference": "Observation/mtb-mrn1234-tnm-clinical-m"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-tnm-clinical-stage-group"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-tnm-clinical-t",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-tnm-clinical-t",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-primary-tumor-category"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "399504009",
+              "display": "cT category"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "effectiveDateTime": "2026-02-27",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1228938002",
+              "display": "American Joint Committee on Cancer cT3 (qualifier value)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "focus": [
+          {
+            "reference": "Condition/mtb-mrn1234-primary-cancer",
+            "display": "Infiltrating duct carcinoma of left breast"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-tnm-clinical-t"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-tnm-clinical-n",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-tnm-clinical-n",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-regional-nodes-category"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "399534004",
+              "display": "cN category"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "effectiveDateTime": "2026-02-27",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1229967007",
+              "display": "American Joint Committee on Cancer cN0 (qualifier value)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "focus": [
+          {
+            "reference": "Condition/mtb-mrn1234-primary-cancer",
+            "display": "Infiltrating duct carcinoma of left breast"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-tnm-clinical-n"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-tnm-clinical-m",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-tnm-clinical-m",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-distant-metastases-category"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "399387003",
+              "display": "cM category"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "effectiveDateTime": "2026-02-27",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1229901006",
+              "display": "American Joint Committee on Cancer cM0 (qualifier value)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "focus": [
+          {
+            "reference": "Condition/mtb-mrn1234-primary-cancer",
+            "display": "Infiltrating duct carcinoma of left breast"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-tnm-clinical-m"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Specimen/mtb-mrn1234-specimen-breast-biopsy",
+      "resource": {
+        "resourceType": "Specimen",
+        "id": "mtb-mrn1234-specimen-breast-biopsy",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-human-specimen"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "available",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0487",
+              "code": "TISS"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "collection": {
+          "collector": {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          },
+          "bodySite": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "80248007",
+                "display": "Left breast structure (body structure)"
+              }
+            ]
+          }
+        },
+        "processing": [
+          {
+            "timeDateTime": "2026-02-17"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Specimen/mtb-mrn1234-specimen-breast-biopsy"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-ecog-2026-03-26",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-ecog-2026-03-26",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-ecog-performance-status"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "survey",
+                "display": "Survey"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "89247-1"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "effectiveDateTime": "2026-03-26",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "valueInteger": 0,
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LA9622-7",
+                "display": "Fully active, able to carry on all pre-disease performance without restriction"
+              }
+            ]
+          }
+        ],
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "5880005",
+              "display": "Physical examination procedure (procedure)"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-ecog-2026-03-26"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-er",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-er",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85337-4",
+              "display": "Estrogen receptor Ag [Presence] in Breast cancer specimen by Immune stain"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "effectiveDateTime": "2026-02-21",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA6576-8",
+              "display": "Positive"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-mrn1234-primary-cancer",
+              "display": "Infiltrating duct carcinoma of left breast"
+            }
+          }
+        ],
+        "specimen": {
+          "reference": "Specimen/mtb-mrn1234-specimen-breast-biopsy"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-er"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-pr",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-pr",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85339-0",
+              "display": "Progesterone receptor Ag [Presence] in Breast cancer specimen by Immune stain"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "effectiveDateTime": "2026-02-21",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA6577-6",
+              "display": "Negative"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-mrn1234-primary-cancer",
+              "display": "Infiltrating duct carcinoma of left breast"
+            }
+          }
+        ],
+        "specimen": {
+          "reference": "Specimen/mtb-mrn1234-specimen-breast-biopsy"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-pr"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-her2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-her2",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "48676-1",
+              "display": "HER2 Ag [Interpretation] in Tissue"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "effectiveDateTime": "2026-02-21",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA6577-6",
+              "display": "Negative"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-mrn1234-primary-cancer",
+              "display": "Infiltrating duct carcinoma of left breast"
+            }
+          }
+        ],
+        "specimen": {
+          "reference": "Specimen/mtb-mrn1234-specimen-breast-biopsy"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-her2"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-oncotype-dx",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-oncotype-dx",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://www.ncbi.nlm.nih.gov/gtr",
+              "code": "509910",
+              "display": "Oncotype DX Breast Recurrence Score Assay"
+            }
+          ],
+          "text": "Oncotype DX Breast Recurrence Score Assay"
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "effectiveDateTime": "2026-03-26",
+        "performer": [
+          {
+            "reference": "Organization/mtb-mrn1234-organization-bedrock-medicine"
+          }
+        ],
+        "valueQuantity": {
+          "value": 47,
+          "unit": "Recurrence score",
+          "system": "http://unitsofmeasure.org",
+          "code": "1"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "H",
+                "display": "High"
+              }
+            ]
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-mrn1234-primary-cancer",
+              "display": "Infiltrating duct carcinoma of left breast"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-oncotype-dx"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-tumor-size",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-tumor-size",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-size"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "21889-1",
+              "display": "Size Tumor"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234"
+        },
+        "effectiveDateTime": "2018-04-01T00:00:00Z",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "787377000",
+              "display": "Gross examination and sampling of tissue specimen (procedure)"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-mrn1234-specimen-partial-mastectomy"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "33728-7"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 2.5,
+              "unit": "centimeters",
+              "system": "http://unitsofmeasure.org",
+              "code": "cm"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-tumor-size"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Practitioner/mtb-mrn1234-practitioner-owen-oncologist",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "mtb-mrn1234-practitioner-owen-oncologist",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "9941339100"
+          },
+          {
+            "system": "http://elimu.io/fhir/practitioner-id",
+            "value": "mtb-mrn1234-practitioner-owen-oncologist"
+          }
+        ],
+        "name": [
+          {
+            "family": "Oncologist",
+            "given": [
+              "Owen"
+            ],
+            "prefix": [
+              "Dr."
+            ]
+          }
+        ],
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "123 Corporate Drive"
+            ],
+            "city": "Anytown",
+            "state": "MA",
+            "postalCode": "12345",
+            "country": "US"
+          }
+        ],
+        "gender": "male",
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0360",
+                  "version": "2.7",
+                  "code": "MD"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Practitioner/mtb-mrn1234-practitioner-peter-pathologist",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "mtb-mrn1234-practitioner-peter-pathologist",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "9941339100"
+          },
+          {
+            "system": "http://elimu.io/fhir/practitioner-id",
+            "value": "mtb-mrn1234-practitioner-peter-pathologist"
+          }
+        ],
+        "name": [
+          {
+            "family": "Pathologist",
+            "given": [
+              "Peter"
+            ],
+            "prefix": [
+              "Dr."
+            ]
+          }
+        ],
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "123 Corporate Drive"
+            ],
+            "city": "Anytown",
+            "state": "MA",
+            "postalCode": "12345",
+            "country": "US"
+          }
+        ],
+        "gender": "female",
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0360",
+                  "version": "2.7",
+                  "code": "MD"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/mtb-mrn1234-practitioner-peter-pathologist"
+      }
+    }
+  ]
+}

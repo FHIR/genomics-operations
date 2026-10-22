@@ -1,0 +1,2761 @@
+{
+  "resourceType": "Bundle",
+  "id": "mtb-tcga-dd-a1eh-transaction",
+  "meta": {
+    "tag": [
+      {
+        "system": "http://elimu.io/fhir/tags",
+        "code": "mtb-demo",
+        "display": "MTB app synthetic demo data"
+      }
+    ]
+  },
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Condition/mtb-tcga-dd-a1eh-liver-recurrence",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "mtb-tcga-dd-a1eh-liver-recurrence",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-secondary-cancer-condition"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/condition-related",
+            "valueReference": {
+              "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+              "display": "Liver cell carcinoma"
+            }
+          }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "94381002",
+              "display": "Metastatic malignant neoplasm to liver"
+            }
+          ]
+        },
+        "bodySite": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "69842003",
+                "display": "Structure of left lobe of liver"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh",
+          "display": "Higado Sobreviviente"
+        },
+        "onsetDateTime": "2026-05-02",
+        "recordedDate": "2026-05-02",
+        "asserter": {
+          "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+          "display": "Dr. Owen Oncologist"
+        },
+        "note": [
+          {
+            "text": "Intrahepatic recurrence in the left lobe after right hepatectomy."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/mtb-tcga-dd-a1eh-liver-recurrence"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/mtb-tcga-dd-a1eh-medrx-tenofovir",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "mtb-tcga-dd-a1eh-medrx-tenofovir",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "349251",
+              "display": "tenofovir disoproxil fumarate 300 MG Oral Tablet"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh",
+          "display": "Higado Sobreviviente"
+        },
+        "authoredOn": "2026-01-06",
+        "requester": {
+          "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+          "display": "Dr. Owen Oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-hepatitis-b"
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "text": "Tenofovir disoproxil fumarate 300 mg by mouth once daily",
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "26643006",
+                  "display": "Oral route"
+                }
+              ]
+            },
+            "timing": {
+              "repeat": {
+                "boundsPeriod": {
+                  "start": "2026-01-06"
+                },
+                "frequency": 1,
+                "period": 1,
+                "periodUnit": "d"
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/mtb-tcga-dd-a1eh-medrx-tenofovir"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/mtb-tcga-dd-a1eh-medrx-sorafenib",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "mtb-tcga-dd-a1eh-medrx-sorafenib",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-medication-request"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "stopped",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "597747",
+              "display": "sorafenib 200 MG Oral Tablet"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh",
+          "display": "Higado Sobreviviente"
+        },
+        "authoredOn": "2026-05-02",
+        "requester": {
+          "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+          "display": "Dr. Owen Oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+            "display": "Liver cell carcinoma"
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "text": "Sorafenib 400 mg by mouth twice daily",
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "26643006",
+                  "display": "Oral route"
+                }
+              ]
+            },
+            "timing": {
+              "repeat": {
+                "boundsPeriod": {
+                  "start": "2026-05-02",
+                  "end": "2026-10-15"
+                },
+                "frequency": 2,
+                "period": 1,
+                "periodUnit": "d"
+              }
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "363676003",
+                  "display": "Palliative intent"
+                }
+              ]
+            }
+          }
+        ],
+        "statusReason": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "266721009",
+              "display": "Absent response to treatment"
+            }
+          ]
+        },
+        "note": [
+          {
+            "text": "Clinical progression 2026-07-14; stopped on enrollment in NCT05023655."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/mtb-tcga-dd-a1eh-medrx-sorafenib"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/mtb-tcga-dd-a1eh-medrx-tazemetostat",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "mtb-tcga-dd-a1eh-medrx-tazemetostat",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-medication-request"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "2274384",
+              "display": "tazemetostat 200 MG Oral Tablet"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh",
+          "display": "Higado Sobreviviente"
+        },
+        "authoredOn": "2026-10-15",
+        "requester": {
+          "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+          "display": "Dr. Owen Oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+            "display": "Liver cell carcinoma"
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "text": "Tazemetostat 800 mg by mouth twice daily",
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "26643006",
+                  "display": "Oral route"
+                }
+              ]
+            },
+            "timing": {
+              "repeat": {
+                "boundsPeriod": {
+                  "start": "2026-10-15"
+                },
+                "frequency": 2,
+                "period": 1,
+                "periodUnit": "d"
+              }
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "363676003",
+                  "display": "Palliative intent"
+                }
+              ]
+            }
+          }
+        ],
+        "note": [
+          {
+            "text": "Clinical trial NCT05023655 (tazemetostat in ARID1A-mutated solid tumors)."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/mtb-tcga-dd-a1eh-medrx-tazemetostat"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-tcga-dd-a1eh-ngs-2026-07-28",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-tcga-dd-a1eh-ngs-2026-07-28",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP7839-6",
+                "display": "Pathology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "51969-4",
+              "display": "Genetic analysis report"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh",
+          "display": "Higado Sobreviviente"
+        },
+        "effectiveDateTime": "2026-07-22",
+        "issued": "2022-01-26T17:00:00-05:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ],
+        "result": [
+          {
+            "reference": "Observation/mtb-tcga-dd-a1eh-msi"
+          },
+          {
+            "reference": "Observation/mtb-tcga-dd-a1eh-tmb"
+          }
+        ],
+        "conclusion": "Tumor next-generation sequencing: ARID1A c.5161C>T (p.Arg1721*) and c.6504_6505insT (p.Val2169fs); AXIN1 c.1939dupC (p.Arg647fs); additional variants of uncertain significance. Microsatellite stable; TMB 1.3 mutations/Mb. Candidate trials: NCT05023655 (tazemetostat, ARID1A) and NCT06005974 (REC-4881, AXIN1). Detailed variant-level results are maintained on the genomics server, not in this report."
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-tcga-dd-a1eh-ngs-2026-07-28"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Patient/mtb-tcga-dd-a1eh",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "mtb-tcga-dd-a1eh",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-patient"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "code": "2106-3",
+                  "display": "White"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "White"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "code": "2135-2",
+                  "display": "Hispanic or Latino"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Hispanic or Latino"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "valueCode": "M"
+          }
+        ],
+        "identifier": [
+          {
+            "use": "official",
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "MR",
+                  "display": "Medical record number"
+                }
+              ]
+            },
+            "system": "http://elimu.io/fhir/mrn",
+            "value": "TCGA-DD-A1EH"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "family": "Sobreviviente",
+            "given": [
+              "Higado"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "2002-10-14",
+        "address": [
+          {
+            "line": [
+              "183 Mountain View St"
+            ],
+            "city": "Greenville",
+            "state": "SC",
+            "postalCode": "29605",
+            "country": "US"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/mtb-tcga-dd-a1eh"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-tcga-dd-a1eh-disease-status-2026-05-02",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-tcga-dd-a1eh-disease-status-2026-05-02",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-disease-status"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "97509-4",
+              "display": "Cancer Disease Progression"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer"
+          }
+        ],
+        "effectiveDateTime": "2026-05-02",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "http://snomed.info/sct/900000000000207008",
+              "code": "271299001",
+              "display": "Patient's condition worsened (finding)"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-disease-status-evidence-type",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "363679005",
+                  "display": "Imaging"
+                }
+              ]
+            }
+          }
+        ],
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-tcga-dd-a1eh-disease-status-2026-05-02"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Condition/mtb-tcga-dd-a1eh-lung-metastases",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "mtb-tcga-dd-a1eh-lung-metastases",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-secondary-cancer-condition"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/condition-related",
+            "valueReference": {
+              "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer"
+            }
+          }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "http://snomed.info/sct/900000000000207008",
+              "code": "94391008",
+              "display": "Metastatic malignant neoplasm to lung (disorder)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "onsetDateTime": "2026-05-02"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/mtb-tcga-dd-a1eh-lung-metastases"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Encounter/mtb-tcga-dd-a1eh-encounter-2026-05-02",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "mtb-tcga-dd-a1eh-encounter-2026-05-02",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "99213"
+              }
+            ],
+            "text": "Office Visit"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist"
+            }
+          }
+        ],
+        "period": {
+          "start": "2026-05-02"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/mtb-tcga-dd-a1eh-encounter-2026-05-02"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-tcga-dd-a1eh-disease-status-2026-07-14",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-tcga-dd-a1eh-disease-status-2026-07-14",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-disease-status"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "97509-4",
+              "display": "Cancer Disease Progression"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer"
+          }
+        ],
+        "effectiveDateTime": "2026-07-14",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "http://snomed.info/sct/900000000000207008",
+              "code": "271299001",
+              "display": "Patient's condition worsened (finding)"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-disease-status-evidence-type",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "363679005",
+                  "display": "Imaging"
+                }
+              ]
+            }
+          }
+        ],
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-tcga-dd-a1eh-disease-status-2026-07-14"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Encounter/mtb-tcga-dd-a1eh-encounter-2026-07-14",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "mtb-tcga-dd-a1eh-encounter-2026-07-14",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "99213"
+              }
+            ],
+            "text": "Office Visit"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist"
+            }
+          }
+        ],
+        "period": {
+          "start": "2026-07-14"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/mtb-tcga-dd-a1eh-encounter-2026-07-14"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-tcga-dd-a1eh-msi",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-tcga-dd-a1eh-msi",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "81695-9",
+              "display": "Microsatellite instability [Interpretation] in Cancer specimen Qualitative"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "effectiveDateTime": "2026-07-28",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA14122-8",
+              "display": "Stable"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+              "display": "Liver cell carcinoma"
+            }
+          }
+        ],
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-tcga-dd-a1eh-msi"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-tcga-dd-a1eh-tmb",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-tcga-dd-a1eh-tmb",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "94076-7",
+              "display": "Mutations/Megabase [# Ratio] in Tumor"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "effectiveDateTime": "2026-07-28",
+        "valueQuantity": {
+          "value": 1.3,
+          "unit": "mutations/Mb",
+          "system": "http://unitsofmeasure.org",
+          "code": "1/10*6"
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+              "display": "Liver cell carcinoma"
+            }
+          }
+        ],
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-tcga-dd-a1eh-tmb"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Encounter/mtb-tcga-dd-a1eh-encounter-2026-07-28",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "mtb-tcga-dd-a1eh-encounter-2026-07-28",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "99213"
+              }
+            ],
+            "text": "Office Visit"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist"
+            }
+          }
+        ],
+        "period": {
+          "start": "2026-07-28"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/mtb-tcga-dd-a1eh-encounter-2026-07-28"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-tcga-dd-a1eh-ecog-2026-07-28",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-tcga-dd-a1eh-ecog-2026-07-28",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-ecog-performance-status"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "survey",
+                "display": "Survey"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "89247-1"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "effectiveDateTime": "2026-07-28",
+        "valueInteger": 0,
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LA9622-7",
+                "display": "Fully active, able to carry on all pre-disease performance without restriction"
+              }
+            ]
+          }
+        ],
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-tcga-dd-a1eh-ecog-2026-07-28"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-tcga-dd-a1eh-disease-status-2026-10-15",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-tcga-dd-a1eh-disease-status-2026-10-15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-disease-status"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "97509-4",
+              "display": "Cancer Disease Progression"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer"
+          }
+        ],
+        "effectiveDateTime": "2026-10-15",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "http://snomed.info/sct/900000000000207008",
+              "code": "359746009",
+              "display": "Patient's condition stable (finding)"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-disease-status-evidence-type",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "363679005",
+                  "display": "Imaging"
+                }
+              ]
+            }
+          }
+        ],
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-tcga-dd-a1eh-disease-status-2026-10-15"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Encounter/mtb-tcga-dd-a1eh-encounter-2026-10-15",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "mtb-tcga-dd-a1eh-encounter-2026-10-15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "99213"
+              }
+            ],
+            "text": "Office Visit"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist"
+            }
+          }
+        ],
+        "period": {
+          "start": "2026-10-15"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/mtb-tcga-dd-a1eh-encounter-2026-10-15"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/ResearchSubject/mtb-tcga-dd-a1eh-research-subject",
+      "resource": {
+        "resourceType": "ResearchSubject",
+        "id": "mtb-tcga-dd-a1eh-research-subject",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "on-study",
+        "period": {
+          "start": "2026-08-09"
+        },
+        "study": {
+          "reference": "ResearchStudy/mtb-tcga-dd-a1eh-research-study-nct05023655"
+        },
+        "individual": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ResearchSubject/mtb-tcga-dd-a1eh-research-subject"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/AllergyIntolerance/mtb-tcga-dd-a1eh-allergy-latex",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "mtb-tcga-dd-a1eh-allergy-latex",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-allergyintolerance"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "category": [
+          "environment"
+        ],
+        "criticality": "high",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "111088007",
+              "display": "Latex (substance)"
+            }
+          ],
+          "text": "Latex"
+        },
+        "patient": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "recordedDate": "2025-12-20",
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "AllergyIntolerance/mtb-tcga-dd-a1eh-allergy-latex"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Procedure/mtb-tcga-dd-a1eh-proc-liver-biopsy",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "mtb-tcga-dd-a1eh-proc-liver-biopsy",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "287489008",
+              "display": "Percutaneous needle biopsy of liver (procedure)"
+            }
+          ],
+          "text": "Percutaneous needle biopsy of liver"
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "performedPeriod": {
+          "start": "2025-12-20"
+        },
+        "performer": [
+          {
+            "actor": {
+              "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+              "display": "Dr. Owen Oncologist"
+            }
+          }
+        ],
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+            "display": "Liver cell carcinoma"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/mtb-tcga-dd-a1eh-proc-liver-biopsy"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Condition/mtb-tcga-dd-a1eh-hepatitis-b",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "mtb-tcga-dd-a1eh-hepatitis-b",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-problems-health-concerns"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ],
+          "text": "Active"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ],
+            "text": "Problem List Item"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "61977001",
+              "display": "Chronic type B viral hepatitis"
+            }
+          ],
+          "text": "Chronic type B viral hepatitis"
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "onsetDateTime": "2022",
+        "recordedDate": "2025-12-20"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/mtb-tcga-dd-a1eh-hepatitis-b"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Encounter/mtb-tcga-dd-a1eh-encounter-2025-12-20",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "mtb-tcga-dd-a1eh-encounter-2025-12-20",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "99213"
+              }
+            ],
+            "text": "Office Visit"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist"
+            }
+          }
+        ],
+        "period": {
+          "start": "2025-12-20"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/mtb-tcga-dd-a1eh-encounter-2025-12-20"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-tcga-dd-a1eh-tnm-clinical-t",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-tcga-dd-a1eh-tnm-clinical-t",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-primary-tumor-category"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "21905-5",
+              "display": "Primary tumor.clinical [Class] Cancer"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "effectiveDateTime": "2026-01-06",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1228938002",
+              "display": "American Joint Committee on Cancer cT3 (qualifier value)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "focus": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+            "display": "Liver cell carcinoma"
+          }
+        ],
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-tcga-dd-a1eh-tnm-clinical-t"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-tcga-dd-a1eh-tnm-clinical-n",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-tcga-dd-a1eh-tnm-clinical-n",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-regional-nodes-category"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "21906-3",
+              "display": "Regional lymph nodes.clinical [Class] Cancer"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "effectiveDateTime": "2026-01-06",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "http://snomed.info/sct/900000000000207008",
+              "code": "1229967007",
+              "display": "American Joint Committee on Cancer cN0 (qualifier value)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "focus": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+            "display": "Liver cell carcinoma"
+          }
+        ],
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-tcga-dd-a1eh-tnm-clinical-n"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-tcga-dd-a1eh-tnm-clinical-m",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-tcga-dd-a1eh-tnm-clinical-m",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-distant-metastases-category"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "21907-1",
+              "display": "Distant metastases.clinical [Class] Cancer"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "effectiveDateTime": "2026-01-06",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "http://snomed.info/sct/900000000000207008",
+              "code": "1229901006",
+              "display": "American Joint Committee on Cancer cM0 (qualifier value)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "focus": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+            "display": "Liver cell carcinoma"
+          }
+        ],
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-tcga-dd-a1eh-tnm-clinical-m"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Condition/mtb-tcga-dd-a1eh-primary-cancer",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "mtb-tcga-dd-a1eh-primary-cancer",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-primary-cancer-condition"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "recurrence",
+              "display": "Recurrence"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "109841003",
+              "display": "Liver cell carcinoma (disorder)"
+            },
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "C22.0",
+              "display": "Liver cell carcinoma"
+            }
+          ]
+        },
+        "bodySite": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "48521005",
+                "display": "Structure of right lobe of liver (body structure)"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "onsetDateTime": "2026-01-06",
+        "stage": [
+          {
+            "summary": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "version": "http://snomed.info/sct/900000000000207008",
+                  "code": "1222802001",
+                  "display": "American Joint Committee on Cancer stage IIIA (qualifier value)"
+                }
+              ]
+            },
+            "type": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "897275008",
+                  "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+                }
+              ]
+            },
+            "assessment": [
+              {
+                "reference": "Observation/mtb-tcga-dd-a1eh-tnm-pathologic-stage-group"
+              }
+            ]
+          },
+          {
+            "summary": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "version": "http://snomed.info/sct/900000000000207008",
+                  "code": "1222802001",
+                  "display": "American Joint Committee on Cancer stage IIIA (qualifier value)"
+                }
+              ]
+            },
+            "type": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "897275008",
+                  "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+                }
+              ]
+            },
+            "assessment": [
+              {
+                "reference": "Observation/mtb-tcga-dd-a1eh-tnm-clinical-stage-group"
+              }
+            ]
+          }
+        ],
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-histology-morphology-behavior",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "25370001",
+                  "display": "Hepatocellular carcinoma"
+                },
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/icd-o-3",
+                  "code": "8170/3",
+                  "display": "Hepatocellular carcinoma, NOS"
+                }
+              ]
+            }
+          }
+        ],
+        "recordedDate": "2026-01-06",
+        "asserter": {
+          "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+          "display": "Dr. Owen Oncologist"
+        },
+        "evidence": [
+          {
+            "detail": [
+              {
+                "reference": "Procedure/mtb-tcga-dd-a1eh-proc-liver-biopsy"
+              }
+            ]
+          }
+        ],
+        "note": [
+          {
+            "text": "Background chronic hepatitis B (inactive, with fibrosis on resection). Intrahepatic (left lobe) and lung recurrence 2026-05-02."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/mtb-tcga-dd-a1eh-primary-cancer"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-tcga-dd-a1eh-child-pugh",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-tcga-dd-a1eh-child-pugh",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "98152-2",
+              "display": "Total score [Child-Pugh]"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "effectiveDateTime": "2025-12-31",
+        "valueInteger": 5,
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "710065009",
+                "display": "Child-Pugh score class A (finding)"
+              }
+            ]
+          }
+        ],
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-tcga-dd-a1eh-child-pugh"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-tcga-dd-a1eh-afp-2025-12-31",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-tcga-dd-a1eh-afp-2025-12-31",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1834-1",
+              "display": "Alpha-1-Fetoprotein [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "effectiveDateTime": "2025-12-31",
+        "valueQuantity": {
+          "value": 780,
+          "unit": "ng/mL",
+          "system": "http://unitsofmeasure.org",
+          "code": "ng/mL"
+        },
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-tcga-dd-a1eh-afp-2025-12-31"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-tcga-dd-a1eh-ecog-2026-01-06",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-tcga-dd-a1eh-ecog-2026-01-06",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-ecog-performance-status"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "survey",
+                "display": "Survey"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "89247-1"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "effectiveDateTime": "2026-01-06",
+        "valueInteger": 0,
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LA9622-7",
+                "display": "Fully active, able to carry on all pre-disease performance without restriction"
+              }
+            ]
+          }
+        ],
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-tcga-dd-a1eh-ecog-2026-01-06"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-tcga-dd-a1eh-comorbidities",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-tcga-dd-a1eh-comorbidities",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-comorbidities"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+            "valueReference": {
+              "reference": "Condition/mtb-tcga-dd-a1eh-hepatitis-b"
+            }
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "http://snomed.info/sct/900000000000207008",
+              "code": "398192003",
+              "display": "Co-morbid conditions (finding)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "effectiveDateTime": "2026-01-06",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ],
+        "focus": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+            "display": "Liver cell carcinoma"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-tcga-dd-a1eh-comorbidities"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-tcga-dd-a1eh-tnm-clinical-stage-group",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-tcga-dd-a1eh-tnm-clinical-stage-group",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-stage-group"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "21908-9",
+              "display": "Stage group.clinical Cancer"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+            "display": "Liver cell carcinoma"
+          }
+        ],
+        "effectiveDateTime": "2026-01-06",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "http://snomed.info/sct/900000000000207008",
+              "code": "1222802001",
+              "display": "American Joint Committee on Cancer stage IIIA (qualifier value)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "hasMember": [
+          {
+            "reference": "Observation/mtb-tcga-dd-a1eh-tnm-clinical-t"
+          },
+          {
+            "reference": "Observation/mtb-tcga-dd-a1eh-tnm-clinical-n"
+          },
+          {
+            "reference": "Observation/mtb-tcga-dd-a1eh-tnm-clinical-m"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-tcga-dd-a1eh-tnm-clinical-stage-group"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Encounter/mtb-tcga-dd-a1eh-encounter-2026-01-06",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "mtb-tcga-dd-a1eh-encounter-2026-01-06",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "99213"
+              }
+            ],
+            "text": "Office Visit"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist"
+            }
+          }
+        ],
+        "period": {
+          "start": "2026-01-06"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/mtb-tcga-dd-a1eh-encounter-2026-01-06"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-tcga-dd-a1eh-tnm-pathologic-t",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-tcga-dd-a1eh-tnm-pathologic-t",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-primary-tumor-category"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "21899-0",
+              "display": "Primary tumor.pathology Cancer"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "effectiveDateTime": "2026-01-26",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1229859000",
+              "display": "American Joint Committee on Cancer pT3 (qualifier value)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "focus": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+            "display": "Liver cell carcinoma"
+          }
+        ],
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-tcga-dd-a1eh-tnm-pathologic-t"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-tcga-dd-a1eh-tnm-pathologic-n",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-tcga-dd-a1eh-tnm-pathologic-n",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-regional-nodes-category"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "21900-6",
+              "display": "Regional lymph nodes.pathology [Class] Cancer"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "effectiveDateTime": "2026-01-26",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "http://snomed.info/sct/900000000000207008",
+              "code": "1229947003",
+              "display": "American Joint Committee on Cancer pN0 (qualifier value)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "focus": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+            "display": "Liver cell carcinoma"
+          }
+        ],
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-tcga-dd-a1eh-tnm-pathologic-n"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-tcga-dd-a1eh-tnm-pathologic-stage-group",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-tcga-dd-a1eh-tnm-pathologic-stage-group",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-stage-group"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "21902-2",
+              "display": "Stage group.pathology Cancer"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+            "display": "Liver cell carcinoma"
+          }
+        ],
+        "effectiveDateTime": "2026-01-26",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "http://snomed.info/sct/900000000000207008",
+              "code": "1222802001",
+              "display": "American Joint Committee on Cancer stage IIIA (qualifier value)"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "hasMember": [
+          {
+            "reference": "Observation/mtb-tcga-dd-a1eh-tnm-pathologic-t"
+          },
+          {
+            "reference": "Observation/mtb-tcga-dd-a1eh-tnm-pathologic-n"
+          },
+          {
+            "reference": "Observation/mtb-tcga-dd-a1eh-tnm-clinical-m"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-tcga-dd-a1eh-tnm-pathologic-stage-group"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Procedure/mtb-tcga-dd-a1eh-proc-right-hepatectomy",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "mtb-tcga-dd-a1eh-proc-right-hepatectomy",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-surgical-procedure"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "61326000",
+              "display": "Hepatectomy, total right lobectomy (procedure)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "performedDateTime": "2026-01-26",
+        "asserter": {
+          "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer"
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "373808002",
+                  "display": "Curative - procedure intent"
+                }
+              ]
+            }
+          }
+        ],
+        "performer": [
+          {
+            "actor": {
+              "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+              "display": "Dr. Owen Oncologist"
+            }
+          }
+        ],
+        "bodySite": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "48521005",
+                "display": "Structure of right lobe of liver"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/mtb-tcga-dd-a1eh-proc-right-hepatectomy"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/ResearchStudy/mtb-tcga-dd-a1eh-research-study-nct05023655",
+      "resource": {
+        "resourceType": "ResearchStudy",
+        "id": "mtb-tcga-dd-a1eh-research-study-nct05023655",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "https://clinicaltrials.gov",
+            "value": "NCT05023655"
+          }
+        ],
+        "title": "Phase II Study of Tazemetostat in Solid Tumors Harboring an ARID1A Mutation",
+        "status": "active"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ResearchStudy/mtb-tcga-dd-a1eh-research-study-nct05023655"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Practitioner/mtb-tcga-dd-a1eh-oncologist",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "mtb-tcga-dd-a1eh-oncologist",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "9941339100"
+          }
+        ],
+        "name": [
+          {
+            "family": "Oncologist",
+            "given": [
+              "Owen"
+            ],
+            "prefix": [
+              "Dr."
+            ]
+          }
+        ],
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "123 Corporate Drive"
+            ],
+            "city": "Anytown",
+            "state": "MA",
+            "postalCode": "12345",
+            "country": "US"
+          }
+        ],
+        "gender": "male",
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0360",
+                  "version": "2.7",
+                  "code": "MD"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/mtb-tcga-dd-a1eh-oncologist"
+      }
+    }
+  ]
+}
