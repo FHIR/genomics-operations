@@ -31,7 +31,31 @@ export interface Quantity {
 export interface Extension {
   url: string;
   valueCodeableConcept?: CodeableConcept;
+  valueReference?: Reference;
   [key: string]: unknown;
+}
+
+export interface Range {
+  low?: Quantity;
+  high?: Quantity;
+}
+
+// A coded element that may carry extensions, e.g. Condition.bodySite with a laterality qualifier
+export interface ExtendedCodeableConcept extends CodeableConcept {
+  extension?: Extension[];
+}
+
+// The value[x] choices the app displays
+export interface ObservationValue {
+  valueCodeableConcept?: CodeableConcept;
+  valueInteger?: number;
+  valueQuantity?: Quantity;
+  valueString?: string;
+  valueBoolean?: boolean;
+  valueRange?: Range;
+  valueRatio?: { numerator?: Quantity; denominator?: Quantity };
+  valueDateTime?: string;
+  dataAbsentReason?: CodeableConcept;
 }
 
 export interface FhirResource {
@@ -61,11 +85,15 @@ export interface Condition extends FhirResource {
   verificationStatus?: CodeableConcept;
   category?: CodeableConcept[];
   code?: CodeableConcept;
+  bodySite?: ExtendedCodeableConcept[];
   onsetDateTime?: string;
+  onsetPeriod?: Period;
+  abatementDateTime?: string;
   recordedDate?: string;
+  stage?: { summary?: CodeableConcept; type?: CodeableConcept; assessment?: Reference[] }[];
 }
 
-export interface Observation extends FhirResource {
+export interface Observation extends FhirResource, ObservationValue {
   resourceType: 'Observation';
   status?: string;
   category?: CodeableConcept[];
@@ -74,17 +102,35 @@ export interface Observation extends FhirResource {
   effectiveDateTime?: string;
   effectivePeriod?: Period;
   issued?: string;
-  valueCodeableConcept?: CodeableConcept;
-  valueInteger?: number;
-  valueQuantity?: Quantity;
-  valueString?: string;
+  method?: CodeableConcept;
+  interpretation?: CodeableConcept[];
+  referenceRange?: { low?: Quantity; high?: Quantity; text?: string }[];
+  hasMember?: Reference[];
+  component?: (ObservationValue & { code?: CodeableConcept })[];
 }
 
 export interface AllergyIntolerance extends FhirResource {
   resourceType: 'AllergyIntolerance';
   clinicalStatus?: CodeableConcept;
   verificationStatus?: CodeableConcept;
+  category?: string[];
+  criticality?: string;
   code?: CodeableConcept;
+  reaction?: { manifestation?: CodeableConcept[]; severity?: string }[];
+}
+
+export interface DiagnosticReport extends FhirResource {
+  resourceType: 'DiagnosticReport';
+  status?: string;
+  category?: CodeableConcept[];
+  code?: CodeableConcept;
+  effectiveDateTime?: string;
+  effectivePeriod?: Period;
+  issued?: string;
+  result?: Reference[];
+  conclusion?: string;
+  conclusionCode?: CodeableConcept[];
+  presentedForm?: { contentType?: string; data?: string; title?: string }[];
 }
 
 export interface Bundle {

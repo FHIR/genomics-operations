@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Molecular Tumor Board - Genetic Data Viewer',
-  description: 'Search genetic variants by entering gene ranges',
+  title: 'Molecular Tumor Board',
+  description: 'Clinical and genomic case viewer for molecular tumor boards',
   icons: {
     icon: 'elimu_logo.svg'
   }

@@ -999,7 +999,7 @@
           "display": "Jenny M"
         },
         "effectiveDateTime": "2026-02-26",
-        "issued": "2018-03-15T17:00:00-05:00",
+        "issued": "2026-02-26T17:00:00-05:00",
         "performer": [
           {
             "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist",
@@ -1132,7 +1132,8 @@
               "coding": [
                 {
                   "system": "urn:ietf:bcp:47",
-                  "code": "en-US"
+                  "code": "en-US",
+                  "display": "English (United States)"
                 }
               ],
               "text": "English"
@@ -1231,7 +1232,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "vital-signs"
+                "code": "vital-signs",
+                "display": "Vital Signs"
               }
             ]
           }
@@ -1240,7 +1242,8 @@
           "coding": [
             {
               "system": "http://loinc.org",
-              "code": "29463-7"
+              "code": "29463-7",
+              "display": "Body weight"
             }
           ]
         },
@@ -1288,7 +1291,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
+                "code": "laboratory",
+                "display": "Laboratory"
               }
             ]
           }
@@ -1305,7 +1309,7 @@
         "subject": {
           "reference": "Patient/mtb-mrn1234"
         },
-        "effectiveDateTime": "2018-05-20T00:00:00Z",
+        "effectiveDateTime": "2026-05-03T00:00:00Z",
         "performer": [
           {
             "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
@@ -1371,7 +1375,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "social-history"
+                "code": "social-history",
+                "display": "Social History"
               }
             ]
           }
@@ -1389,7 +1394,7 @@
           "reference": "Patient/mtb-mrn1234"
         },
         "effectiveDateTime": "2026-02-27",
-        "issued": "2018-03-16T00:00:00Z",
+        "issued": "2026-02-27T00:00:00Z",
         "performer": [
           {
             "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
@@ -1590,7 +1595,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
-                "code": "LAB"
+                "code": "LAB",
+                "display": "Laboratory"
               }
             ]
           }
@@ -1607,8 +1613,8 @@
         "subject": {
           "reference": "Patient/mtb-mrn1234"
         },
-        "effectiveDateTime": "2018-04-01T00:00:00Z",
-        "issued": "2018-04-05T00:00:00Z",
+        "effectiveDateTime": "2026-03-15T00:00:00Z",
+        "issued": "2026-03-19T00:00:00Z",
         "performer": [
           {
             "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
@@ -1739,7 +1745,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
+                "code": "laboratory",
+                "display": "Laboratory"
               }
             ]
           }
@@ -1756,7 +1763,7 @@
         "subject": {
           "reference": "Patient/mtb-mrn1234"
         },
-        "effectiveDateTime": "2018-04-01T00:00:00Z",
+        "effectiveDateTime": "2026-03-15T00:00:00Z",
         "performer": [
           {
             "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
@@ -1803,7 +1810,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
+                "code": "laboratory",
+                "display": "Laboratory"
               }
             ]
           }
@@ -1820,7 +1828,7 @@
         "subject": {
           "reference": "Patient/mtb-mrn1234"
         },
-        "effectiveDateTime": "2018-04-01T00:00:00Z",
+        "effectiveDateTime": "2026-03-15T00:00:00Z",
         "performer": [
           {
             "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
@@ -1867,7 +1875,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
+                "code": "laboratory",
+                "display": "Laboratory"
               }
             ]
           }
@@ -1884,7 +1893,7 @@
         "subject": {
           "reference": "Patient/mtb-mrn1234"
         },
-        "effectiveDateTime": "2018-04-01T00:00:00Z",
+        "effectiveDateTime": "2026-03-15T00:00:00Z",
         "performer": [
           {
             "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
@@ -1892,6 +1901,12 @@
         ],
         "specimen": {
           "reference": "Specimen/mtb-mrn1234-specimen-partial-mastectomy"
+        },
+        "valueQuantity": {
+          "value": 0,
+          "unit": "Count",
+          "system": "http://unitsofmeasure.org",
+          "code": "1"
         },
         "component": [
           {
@@ -1941,7 +1956,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
+                "code": "laboratory",
+                "display": "Laboratory"
               }
             ]
           }
@@ -1958,7 +1974,7 @@
         "subject": {
           "reference": "Patient/mtb-mrn1234"
         },
-        "effectiveDateTime": "2018-04-01T00:00:00Z",
+        "effectiveDateTime": "2026-03-15T00:00:00Z",
         "performer": [
           {
             "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
@@ -2229,7 +2245,8 @@
           "coding": [
             {
               "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-              "code": "remission"
+              "code": "remission",
+              "display": "Remission"
             }
           ]
         },
@@ -2237,7 +2254,8 @@
           "coding": [
             {
               "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
-              "code": "confirmed"
+              "code": "confirmed",
+              "display": "Confirmed"
             }
           ]
         },
@@ -2246,7 +2264,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/condition-category",
-                "code": "problem-list-item"
+                "code": "problem-list-item",
+                "display": "Problem List Item"
               }
             ]
           }
@@ -2394,7 +2413,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
-                "code": "outpatient"
+                "code": "outpatient",
+                "display": "Outpatient"
               }
             ]
           }
@@ -2511,7 +2531,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
-                "code": "outpatient"
+                "code": "outpatient",
+                "display": "Outpatient"
               }
             ]
           }
@@ -2628,7 +2649,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
-                "code": "outpatient"
+                "code": "outpatient",
+                "display": "Outpatient"
               }
             ]
           }
@@ -2745,7 +2767,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
-                "code": "community"
+                "code": "community",
+                "display": "Community"
               }
             ]
           }
@@ -3603,7 +3626,8 @@
           "coding": [
             {
               "system": "http://terminology.hl7.org/CodeSystem/v2-0487",
-              "code": "TISS"
+              "code": "TISS",
+              "display": "Tissue"
             }
           ]
         },
@@ -3668,7 +3692,8 @@
           "coding": [
             {
               "system": "http://loinc.org",
-              "code": "89247-1"
+              "code": "89247-1",
+              "display": "ECOG Performance Status score"
             }
           ]
         },
@@ -3731,7 +3756,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
+                "code": "laboratory",
+                "display": "Laboratory"
               }
             ]
           }
@@ -3804,7 +3830,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
+                "code": "laboratory",
+                "display": "Laboratory"
               }
             ]
           }
@@ -3877,7 +3904,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
+                "code": "laboratory",
+                "display": "Laboratory"
               }
             ]
           }
@@ -3950,7 +3978,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
+                "code": "laboratory",
+                "display": "Laboratory"
               }
             ]
           }
@@ -4029,7 +4058,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
+                "code": "laboratory",
+                "display": "Laboratory"
               }
             ]
           }
@@ -4046,7 +4076,7 @@
         "subject": {
           "reference": "Patient/mtb-mrn1234"
         },
-        "effectiveDateTime": "2018-04-01T00:00:00Z",
+        "effectiveDateTime": "2026-03-15T00:00:00Z",
         "performer": [
           {
             "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist"
@@ -4070,7 +4100,8 @@
               "coding": [
                 {
                   "system": "http://loinc.org",
-                  "code": "33728-7"
+                  "code": "33728-7",
+                  "display": "Size.maximum dimension in Tumor"
                 }
               ]
             },
@@ -4146,7 +4177,8 @@
                 {
                   "system": "http://terminology.hl7.org/CodeSystem/v2-0360",
                   "version": "2.7",
-                  "code": "MD"
+                  "code": "MD",
+                  "display": "Doctor of Medicine"
                 }
               ]
             }
@@ -4216,7 +4248,8 @@
                 {
                   "system": "http://terminology.hl7.org/CodeSystem/v2-0360",
                   "version": "2.7",
-                  "code": "MD"
+                  "code": "MD",
+                  "display": "Doctor of Medicine"
                 }
               ]
             }

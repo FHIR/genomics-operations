@@ -86,6 +86,13 @@ Queried 2026-10-22 (subject `MRN1234`). The server has data for this subject, bu
 - **Primary cancer `clinicalStatus` = remission** with a CancerDiseaseStatus of improved.
 - **An active endocrine therapy** (anastrozole) after completed chemotherapy and radiation.
 
+## Corrections (2026-10-23)
+
+- **Missed dates:** the original date shift skipped values that include a time of day (e.g. `…T00:00:00Z`). 10 such values were still in the original years; now shifted by the same 2,905 days.
+- **Missing displays:** 27 codings had a code but no `display` (e.g. LOINC 89247-1 ECOG, LOINC 33728-7 tumor size dimension), so the app fell back to showing the bare code. Displays added from tx.fhir.org `$lookup`. CPT 99213 on the Encounters was left without one (licensed text; the Encounters carry `text`).
+- **Sentinel nodes:** the observation *Sentinel lymph nodes with metastasis [#]* had no value, only a component for nodes examined (3). Added its value: 0 (the scenario's 0 of 3), keeping the examined count as the component.
+- Revalidated (0 errors) and reloaded to hapi.fhir.org.
+
 ## Validation
 
 HL7 FHIR validator against `hl7.fhir.us.mcode#4.0.0` with tx.fhir.org: **0 errors** (2026-10-22; the draft had 69). The remaining warnings are the benign kinds seen in the other bundles: no narrative, RxNorm version mismatch (the draft uses RxNorm ingredient codes), extensible value-set notes, and the GTR code system being unknown to the validator.

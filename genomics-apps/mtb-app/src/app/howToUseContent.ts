@@ -10,7 +10,7 @@ export interface HowToUseSection {
     items: Array<string | HowToUseLinkItem>;
 }
 
-export const HOW_TO_USE_TITLE = 'How to use the Molecular Tumor Board Genetic Data Viewer';
+export const HOW_TO_USE_TITLE = 'How to use the Molecular Tumor Board app';
 
 export const HOW_TO_USE_SECTIONS: HowToUseSection[] = [
     {
@@ -31,7 +31,8 @@ export const HOW_TO_USE_SECTIONS: HowToUseSection[] = [
         items: [
             'The banner at the top of the page stays in view as you scroll. Choose a patient from its MRN dropdown, or pick Enter custom MRN at the bottom of the list.',
             'Patients are grouped into With clinical data (patients the app found on the clinical FHIR server) and Genomic data only. Switching patients clears the previous patient\'s genomic results; the search terms stay so you can rerun them.',
-            'For a patient with clinical data, the banner shows name, age, sex and date of birth, plus the latest stage, ECOG performance status and cancer disease status from the patient\'s record. Hover over an item for its date and details.',
+            'For a patient with clinical data, the banner shows name, age, sex and date of birth, plus the latest stage (with the year it was assigned), ECOG performance status and cancer disease status from the patient\'s record. Hover over an item for its date and details.',
+            'Stage is shown as recorded and is never recalculated. When metastases were recorded after a staging, the Case summary notes it on that stage, so an early stage isn\'t mistaken for the current extent of disease.',
             'The Dx dropdown starts with the patient\'s own primary cancer, as recorded. You can override it with a generic tumor type (Breast Cancer, Hepatocellular Carcinoma, Non-Small Cell Lung Cancer). A patient without clinical data starts with no Dx.',
             'The Dx sets the cancer-specific gene-list presets, the Actionable, this tumor type filter, and the tumor type sent to the oncogenicity predictor. The predictor gets no tumor type when it has no matching one, for example for Hepatocellular Carcinoma.',
             {
@@ -40,6 +41,16 @@ export const HOW_TO_USE_SECTIONS: HowToUseSection[] = [
                 linkUrl: 'https://vsac.nlm.nih.gov/',
                 textAfter: ' value set (exact code match). Other diagnoses still appear in the Dx dropdown but set no presets or predictor tumor type.',
             },
+        ],
+    },
+    {
+        title: 'Case Summary',
+        items: [
+            'Below the banner, the Case summary and Genomic findings tabs switch between the patient\'s clinical record and the genetic data viewer. Genomic findings is the default, and its searches and results are kept while you look at the Case summary.',
+            'The Case summary shows everything the clinical FHIR server returned for the patient: cancer diagnosis and staging, labs, imaging observations, assessments, vitals and social history, other conditions, allergies and reports. Anything the app doesn\'t recognize is listed under Other resources, so no data is hidden.',
+            'Lab & pathology results (everything recorded as a laboratory result, including tumor markers and pathology findings) show one row per test with the latest value, reference range and flag. Sort by test name or date, and click a row for its full history; tests with 3 or more numeric values get a trend line.',
+            'Labels use the text the record\'s author wrote, else the code\'s display name, else the code itself.',
+            'Medications and procedures are listed under Other resources for now; a treatment timeline is planned.',
         ],
     },
     {

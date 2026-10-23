@@ -417,7 +417,7 @@
           "display": "Higado Sobreviviente"
         },
         "effectiveDateTime": "2026-07-22",
-        "issued": "2022-01-26T17:00:00-05:00",
+        "issued": "2026-07-28T17:00:00-05:00",
         "performer": [
           {
             "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
@@ -663,7 +663,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/condition-category",
-                "code": "problem-list-item"
+                "code": "problem-list-item",
+                "display": "Problem List Item"
               }
             ]
           }
@@ -900,7 +901,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
+                "code": "laboratory",
+                "display": "Laboratory"
               }
             ]
           }
@@ -971,7 +973,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
+                "code": "laboratory",
+                "display": "Laboratory"
               }
             ]
           }
@@ -1102,7 +1105,8 @@
           "coding": [
             {
               "system": "http://loinc.org",
-              "code": "89247-1"
+              "code": "89247-1",
+              "display": "ECOG Performance Status score"
             }
           ]
         },
@@ -1321,7 +1325,8 @@
           "coding": [
             {
               "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
-              "code": "active"
+              "code": "active",
+              "display": "Active"
             }
           ]
         },
@@ -1792,7 +1797,8 @@
             "coding": [
               {
                 "system": "http://terminology.hl7.org/CodeSystem/condition-category",
-                "code": "problem-list-item"
+                "code": "problem-list-item",
+                "display": "Problem List Item"
               }
             ]
           }
@@ -2094,7 +2100,8 @@
           "coding": [
             {
               "system": "http://loinc.org",
-              "code": "89247-1"
+              "code": "89247-1",
+              "display": "ECOG Performance Status score"
             }
           ]
         },
@@ -2745,7 +2752,8 @@
                 {
                   "system": "http://terminology.hl7.org/CodeSystem/v2-0360",
                   "version": "2.7",
-                  "code": "MD"
+                  "code": "MD",
+                  "display": "Doctor of Medicine"
                 }
               ]
             }

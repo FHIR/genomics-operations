@@ -76,6 +76,12 @@ The bundle keeps ResearchStudy status `active`. With the dates moved to 2026, th
 - **Primary-cancer recurrence plus an intrahepatic SecondaryCancerCondition.**
 - **A background liver disease (hepatitis B) recorded as a comorbidity**, with an active antiviral.
 
+## Corrections (2026-10-23)
+
+- **Missed dates:** the original date shift skipped values that include a time of day (e.g. `…T00:00:00Z`). 1 such value was still in the original years; now shifted by the same 1,644 days.
+- **Missing displays:** 8 codings had a code but no `display` (e.g. LOINC 89247-1 ECOG), so the app fell back to showing the bare code. Displays added from tx.fhir.org `$lookup`. CPT 99213 on the Encounters was left without one (licensed text; the Encounters carry `text`).
+- Revalidated (0 errors) and reloaded to hapi.fhir.org.
+
 ## Validation
 
 HL7 FHIR validator against `hl7.fhir.us.mcode#4.0.0` with tx.fhir.org: **0 errors** (2026-10-22; the source had 43). The remaining warnings are the benign kinds seen in the other bundles: no narrative, RxNorm version mismatch, extensible value-set notes, partial ICD-O-3 support on tx.fhir.org, and the Child-Pugh interpretation code (SNOMED) falling outside the base interpretation value set.

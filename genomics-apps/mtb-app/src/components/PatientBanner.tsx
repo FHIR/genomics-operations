@@ -215,6 +215,7 @@ export default function PatientBanner({
         <span key={item.caption} title={item.tooltip} className="inline-flex items-center gap-1.5">
           <Caption>{item.caption}</Caption>
           <span className="font-bold text-white">{item.value}</span>
+          {item.note && <span className="text-slate-400">· {item.note}</span>}
         </span>
       ))}
 

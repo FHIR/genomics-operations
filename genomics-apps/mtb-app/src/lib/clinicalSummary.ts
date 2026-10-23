@@ -1,15 +1,15 @@
-import { AllergyIntolerance, CodeableConcept, Condition, FhirResource, Observation, Patient } from '@/types/fhir';
+import { CodeableConcept, Condition, FhirResource, Observation, Patient } from '@/types/fhir';
 import { CaseDx, CrosswalkRow, mapCodingsToTumorType } from '@/cancerFilter/tumorTypeCrosswalk';
 
 // Selection rules for the patient banner (mtb-clinical-data-design.md sections 4.2 and 4.3). Every item
 // is recognized by mCODE profile OR standard code, so data without declared profiles still shows up.
 
-const MCODE = 'http://hl7.org/fhir/us/mcode/StructureDefinition/';
-const SNOMED = 'http://snomed.info/sct';
-const LOINC = 'http://loinc.org';
-const ICD10CM = 'http://hl7.org/fhir/sid/icd-10-cm';
+export const MCODE = 'http://hl7.org/fhir/us/mcode/StructureDefinition/';
+export const SNOMED = 'http://snomed.info/sct';
+export const LOINC = 'http://loinc.org';
+export const ICD10CM = 'http://hl7.org/fhir/sid/icd-10-cm';
 
-const STAGE_GROUP_CODES = [
+export const STAGE_GROUP_CODES = [
   `${SNOMED}|399537006`, // Clinical TNM stage grouping
   `${SNOMED}|399588009`, // Pathologic TNM stage grouping
   `${SNOMED}|399390009`, // TNM stage grouping
@@ -18,7 +18,7 @@ const STAGE_GROUP_CODES = [
   `${LOINC}|21914-7`, // Stage group.other Cancer
 ];
 const ECOG_CODES = [`${LOINC}|89247-1`];
-const DISEASE_STATUS_CODES = [`${LOINC}|97509-4`];
+export const DISEASE_STATUS_CODES = [`${LOINC}|97509-4`];
 const FINAL_STATUSES = ['final', 'amended', 'corrected'];
 // STU4 name, and the name used by earlier mCODE versions
 const EVIDENCE_TYPE_EXTENSIONS = [`${MCODE}mcode-cancer-disease-status-evidence-type`, `${MCODE}mcode-evidence-type`];
@@ -47,9 +47,18 @@ const INFORMATIVE_CLINICAL_STATUSES: Record<string, string> = {
   resolved: 'Resolved',
 };
 
+export const CODE_SYSTEM_NAMES: Record<string, string> = {
+  [SNOMED]: 'SNOMED',
+  [ICD10CM]: 'ICD-10-CM',
+  [LOINC]: 'LOINC',
+  'http://terminology.hl7.org/CodeSystem/icd-o-3': 'ICD-O-3',
+  'http://www.nlm.nih.gov/research/umls/rxnorm': 'RxNorm',
+};
+
 /**
- * Label for a coded value: the author's text, else the first coding's display, else the code. SNOMED
- * displays drop their semantic tag, e.g. "Liver cell carcinoma (disorder)" becomes "Liver cell carcinoma".
+ * Label for a coded value: the author's text, else the first coding's display, else the code (with its
+ * system's name when known, e.g. "LOINC 89247-1"). SNOMED displays drop their semantic tag, e.g.
+ * "Liver cell carcinoma (disorder)" becomes "Liver cell carcinoma".
  */
 export function conceptLabel(concept: CodeableConcept | undefined): string | undefined {
   if (concept?.text) {
@@ -59,31 +68,37 @@ export function conceptLabel(concept: CodeableConcept | undefined): string | und
   if (coding?.display) {
     return coding.system === SNOMED ? coding.display.replace(/\s+\([a-z ]+\)$/, '') : coding.display;
   }
-  return coding?.code;
+  if (!coding?.code) {
+    return undefined;
+  }
+  const systemName = CODE_SYSTEM_NAMES[coding.system ?? ''];
+  return systemName ? `${systemName} ${coding.code}` : coding.code;
 }
 
-function hasProfile(resource: FhirResource, profileName: string) {
+export function hasProfile(resource: FhirResource, profileName: string) {
   return resource.meta?.profile?.some((profile) => profile.split('|')[0] === `${MCODE}${profileName}`) ?? false;
 }
 
-function hasCode(concept: CodeableConcept | undefined, codes: string[]) {
+export function hasCode(concept: CodeableConcept | undefined, codes: string[]) {
   return concept?.coding?.some((coding) => codes.includes(`${coding.system}|${coding.code}`)) ?? false;
 }
 
-function firstCode(concept: CodeableConcept | undefined) {
+export function firstCode(concept: CodeableConcept | undefined) {
   return concept?.coding?.[0]?.code;
 }
 
-function isEnteredInError(resource: Condition | AllergyIntolerance) {
-  return firstCode(resource.verificationStatus) === 'entered-in-error';
+// Records marked as entered in error, by verificationStatus (Condition, AllergyIntolerance) or status
+export function isEnteredInError(resource: FhirResource) {
+  const verificationStatus = resource.verificationStatus as CodeableConcept | undefined;
+  return firstCode(verificationStatus) === 'entered-in-error' || resource.status === 'entered-in-error';
 }
 
-function effectiveDate(observation: Observation) {
+export function effectiveDate(observation: Observation) {
   return observation.effectiveDateTime ?? observation.effectivePeriod?.start;
 }
 
 // Latest first by effective date, breaking ties by issued and then lastUpdated
-function latestFirst(left: Observation, right: Observation) {
+export function latestFirst(left: Observation, right: Observation) {
   const keys = (observation: Observation) => [effectiveDate(observation), observation.issued, observation.meta?.lastUpdated];
   const leftKeys = keys(left);
   const rightKeys = keys(right);
@@ -112,7 +127,7 @@ function isAboutCondition(observation: Observation, condition: Condition | undef
   return observation.focus.some((focus) => focus.reference?.endsWith(`Condition/${condition.id}`));
 }
 
-function formatDate(value: string | undefined) {
+export function formatDate(value: string | undefined) {
   return value?.slice(0, 10);
 }
 
@@ -178,13 +193,53 @@ export function getPatientDxOptions(conditions: Condition[], crosswalk: Crosswal
   }));
 }
 
-// Shown as a caption and a value, e.g. "Stage" "IVB (AJCC)"
+// Shown as a caption and a value, e.g. "Stage" "IVB (AJCC)", plus an optional muted note such as a year
 export interface BannerItem {
   caption: string;
   value: string;
+  note?: string;
   tooltip?: string;
 }
 
+export function isSecondaryCancer(condition: Condition) {
+  return hasProfile(condition, 'mcode-secondary-cancer-condition')
+    || (condition.code?.coding?.some((coding) => coding.system === ICD10CM && /^C7[7-9]/.test(coding.code ?? '')) ?? false);
+}
+
+export function conditionOnset(condition: Condition) {
+  return condition.onsetDateTime ?? condition.onsetPeriod?.start ?? condition.recordedDate;
+}
+
+/**
+ * Current metastases (secondary cancer conditions) with an onset after the given staging date, earliest
+ * first. AJCC stage isn't reassigned when disease spreads, so these are what an older stage doesn't reflect.
+ */
+export function getMetastasesAfter(resources: FhirResource[], stageDate: string | undefined): Condition[] {
+  if (!stageDate) {
+    return [];
+  }
+  const day = stageDate.slice(0, 10);
+  return resources
+    .filter((resource): resource is Condition => resource.resourceType === 'Condition')
+    .filter((condition) => isSecondaryCancer(condition) && !isEnteredInError(condition))
+    .filter((condition) => !['inactive', 'resolved', 'remission'].includes(firstCode(condition.clinicalStatus) ?? ''))
+    .filter((condition) => (conditionOnset(condition)?.slice(0, 10) ?? '') > day)
+    .sort((left, right) => (conditionOnset(left) ?? '').localeCompare(conditionOnset(right) ?? ''));
+}
+
+/**
+ * An AJCC stage or TNM category in one wording, without the word "Stage". SNOMED words them two ways
+ * ("IIA (AJCC)", "American Joint Committee on Cancer stage IIA"; "cT3 (AJCC)", "American Joint Committee
+ * on Cancer cT3"); both become "IIA (AJCC)" or "cT3 (AJCC)".
+ */
+export function stageValueLabel(value: string) {
+  const ajcc = value.match(/^(?:American Joint Committee on Cancer|AJCC)\s+(?:stage\s+)?(\S+)$/i);
+  return ajcc ? `${ajcc[1]} (AJCC)` : value.replace(/^stage\s+/i, '');
+}
+
+/**
+ * The latest stage, with the year it was assigned so it isn't read as the current extent of disease.
+ */
 export function getLatestStage(resources: FhirResource[], condition: Condition | undefined): BannerItem | undefined {
   const stage = finalObservations(resources, 'mcode-tnm-stage-group', STAGE_GROUP_CODES)
     .find((observation) => observation.valueCodeableConcept && isAboutCondition(observation, condition));
@@ -192,13 +247,12 @@ export function getLatestStage(resources: FhirResource[], condition: Condition |
   if (!stage || !value) {
     return undefined;
   }
-  // SNOMED words AJCC stages two ways ("IIA (AJCC)", "American Joint Committee on Cancer stage IIA");
-  // both show as "IIA (AJCC)" after the "Stage" caption
-  const ajcc = value.match(/^(?:American Joint Committee on Cancer|AJCC)\s+stage\s+(\S+)$/i);
+  const stageDate = effectiveDate(stage);
   return {
     caption: 'Stage',
-    value: ajcc ? `${ajcc[1]} (AJCC)` : value.replace(/^stage\s+/i, ''),
-    tooltip: [conceptLabel(stage.code), formatDate(effectiveDate(stage))].filter(Boolean).join(' · '),
+    value: stageValueLabel(value),
+    note: stageDate?.slice(0, 4),
+    tooltip: [conceptLabel(stage.code), formatDate(stageDate)].filter(Boolean).join(' · '),
   };
 }
 
