@@ -19,96 +19,6 @@ interface SearchFormProps {
   className?: string;
 }
 
-interface MrnSelectorProps {
-  subjectId: string;
-  setSubjectId: (value: string) => void;
-  className?: string;
-}
-
-const patientIDs: string[] = [
-  "ABC123", "NA19240", "ABC456",
-  "NA18498", "NA19247", "m123",
-  "ABC789", "NA18499", "NA19256",
-  "CA12345", "NA18870", "NB6TK328",
-  "HCC1143", "NA18871", "NB6TK329",
-  "HG00403", "NA19190", "XYZ123",
-  "HG00406", "NA19210", "XYZ234",
-  "HG02657", "NA19238", "XYZ345",
-  "huC30902", "NA19239", "L2345",
-  "MRN1234", "TCGA-DD-A1EH"
-].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
-
-export function MrnSelector({
-  subjectId,
-  setSubjectId,
-  className = 'mb-8',
-}: MrnSelectorProps) {
-  const [isCustomMRN, setIsCustomMRN] = useState(false);
-  const [customMRN, setCustomMRN] = useState('');
-
-  const handleMRNChange = (value: string) => {
-    if (value === 'custom') {
-      setIsCustomMRN(true);
-      setSubjectId('');
-    } else {
-      setIsCustomMRN(false);
-      setSubjectId(value);
-      setCustomMRN('');
-    }
-  };
-
-  const handleCustomMRNChange = (value: string) => {
-    setCustomMRN(value);
-    setSubjectId(value);
-  };
-
-  return (
-    <div className={className.trim()}>
-      <div>
-        <label htmlFor="mrn-select" className="block mb-2 text-gray-600">MRN (Medical Record Number)</label>
-        {!isCustomMRN ? (
-          <div className="flex gap-2">
-            <select
-              id="mrn-select"
-              value={subjectId}
-              onChange={(e) => handleMRNChange(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="">Select a patient MRN</option>
-              {patientIDs.map((id) => (
-                <option key={id} value={id}>
-                  {id}
-                </option>
-              ))}
-              <option value="custom">Enter custom MRN...</option>
-            </select>
-          </div>
-        ) : (
-          <div className="flex gap-2">
-            <input
-              type="text"
-              value={customMRN}
-              onChange={(e) => handleCustomMRNChange(e.target.value)}
-              placeholder="Enter custom MRN"
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button
-              onClick={() => {
-                setIsCustomMRN(false);
-                setSubjectId('');
-                setCustomMRN('');
-              }}
-              className="rounded-md border border-gray-300 px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50"
-            >
-              Back to List
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
 export default function SearchForm({
   searchInput,
   setSearchInput,
@@ -146,7 +56,7 @@ export default function SearchForm({
 
   const presetHelpText = selectedCancerType
     ? 'Cancer-specific presets enabled. General lists always available.'
-    : 'Select a cancer type to enable cancer-specific presets. General gene lists are always available.';
+    : 'Cancer-specific presets follow the Dx selected in the banner. General gene lists are always available.';
 
   const buttonClassName = 'inline-flex items-center rounded-full border border-slate-300 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-100 disabled:text-gray-400';
 
@@ -209,7 +119,7 @@ export default function SearchForm({
                 </button>
               );
             }) : (
-              <span>{selectedCancerType ? 'No cancer-specific presets available.' : 'Select a cancer type to enable.'}</span>
+              <span>{selectedCancerType ? 'No cancer-specific presets available.' : 'None for the current Dx.'}</span>
             )}
           </div>
 

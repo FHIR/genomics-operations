@@ -5,7 +5,8 @@ import { useEffect, useLayoutEffect, useState, useRef, useCallback, useMemo } fr
 import Image from 'next/image';
 import { Variant } from '@/types/variants';
 import { findSubjectVariantsWithCache } from '@/services/cachedVariantService';
-import SearchForm, { MrnSelector } from '../components/SearchForm';
+import SearchForm from '../components/SearchForm';
+import PatientBanner from '../components/PatientBanner';
 import SearchStatus from '../components/SearchStatus';
 import ResultsTable, { HighlightRequest } from '../components/ResultsTable';
 import SelectionTray from '../components/SelectionTray';
@@ -13,7 +14,9 @@ import PathwaysView from '../components/pathways/PathwaysView';
 import { loadPathways } from '@/services/pathwayService';
 import { CooccurrenceProfile, findCooccurrenceMatches, groupMatchesByVariant, loadCooccurrenceProfiles, restrictMatchesToVariants } from '@/services/cooccurrenceService';
 import { getVariantGene, getVariantShortLabel } from '@/lib/variantDisplay';
-import CancerSelect from "@/cancerFilter/cancerSelect";
+import { CaseDx, CrosswalkRow, getGenericDxOptions, loadTumorTypeCrosswalk } from "@/cancerFilter/tumorTypeCrosswalk";
+import { useClinicalRecord } from "@/lib/useClinicalRecord";
+import { getPatientDxOptions, getPrimaryCancerConditions } from "@/lib/clinicalSummary";
 import RegionLoader from "@/cancerFilter/regionLoader";
 import { PresetSelection } from "@/cancerFilter/geneListKb";
 import FilterSidebar from "@/cancerFilter/FilterSidebar";
@@ -58,7 +61,10 @@ export default function Home() {
   const [invalidRanges, setInvalidRanges] = useState<string[]>([]);
   const [enableCatVrsQueries, setEnableCatVrsQueries] = useState(false);
   const [isHowToUseOpen, setIsHowToUseOpen] = useState(false);
-  const [selectedCancerType, setSelectedCancerType] = useState("");
+  // The case Dx is the source of truth for tumor type: it sets the gene-list presets, implication
+  // filtering and the oncogenicity predictor's tumorType
+  const [caseDx, setCaseDx] = useState<CaseDx | null>(null);
+  const [tumorTypeCrosswalk, setTumorTypeCrosswalk] = useState<CrosswalkRow[]>([]);
   const [selectedPreset, setSelectedPreset] = useState<PresetSelection | null>(null);
   const [presetRequestId, setPresetRequestId] = useState(0);
   const [isSearchWorkspaceCollapsed, setIsSearchWorkspaceCollapsed] = useState(false);
@@ -80,6 +86,34 @@ export default function Home() {
     selectedTxPhenotypes: [],
     actionableFilter: DEFAULT_ACTIONABILITY_FILTER,
   });
+
+  const selectedCancerType = caseDx?.geneListCategory ?? '';
+  const { state: clinicalState, retry: retryClinicalRecord } = useClinicalRecord(subjectId);
+  const clinicalRecord = clinicalState.status === 'loaded' ? clinicalState.record : null;
+
+  useEffect(() => {
+    loadTumorTypeCrosswalk()
+      .then(setTumorTypeCrosswalk)
+      .catch((error) => console.error('Error loading tumor type crosswalk:', error));
+  }, []);
+
+  const primaryCancerConditions = useMemo(
+    () => (clinicalRecord ? getPrimaryCancerConditions(clinicalRecord.resources, tumorTypeCrosswalk) : []),
+    [clinicalRecord, tumorTypeCrosswalk]
+  );
+  const patientDxOptions = useMemo(
+    () => getPatientDxOptions(primaryCancerConditions, tumorTypeCrosswalk),
+    [primaryCancerConditions, tumorTypeCrosswalk]
+  );
+  const genericDxOptions = useMemo(() => getGenericDxOptions(tumorTypeCrosswalk), [tumorTypeCrosswalk]);
+  // Stage and disease status follow the selected patient cancer, or the patient's main one after an override
+  const bannerCondition = primaryCancerConditions.find((condition) => condition.id === caseDx?.conditionId)
+    ?? primaryCancerConditions[0];
+
+  // A new patient's Dx starts as their own primary cancer, or empty when they have no clinical data
+  useEffect(() => {
+    setCaseDx(patientDxOptions[0] ?? null);
+  }, [patientDxOptions]);
 
   // Load the pathway diagrams in the background so the Pathways view opens without a loading step
   useEffect(() => {
@@ -230,6 +264,19 @@ export default function Home() {
     setSelectedPreset(null);
     setPresetRequestId(0);
   }, [selectedCancerType]);
+
+  // A different patient starts with no genomic results; the search terms are kept so they can be rerun
+  const handleSubjectIdChange = useCallback((value: string) => {
+    abortControllersRef.current.forEach((controller) => controller.abort());
+    abortControllersRef.current.clear();
+    setResults([]);
+    setFilteredResults([]);
+    setSearchStatus({});
+    setInvalidRanges([]);
+    setSelectedVariantIds(new Set());
+    setActiveView('results');
+    setSubjectId(value);
+  }, []);
 
   const handlePresetSelect = useCallback((selection: PresetSelection) => {
     setSelectedPreset(selection);
@@ -472,14 +519,17 @@ export default function Home() {
           </button>
         </div>
 
-        <div className="mb-3 grid grid-cols-1 items-start gap-6 xl:grid-cols-2">
-          <MrnSelector
-            subjectId={subjectId}
-            setSubjectId={setSubjectId}
-            className="mb-0"
-          />
-          <CancerSelect onSelect={setSelectedCancerType} />
-        </div>
+        <PatientBanner
+          subjectId={subjectId}
+          onSubjectIdChange={handleSubjectIdChange}
+          patientOptions={patientDxOptions}
+          genericOptions={genericDxOptions}
+          selectedDx={caseDx}
+          onDxChange={setCaseDx}
+          clinicalState={clinicalState}
+          onRetry={retryClinicalRecord}
+          bannerCondition={bannerCondition}
+        />
 
         <RegionLoader
           presetSelection={selectedPreset}
@@ -496,7 +546,7 @@ export default function Home() {
             <div>
               <h2 className="text-lg font-semibold text-gray-900">Search Workspace</h2>
               <p className="mt-1 text-sm text-gray-600">
-                {selectedCancerType ? `Cancer type: ${selectedCancerType}` : 'Select a cancer type to load preset search terms.'}
+                {selectedCancerType ? `Cancer type: ${selectedCancerType}` : 'Select a Dx with gene lists to load cancer-specific preset search terms.'}
                 {' '}
                 {searchTermCount > 0 ? `• ${searchTermCount} search term${searchTermCount === 1 ? '' : 's'}` : ''}
               </p>
@@ -574,7 +624,7 @@ export default function Home() {
         <div className={activeView === 'results' ? '' : 'hidden'}>
           <ResultsTable
             results={filteredResults}
-            selectedCancerType={selectedCancerType}
+            predictorTumorType={caseDx?.predictorTumorType}
             onToggleFilters={() => setIsFilterOpen(!isFilterOpen)}
             hasActiveFilters={hasActiveFilters}
             enableCatVrsQueries={enableCatVrsQueries}

@@ -1,0 +1,124 @@
+system,code,display,predictorTumorType,geneListCategory,valueSetOid
+http://snomed.info/sct,188157005,Malignant neoplasm of overlapping sites of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,254837009,Malignant neoplasm of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,254838004,Carcinoma of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,254839007,Scirrhous carcinoma of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,254840009,Inflammatory carcinoma of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,278054005,Lobular carcinoma of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,286893002,"Carcinoma of breast - upper, inner quadrant (disorder)",Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,286894008,"Carcinoma of breast - lower, inner quadrant (disorder)",Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,286895009,Carcinoma of upper outer quadrant of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,286896005,"Carcinoma breast - lower, outer quadrant (disorder)",Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,286897001,Carcinoma of breast - axillary tail (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,372092003,Primary malignant neoplasm of axillary tail of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,372094002,Malignant neoplasm of axillary tail of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,372137005,Primary malignant neoplasm of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,373080008,Malignant neoplasm of lower inner quadrant of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,373081007,Malignant neoplasm of lower outer quadrant of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,373082000,Malignant neoplasm of upper inner quadrant of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,373083005,Malignant neoplasm of upper outer quadrant of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,373088001,Primary malignant neoplasm of upper outer quadrant of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,373089009,Primary malignant neoplasm of upper inner quadrant of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,373090000,Primary malignant neoplasm of lower inner quadrant of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,373091001,Primary malignant neoplasm of lower outer quadrant of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,408643008,Infiltrating duct carcinoma of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,444604002,Carcinoma of breast with ductal and lobular features (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,444712000,Mucinous carcinoma of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,708921005,Carcinoma of central portion of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,713609000,Invasive carcinoma of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,722524005,Primary invasive pleomorphic lobular carcinoma of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,722832009,Primary solid papillary carcinoma with invasion of breast (disorder),Breast Cancer,Breast Cancer,2.16.840.1.113883.3.1444.3.102
+http://snomed.info/sct,1078881000119102,Primary adenocarcinoma of lower lobe of left lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1078901000119100,Primary adenocarcinoma of upper lobe of left lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1078931000119107,Primary adenocarcinoma of lower lobe of right lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1078951000119101,Primary adenocarcinoma of middle lobe of right lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1078961000119104,Primary adenocarcinoma of upper lobe of right lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1080451000119101,Primary large cell carcinoma of lower lobe of left lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1080471000119105,Primary large cell carcinoma of upper lobe of left lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1080501000119104,Primary large cell carcinoma of lower lobe of right lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1080521000119108,Primary large cell carcinoma of middle lobe of right lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1080531000119106,Primary large cell carcinoma of upper lobe of right lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1082111000119109,Primary squamous cell carcinoma of lower lobe of left lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1082141000119108,Primary squamous cell carcinoma of upper lobe of left lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1082231000119109,Primary squamous cell carcinoma of lower lobe of right lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1082251000119103,Primary squamous cell carcinoma of middle lobe of right lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1082271000119107,Primary squamous cell carcinoma of upper lobe of right lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,12235561000119105,Large cell carcinoma of left lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,12235601000119105,Large cell carcinoma of right lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,12240951000119107,Squamous cell carcinoma of left lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,12240991000119102,Squamous cell carcinoma of right lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1255651005,Basaloid squamous cell carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1255725002,Non-small cell adenocarcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1259368007,Primary large cell carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1259369004,Primary giant cell carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1259371004,Primary squamous cell carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1259409000,Primary squamous cell carcinoma of bronchus in left lower lobe (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1259410005,Primary squamous cell carcinoma of bronchus in left upper lobe (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1259411009,Primary squamous cell carcinoma of bronchus in right lower lobe (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1259412002,Primary squamous cell carcinoma of bronchus of middle lobe of right lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1259413007,Primary squamous cell carcinoma of bronchus in right upper lobe (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1259461000,Primary squamous cell carcinoma of right lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1259463002,Primary squamous cell carcinoma of left lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1259727001,Primary non-small cell lung cancer (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1259754003,Primary squamous non-small cell lung cancer (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1259757005,Primary nonsquamous nonsmall cell neoplasm of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1260032004,Clear cell adenocarcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1260042002,Adenosquamous carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1260056000,Clear cell squamous cell carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1260057009,Mucinous adenocarcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1260059007,Mucinous bronchiolo-alveolar carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1260062005,Mucoepidermoid carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1260065007,Mucinous cystadenocarcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1260068009,Papillary adenocarcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1260070000,Non-mucinous bronchiolo-alveolar carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1260071001,Papillary squamous cell carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1260076006,Small cell non-keratinizing squamous cell carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1260077002,Solid carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1260092001,Mixed mucinous and non-mucinous bronchiolo-alveolar carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1260093006,Mixed subtype adenocarcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,1260115001,Salivary gland type carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,15956341000119105,Adenocarcinoma of left lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,15956381000119100,Adenocarcinoma of right lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,16527441000119105,Primary non-small cell carcinoma of lower lobe of left lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,16527481000119100,Primary non-small cell carcinoma of middle lobe of right lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,16527521000119100,Primary non-small cell carcinoma of upper lobe of left lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,16527561000119105,Primary non-small cell carcinoma of lower lobe of right lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,16527601000119105,Primary non-small cell carcinoma of right lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,16527641000119107,Primary non-small cell carcinoma of left lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,16527721000119108,Primary non-small cell carcinoma of upper lobe of right lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,254626006,Adenocarcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,254629004,Large cell carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,254631008,Giant cell carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,254634000,Squamous cell carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,254637007,Non-small cell lung cancer (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,313353007,Squamous cell carcinoma of bronchus in left lower lobe (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,313354001,Squamous cell carcinoma of bronchus in left upper lobe (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,313355000,Squamous cell carcinoma of bronchus in right lower lobe (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,313356004,Squamous cell carcinoma of bronchus of middle lobe of right lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,313357008,Squamous cell carcinoma of bronchus in right upper lobe (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,440173001,Nonsquamous nonsmall cell neoplasm of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,707404008,Primary mixed subtype adenocarcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,707405009,Primary adenosquamous carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,707408006,Primary small cell non-keratinizing squamous cell carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,707410008,Primary solid carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,707411007,Primary papillary adenocarcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,707451005,Primary adenocarcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,707452003,Primary mucinous adenocarcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,707453008,Primary clear cell squamous cell carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,707454002,Primary basaloid squamous cell carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,707455001,Primary papillary squamous cell carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,707464006,Primary myoepithelial carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,707465007,Primary mucoepidermoid carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,707466008,Primary adenoid cystic carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,707467004,Primary salivary gland type carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,707468009,Primary mixed mucinous and non-mucinous bronchiolo-alveolar carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,707469001,Primary non-mucinous bronchiolo-alveolar carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,707470000,Primary mucinous bronchiolo-alveolar carcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,707595001,Primary mucinous cystadenocarcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,711414003,Primary clear cell adenocarcinoma of lung (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,723301009,Squamous non-small cell lung cancer (disorder),Non-Small Cell Lung Cancer,Non-Small Cell Lung Cancer,2.16.840.1.113883.3.1444.3.277
+http://snomed.info/sct,109841003,Liver cell carcinoma (disorder),,Hepatocellular Carcinoma,2.16.840.1.113762.1.4.1056.93
+http://snomed.info/sct,187769009,Primary carcinoma of liver (disorder),,Hepatocellular Carcinoma,2.16.840.1.113762.1.4.1056.93
+http://snomed.info/sct,253018005,Fibrolamellar hepatocellular carcinoma (disorder),,Hepatocellular Carcinoma,2.16.840.1.113762.1.4.1056.93
+http://snomed.info/sct,274902006,Combined hepatocellular carcinoma and cholangiocarcinoma (disorder),,Hepatocellular Carcinoma,2.16.840.1.113762.1.4.1056.93
+http://snomed.info/sct,95214007,Primary malignant neoplasm of liver (disorder),,Hepatocellular Carcinoma,2.16.840.1.113762.1.4.1056.93

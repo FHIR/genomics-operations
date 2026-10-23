@@ -89,7 +89,7 @@ function normalizeColumnOrder(columnOrder?: ColumnId[]) {
 
 interface ResultsTableProps {
   results: Variant[];
-  selectedCancerType: string;
+  predictorTumorType?: string;
   onToggleFilters: () => void;
   hasActiveFilters: boolean;
   enableCatVrsQueries: boolean;
@@ -247,7 +247,7 @@ function getMinimumColumnWidth(columnId: ColumnId) {
 
 export default function ResultsTable({
   results,
-  selectedCancerType,
+  predictorTumorType,
   onToggleFilters,
   hasActiveFilters,
   enableCatVrsQueries,
@@ -287,6 +287,15 @@ export default function ResultsTable({
   const customizeTableRef = useRef<HTMLDivElement | null>(null);
   const extendedEvidenceRef = useRef<HTMLElement | null>(null);
   const pendingEvidenceScrollKeyRef = useRef<string | null>(null);
+  // Predictions depend on the tumor type, so a Dx change discards them, including any still running
+  const tumorTypeGenerationRef = useRef(0);
+
+  useEffect(() => {
+    tumorTypeGenerationRef.current += 1;
+    pendingEvidenceScrollKeyRef.current = null;
+    setOncogenicityResults({});
+    setSelectedOncogenicityKey(null);
+  }, [predictorTumorType]);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -635,16 +644,21 @@ export default function ResultsTable({
       extendedEvidenceRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, [selectedOncogenicityResult?.evidenceStatus, selectedOncogenicityResult?.key]);
-  const predictorTumorType = selectedCancerType.trim() || undefined;
 
   const computeOncogenicityPrediction = async (variant: Variant) => {
+    const generation = tumorTypeGenerationRef.current;
+    const setResultsIfCurrent: typeof setOncogenicityResults = (update) => {
+      if (tumorTypeGenerationRef.current === generation) {
+        setOncogenicityResults(update);
+      }
+    };
     const key = getOncogenicityKey(variant);
 
     if (oncogenicityResults[key]?.status === 'loading') {
       return;
     }
 
-    setOncogenicityResults((currentResults) => ({
+    setResultsIfCurrent((currentResults) => ({
       ...currentResults,
       [key]: {
         key,
@@ -689,7 +703,7 @@ export default function ResultsTable({
 
     try {
       const { payload, score } = await runWithRetries(requestPrediction, (retryAttempt, error) => {
-        setOncogenicityResults((currentResults) => ({
+        setResultsIfCurrent((currentResults) => ({
           ...currentResults,
           [key]: {
             ...currentResults[key],
@@ -699,7 +713,7 @@ export default function ResultsTable({
         }));
       });
 
-      setOncogenicityResults((currentResults) => ({
+      setResultsIfCurrent((currentResults) => ({
         ...currentResults,
         [key]: {
           key,
@@ -713,7 +727,7 @@ export default function ResultsTable({
         },
       }));
     } catch (error) {
-      setOncogenicityResults((currentResults) => ({
+      setResultsIfCurrent((currentResults) => ({
         ...currentResults,
         [key]: {
           key,
@@ -737,6 +751,12 @@ export default function ResultsTable({
   };
 
   const loadExtendedEvidence = async () => {
+    const generation = tumorTypeGenerationRef.current;
+    const setResultsIfCurrent: typeof setOncogenicityResults = (update) => {
+      if (tumorTypeGenerationRef.current === generation) {
+        setOncogenicityResults(update);
+      }
+    };
     if (!selectedOncogenicityResult || selectedOncogenicityResult.evidenceStatus === 'loading') {
       return;
     }
@@ -749,7 +769,7 @@ export default function ResultsTable({
     const key = selectedOncogenicityResult.key;
     pendingEvidenceScrollKeyRef.current = key;
 
-    setOncogenicityResults((currentResults) => ({
+    setResultsIfCurrent((currentResults) => ({
       ...currentResults,
       [key]: {
         ...currentResults[key],
@@ -781,7 +801,7 @@ export default function ResultsTable({
 
     try {
       const payload = await runWithRetries(requestEvidence, (retryAttempt) => {
-        setOncogenicityResults((currentResults) => ({
+        setResultsIfCurrent((currentResults) => ({
           ...currentResults,
           [key]: {
             ...currentResults[key],
@@ -790,7 +810,7 @@ export default function ResultsTable({
         }));
       });
 
-      setOncogenicityResults((currentResults) => ({
+      setResultsIfCurrent((currentResults) => ({
         ...currentResults,
         [key]: {
           ...currentResults[key],
@@ -801,7 +821,7 @@ export default function ResultsTable({
         },
       }));
     } catch (error) {
-      setOncogenicityResults((currentResults) => ({
+      setResultsIfCurrent((currentResults) => ({
         ...currentResults,
         [key]: {
           ...currentResults[key],
