@@ -66,7 +66,7 @@ export function conceptLabel(concept: CodeableConcept | undefined): string | und
   }
   const coding = concept?.coding?.find((candidate) => candidate.display) ?? concept?.coding?.[0];
   if (coding?.display) {
-    return coding.system === SNOMED ? coding.display.replace(/\s+\([a-z ]+\)$/, '') : coding.display;
+    return coding.system === SNOMED ? coding.display.replace(/\s+\([a-z /]+\)$/, '') : coding.display;
   }
   if (!coding?.code) {
     return undefined;

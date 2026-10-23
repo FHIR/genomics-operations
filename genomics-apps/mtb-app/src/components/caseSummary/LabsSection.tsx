@@ -8,7 +8,7 @@ import {
   observationValueText,
   referenceRangeText,
 } from '@/lib/caseSummary';
-import { SectionCard } from './SectionCard';
+import { Chip, SectionCard } from './SectionCard';
 
 // Trend lines need this many numeric values in one unit
 const MIN_TREND_POINTS = 3;
@@ -110,7 +110,7 @@ export default function LabsSection({ labs, index }: LabsSectionProps) {
 
   return (
     <SectionCard
-      title="Lab & pathology results"
+      section="labs"
       actions={labs.length > 1 && (
         <div role="group" aria-label="Sort lab and pathology results" className="flex items-center gap-2 text-xs text-slate-500">
           Sort by {sortButton('name', 'Test name')} {sortButton('date', 'Date')}
@@ -119,56 +119,62 @@ export default function LabsSection({ labs, index }: LabsSectionProps) {
     >
       {labs.length === 0 ? <p className="text-sm text-slate-500">None recorded</p> : (
         // Fixed maximum height (about 12 rows) with a scroll bar; the header stays visible while scrolling
-        <div className="max-h-[26rem] overflow-y-auto rounded-lg border border-slate-200">
-          <div className={`sticky top-0 z-10 grid ${COLUMNS} gap-3 bg-slate-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-slate-500`}>
-            <span>Test</span><span>Latest</span><span>Date</span><span>Reference</span><span>Flag</span><span>History</span>
-          </div>
-          {sorted.map((group) => {
-            const latest = group.observations[0];
-            const flag = interpretationFlag(latest);
-            const points = trendPoints(group.observations);
-            const isOpen = openKey === group.key;
-            const isPreliminary = latest.status && !['final', 'amended', 'corrected'].includes(latest.status);
-            return (
-              <div key={group.key} className="border-t border-slate-200">
-                <button
-                  type="button"
-                  aria-expanded={isOpen}
-                  onClick={() => setOpenKey(isOpen ? null : group.key)}
-                  className={`grid w-full ${COLUMNS} items-center gap-3 px-3 py-1 text-left text-sm leading-snug hover:bg-blue-50/60`}
-                >
-                  <span title={group.label} className="truncate font-medium text-slate-900">{group.label}</span>
-                  <span className="text-slate-800">
-                    {observationValueText(latest, index) ?? '—'}
-                    {isPreliminary && <span className="ml-1 text-xs text-amber-700">({latest.status})</span>}
-                  </span>
-                  <span className="text-slate-600">{formatDate(effectiveDate(latest)) ?? '—'}</span>
-                  <span className="text-slate-600">{referenceRangeText(latest) ?? ''}</span>
-                  <span className={flag?.direction === 'high' ? 'font-semibold text-orange-800' : flag?.direction === 'low' ? 'font-semibold text-blue-800' : 'text-slate-700'}>
-                    {flag?.text ?? ''}
-                  </span>
-                  <span className="flex items-center gap-2 text-xs text-slate-500">
-                    {points && <Sparkline points={points} />}
-                    {group.observations.length === 1 ? '1 value' : `${group.observations.length} values`}
-                  </span>
-                </button>
-                {isOpen && (
-                  <div className="flex flex-wrap items-start gap-6 bg-slate-50 px-4 py-3">
-                    {points && <TrendChart label={group.label} points={points} />}
-                    <div className="flex flex-col gap-1 text-sm">
-                      {group.observations.map((observation) => (
-                        <span key={observation.id}>
-                          <span className="text-slate-500">{formatDate(effectiveDate(observation)) ?? 'no date'}</span>
-                          {' · '}
-                          <b className="text-slate-900">{observationValueText(observation, index) ?? '—'}</b>
-                        </span>
-                      ))}
+        // Scrolls down past about 12 rows, and sideways on narrow windows rather than squeezing the columns
+        <div className="max-h-[26rem] overflow-auto rounded-lg border border-slate-200">
+          <div className="min-w-[52rem]">
+            <div className={`sticky top-0 z-10 grid ${COLUMNS} gap-3 bg-slate-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-slate-500`}>
+              <span>Test</span><span>Latest</span><span>Date</span><span>Reference</span><span>Flag</span><span>History</span>
+            </div>
+            {sorted.map((group, rowIndex) => {
+              const latest = group.observations[0];
+              const flag = interpretationFlag(latest);
+              const points = trendPoints(group.observations);
+              const isOpen = openKey === group.key;
+              const isPreliminary = latest.status && !['final', 'amended', 'corrected'].includes(latest.status);
+              return (
+                // Light striping on alternate rows makes the values easier to scan across
+                <div key={group.key} className={`border-t border-slate-200 ${rowIndex % 2 === 1 ? 'bg-slate-50/70' : 'bg-white'}`}>
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    onClick={() => setOpenKey(isOpen ? null : group.key)}
+                    className={`grid w-full ${COLUMNS} items-center gap-3 px-3 py-1 text-left text-sm leading-snug hover:bg-blue-50/60`}
+                  >
+                    <span title={group.label} className="truncate font-medium text-slate-900">{group.label}</span>
+                    <span className={flag?.direction ? 'font-semibold text-slate-900' : 'text-slate-800'}>
+                      {observationValueText(latest, index) ?? '—'}
+                      {isPreliminary && <span className="ml-1 text-xs text-amber-700">({latest.status})</span>}
+                    </span>
+                    <span className="text-slate-600">{formatDate(effectiveDate(latest)) ?? '—'}</span>
+                    <span className="text-slate-600">{referenceRangeText(latest) ?? ''}</span>
+                    <span>
+                      {flag && (flag.direction
+                        ? <Chip tone={flag.direction}>{flag.text}</Chip>
+                        : <span className="text-slate-700">{flag.text}</span>)}
+                    </span>
+                    <span className="flex items-center gap-2 text-xs text-slate-500">
+                      {points && <Sparkline points={points} />}
+                      {group.observations.length === 1 ? '1 value' : `${group.observations.length} values`}
+                    </span>
+                  </button>
+                  {isOpen && (
+                    <div className="flex flex-wrap items-start gap-6 bg-slate-50 px-4 py-3">
+                      {points && <TrendChart label={group.label} points={points} />}
+                      <div className="flex flex-col gap-1 text-sm">
+                        {group.observations.map((observation) => (
+                          <span key={observation.id}>
+                            <span className="text-slate-500">{formatDate(effectiveDate(observation)) ?? 'no date'}</span>
+                            {' · '}
+                            <b className="text-slate-900">{observationValueText(observation, index) ?? '—'}</b>
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            );
-          })}
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
     </SectionCard>

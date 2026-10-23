@@ -70,7 +70,7 @@ function ReportGroupColumn({ group }: { group: ReportGroup }) {
 
 export default function ReportsSection({ groups }: { groups: ReportGroup[] }) {
   return (
-    <SectionCard title="Reports">
+    <SectionCard section="reports">
       {groups.length === 0 ? <p className="text-sm text-slate-500">None recorded</p> : (
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           {groups.map((group) => <ReportGroupColumn key={group.label} group={group} />)}

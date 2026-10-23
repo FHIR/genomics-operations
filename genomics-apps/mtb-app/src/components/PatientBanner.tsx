@@ -190,7 +190,7 @@ export default function PatientBanner({
   const clinicalItems = [stage, ecog].filter((item) => item !== undefined);
 
   return (
-    <div className="sticky top-0 z-30 -ml-64 mb-6 flex w-full min-w-[1400px] flex-nowrap items-center gap-x-4 whitespace-nowrap rounded-xl bg-slate-900 px-6 py-3 text-sm text-slate-200 shadow-md">
+    <div id="patient-banner" className="sticky top-0 z-30 mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 whitespace-nowrap rounded-xl bg-slate-900 px-4 py-3 text-sm text-slate-200 shadow-md sm:px-6">
       {summary?.name && <span className="text-lg font-bold text-white">{summary.name}</span>}
       {demographics.length > 0 && <span className="text-slate-300">{demographics.join(' · ')}</span>}
 

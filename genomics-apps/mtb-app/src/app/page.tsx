@@ -24,7 +24,7 @@ import FilterSidebar from "@/cancerFilter/FilterSidebar";
 import { DEFAULT_ACTIONABILITY_FILTER, FilterCriteria } from "@/cancerFilter/FilterSidebar";
 import { applyFiltersToVariants } from "@/cancerFilter/filterUtils";
 import { isPhenotypeMatchForImplication, isALevelEvidence } from "@/cancerFilter/phenotypeUtils";
-import { HOW_TO_USE_SECTIONS, HOW_TO_USE_TITLE, HowToUseLinkItem } from './howToUseContent';
+import { HOW_TO_USE_GROUPS, HOW_TO_USE_TITLE, HowToUseLinkItem } from './howToUseContent';
 // import EmailSubscription from "@/components/EmailSubscription";
 // import FeedbackForm from "@/components/FeedbackForm";
 
@@ -35,8 +35,8 @@ function isHowToUseLinkItem(item: string | HowToUseLinkItem): item is HowToUseLi
 type CaseView = 'summary' | 'genomic' | 'synthesis';
 
 const CASE_VIEWS: { view: CaseView; label: string; disabledReason?: string }[] = [
-  { view: 'summary', label: 'Case summary' },
-  { view: 'genomic', label: 'Genomic findings' },
+  { view: 'summary', label: 'Case Summary' },
+  { view: 'genomic', label: 'Genomic Findings' },
   { view: 'synthesis', label: 'Synthesis', disabledReason: 'Not built yet' },
 ];
 
@@ -502,11 +502,12 @@ export default function Home() {
     }
   };
   return (
-    <div className="min-h-screen p-8 bg-white text-black">
-      <main className={`max-w-4xl mx-auto ${selectedVariants.length > 0 ? 'pb-24' : ''}`}>
-        <div className="mb-8 flex items-center justify-between">
+    <div className="min-h-screen bg-white px-4 py-6 text-black sm:px-6 lg:px-8">
+      {/* One centered container that fills the window up to 1400px; sections adapt to its width */}
+      <main className={`mx-auto w-full max-w-[1400px] ${selectedVariants.length > 0 ? 'pb-24' : ''}`}>
+        <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-4">
-            <h1 className="text-5xl font-bold">Molecular Tumor Board</h1>
+            <h1 className="text-4xl font-bold sm:text-5xl">Molecular Tumor Board</h1>
             <button
               type="button"
               onClick={() => setIsHowToUseOpen(true)}
@@ -521,7 +522,8 @@ export default function Home() {
               alt="Elimu"
               width={200}
               height={200}
-              className="cursor-pointer"
+              // Smaller on narrow windows so it stays beside the title
+              className="h-auto w-32 cursor-pointer lg:w-[200px]"
             />
           </Link>
         </div>
@@ -538,7 +540,7 @@ export default function Home() {
           bannerCondition={bannerCondition}
         />
 
-        <div className="-ml-64 mb-6 flex w-full min-w-[1400px] gap-2" role="tablist" aria-label="Case views">
+        <div className="mb-6 flex flex-wrap gap-2" role="tablist" aria-label="Case views">
           {CASE_VIEWS.map(({ view, label, disabledReason }) => {
             const isActive = caseView === view;
             return (
@@ -559,7 +561,8 @@ export default function Home() {
         </div>
 
         {caseView === 'summary' && (
-          <div className="-ml-64 mb-8 w-full min-w-[1400px]">
+          // White cards on a light gray ground give the summary some depth
+          <div className="mb-8 rounded-3xl bg-slate-100 p-3 ring-1 ring-inset ring-slate-200 sm:p-5">
             <CaseSummary
               subjectId={subjectId}
               clinicalState={clinicalState}
@@ -640,7 +643,7 @@ export default function Home() {
             results={results}
             currentFilters={currentFilters}
           />
-          <div ref={tabBarRef} className="-ml-64 flex w-full min-w-[1400px] gap-1 border-b border-slate-300" role="tablist">
+          <div ref={tabBarRef} className="flex flex-wrap gap-1 border-b border-slate-300" role="tablist">
             {(['results', 'pathways'] as const).map((view) => {
               const isActive = activeView === view;
               const isDisabled = view === 'pathways' && selectedVariants.length === 0;
@@ -680,7 +683,7 @@ export default function Home() {
           </div>
           {activeView === 'pathways' && (
             // At least a window tall, so switching from the long results table doesn't pull the page up
-            <div className="-ml-64 min-h-screen w-full min-w-[1400px] rounded-2xl border-2 border-slate-400 bg-gray-100 p-6 shadow-sm">
+            <div className="min-h-screen rounded-2xl border-2 border-slate-400 bg-gray-100 p-3 shadow-sm sm:p-6">
               <PathwaysView
                 selectedVariants={selectedVariants}
                 cooccurrenceMatches={selectedCooccurrenceMatches}
@@ -728,31 +731,39 @@ export default function Home() {
                   Close
                 </button>
               </div>
-              <div className="space-y-6">
-                {HOW_TO_USE_SECTIONS.map((section) => (
-                  <section key={section.title}>
-                    <h3 className="text-lg font-semibold text-gray-900">{section.title}</h3>
-                    <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-gray-700">
-                      {section.items.map((item) => (
-                        <li key={typeof item === 'string' ? item : `${section.title}-${item.linkLabel}`}>
-                          {isHowToUseLinkItem(item) ? (
-                            <>
-                              {item.textBefore}
-                              <a
-                                href={item.linkUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="font-medium text-blue-600 hover:text-blue-800 hover:underline"
-                              >
-                                {item.linkLabel}
-                              </a>
-                              {item.textAfter}
-                            </>
-                          ) : item}
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
+              <div className="space-y-8">
+                {HOW_TO_USE_GROUPS.map((group, groupIndex) => (
+                  // Each tab's guidance is a group under its own heading; the untitled first group applies to all tabs
+                  <div key={group.title ?? `group-${groupIndex}`} className="space-y-6">
+                    {group.title && (
+                      <h3 className="border-b-2 border-slate-200 pb-1.5 text-xl font-bold text-gray-900">{group.title}</h3>
+                    )}
+                    {group.sections.map((section) => (
+                      <section key={`${group.title ?? 'general'}-${section.title}`}>
+                        <h4 className="text-lg font-semibold text-gray-900">{section.title}</h4>
+                        <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-gray-700">
+                          {section.items.map((item) => (
+                            <li key={typeof item === 'string' ? item : `${section.title}-${item.linkLabel}`}>
+                              {isHowToUseLinkItem(item) ? (
+                                <>
+                                  {item.textBefore}
+                                  <a
+                                    href={item.linkUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="font-medium text-blue-600 hover:text-blue-800 hover:underline"
+                                  >
+                                    {item.linkLabel}
+                                  </a>
+                                  {item.textAfter}
+                                </>
+                              ) : item}
+                            </li>
+                          ))}
+                        </ul>
+                      </section>
+                    ))}
+                  </div>
                 ))}
               </div>
             </div>

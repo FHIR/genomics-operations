@@ -847,7 +847,7 @@ export default function ResultsTable({
         : 'View extended evidence details';
 
   return (
-    <div className="-ml-64 w-full min-w-[1400px] rounded-2xl border-2 border-slate-400 bg-gray-100 p-6 shadow-sm">
+    <div className="rounded-2xl border-2 border-slate-400 bg-gray-100 p-3 shadow-sm sm:p-6">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-lg border-2 border-slate-300 bg-white px-4 py-3">
         <div className="flex flex-wrap items-center gap-3">
           <button

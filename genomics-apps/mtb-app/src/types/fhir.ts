@@ -133,6 +133,20 @@ export interface DiagnosticReport extends FhirResource {
   presentedForm?: { contentType?: string; data?: string; title?: string }[];
 }
 
+export interface FamilyMemberHistory extends FhirResource {
+  resourceType: 'FamilyMemberHistory';
+  status?: string;
+  date?: string;
+  relationship?: CodeableConcept;
+  deceasedBoolean?: boolean;
+  condition?: {
+    code?: CodeableConcept;
+    onsetAge?: Quantity;
+    onsetString?: string;
+    contributedToDeath?: boolean;
+  }[];
+}
+
 export interface Bundle {
   resourceType: 'Bundle';
   total?: number;

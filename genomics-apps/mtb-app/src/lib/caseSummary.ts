@@ -3,12 +3,14 @@ import {
   CodeableConcept,
   Condition,
   DiagnosticReport,
+  FamilyMemberHistory,
   FhirResource,
   Observation,
   ObservationValue,
   Reference,
 } from '@/types/fhir';
 import { CrosswalkRow } from '@/cancerFilter/tumorTypeCrosswalk';
+import { hasTimelineDate, isMedication } from '@/lib/treatmentTimeline';
 import { ClinicalRecord } from '@/services/clinicalService';
 import {
   CODE_SYSTEM_NAMES,
@@ -102,7 +104,11 @@ export interface CaseSummaryData {
   comorbiditiesNotListed: ComorbidityNote[];
   allergies: AllergyIntolerance[];
   reportGroups: ReportGroup[];
-  otherResources: { resourceType: string; resources: FhirResource[] }[];
+  familyHistory: FamilyMemberHistory[];
+  // For the treatment timeline: dated medications and procedures, and disease status about the main cancer
+  medications: FhirResource[];
+  procedures: FhirResource[];
+  diseaseStatuses: Observation[];
   index: Map<string, FhirResource>;
 }
 
@@ -326,7 +332,7 @@ function groupObservations(observations: Observation[], index: Map<string, FhirR
 
 export function classifyClinicalRecord(record: ClinicalRecord, crosswalk: CrosswalkRow[]): CaseSummaryData {
   const index = new Map(record.resources.map((resource) => [resourceKey(resource), resource]));
-  // Resources already placed in a section; whatever is left goes to Other resources
+  // Resources already placed in a section (staging is placed before observations are sorted by category)
   const placed = new Set<string>();
   const place = (resource: FhirResource) => placed.add(resourceKey(resource));
 
@@ -383,14 +389,15 @@ export function classifyClinicalRecord(record: ClinicalRecord, crosswalk: Crossw
 
   // Remaining observations by category
   const byCategory: Record<'labs' | 'imaging' | 'assessments' | 'vitals', Observation[]> = { labs: [], imaging: [], assessments: [], vitals: [] };
-  const otherObservations: Observation[] = [];
   const comorbidityObservations: Observation[] = [];
+  const diseaseStatusObservations: Observation[] = [];
   for (const observation of observations) {
     if (placed.has(resourceKey(observation))) {
       continue;
     }
     if (isDiseaseStatus(observation)) {
       place(observation);
+      diseaseStatusObservations.push(observation);
     } else if (isComorbidities(observation)) {
       // Its conditions are listed under Other conditions; only what it adds is shown there
       place(observation);
@@ -403,8 +410,6 @@ export function classifyClinicalRecord(record: ClinicalRecord, crosswalk: Crossw
       byCategory.assessments.push(observation);
     } else if (hasCategory(observation, 'vital-signs', 'social-history')) {
       byCategory.vitals.push(observation);
-    } else {
-      otherObservations.push(observation);
     }
   }
   const grouped = (section: keyof typeof byCategory) => {
@@ -442,6 +447,14 @@ export function classifyClinicalRecord(record: ClinicalRecord, crosswalk: Crossw
   const assessments = grouped('assessments');
   const vitals = grouped('vitals');
 
+  // Treatment timeline. Disease status follows the banner chip: final results about the main cancer (or with no focus)
+  const medications = usable.filter((resource) => isMedication(resource) && hasTimelineDate(resource));
+  const procedures = usable.filter((resource) => resource.resourceType === 'Procedure' && hasTimelineDate(resource));
+  [...medications, ...procedures].forEach(place);
+  const mainCancer = primaries[0];
+  const diseaseStatuses = diseaseStatusObservations.filter((observation) => ['final', 'amended', 'corrected'].includes(observation.status ?? '')
+    && (!mainCancer || !observation.focus?.length || focusKeys(observation).includes(resourceKey(mainCancer))));
+
   // Allergies: active first, then the rest; each block alphabetical
   const allergyRank = (allergy: AllergyIntolerance) => (['inactive', 'resolved'].includes(firstCode(allergy.clinicalStatus) ?? '') ? 1 : 0);
   const allergies = ofType<AllergyIntolerance>('AllergyIntolerance').sort((left, right) =>
@@ -459,14 +472,7 @@ export function classifyClinicalRecord(record: ClinicalRecord, crosswalk: Crossw
     .map(([label, reports]) => ({ label, reports: reports.sort((left, right) => (reportDate(right) ?? '').localeCompare(reportDate(left) ?? '')) }))
     .sort((left, right) => left.label.localeCompare(right.label));
 
-  // Everything else, by resource type
-  const otherByType = new Map<string, FhirResource[]>();
-  for (const resource of [...usable.filter((resource) => resource.resourceType !== 'Observation' && !placed.has(resourceKey(resource))), ...otherObservations]) {
-    otherByType.set(resource.resourceType, [...(otherByType.get(resource.resourceType) ?? []), resource]);
-  }
-  const otherResources = [...otherByType.entries()]
-    .map(([resourceType, resources]) => ({ resourceType, resources }))
-    .sort((left, right) => left.resourceType.localeCompare(right.resourceType));
+  const familyHistory = ofType<FamilyMemberHistory>('FamilyMemberHistory');
 
   return {
     primaryCancers,
@@ -482,49 +488,10 @@ export function classifyClinicalRecord(record: ClinicalRecord, crosswalk: Crossw
     comorbiditiesNotListed,
     allergies,
     reportGroups,
-    otherResources,
+    medications,
+    procedures,
+    diseaseStatuses,
+    familyHistory,
     index,
   };
-}
-
-/**
- * A short label for any resource in the Other resources list.
- */
-export function resourceLabel(resource: FhirResource): string {
-  const concept = (key: string) => conceptLabel(resource[key] as CodeableConcept | undefined);
-  const date = (key: string) => formatDate(resource[key] as string | undefined);
-  const period = resource.period as { start?: string } | undefined;
-  switch (resource.resourceType) {
-    case 'Practitioner':
-    case 'Patient': {
-      const name = (resource.name as { text?: string; given?: string[]; family?: string; prefix?: string[] }[] | undefined)?.[0];
-      return name?.text ?? [...(name?.prefix ?? []), ...(name?.given ?? []), name?.family].filter(Boolean).join(' ');
-    }
-    case 'Organization':
-      return (resource.name as string | undefined) ?? 'Organization';
-    case 'MedicationRequest':
-      return [concept('medicationCodeableConcept'), resource.status, date('authoredOn')].filter(Boolean).join(' · ');
-    case 'Procedure': {
-      const performed = date('performedDateTime') ?? formatDate((resource.performedPeriod as { start?: string } | undefined)?.start);
-      return [concept('code'), resource.status, performed].filter(Boolean).join(' · ');
-    }
-    case 'Specimen':
-      return [concept('type'), formatDate((resource.collection as { collectedDateTime?: string } | undefined)?.collectedDateTime)].filter(Boolean).join(' · ');
-    case 'BodyStructure':
-      return concept('location') ?? concept('morphology') ?? 'Body structure';
-    case 'Encounter': {
-      const types = (resource.type as CodeableConcept[] | undefined)?.map((type) => conceptLabel(type)).filter(Boolean).join(', ');
-      return [types || (resource.class as { display?: string; code?: string } | undefined)?.display, formatDate(period?.start)].filter(Boolean).join(' · ');
-    }
-    case 'FamilyMemberHistory': {
-      const conditions = (resource.condition as { code?: CodeableConcept }[] | undefined)?.map((condition) => conceptLabel(condition.code)).filter(Boolean).join(', ');
-      return [concept('relationship'), conditions].filter(Boolean).join(': ');
-    }
-    case 'ResearchStudy':
-      return [(resource.identifier as { value?: string }[] | undefined)?.[0]?.value, resource.title as string | undefined, resource.status].filter(Boolean).join(' · ');
-    case 'ResearchSubject':
-      return [resource.status, formatDate(period?.start)].filter(Boolean).join(' · ');
-    default:
-      return concept('code') ?? `${resource.resourceType}/${resource.id}`;
-  }
 }
