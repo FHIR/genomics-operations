@@ -38,7 +38,7 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
             title: 'Patient Banner',
             items: [
                 'The banner at the top of the page stays in view as you scroll. Choose a patient from its MRN dropdown, or pick Enter custom MRN at the bottom of the list.',
-                'Below the banner, the Case Summary, Genomic Findings and Synthesis tabs switch views. Genomic Findings is the default, and its searches and results are kept while you look at the other tabs.',
+                'Below the banner, the Case Summary, Genomic Findings and Synthesis tabs switch views. The app opens on Case Summary when the patient has clinical data, otherwise on Genomic Findings; after that your tab stays as you switch patients. Searches and results are kept while you look at the other tabs.',
                 'Patients are grouped into With clinical data (patients the app found on the clinical FHIR server) and Genomic data only. Switching patients clears the previous patient\'s genomic results; the search terms stay so you can rerun them.',
                 'For a patient with clinical data, the banner shows name, age, sex and date of birth, plus the latest stage (with the year it was assigned), ECOG performance status and cancer disease status from the patient\'s record. Hover over an item for its date and details.',
                 'Stage is shown as recorded and is never recalculated. When metastases were recorded after a staging, the Case Summary notes it on that stage, so an early stage isn\'t mistaken for the current extent of disease.',
@@ -97,7 +97,7 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
                 'Choose a patient in the banner before searching.',
                 'Enter one or more gene symbols separated by commas, for example: BRAF, EGFR, ALK.',
                 'You can also search by genomic range using zero-based RefSeq:start-end format, for example: NC_000007.14:55019016-55211628.',
-                'When the Dx has gene lists, use the Actionable Gene List or Extended Gene List buttons in the search panel to load them. Hepatocellular Carcinoma has only an Extended Gene List.',
+                'When the Dx has gene lists, use the Actionable Gene List or Extended Gene List preset buttons under the search box to load them. Hepatocellular Carcinoma has only an Extended Gene List.',
             ],
         },
         {
@@ -105,7 +105,7 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
             items: [
                 'The app retrieves both simple variants and structural variants for the selected patient and searched region, along with select annotations, including therapeutic options.',
                 {
-                    textBefore: 'When Enable ',
+                    textBefore: 'When ',
                     linkLabel: 'Cat-VRS',
                     linkUrl: 'https://cat-vrs.ga4gh.org/en/stable/',
                     textAfter: ' queries is checked, therapeutic implication queries include constraint checking against Cat-VRS encoded knowledge.',
@@ -115,7 +115,7 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
         {
             title: 'Understanding the Results Table',
             items: [
-                'Results are grouped by the searched range or gene and are sorted by Range by default.',
+                'Results are grouped by the searched range or gene, each group under a band naming it and its variant count, and are sorted by Range by default. Click the arrow beside a column name to sort by that column (up for A-Z, down for Z-A).',
                 'Simple variants are labeled as SNV, MNV, or InDel.',
                 'Structural variants display the DNA change type first, followed by the genomic location in parentheses, and copy number when available.',
                 'The Variant column may also show the first protein change below the main variant label when a molecular consequence is available.',
@@ -124,8 +124,8 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
         {
             title: 'Filtering and Table Controls',
             items: [
-                'Use Filter Results to open the sidebar filters for actionability, molecular consequences, therapeutic implications, and diagnostic implications.',
-                'Use Customize Table to show or hide columns, change their order, resize them, and apply per-column filtering and sorting.',
+                'Use Filters to open the sidebar filters for actionability, molecular consequences, therapeutic implications, and diagnostic implications.',
+                'Use Customize table to show or hide columns, change their order, resize them, and apply per-column filtering and sorting.',
             ],
         },
         {
@@ -133,8 +133,8 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
             items: [
                 'When the patient has every variant named in a CIViC molecular profile that combines variants (for example, EGFR L858R AND EGFR T790M), the Tx Implications cell starts with a Potentially relevant co-occurring variants box. Click it to open or close it.',
                 'Each profile name links to CIViC, followed by its evidence in the same format as other therapeutic implications. Drugs given together are joined with +, interchangeable drugs with or, and drugs given in sequence with then.',
-                'Matching uses the CIViC variant and molecular profile identifiers returned with each variant\'s therapeutic implications. Profiles involving copy number changes or other categorical variants are only found when Enable Cat-VRS queries is checked. Profiles that use OR, NOT or wildtype, and fusion profiles, are not checked yet.',
-                'The box is not affected by the Filter Results options.',
+                'Matching uses the CIViC variant and molecular profile identifiers returned with each variant\'s therapeutic implications. Profiles involving copy number changes or other categorical variants are only found when Cat-VRS queries is checked. Profiles that use OR, NOT or wildtype, and fusion profiles, are not checked yet.',
+                'The box is not affected by the Filters options.',
             ],
         },
         {
@@ -173,8 +173,8 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
         {
             title: 'Practical Notes',
             items: [
-                'Large multi-gene searches are processed one search term at a time, and Search Status shows progress for each term.',
-                'You can cancel an in-progress search from the Search Status panel.',
+                'Large multi-gene searches are processed one search term at a time. The Status row under the search box shows a summary, a progress bar and a chip for each term; for long searches the chips stop after about two rows, and Show all lists every term in a scrolling box.',
+                'You can cancel an in-progress search with Cancel search in the Status row. Hide collapses the search box to one line showing the search terms and a status summary.',
             ],
         },
         {
@@ -183,9 +183,9 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
                 'Patient Larry Lung (MRN L2345) is a 66 yo male, never-smoker, who presented May 10, 2023 with persistent intermittent dry cough, found to have a RLL lung mass on CXR. Chest CT and PET showed the RLL lung mass with right hilar adenopathy and additional pulmonary and bony metastases. Brain MRI with no evidence of intracranial metastases. Fine needle aspiration of the RLL lung mass showed adenocarcinoma, as did the left iliac biopsy specimen. Tumor genomic profiling has been performed and the clinical team now wants to see if the patient has any actionable variants.',
                 'Select MRN "L2345" in the banner and open the Genomic Findings tab. The banner shows his stage, ECOG and latest disease status, and the Dx is set from his record to Adenocarcinoma of right lower lobe of lung, which maps to Non-Small Cell Lung Cancer.',
                 'Click Actionable Gene List to populate the search box with the predefined NSCLC actionable gene list, then run the search.',
-                'Use the Filter Results button to confirm that Actionable, this tumor type is selected by default, or switch actionability to Actionable, any tumor type, Possibly actionable, or None.',
+                'Use the Filters button to confirm that Actionable, this tumor type is selected by default, or switch actionability to Actionable, any tumor type, Possibly actionable, or None.',
                 'Use the same sidebar to apply additional filters for molecular consequences, therapeutic implications, and diagnostic implications.',
-                'With Enable Cat-VRS queries checked, the Tx Implications for EGFR L858R start with Potentially relevant co-occurring variants, including EGFR L858R AND MET Amplification.',
+                'With Cat-VRS queries checked, the Tx Implications for EGFR L858R start with Potentially relevant co-occurring variants, including EGFR L858R AND MET Amplification.',
                 'Tick the EGFR and MET variants and click View on pathways to see them on the RTK/RAS pathway, joined by a co-occurring variants arc.',
             ],
         },
@@ -195,9 +195,12 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
         title: 'Synthesis',
         sections: [
             {
-                title: 'Not Available Yet',
+                title: 'Generating a Synthesis',
                 items: [
-                    'The Synthesis tab is planned: it will show a summary of the case, combining clinical and genomic findings, with treatment options. Until then the tab is disabled.',
+                    'Open the Synthesis tab and click Generate synthesis. After a short progress display, the synthesis appears: a case summary, genomic findings, information gaps and treatment options, including recruiting clinical trials, with references.',
+                    'In this demo the syntheses are pre-generated for the four example patients (L2345, HCC1143, MRN1234 and TCGA-DD-A1EH) and labeled as such; other patients show that no synthesis is available. A future version could generate them live with an AI model.',
+                    'A generated synthesis stays on the tab while you look at other tabs, and is cleared when you choose a different patient.',
+                    'The synthesis is a research demonstration based on synthetic patients and is not for clinical use.',
                 ],
             },
         ],

@@ -1,4 +1,5 @@
 import { ReactNode, useMemo } from 'react';
+import { Dna } from 'lucide-react';
 import { AllergyIntolerance, Condition, FamilyMemberHistory, FhirResource, Observation } from '@/types/fhir';
 import { CrosswalkRow } from '@/cancerFilter/tumorTypeCrosswalk';
 import { ClinicalState } from '@/lib/useClinicalRecord';
@@ -306,10 +307,12 @@ interface CaseSummaryProps {
   subjectId: string;
   clinicalState: ClinicalState;
   onRetry: () => void;
+  // Offered when the patient has no clinical data
+  onGoToGenomicFindings: () => void;
   crosswalk: CrosswalkRow[];
 }
 
-export default function CaseSummary({ subjectId, clinicalState, onRetry, crosswalk }: CaseSummaryProps) {
+export default function CaseSummary({ subjectId, clinicalState, onRetry, onGoToGenomicFindings, crosswalk }: CaseSummaryProps) {
   const record = clinicalState.status === 'loaded' ? clinicalState.record : null;
   const data = useMemo(() => (record ? classifyClinicalRecord(record, crosswalk) : null), [record, crosswalk]);
   const timeline = useMemo(() => {
@@ -327,7 +330,19 @@ export default function CaseSummary({ subjectId, clinicalState, onRetry, crosswa
       <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center text-slate-600 shadow-sm">
         {!subjectId.trim() && 'Choose a patient in the banner to see their clinical data.'}
         {clinicalState.status === 'loading' && 'Loading clinical data…'}
-        {clinicalState.status === 'none' && `No clinical data found for MRN ${subjectId}. Genomic Findings still work as usual.`}
+        {clinicalState.status === 'none' && (
+          <span className="inline-flex flex-col items-center gap-3">
+            <span>No clinical data found for MRN {subjectId}. Genomic Findings still work as usual.</span>
+            <button
+              type="button"
+              onClick={onGoToGenomicFindings}
+              className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800"
+            >
+              <Dna size={16} aria-hidden="true" className="text-emerald-300" />
+              Go to Genomic Findings
+            </button>
+          </span>
+        )}
         {clinicalState.status === 'error' && (
           <span className="inline-flex flex-col items-center gap-3">
             <span className="text-red-700" title={clinicalState.message}>Clinical data could not be loaded.</span>

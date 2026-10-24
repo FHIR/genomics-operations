@@ -3,12 +3,14 @@
 import Link from "next/link"
 import { useEffect, useLayoutEffect, useState, useRef, useCallback, useMemo } from 'react';
 import Image from 'next/image';
+import { ChevronDown, ChevronUp, ClipboardPlus, Dna, LucideIcon, Network, Sparkles, Table2 } from 'lucide-react';
 import { Variant } from '@/types/variants';
 import { findSubjectVariantsWithCache } from '@/services/cachedVariantService';
 import SearchForm from '../components/SearchForm';
 import PatientBanner from '../components/PatientBanner';
 import CaseSummary from '../components/caseSummary/CaseSummary';
-import SearchStatus from '../components/SearchStatus';
+import SynthesisView from '../components/SynthesisView';
+import SearchStatus, { searchSummaryText } from '../components/SearchStatus';
 import ResultsTable, { HighlightRequest } from '../components/ResultsTable';
 import SelectionTray from '../components/SelectionTray';
 import PathwaysView from '../components/pathways/PathwaysView';
@@ -34,10 +36,12 @@ function isHowToUseLinkItem(item: string | HowToUseLinkItem): item is HowToUseLi
 
 type CaseView = 'summary' | 'genomic' | 'synthesis';
 
-const CASE_VIEWS: { view: CaseView; label: string; disabledReason?: string }[] = [
-  { view: 'summary', label: 'Case Summary' },
-  { view: 'genomic', label: 'Genomic Findings' },
-  { view: 'synthesis', label: 'Synthesis', disabledReason: 'Not built yet' },
+// Each tab has an icon in its own color (lighter when the tab is selected); Synthesis uses the sparkles icon
+// commonly used to mark AI features
+const CASE_VIEWS: { view: CaseView; label: string; icon: LucideIcon; iconClass: string; activeIconClass: string }[] = [
+  { view: 'summary', label: 'Case Summary', icon: ClipboardPlus, iconClass: 'text-sky-600', activeIconClass: 'text-sky-300' },
+  { view: 'genomic', label: 'Genomic Findings', icon: Dna, iconClass: 'text-emerald-600', activeIconClass: 'text-emerald-300' },
+  { view: 'synthesis', label: 'Synthesis', icon: Sparkles, iconClass: 'text-violet-600', activeIconClass: 'text-violet-300' },
 ];
 
 function hasActiveSidebarFilters(filters: FilterCriteria, cancerType: string) {
@@ -79,8 +83,15 @@ export default function Home() {
   const [isSearchWorkspaceCollapsed, setIsSearchWorkspaceCollapsed] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [activeView, setActiveView] = useState<'results' | 'pathways'>('results');
-  // The case views below the banner; Genomic findings is the default, so the app opens as it always has
-  const [caseView, setCaseView] = useState<CaseView>('genomic');
+  // The case views below the banner. The app opens on Case Summary when the first patient has clinical data and
+  // on Genomic Findings when they don't (decided once, unless the user picks a tab first); after that the
+  // chosen tab stays put when the patient changes
+  const [caseView, setCaseView] = useState<CaseView>('summary');
+  const initialViewChosenRef = useRef(false);
+  const chooseCaseView = useCallback((view: CaseView) => {
+    initialViewChosenRef.current = true;
+    setCaseView(view);
+  }, []);
   const [selectedVariantIds, setSelectedVariantIds] = useState<Set<string>>(new Set());
   const [visibleVariantIds, setVisibleVariantIds] = useState<string[]>([]);
   const [highlightRequest, setHighlightRequest] = useState<HighlightRequest | null>(null);
@@ -100,6 +111,16 @@ export default function Home() {
 
   const selectedCancerType = caseDx?.geneListCategory ?? '';
   const { state: clinicalState, retry: retryClinicalRecord } = useClinicalRecord(subjectId);
+
+  useEffect(() => {
+    if (initialViewChosenRef.current || clinicalState.status === 'idle' || clinicalState.status === 'loading') {
+      return;
+    }
+    initialViewChosenRef.current = true;
+    if (clinicalState.status !== 'loaded') {
+      setCaseView('genomic');
+    }
+  }, [clinicalState.status]);
   const clinicalRecord = clinicalState.status === 'loaded' ? clinicalState.record : null;
 
   useEffect(() => {
@@ -395,14 +416,19 @@ export default function Home() {
   }, [results, currentFilters, selectedCancerType, applyUnifiedFilters]);
 
   const hasActiveFilters = hasActiveSidebarFilters(currentFilters, selectedCancerType);
-  const trimmedSearchInput = searchInput.trim();
-  const searchTermCount = trimmedSearchInput
-    ? trimmedSearchInput.split(',').map(term => term.trim()).filter(Boolean).length
-    : 0;
-  const searchPreview = trimmedSearchInput
-    ? (trimmedSearchInput.length > 60 ? `${trimmedSearchInput.slice(0, 60)}...` : trimmedSearchInput)
-    : 'No search terms loaded';
-  const hasSearchActivity = Object.keys(searchStatus).length > 0 || invalidRanges.length > 0;
+  const isSearching = Object.values(searchStatus).includes('searching');
+  // Each variant records the search term it was found under
+  const variantCountsByTerm = useMemo(() => {
+    const counts: Record<string, number> = {};
+    results.forEach((variant) => {
+      counts[variant.range] = (counts[variant.range] ?? 0) + 1;
+    });
+    return counts;
+  }, [results]);
+  const collapsedSearchSummary = [
+    searchInput.trim() || 'No search terms loaded',
+    Object.keys(searchStatus).length > 0 ? searchSummaryText(searchStatus) : undefined,
+  ].filter(Boolean).join(' · ');
 
   const handleSearch = async () => {
     if (!searchInput.trim()) {
@@ -541,7 +567,7 @@ export default function Home() {
         />
 
         <div className="mb-6 flex flex-wrap gap-2" role="tablist" aria-label="Case views">
-          {CASE_VIEWS.map(({ view, label, disabledReason }) => {
+          {CASE_VIEWS.map(({ view, label, icon: Icon, iconClass, activeIconClass }) => {
             const isActive = caseView === view;
             return (
               <button
@@ -549,11 +575,10 @@ export default function Home() {
                 type="button"
                 role="tab"
                 aria-selected={isActive}
-                disabled={Boolean(disabledReason)}
-                title={disabledReason}
-                onClick={() => setCaseView(view)}
-                className={`rounded-lg border px-5 py-2 text-sm font-semibold ${isActive ? 'border-slate-900 bg-slate-900 text-white' : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'} disabled:cursor-not-allowed disabled:opacity-50`}
+                onClick={() => chooseCaseView(view)}
+                className={`inline-flex items-center gap-2 rounded-lg border px-5 py-2 text-sm font-semibold ${isActive ? 'border-slate-900 bg-slate-900 text-white' : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'}`}
               >
+                <Icon size={16} aria-hidden="true" className={isActive ? activeIconClass : iconClass} />
                 {label}
               </button>
             );
@@ -564,6 +589,7 @@ export default function Home() {
           // White cards on a light gray ground give the summary some depth
           <div className="mb-8 rounded-3xl bg-slate-100 p-3 ring-1 ring-inset ring-slate-200 sm:p-5">
             <CaseSummary
+              onGoToGenomicFindings={() => chooseCaseView('genomic')}
               subjectId={subjectId}
               clinicalState={clinicalState}
               onRetry={retryClinicalRecord}
@@ -571,6 +597,11 @@ export default function Home() {
             />
           </div>
         )}
+
+        {/* Kept mounted while hidden, so a generated synthesis is still there when you return to the tab */}
+        <div className={caseView === 'synthesis' ? 'mb-8 rounded-3xl bg-slate-100 p-3 ring-1 ring-inset ring-slate-200 sm:p-5' : 'hidden'}>
+          <SynthesisView subjectId={subjectId} />
+        </div>
 
         <RegionLoader
           presetSelection={selectedPreset}
@@ -584,58 +615,50 @@ export default function Home() {
 
         {/* Genomic findings stay mounted on other tabs, so searches, results and predictions survive switching */}
         <div className={caseView === 'genomic' ? '' : 'hidden'}>
-          <div className="mb-8 overflow-hidden rounded-2xl border-2 border-slate-400 bg-gradient-to-br from-slate-100 to-slate-50 shadow-sm">
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-slate-300 px-5 py-4">
-              <div>
-                <h2 className="text-lg font-semibold text-gray-900">Search Workspace</h2>
-                <p className="mt-1 text-sm text-gray-600">
-                  {selectedCancerType ? `Cancer type: ${selectedCancerType}` : 'Select a Dx with gene lists to load cancer-specific preset search terms.'}
-                  {' '}
-                  {searchTermCount > 0 ? `• ${searchTermCount} search term${searchTermCount === 1 ? '' : 's'}` : ''}
-                </p>
+          {/* A light emerald wash (the Genomic Findings tab's color) makes the search box stand out on the white page */}
+          <section aria-label="Variant search" className="mb-8 rounded-2xl border border-emerald-200 bg-gradient-to-b from-emerald-50 to-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_4px_12px_rgba(15,23,42,0.04)]">
+            <div className={`flex flex-wrap items-center justify-between gap-3 ${isSearchWorkspaceCollapsed ? '' : 'mb-4 border-b border-emerald-100 pb-3'}`}>
+              <div className="flex min-w-0 flex-1 items-center gap-2.5">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-700" aria-hidden="true">
+                  <Dna size={16} strokeWidth={2.25} />
+                </span>
+                <h2 className="shrink-0 text-base font-semibold tracking-tight text-slate-900">Variant search</h2>
+                {/* Hidden, the box shrinks to one line: the search terms and how the search went */}
+                {isSearchWorkspaceCollapsed && (
+                  <span className="min-w-0 flex-1 truncate text-sm text-slate-600" title={collapsedSearchSummary}>{collapsedSearchSummary}</span>
+                )}
               </div>
               <button
                 type="button"
                 onClick={() => setIsSearchWorkspaceCollapsed((currentValue) => !currentValue)}
-                className="inline-flex items-center gap-2 rounded-md border border-blue-700 bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_3px_0_0_rgb(29_78_216)] transition-[transform,box-shadow,background-color] hover:bg-blue-700 hover:shadow-[0_2px_0_0_rgb(30_64_175)] active:translate-y-px active:shadow-[0_1px_0_0_rgb(30_64_175)] focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2"
+                aria-expanded={!isSearchWorkspaceCollapsed}
+                className="inline-flex items-center gap-1 text-sm font-medium text-slate-600 hover:text-slate-900"
               >
-                {isSearchWorkspaceCollapsed ? 'Show Search Panel' : 'Hide Search Panel'}
+                {isSearchWorkspaceCollapsed ? <><ChevronDown size={16} aria-hidden="true" /> Show</> : <><ChevronUp size={16} aria-hidden="true" /> Hide</>}
               </button>
             </div>
 
-            {isSearchWorkspaceCollapsed ? (
-              <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-4 text-sm text-gray-600">
-                <span className="min-w-0 flex-1 truncate">{searchPreview}</span>
-                <div className="flex items-center gap-3 text-xs font-medium uppercase tracking-wide text-gray-500">
-                  <span>{hasSearchActivity ? 'Search status available' : 'No search activity yet'}</span>
-                  <span>{hasActiveFilters ? 'Filters active' : 'No active filters'}</span>
-                </div>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 items-start gap-0 xl:grid-cols-[minmax(0,1.65fr)_14rem]">
+            {!isSearchWorkspaceCollapsed && (
+              <div className="flex flex-col gap-3">
                 <SearchForm
                   searchInput={searchInput}
                   setSearchInput={handleSearchInputChange}
                   handleSearch={handleSearch}
+                  isSearching={isSearching}
                   selectedCancerType={selectedCancerType}
                   onPresetSelect={handlePresetSelect}
                   enableCatVrsQueries={enableCatVrsQueries}
                   onEnableCatVrsQueriesChange={setEnableCatVrsQueries}
-                  embedded={true}
-                  className="p-5"
                 />
-                <div className="border-t-2 border-slate-300 xl:border-l-2 xl:border-t-0">
-                  <SearchStatus
-                    searchStatus={searchStatus}
-                    invalidRanges={invalidRanges}
-                    onCancelSearch={handleCancelSearch}
-                    embedded={true}
-                    className="max-h-[32rem]"
-                  />
-                </div>
+                <SearchStatus
+                  searchStatus={searchStatus}
+                  invalidRanges={invalidRanges}
+                  variantCounts={variantCountsByTerm}
+                  onCancelSearch={handleCancelSearch}
+                />
               </div>
             )}
-          </div>
+          </section>
           <FilterSidebar
             onFilterChange={handleFilterChange}
             isOpen={isFilterOpen}
@@ -643,10 +666,14 @@ export default function Home() {
             results={results}
             currentFilters={currentFilters}
           />
-          <div ref={tabBarRef} className="flex flex-wrap gap-1 border-b border-slate-300" role="tablist">
+          {/* Folder tabs: the active one is white with the emerald outline and joins the card below; the other has a
+              light outline and fill so it reads as clickable */}
+          <div ref={tabBarRef} className="relative z-10 -mb-px flex flex-wrap gap-1.5 pl-4" role="tablist">
             {(['results', 'pathways'] as const).map((view) => {
               const isActive = activeView === view;
               const isDisabled = view === 'pathways' && selectedVariants.length === 0;
+              const TabIcon = view === 'results' ? Table2 : Network;
+              const count = view === 'results' ? String(filteredResults.length) : selectedVariants.length ? `${selectedVariants.length} selected` : undefined;
               return (
                 <button
                   key={view}
@@ -656,9 +683,13 @@ export default function Home() {
                   disabled={isDisabled}
                   title={isDisabled ? 'Select variants in the results table first' : undefined}
                   onClick={() => switchView(view)}
-                  className={`-mb-px rounded-t-lg border px-5 py-2.5 text-sm font-semibold ${isActive ? 'border-slate-300 border-b-gray-100 bg-gray-100 text-gray-900' : 'border-transparent text-gray-500 hover:text-gray-800'} disabled:cursor-not-allowed disabled:opacity-50`}
+                  className={`inline-flex items-center gap-2 rounded-t-xl border px-4 py-2 text-sm ${isActive ? 'border-emerald-200 border-b-white bg-white font-semibold text-slate-900' : 'border-slate-200 border-b-emerald-200 bg-slate-50 font-medium text-slate-600 hover:bg-slate-100'} disabled:cursor-not-allowed disabled:opacity-50`}
                 >
-                  {view === 'results' ? `Results (${filteredResults.length})` : `Pathways${selectedVariants.length ? ` (${selectedVariants.length} selected)` : ''}`}
+                  <TabIcon size={15} aria-hidden="true" className={isActive ? 'text-emerald-700' : 'text-slate-500'} />
+                  {view === 'results' ? 'Results' : 'Pathways'}
+                  {count && (
+                    <span className={`rounded-full px-2 py-0.5 text-xs ${isActive ? 'bg-emerald-50 text-emerald-800' : 'bg-slate-200 text-slate-600'}`}>{count}</span>
+                  )}
                 </button>
               );
             })}
@@ -667,6 +698,7 @@ export default function Home() {
           <div className={activeView === 'results' ? '' : 'hidden'}>
             <ResultsTable
               results={filteredResults}
+              hasSearched={Object.keys(searchStatus).length > 0}
               predictorTumorType={caseDx?.predictorTumorType}
               onToggleFilters={() => setIsFilterOpen(!isFilterOpen)}
               hasActiveFilters={hasActiveFilters}
@@ -683,7 +715,7 @@ export default function Home() {
           </div>
           {activeView === 'pathways' && (
             // At least a window tall, so switching from the long results table doesn't pull the page up
-            <div className="min-h-screen rounded-2xl border-2 border-slate-400 bg-gray-100 p-3 shadow-sm sm:p-6">
+            <div className="min-h-screen rounded-2xl border border-emerald-200 bg-white p-3 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_4px_12px_rgba(15,23,42,0.04)] sm:p-6">
               <PathwaysView
                 selectedVariants={selectedVariants}
                 cooccurrenceMatches={selectedCooccurrenceMatches}

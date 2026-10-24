@@ -11,24 +11,25 @@ interface SearchFormProps {
   searchInput: string;
   setSearchInput: (value: string) => void;
   handleSearch: () => void;
+  // While a search runs, the button shows progress and can't start another
+  isSearching: boolean;
   selectedCancerType: string;
   onPresetSelect: (selection: PresetSelection) => void;
   enableCatVrsQueries: boolean;
   onEnableCatVrsQueriesChange: (enabled: boolean) => void;
-  embedded?: boolean;
-  className?: string;
 }
+
+const presetClassName = 'rounded-full px-3 py-1 text-sm font-medium ring-1 ring-inset transition-colors focus:outline-none focus:ring-2 focus:ring-blue-300';
 
 export default function SearchForm({
   searchInput,
   setSearchInput,
   handleSearch,
+  isSearching,
   selectedCancerType,
   onPresetSelect,
   enableCatVrsQueries,
   onEnableCatVrsQueriesChange,
-  embedded = false,
-  className = 'mb-8',
 }: SearchFormProps) {
   const [cancerPresetLabels, setCancerPresetLabels] = useState<string[]>([]);
   const [globalGeneListLabels, setGlobalGeneListLabels] = useState<string[]>([]);
@@ -50,107 +51,73 @@ export default function SearchForm({
     };
   }, [selectedCancerType]);
 
-  const containerClassName = embedded
-    ? className.trim()
-    : `bg-gray-100 p-8 rounded-lg shadow-sm ${className}`.trim();
-
-  const presetHelpText = selectedCancerType
-    ? 'Cancer-specific presets enabled. General lists always available.'
-    : 'Cancer-specific presets follow the Dx selected in the banner. General gene lists are always available.';
-
-  const buttonClassName = 'inline-flex items-center rounded-full border border-slate-300 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-100 disabled:text-gray-400';
-
   return (
-    <div className={containerClassName}>
-      <div className="rounded-xl border border-blue-100 bg-white p-4 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9)]">
-        <div className="mb-3 flex items-center justify-between gap-3">
-          <div>
-            <label htmlFor="search-terms-input" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-900">
-              <span className="inline-block h-2.5 w-2.5 rounded-full bg-sky-500 shadow-[0_0_0_4px_rgba(14,165,233,0.14)]" />
-              <span>Search terms</span>
-            </label>
-            <p className="mt-1 text-sm text-slate-600">Gene symbols or genomic ranges, separated by commas. Ranges must use zero-based RefSeq:start-end format.</p>
-          </div>
-          <button
-            onClick={handleSearch}
-            className="shrink-0 rounded-md border border-blue-700 bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_3px_0_0_rgb(29_78_216)] transition-[transform,box-shadow,background-color] hover:bg-blue-700 hover:shadow-[0_2px_0_0_rgb(30_64_175)] active:translate-y-px active:shadow-[0_1px_0_0_rgb(30_64_175)] focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2"
-          >
-            Search
-          </button>
-        </div>
-
+    <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2.5 sm:flex-row">
+        <label htmlFor="search-terms-input" className="sr-only">Search terms</label>
         <input
           id="search-terms-input"
           type="text"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          className="w-full rounded-xl border-2 border-sky-300 bg-sky-50/55 px-4 py-4 text-lg text-slate-950 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95),0_2px_10px_rgba(14,116,144,0.08)] outline-none transition-[border-color,box-shadow,background-color] placeholder:text-slate-500 focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-100"
-          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+          onKeyDown={(e) => e.key === 'Enter' && !isSearching && handleSearch()}
           placeholder="BRAF, EGFR, ALK"
+          className="min-w-0 flex-1 rounded-xl border-[1.5px] border-slate-400 bg-white px-4 py-3.5 text-base text-slate-900 shadow-sm outline-none transition-[border-color,box-shadow] placeholder:text-slate-400 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100"
         />
-
-        <div className="mt-3 border-t border-gray-100 pt-3">
-          <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500">
-            <span className="font-semibold text-gray-700">Examples:</span>
-            <span className="font-mono">BRAF</span>
-            <span className="text-gray-300">•</span>
-            <span className="font-mono">NC_000007.14:140713327-140924929</span>
-            <span className="text-gray-300">•</span>
-            <span className="font-mono">NC_000007.14:55174721-55174820, BRAF, EGFR, ALK</span>
-          </div>
-
-          <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-gray-500">
-            <span className="font-semibold text-gray-700">Presets:</span>
-            <span>{presetHelpText}</span>
-          </div>
-
-          <div className="mt-3 ml-4 flex flex-wrap items-center gap-2 text-xs text-gray-500">
-            <span className="font-semibold text-gray-700">Cancer-specific:</span>
-            {cancerPresetLabels.length > 0 ? cancerPresetLabels.map((label) => {
-              return (
-                <button
-                  key={`cancer-${label}`}
-                  type="button"
-                  onClick={() => onPresetSelect({ category: selectedCancerType, label })}
-                  disabled={!selectedCancerType}
-                  className={buttonClassName}
-                >
-                  {label}
-                </button>
-              );
-            }) : (
-              <span>{selectedCancerType ? 'No cancer-specific presets available.' : 'None for the current Dx.'}</span>
-            )}
-          </div>
-
-          <div className="mt-3 ml-4 flex flex-wrap items-center gap-2 text-xs text-gray-500">
-            <span className="font-semibold text-gray-700">General:</span>
-            {globalGeneListLabels.length > 0 ? globalGeneListLabels.map((label) => {
-              return (
-                <button
-                  key={`global-${label}`}
-                  type="button"
-                  onClick={() => onPresetSelect({ category: GLOBAL_GENE_LIST_CATEGORY, label })}
-                  className={buttonClassName}
-                >
-                  {label}
-                </button>
-              );
-            }) : (
-              <span>No general gene lists available.</span>
-            )}
-          </div>
-        </div>
+        <button
+          type="button"
+          onClick={handleSearch}
+          disabled={isSearching}
+          className="shrink-0 rounded-xl bg-slate-900 px-7 py-3 text-base font-semibold text-white transition-colors hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-slate-400"
+        >
+          {isSearching ? 'Searching…' : 'Search'}
+        </button>
       </div>
 
-      <div className="mt-3 flex justify-end">
-        <label className="flex items-center gap-2 rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 shadow-sm">
+      <p className="-mt-1 text-sm text-slate-500">
+        Gene symbols or genomic ranges, separated by commas. Ranges use zero-based RefSeq:start-end format, e.g.{' '}
+        <code className="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs text-slate-700">NC_000007.14:55174721-55174820</code>.
+      </p>
+
+      <div className="flex flex-wrap items-center gap-2 text-sm">
+        <span className="mr-0.5 font-semibold text-slate-700">Presets</span>
+        {/* Cancer-specific presets follow the Dx in the banner; general lists are always available */}
+        {cancerPresetLabels.length > 0 ? (
+          <>
+            <span className="text-slate-500">{selectedCancerType}:</span>
+            {cancerPresetLabels.map((label) => (
+              <button
+                key={`cancer-${label}`}
+                type="button"
+                onClick={() => onPresetSelect({ category: selectedCancerType, label })}
+                className={`${presetClassName} bg-emerald-50 text-emerald-800 ring-emerald-200 hover:bg-emerald-100`}
+              >
+                {label}
+              </button>
+            ))}
+          </>
+        ) : (
+          <span className="text-slate-500">No cancer-specific presets for the current Dx</span>
+        )}
+        {globalGeneListLabels.length > 0 && <span className="mx-1 h-5 w-px bg-slate-200" aria-hidden="true" />}
+        {globalGeneListLabels.map((label) => (
+          <button
+            key={`global-${label}`}
+            type="button"
+            onClick={() => onPresetSelect({ category: GLOBAL_GENE_LIST_CATEGORY, label })}
+            className={`${presetClassName} bg-slate-50 text-slate-700 ring-slate-200 hover:bg-slate-100`}
+          >
+            {label}
+          </button>
+        ))}
+        <span className="flex-1" />
+        <label className="inline-flex items-center gap-2 text-slate-600">
           <input
             type="checkbox"
             checked={enableCatVrsQueries}
             onChange={(event) => onEnableCatVrsQueriesChange(event.target.checked)}
           />
-          <span className="font-medium">Enable Cat-VRS queries</span>
+          Cat-VRS queries
         </label>
       </div>
     </div>

@@ -2,7 +2,7 @@
 
 import { MouseEvent as ReactMouseEvent, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
-import { ArrowDownToLine } from 'lucide-react';
+import { ArrowDown, ArrowDownToLine, ArrowUp, ArrowUpDown, Dna, Filter, Search, SlidersHorizontal } from 'lucide-react';
 import { Variant } from '@/types/variants';
 import { DxImplication } from '@/services/dxService';
 import { ProcessedTxImplication } from '@/services/txService';
@@ -89,6 +89,8 @@ function normalizeColumnOrder(columnOrder?: ColumnId[]) {
 
 interface ResultsTableProps {
   results: Variant[];
+  // Whether a search has run for this patient, for the empty-state message
+  hasSearched: boolean;
   predictorTumorType?: string;
   onToggleFilters: () => void;
   hasActiveFilters: boolean;
@@ -152,6 +154,9 @@ async function getResponseErrorMessage(response: Response, fallbackMessage: stri
     return `${fallbackMessage} (${response.status})`;
   }
 }
+
+// Flat outline buttons for the results toolbar; the dark primary style is kept for Search
+const TOOLBAR_BUTTON_CLASSES = 'inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2';
 
 function getOncogenicityKey(variant: Variant) {
   return variant.id ?? variant.variant;
@@ -247,6 +252,7 @@ function getMinimumColumnWidth(columnId: ColumnId) {
 
 export default function ResultsTable({
   results,
+  hasSearched,
   predictorTumorType,
   onToggleFilters,
   hasActiveFilters,
@@ -573,6 +579,10 @@ export default function ResultsTable({
     });
   };
 
+  const clearColumnFilters = () => {
+    setColumnFilters((currentFilters) => Object.fromEntries(Object.keys(currentFilters).map((columnId) => [columnId, ''])) as Record<ColumnId, string>);
+  };
+
   const updateColumnFilter = (columnId: ColumnId, value: string) => {
     setColumnFilters((currentFilters) => ({
       ...currentFilters,
@@ -847,23 +857,19 @@ export default function ResultsTable({
         : 'View extended evidence details';
 
   return (
-    <div className="rounded-2xl border-2 border-slate-400 bg-gray-100 p-3 shadow-sm sm:p-6">
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-lg border-2 border-slate-300 bg-white px-4 py-3">
-        <div className="flex flex-wrap items-center gap-3">
+    // One white card with the Genomic Findings tab's emerald as its border; joins the Results tab above it
+    <div className="rounded-2xl border border-emerald-200 bg-white p-3 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_4px_12px_rgba(15,23,42,0.04)] sm:p-4">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
             onClick={onToggleFilters}
-            className={`inline-flex items-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold text-white transition-[transform,box-shadow,background-color] focus:outline-none focus:ring-2 focus:ring-offset-2 ${hasActiveFilters
-              ? 'border border-amber-700 bg-amber-600 shadow-[0_3px_0_0_rgb(180_83_9)] hover:bg-amber-700 hover:shadow-[0_2px_0_0_rgb(146_64_14)] active:translate-y-px active:shadow-[0_1px_0_0_rgb(120_53_15)] focus:ring-amber-300'
-              : 'border border-blue-700 bg-blue-600 shadow-[0_3px_0_0_rgb(29_78_216)] hover:bg-blue-700 hover:shadow-[0_2px_0_0_rgb(30_64_175)] active:translate-y-px active:shadow-[0_1px_0_0_rgb(30_64_175)] focus:ring-blue-300'
-              }`}
+            className={TOOLBAR_BUTTON_CLASSES}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 ${hasActiveFilters ? 'text-amber-100' : 'text-blue-100'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-            </svg>
-            Filter Results
+            <Filter size={15} aria-hidden="true" />
+            Filters
             {hasActiveFilters && (
-              <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs uppercase tracking-wide text-white">
+              <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800 ring-1 ring-inset ring-amber-200">
                 Active
               </span>
             )}
@@ -874,9 +880,10 @@ export default function ResultsTable({
               aria-expanded={isCustomizeTableOpen}
               aria-haspopup="dialog"
               onClick={() => setIsCustomizeTableOpen((currentValue) => !currentValue)}
-              className="inline-flex items-center gap-2 rounded-md border border-blue-700 bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_3px_0_0_rgb(29_78_216)] transition-[transform,box-shadow,background-color] hover:bg-blue-700 hover:shadow-[0_2px_0_0_rgb(30_64_175)] active:translate-y-px active:shadow-[0_1px_0_0_rgb(30_64_175)] focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2"
+              className={TOOLBAR_BUTTON_CLASSES}
             >
-              Customize Table
+              <SlidersHorizontal size={15} aria-hidden="true" />
+              Customize table
             </button>
             {isCustomizeTableOpen && (
               <div className="absolute left-0 z-30 mt-2 w-96 rounded-lg border border-gray-200 bg-white p-4 shadow-xl">
@@ -936,12 +943,12 @@ export default function ResultsTable({
             type="button"
             onClick={() => onSelectVariants(visibleVariantIds)}
             disabled={visibleVariantIds.length === 0}
-            className="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            className={`${TOOLBAR_BUTTON_CLASSES} font-medium text-slate-600 disabled:cursor-not-allowed disabled:opacity-50`}
           >
             Select all shown
           </button>
         </div>
-        <div className="text-sm text-gray-500">
+        <div className="text-sm text-slate-500">
           {visibleColumns.length} of {RESULTS_TABLE_COLUMNS.length} columns shown
         </div>
       </div>
@@ -950,7 +957,7 @@ export default function ResultsTable({
           Table filters are active.
         </div>
       )}
-      <div className="max-h-[75vh] overflow-auto rounded-xl border-2 border-slate-300 bg-white">
+      <div className="max-h-[75vh] overflow-auto rounded-xl border border-slate-200 bg-white">
         <table className="w-full border-collapse table-fixed" style={{ minWidth: Math.max(totalTableWidth, minimumTableWidth) }}>
           <colgroup>
             <col style={{ width: SELECTION_COLUMN_WIDTH }} />
@@ -966,18 +973,18 @@ export default function ResultsTable({
             })}
           </colgroup>
           <thead>
-            <tr className="bg-gray-200">
-              <th className="sticky top-0 z-10 border-r border-gray-300 bg-gray-200 p-0 shadow-[inset_0_-1px_0_0_rgb(209_213_219)]">
+            <tr className="bg-slate-50">
+              <th className="sticky top-0 z-10 border-r border-slate-100 bg-slate-50 p-0 shadow-[inset_0_-1px_0_0_rgb(226_232_240)]">
                 <span className="sr-only">Select variant</span>
               </th>
               {visibleColumns.map((column) => (
-                <th key={column.id} className="sticky top-0 z-10 border-r border-gray-300 bg-gray-200 p-0 text-left text-gray-700 shadow-[inset_0_-1px_0_0_rgb(209_213_219)] last:border-r-0">
+                <th key={column.id} className="sticky top-0 z-10 border-r border-slate-100 bg-slate-50 p-0 text-left text-slate-500 shadow-[inset_0_-1px_0_0_rgb(226_232_240)] last:border-r-0">
                   <div
-                    className="px-3 pb-3 pt-2 pr-5"
+                    className="px-3 pb-2.5 pt-2.5 pr-5"
                   >
-                    <div className="mb-2 flex items-start justify-between gap-2">
+                    <div className="mb-1.5 flex items-start justify-between gap-2">
                       <div
-                        className="cursor-grab break-words text-base font-bold whitespace-normal"
+                        className="cursor-grab break-words text-xs font-bold uppercase tracking-wide whitespace-normal"
                         draggable
                         onDragStart={() => setDraggedColumnId(column.id)}
                         onDragEnd={() => setDraggedColumnId(null)}
@@ -986,24 +993,31 @@ export default function ResultsTable({
                       >
                         {column.label}
                       </div>
-                      <button
-                        type="button"
-                        className={`rounded border px-2 py-1 text-xs ${(sortState ?? DEFAULT_SORT_STATE).columnId === column.id ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-gray-300 bg-white text-gray-700'}`}
-                        onClick={() => toggleSort(column.id)}
-                      >
-                        {(sortState ?? DEFAULT_SORT_STATE).columnId === column.id
-                          ? (sortState ?? DEFAULT_SORT_STATE).direction === 'asc'
-                            ? 'Sort A-Z'
-                            : 'Sort Z-A'
-                          : 'Sort'}
-                      </button>
+                      {/* Sort arrows: dark for the sorted column (up = A-Z, down = Z-A), pale for the others */}
+                      {(() => {
+                        const activeSort = sortState ?? DEFAULT_SORT_STATE;
+                        const isSorted = activeSort.columnId === column.id;
+                        const SortIcon = !isSorted ? ArrowUpDown : activeSort.direction === 'asc' ? ArrowUp : ArrowDown;
+                        const sortLabel = !isSorted ? `Sort by ${column.label}` : activeSort.direction === 'asc' ? `Sorted A-Z by ${column.label}` : `Sorted Z-A by ${column.label}`;
+                        return (
+                          <button
+                            type="button"
+                            aria-label={sortLabel}
+                            title={sortLabel}
+                            className={`shrink-0 rounded p-0.5 hover:bg-slate-200 ${isSorted ? 'text-slate-900' : 'text-slate-300 hover:text-slate-600'}`}
+                            onClick={() => toggleSort(column.id)}
+                          >
+                            <SortIcon size={14} strokeWidth={2.5} aria-hidden="true" />
+                          </button>
+                        );
+                      })()}
                     </div>
                     <input
                       type="text"
                       value={columnFilters[column.id]}
                       onChange={(event) => updateColumnFilter(column.id, event.target.value)}
                       placeholder={`Filter ${column.label.toLowerCase()}`}
-                      className="w-full rounded border border-gray-300 px-2 py-1 text-xs font-normal text-gray-700 placeholder:text-gray-400"
+                      className="w-full rounded-md border border-slate-200 bg-white px-2 py-1 text-xs font-normal text-slate-700 placeholder:text-slate-400"
                     />
                   </div>
                   <div
@@ -1035,8 +1049,28 @@ export default function ResultsTable({
             ))}
             {processedGroups.length === 0 && (
               <tr>
-                <td colSpan={visibleColumns.length + 1} className="p-4 text-center text-gray-500">
-                  {hasActiveTableFilters ? 'No rows match the current table filters' : 'No results found'}
+                <td colSpan={visibleColumns.length + 1} className="px-6 py-12">
+                  {/* Different messages before any search, after a search with no variants, and when table filters hide every row */}
+                  <div className="flex flex-col items-center gap-2.5 text-center">
+                    <span className={`flex h-11 w-11 items-center justify-center rounded-xl ${hasSearched && !hasActiveTableFilters ? 'bg-slate-100 text-slate-600' : 'bg-emerald-100 text-emerald-700'}`} aria-hidden="true">
+                      {hasActiveTableFilters ? <Filter size={22} /> : hasSearched ? <Dna size={22} /> : <Search size={22} />}
+                    </span>
+                    <span className="text-base font-semibold text-slate-900">
+                      {hasActiveTableFilters ? 'No rows match the table filters' : hasSearched ? 'No results found' : 'No search yet'}
+                    </span>
+                    <span className="max-w-md text-sm text-slate-500">
+                      {hasActiveTableFilters
+                        ? 'The filters under the column headers hide every row.'
+                        : hasSearched
+                          ? 'This patient has no variants in the searched genes or ranges.'
+                          : 'Enter genes or genomic ranges above, or pick a preset, then click Search to see this patient\'s variants.'}
+                    </span>
+                    {hasActiveTableFilters && (
+                      <button type="button" onClick={clearColumnFilters} className={TOOLBAR_BUTTON_CLASSES}>
+                        Clear table filters
+                      </button>
+                    )}
+                  </div>
                 </td>
               </tr>
             )}

@@ -105,10 +105,15 @@ export default function VariantGroupRow({
         }
     }, [highlightedVariantId, rest]);
 
-    const getRowClassName = (variant: Variant, borderClassName: string) => {
+    // Rows are lightly striped within the group; a selected row is tinted blue with a blue left edge
+    const getRowClassName = (variant: Variant, borderClassName: string, position: number) => {
         const isSelected = Boolean(variant.id && selectedVariantIds.has(variant.id));
         const isHighlighted = Boolean(variant.id && variant.id === highlightedVariantId);
-        const backgroundClassName = isHighlighted ? 'bg-amber-100' : isSelected ? 'bg-blue-50/60 hover:bg-blue-50' : 'hover:bg-gray-50';
+        const backgroundClassName = isHighlighted
+            ? 'bg-amber-100'
+            : isSelected
+                ? 'bg-blue-50 shadow-[inset_3px_0_0_rgb(59_130_246)] hover:bg-blue-100/70'
+                : position % 2 === 1 ? 'bg-slate-50/70 hover:bg-slate-100/70' : 'hover:bg-slate-50';
 
         return `border-t ${borderClassName} transition-colors duration-700 ${backgroundClassName}`;
     };
@@ -205,13 +210,20 @@ export default function VariantGroupRow({
 
     return (
         <>
+            {/* Each search term starts with a green band naming it and its variant count */}
+            <tr>
+                <td colSpan={columns.length + 1} className="border-y border-emerald-100 bg-emerald-50/70 px-3 py-1.5 text-sm">
+                    <span className="font-bold text-emerald-800">{range}</span>
+                    <span className="text-emerald-700"> · {variants.length} variant{variants.length === 1 ? '' : 's'}</span>
+                </td>
+            </tr>
             {visibleVariants.map((variant, index) => (
-                <tr key={variant.id || `${range}-visible-${index}`} id={variant.id ? `variant-row-${variant.id}` : undefined} className={getRowClassName(variant, 'border-gray-200')}>
+                <tr key={variant.id || `${range}-visible-${index}`} id={variant.id ? `variant-row-${variant.id}` : undefined} className={getRowClassName(variant, 'border-slate-100', index)}>
                     {renderCells(variant, index === 0)}
                 </tr>
             ))}
             {expanded && rest.map((variant, i) => (
-                <tr key={variant.id || `${range}-variant-${i}`} id={variant.id ? `variant-row-${variant.id}` : undefined} className={getRowClassName(variant, 'border-gray-100')}>
+                <tr key={variant.id || `${range}-variant-${i}`} id={variant.id ? `variant-row-${variant.id}` : undefined} className={getRowClassName(variant, 'border-slate-100', visibleVariants.length + i)}>
                     {renderCells(variant, false)}
                 </tr>
             ))}
