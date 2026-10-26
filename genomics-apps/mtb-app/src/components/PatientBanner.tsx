@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { FlaskConical } from 'lucide-react';
 import { CaseDx } from '@/cancerFilter/tumorTypeCrosswalk';
 import { fetchClinicalMrns } from '@/services/clinicalService';
 import { ClinicalState } from '@/lib/useClinicalRecord';
@@ -8,6 +9,7 @@ import {
   getLatestEcog,
   getLatestStage,
   getPatientSummary,
+  getStudyEnrollments,
 } from '@/lib/clinicalSummary';
 import { Condition } from '@/types/fhir';
 
@@ -38,6 +40,8 @@ const STATUS_CHIP_CLASSES: Record<DiseaseStatusTrend, string> = {
   stable: 'bg-slate-300 text-slate-900',
   other: 'bg-amber-200 text-amber-950',
 };
+
+const STUDY_CHIP_CLASSES = 'inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold text-sky-200 ring-1 ring-inset ring-sky-400';
 
 // "male" -> "M"; other values (e.g. "unknown") are shown as recorded
 const SEX_ABBREVIATIONS: Record<string, string> = { male: 'M', female: 'F' };
@@ -181,6 +185,7 @@ export default function PatientBanner({
   const stage = record ? getLatestStage(record.resources, bannerCondition) : undefined;
   const ecog = record ? getLatestEcog(record.resources) : undefined;
   const status = record ? getDiseaseStatus(record.resources, bannerCondition) : undefined;
+  const studies = record ? getStudyEnrollments(record.resources) : undefined;
 
   const demographics = summary ? [
     summary.age !== undefined ? `${summary.age} y` : undefined,
@@ -227,6 +232,25 @@ export default function PatientBanner({
           {status.label}{status.date ? ` ${status.date}` : ''}
         </span>
       )}
+
+      {/* Outlined so it doesn't read as another disease-status chip */}
+      {studies && (studies.url ? (
+        <a
+          href={studies.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={studies.tooltip}
+          className={`${STUDY_CHIP_CLASSES} hover:bg-sky-950`}
+        >
+          <FlaskConical size={14} aria-hidden="true" />
+          {studies.label}
+        </a>
+      ) : (
+        <span title={studies.tooltip} className={STUDY_CHIP_CLASSES}>
+          <FlaskConical size={14} aria-hidden="true" />
+          {studies.label}
+        </span>
+      ))}
 
       {!subjectId.trim() && <span className="text-slate-400">Choose a patient to begin.</span>}
       {clinicalState.status === 'loading' && <span className="text-slate-400">Loading clinical data…</span>}

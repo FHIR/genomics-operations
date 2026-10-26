@@ -1,4 +1,4 @@
-import { CodeableConcept, Condition, FhirResource, Observation, Patient } from '@/types/fhir';
+import { CodeableConcept, Condition, FhirResource, Observation, Patient, ResearchStudy, ResearchSubject } from '@/types/fhir';
 import { CaseDx, CrosswalkRow, mapCodingsToTumorType } from '@/cancerFilter/tumorTypeCrosswalk';
 
 // Selection rules for the patient banner (mtb-clinical-data-design.md sections 4.2 and 4.3). Every item
@@ -297,4 +297,69 @@ export function getDiseaseStatus(resources: FhirResource[], condition: Condition
     return { label: clinicalStatus, trend: 'other', tooltip: 'Clinical status of the primary cancer condition' };
   }
   return undefined;
+}
+
+// ResearchSubject statuses that mean the patient is enrolled; pre-enrollment and off-study ones aren't shown
+const ENROLLED_STATUSES: Record<string, string> = {
+  'on-study': 'On study',
+  'on-study-intervention': 'On study (intervention)',
+  'on-study-observation': 'On study (observation)',
+  'follow-up': 'In follow-up',
+};
+const NCT_PATTERN = /^NCT\d{8}$/;
+
+export interface StudyEnrollment {
+  label: string;
+  tooltip: string;
+  // ClinicalTrials.gov page, when there is exactly one study and it has an NCT number
+  url?: string;
+}
+
+function nctNumber(study: ResearchStudy | undefined) {
+  return study?.identifier?.find((identifier) => identifier.system?.includes('clinicaltrials.gov') || NCT_PATTERN.test(identifier.value ?? ''))?.value;
+}
+
+/**
+ * Research studies the patient is enrolled in, as one banner chip (mtb-clinical-data-design.md section 15):
+ * ResearchSubjects with an enrolled status whose period hasn't ended, each resolved to its ResearchStudy.
+ */
+export function getStudyEnrollments(resources: FhirResource[], today = new Date()): StudyEnrollment | undefined {
+  const todayText = today.toISOString().slice(0, 10);
+  const studies = new Map(
+    resources
+      .filter((resource): resource is ResearchStudy => resource.resourceType === 'ResearchStudy')
+      .map((study) => [`ResearchStudy/${study.id}`, study])
+  );
+  const enrollments = resources
+    .filter((resource): resource is ResearchSubject => resource.resourceType === 'ResearchSubject')
+    .filter((subject) => ENROLLED_STATUSES[subject.status ?? ''])
+    .filter((subject) => !subject.period?.end || formatDate(subject.period.end)! >= todayText)
+    .map((subject) => {
+      // Works for relative, absolute and versioned references
+      const key = subject.study?.reference?.match(/ResearchStudy\/[^/]+/)?.[0];
+      const study = key ? studies.get(key) : undefined;
+      return { subject, study, nct: nctNumber(study) };
+    });
+  if (enrollments.length === 0) {
+    return undefined;
+  }
+
+  const tooltip = enrollments.map(({ subject, study, nct }) => {
+    const since = formatDate(subject.period?.start);
+    const status = `${ENROLLED_STATUSES[subject.status ?? '']}${since ? ` since ${since}` : ''}`;
+    return [study?.title ?? subject.study?.display ?? 'Research study', nct ? `${nct} · ${status}` : status].join('\n');
+  });
+
+  if (enrollments.length > 1) {
+    return { label: `On ${enrollments.length} studies`, tooltip: tooltip.join('\n\n') };
+  }
+  const { study, nct } = enrollments[0];
+  const title = study?.title;
+  const shortTitle = title && title.length > 30 ? `${title.slice(0, 29)}…` : title;
+  const name = nct ?? shortTitle;
+  return {
+    label: name ? `On study · ${name}` : 'On study',
+    tooltip: nct ? `${tooltip[0]}\nClick to open on ClinicalTrials.gov` : tooltip[0],
+    url: nct ? `https://clinicaltrials.gov/study/${encodeURIComponent(nct)}` : undefined,
+  };
 }

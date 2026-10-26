@@ -67,7 +67,8 @@ export default function Home() {
 
   // State management using React hooks
   const [searchInput, setSearchInput] = useState('');
-  const [subjectId, setSubjectId] = useState('L2345');
+  // No patient is loaded at launch; the MRN box shows "Select a patient"
+  const [subjectId, setSubjectId] = useState('');
   const [results, setResults] = useState<Variant[]>([]);
   const [filteredResults, setFilteredResults] = useState<Variant[]>([]);
   const [searchStatus, setSearchStatus] = useState<Record<string, string>>({});
@@ -83,8 +84,8 @@ export default function Home() {
   const [isSearchWorkspaceCollapsed, setIsSearchWorkspaceCollapsed] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [activeView, setActiveView] = useState<'results' | 'pathways'>('results');
-  // The case views below the banner. The app opens on Case Summary when the first patient has clinical data and
-  // on Genomic Findings when they don't (decided once, unless the user picks a tab first); after that the
+  // The case views below the banner. The app opens on Case Summary; once the first patient is chosen it stays there
+  // if they have clinical data and moves to Genomic Findings if they don't (decided once, unless the user picks a tab first); after that the
   // chosen tab stays put when the patient changes
   const [caseView, setCaseView] = useState<CaseView>('summary');
   const initialViewChosenRef = useRef(false);
@@ -431,6 +432,10 @@ export default function Home() {
   ].filter(Boolean).join(' · ');
 
   const handleSearch = async () => {
+    // Nothing to search until a patient is chosen
+    if (!subjectId.trim()) {
+      return;
+    }
     if (!searchInput.trim()) {
       setResults([]);
       setFilteredResults([]);

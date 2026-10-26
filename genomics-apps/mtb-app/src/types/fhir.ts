@@ -147,6 +147,21 @@ export interface FamilyMemberHistory extends FhirResource {
   }[];
 }
 
+export interface ResearchSubject extends FhirResource {
+  resourceType: 'ResearchSubject';
+  status?: string;
+  period?: Period;
+  study?: Reference;
+  individual?: Reference;
+}
+
+export interface ResearchStudy extends FhirResource {
+  resourceType: 'ResearchStudy';
+  identifier?: Identifier[];
+  title?: string;
+  status?: string;
+}
+
 export interface Bundle {
   resourceType: 'Bundle';
   total?: number;
