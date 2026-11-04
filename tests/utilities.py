@@ -171,4 +171,4 @@ def compare_actual_and_expected_output(filename, actual_json):
                 with open(filename, 'w') as expected_output_file:
                     json.dump(sorted_actual, expected_output_file, indent=4)
             else:
-                assert json.dumps(sorted_expected) == json.dumps(sorted_expected)
+                assert json.dumps(sorted_actual) == json.dumps(sorted_expected)

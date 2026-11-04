@@ -36,6 +36,20 @@ def test_population_specific_variants_2(client):
 #     tu.compare_actual_and_expected_output(f'{tu.FIND_POPULATION_SPECIFIC_VARIANTS_OUTPUT_DIR}3.json', response.json)
 
 
+def test_population_specific_variants_4(client):
+    url = tu.find_population_specific_variants_query('variants=NC_000001.10:144931726:G:A,NC_000001.10:145532548:T:C,NC_000001.10:145592072:A:T&group=somatic-or-mixed-sequencing&includePatientList=true')
+    response = client.get(url)
+
+    tu.compare_actual_and_expected_output(f'{tu.FIND_POPULATION_SPECIFIC_VARIANTS_OUTPUT_DIR}4.json', response.json)
+
+
+def test_population_specific_variants_unknown_group(client):
+    url = tu.find_population_specific_variants_query('variants=NC_000001.10:144931726:G:A&group=does-not-exist')
+    response = client.get(url)
+
+    assert response.status_code == 404
+
+
 """
 Find Population Structural Intersecting Variants Tests
 ------------------------------------------------------
@@ -70,6 +84,13 @@ def test_population_structural_intersecting_variants_3(client):
     tu.compare_actual_and_expected_output(f'{tu.FIND_POPULATION_STRUCTURAL_INTERSECTING_VARIANTS_OUTPUT_DIR}3.json', response.json)
 
 
+def test_population_structural_intersecting_variants_4(client):
+    url = tu.find_population_structural_intersecting_variants_query('ranges=NC_000022.10:42522500-42526812&group=somatic-or-mixed-sequencing&includePatientList=true')
+    response = client.get(url)
+
+    tu.compare_actual_and_expected_output(f'{tu.FIND_POPULATION_STRUCTURAL_INTERSECTING_VARIANTS_OUTPUT_DIR}4.json', response.json)
+
+
 """
 Find Population Structural Subsuming Variants Tests
 ---------------------------------------------------
@@ -95,6 +116,13 @@ def test_population_structural_subsuming_variants_2(client):
     response = client.get(url)
 
     tu.compare_actual_and_expected_output(f'{tu.FIND_POPULATION_STRUCTURAL_SUBSUMING_VARIANTS_OUTPUT_DIR}2.json', response.json)
+
+
+def test_population_structural_subsuming_variants_3(client):
+    url = tu.find_population_structural_subsuming_variants_query('ranges=NC_000017.10:37844346-37884911,NC_000007.13:116312249-116438431&group=somatic-or-mixed-sequencing&includePatientList=true')
+    response = client.get(url)
+
+    tu.compare_actual_and_expected_output(f'{tu.FIND_POPULATION_STRUCTURAL_SUBSUMING_VARIANTS_OUTPUT_DIR}3.json', response.json)
 
 
 """
@@ -136,3 +164,10 @@ def test_population_specific_haplotypes_4(client):
     response = client.get(url)
 
     tu.compare_actual_and_expected_output(f'{tu.FIND_POPULATION_SPECIFIC_HAPLOTYPES_OUTPUT_DIR}4.json', response.json)
+
+
+def test_population_specific_haplotypes_5(client):
+    url = tu.find_population_specific_haplotypes_query('haplotypes=CYP2C19&group=germline-whole-exome-sequencing&includePatientList=true')
+    response = client.get(url)
+
+    tu.compare_actual_and_expected_output(f'{tu.FIND_POPULATION_SPECIFIC_HAPLOTYPES_OUTPUT_DIR}5.json', response.json)

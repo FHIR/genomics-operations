@@ -37,6 +37,7 @@ The operations return the following status codes:
 | 200 | `Successfully executed request` |
 | 400 | `ERROR: Invalid query parameters` |
 | 404 | `ERROR: Patient not found` |
+| 404 | `ERROR: Group not found` |
 | 422 | `ERROR: Failed LiftOver` |
 | 500 | `INTERNAL SERVER ERROR` |
 

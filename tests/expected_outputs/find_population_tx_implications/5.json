@@ -6,13 +6,13 @@
                 {
                     "name": "denominator",
                     "valueQuantity": {
-                        "value": 1116
+                        "value": 1115
                     }
                 },
                 {
                     "name": "numerator",
                     "valueQuantity": {
-                        "value": 14
+                        "value": 15
                     }
                 },
                 {
@@ -34,6 +34,10 @@
                 {
                     "name": "subject",
                     "valueString": "HG02657"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "L2345"
                 },
                 {
                     "name": "subject",

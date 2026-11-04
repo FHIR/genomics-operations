@@ -1,0 +1,76 @@
+{
+    "parameter": [
+        {
+            "name": "variants",
+            "part": [
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 16
+                    }
+                },
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 0
+                    }
+                },
+                {
+                    "name": "variantItem",
+                    "valueString": "NC_000001.10:145592072:A:T"
+                }
+            ]
+        },
+        {
+            "name": "variants",
+            "part": [
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 16
+                    }
+                },
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 1
+                    }
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NA18870"
+                },
+                {
+                    "name": "variantItem",
+                    "valueString": "NC_000001.10:144931726:G:A"
+                }
+            ]
+        },
+        {
+            "name": "variants",
+            "part": [
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 16
+                    }
+                },
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 1
+                    }
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NA18870"
+                },
+                {
+                    "name": "variantItem",
+                    "valueString": "NC_000001.10:145532548:T:C"
+                }
+            ]
+        }
+    ],
+    "resourceType": "Parameters"
+}

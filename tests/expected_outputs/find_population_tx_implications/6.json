@@ -1,0 +1,38 @@
+{
+    "parameter": [
+        {
+            "name": "implications",
+            "part": [
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 16
+                    }
+                },
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 4
+                    }
+                },
+                {
+                    "name": "subject",
+                    "valueString": "CA12345"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "FLATIRON1"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "L2345"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NA18870"
+                }
+            ]
+        }
+    ],
+    "resourceType": "Parameters"
+}

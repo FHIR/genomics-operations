@@ -32,6 +32,8 @@ paths:
             application/json:
               schema:
                 type: object
+        '404':
+          description: "Patient not found."
       parameters:
         - name: subject
           in: query
@@ -116,6 +118,8 @@ paths:
             application/json:
               schema:
                 type: object
+        '404':
+          description: "Patient not found."
       parameters:
         - name: subject
           in: query
@@ -189,6 +193,8 @@ paths:
             application/json:
               schema:
                 type: object
+        '404':
+          description: "Patient not found."
       parameters:
         - name: subject
           in: query
@@ -271,6 +277,8 @@ paths:
             application/json:
               schema:
                 type: object
+        '404':
+          description: "Patient not found."
       parameters:
         - name: subject
           in: query
@@ -353,6 +361,8 @@ paths:
             application/json:
               schema:
                 type: object
+        '404':
+          description: "Patient not found."
       parameters:
         - name: subject
           in: query
@@ -427,6 +437,8 @@ paths:
             application/json:
               schema:
                 type: object
+        '404':
+          description: "Patient not found."
       parameters:
         - name: subject
           in: query
@@ -504,6 +516,8 @@ paths:
             application/json:
               schema:
                 type: object
+        '404':
+          description: "Patient not found."
       parameters:
         - name: subject
           in: query
@@ -631,6 +645,8 @@ paths:
             application/json:
               schema:
                 type: object
+        '404':
+          description: "Patient not found."
       parameters:
         - name: subject
           in: query
@@ -726,6 +742,8 @@ paths:
             application/json:
               schema:
                 type: object
+        '404':
+          description: "Patient not found."
       parameters:
         - name: subject
           in: query
@@ -819,6 +837,8 @@ paths:
             application/json:
               schema:
                 type: object
+        '404':
+          description: "Patient not found."
       parameters:
         - name: subject
           in: query
@@ -886,6 +906,8 @@ paths:
             application/json:
               schema:
                 type: object
+        '404':
+          description: "Group not found."
       parameters:
         - name: variants
           in: query
@@ -915,6 +937,12 @@ paths:
             type: boolean
             default: false
           description: Include list of matching patients if set to true.
+        - name: group
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Identifier of a FHIR Group known to the server. If supplied, the search is restricted to members of the group (numerator counts only group members, denominator is the number of members in the group, and the subject list contains only group members). If omitted, all patients in the repository are searched. An unknown group identifier results in a 404 error.
 
   /population-operations/genotype-operations/$find-population-structural-intersecting-variants:
     get:
@@ -935,6 +963,8 @@ paths:
             application/json:
               schema:
                 type: object
+        '404':
+          description: "Group not found."
       parameters:
         - name: ranges
           in: query
@@ -964,6 +994,12 @@ paths:
             type: boolean
             default: false
           description: Include list of matching patients if set to true.
+        - name: group
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Identifier of a FHIR Group known to the server. If supplied, the search is restricted to members of the group (numerator counts only group members, denominator is the number of members in the group, and the subject list contains only group members). If omitted, all patients in the repository are searched. An unknown group identifier results in a 404 error.
 
   /population-operations/genotype-operations/$find-population-structural-subsuming-variants:
     get:
@@ -984,6 +1020,8 @@ paths:
             application/json:
               schema:
                 type: object
+        '404':
+          description: "Group not found."
       parameters:
         - name: ranges
           in: query
@@ -1013,6 +1051,12 @@ paths:
             type: boolean
             default: false
           description: Include list of matching patients if set to true.
+        - name: group
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Identifier of a FHIR Group known to the server. If supplied, the search is restricted to members of the group (numerator counts only group members, denominator is the number of members in the group, and the subject list contains only group members). If omitted, all patients in the repository are searched. An unknown group identifier results in a 404 error.
 
   /population-operations/genotype-operations/$find-population-specific-haplotypes:
     get:
@@ -1031,6 +1075,8 @@ paths:
             application/json:
               schema:
                 type: object
+        '404':
+          description: "Group not found."
       parameters:
         - name: haplotypes
           in: query
@@ -1058,6 +1104,12 @@ paths:
             type: boolean
             default: false
           description: Include list of matching patients if set to true.
+        - name: group
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Identifier of a FHIR Group known to the server. If supplied, the search is restricted to members of the group (numerator counts only group members, denominator is the number of members in the group, and the subject list contains only group members). If omitted, all patients in the repository are searched. An unknown group identifier results in a 404 error.
 
   /population-operations/phenotype-operations/$find-population-tx-implications:
     get:
@@ -1076,6 +1128,8 @@ paths:
             application/json:
               schema:
                 type: object
+        '404':
+          description: "Group not found."
       parameters:
         - name: variants
           in: query
@@ -1129,6 +1183,12 @@ paths:
             type: boolean
             default: false
           description: Include list of matching patients if set to true.
+        - name: group
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Identifier of a FHIR Group known to the server. If supplied, the search is restricted to members of the group (numerator counts only group members, denominator is the number of members in the group, and the subject list contains only group members). If omitted, all patients in the repository are searched. An unknown group identifier results in a 404 error.
 
   /population-operations/phenotype-operations/$find-population-dx-implications:
     get:
@@ -1147,6 +1207,8 @@ paths:
             application/json:
               schema:
                 type: object
+        '404':
+          description: "Group not found."
       parameters:
         - name: variants
           in: query
@@ -1193,6 +1255,12 @@ paths:
             type: boolean
             default: false
           description: Include list of matching patients if set to true.
+        - name: group
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Identifier of a FHIR Group known to the server. If supplied, the search is restricted to members of the group (numerator counts only group members, denominator is the number of members in the group, and the subject list contains only group members). If omitted, all patients in the repository are searched. An unknown group identifier results in a 404 error.
 
   /population-operations/phenotype-operations/$find-population-molecular-consequences:
     get:
@@ -1211,6 +1279,8 @@ paths:
             application/json:
               schema:
                 type: object
+        '404':
+          description: "Group not found."
       parameters:
         - name: variants
           in: query
@@ -1248,6 +1318,12 @@ paths:
             type: boolean
             default: false
           description: Include list of matching patients if set to true.
+        - name: group
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Identifier of a FHIR Group known to the server. If supplied, the search is restricted to members of the group (numerator counts only group members, denominator is the number of members in the group, and the subject list contains only group members). If omitted, all patients in the repository are searched. An unknown group identifier results in a 404 error.
 
   /utilities/get-feature-coordinates:
     get:

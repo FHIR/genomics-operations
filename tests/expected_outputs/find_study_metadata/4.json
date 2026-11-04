@@ -99,7 +99,7 @@
                     "valueCodeableConcept": {
                         "coding": [
                             {
-                                "code": " LA26806-2",
+                                "code": "LA26806-2",
                                 "display": "GRCh38",
                                 "system": "http://loinc.org"
                             }
