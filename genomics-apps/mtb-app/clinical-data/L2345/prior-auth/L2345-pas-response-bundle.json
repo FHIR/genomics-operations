@@ -1,0 +1,387 @@
+{
+  "resourceType": "Bundle",
+  "id": "mtb-l2345-pas-response",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/profile-pas-response-bundle"
+    ],
+    "tag": [
+      {
+        "system": "http://elimu.io/fhir/tags",
+        "code": "mtb-demo",
+        "display": "MTB app synthetic demo data"
+      }
+    ]
+  },
+  "identifier": {
+    "system": "http://elimu.io/fhir/synthetic-health-plan/response-id",
+    "value": "SHP-RESP-2026-110457"
+  },
+  "type": "collection",
+  "timestamp": "2026-11-04T14:40:00-05:00",
+  "entry": [
+    {
+      "fullUrl": "http://elimu.io/fhir/ClaimResponse/mtb-l2345-pas-claimresponse",
+      "resource": {
+        "resourceType": "ClaimResponse",
+        "id": "mtb-l2345-pas-claimresponse",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/profile-claimresponse"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://elimu.io/fhir/mtb-demo/patient-event-trace-number",
+            "value": "L2345-PA-0001"
+          }
+        ],
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/claim-type",
+              "code": "professional"
+            }
+          ]
+        },
+        "use": "preauthorization",
+        "patient": {
+          "reference": "Patient/mtb-l2345"
+        },
+        "created": "2026-11-04T14:40:00-05:00",
+        "insurer": {
+          "reference": "Organization/mtb-l2345-insurer"
+        },
+        "requestor": {
+          "reference": "Organization/mtb-l2345-requestor"
+        },
+        "request": {
+          "reference": "Claim/mtb-l2345-pas-claim"
+        },
+        "outcome": "complete",
+        "disposition": "Certified in total",
+        "preAuthRef": "SHP-PA-2026-110457",
+        "preAuthPeriod": {
+          "start": "2026-11-09",
+          "end": "2027-03-08"
+        },
+        "item": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/extension-itemTraceNumber",
+                "valueIdentifier": {
+                  "system": "http://elimu.io/fhir/mtb-demo/item-trace-number",
+                  "value": "L2345-PA-0001-1"
+                }
+              },
+              {
+                "url": "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/extension-itemPreAuthIssueDate",
+                "valueDate": "2026-11-04"
+              },
+              {
+                "url": "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/extension-itemPreAuthPeriod",
+                "valuePeriod": {
+                  "start": "2026-11-09",
+                  "end": "2027-03-08"
+                }
+              },
+              {
+                "url": "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/extension-itemAuthorizedDetail",
+                "extension": [
+                  {
+                    "url": "productOrServiceCode",
+                    "valueCodeableConcept": {
+                      "coding": [
+                        {
+                          "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                          "code": "J9011",
+                          "display": "Injection, datopotamab deruxtecan-dlnk, 1 mg"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "url": "quantity",
+                    "valueQuantity": {
+                      "value": 2670
+                    }
+                  }
+                ]
+              },
+              {
+                "url": "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/extension-itemAuthorizedProvider",
+                "extension": [
+                  {
+                    "url": "provider",
+                    "valueReference": {
+                      "reference": "Practitioner/mtb-l2345-oncologist"
+                    }
+                  }
+                ]
+              }
+            ],
+            "itemSequence": 1,
+            "adjudication": [
+              {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/extension-reviewAction",
+                    "extension": [
+                      {
+                        "url": "number",
+                        "valueString": "SHP-PA-2026-110457"
+                      },
+                      {
+                        "url": "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/extension-reviewActionCode",
+                        "valueCodeableConcept": {
+                          "coding": [
+                            {
+                              "system": "https://codesystem.x12.org/005010/306",
+                              "code": "A1",
+                              "display": "Certified in total"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "category": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/adjudication",
+                      "code": "submitted"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "processNote": [
+          {
+            "number": 1,
+            "type": "display",
+            "text": "Approved: 2670 units of J9011 (6 cycles of 445 mg), 2026-11-09 to 2027-03-08. Criteria met: EGFR-mutated metastatic NSCLC; progression after an EGFR TKI (osimertinib) and platinum-based chemotherapy; ECOG 0-2. Continuation beyond this period requires a new request with imaging showing no disease progression."
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/Patient/mtb-l2345",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "mtb-l2345",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/profile-beneficiary",
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-patient"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "valueCode": "M"
+          }
+        ],
+        "identifier": [
+          {
+            "use": "usual",
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "MR",
+                  "display": "Medical Record Number"
+                }
+              ]
+            },
+            "system": "http://elimu.io/fhir/mrn",
+            "value": "L2345"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "MB",
+                  "display": "Member Number"
+                }
+              ]
+            },
+            "system": "http://elimu.io/fhir/synthetic-health-plan/member-id",
+            "value": "SHP884120577"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "family": "Lung",
+            "given": [
+              "Larry"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1957-03-14"
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/Organization/mtb-l2345-insurer",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "mtb-l2345-insurer",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/profile-insurer"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://elimu.io/fhir/synthetic-health-plan/payer-id",
+            "value": "SHP01"
+          }
+        ],
+        "active": true,
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://codesystem.x12.org/005010/98",
+                "code": "PR",
+                "display": "Payer"
+              }
+            ]
+          }
+        ],
+        "name": "Synthetic Health Plan (demo)"
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/Organization/mtb-l2345-requestor",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "mtb-l2345-requestor",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/profile-requestor"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "7300123453"
+          }
+        ],
+        "active": true,
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://codesystem.x12.org/005010/98",
+                "code": "X3"
+              }
+            ]
+          }
+        ],
+        "name": "MTB Demo Cancer Center",
+        "address": [
+          {
+            "line": [
+              "100 Demo Way"
+            ],
+            "city": "Springfield",
+            "state": "IL",
+            "postalCode": "62701",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/Practitioner/mtb-l2345-oncologist",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "mtb-l2345-oncologist",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/profile-practitioner",
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "5200987654"
+          },
+          {
+            "system": "http://elimu.io/fhir/practitioner-id",
+            "value": "mtb-oncologist"
+          }
+        ],
+        "name": [
+          {
+            "family": "Oncologist",
+            "given": [
+              "Olivia"
+            ],
+            "prefix": [
+              "Dr."
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "394593009",
+                  "display": "Medical oncology"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

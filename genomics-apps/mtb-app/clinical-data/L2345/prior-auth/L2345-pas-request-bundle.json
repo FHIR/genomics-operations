@@ -1,0 +1,1994 @@
+{
+  "resourceType": "Bundle",
+  "id": "mtb-l2345-pas-request",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/profile-pas-request-bundle"
+    ],
+    "tag": [
+      {
+        "system": "http://elimu.io/fhir/tags",
+        "code": "mtb-demo",
+        "display": "MTB app synthetic demo data"
+      }
+    ]
+  },
+  "identifier": {
+    "system": "http://elimu.io/fhir/mtb-demo/submitter-transaction-identifier",
+    "value": "L2345-PA-0001"
+  },
+  "type": "collection",
+  "timestamp": "2026-11-02T10:15:00-05:00",
+  "entry": [
+    {
+      "fullUrl": "http://elimu.io/fhir/Claim/mtb-l2345-pas-claim",
+      "resource": {
+        "resourceType": "Claim",
+        "id": "mtb-l2345-pas-claim",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/profile-claim"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://elimu.io/fhir/mtb-demo/patient-event-trace-number",
+            "value": "L2345-PA-0001"
+          }
+        ],
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/claim-type",
+              "code": "professional"
+            }
+          ]
+        },
+        "use": "preauthorization",
+        "patient": {
+          "reference": "Patient/mtb-l2345"
+        },
+        "created": "2026-11-02T10:15:00-05:00",
+        "insurer": {
+          "reference": "Organization/mtb-l2345-insurer"
+        },
+        "provider": {
+          "reference": "Organization/mtb-l2345-requestor"
+        },
+        "priority": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/processpriority",
+              "code": "normal"
+            }
+          ]
+        },
+        "careTeam": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/extension-careTeamClaimScope",
+                "valueBoolean": true
+              }
+            ],
+            "sequence": 1,
+            "provider": {
+              "reference": "PractitionerRole/mtb-l2345-oncologist-role"
+            }
+          }
+        ],
+        "supportingInfo": [
+          {
+            "sequence": 1,
+            "category": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/davinci-pas/CodeSystem/PASTempCodes",
+                  "code": "freeFormMessage"
+                }
+              ]
+            },
+            "valueString": "69-year-old never-smoker with stage IVB EGFR L858R-mutated adenocarcinoma of the right lower lobe (C34.31), diagnosed 2023-05. First line: osimertinib with carboplatin and pemetrexed from 2023-06, then pemetrexed maintenance. Progression on 2026-09-28 with new liver metastases (biopsy-confirmed adenocarcinoma, no small cell transformation) and rising CEA. ECOG 1. He has received both prior EGFR-directed therapy and platinum-based chemotherapy, as required by the Datroway indication for EGFR-mutated NSCLC. Requesting datopotamab deruxtecan 6 mg/kg (445 mg) IV every 3 weeks for 6 cycles, then reassessment."
+          },
+          {
+            "sequence": 2,
+            "category": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/davinci-pas/CodeSystem/PASTempCodes",
+                  "code": "additionalInformation"
+                }
+              ]
+            },
+            "valueReference": {
+              "reference": "Condition/mtb-l2345-primary-cancer"
+            }
+          },
+          {
+            "sequence": 3,
+            "category": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/davinci-pas/CodeSystem/PASTempCodes",
+                  "code": "additionalInformation"
+                }
+              ]
+            },
+            "valueReference": {
+              "reference": "Condition/mtb-l2345-liver-metastases"
+            }
+          },
+          {
+            "sequence": 4,
+            "category": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/davinci-pas/CodeSystem/PASTempCodes",
+                  "code": "additionalInformation"
+                }
+              ]
+            },
+            "valueReference": {
+              "reference": "Observation/mtb-l2345-tnm-clinical-stage-group"
+            }
+          },
+          {
+            "sequence": 5,
+            "category": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/davinci-pas/CodeSystem/PASTempCodes",
+                  "code": "additionalInformation"
+                }
+              ]
+            },
+            "valueReference": {
+              "reference": "Observation/mtb-l2345-disease-status-2026-09-28"
+            }
+          },
+          {
+            "sequence": 6,
+            "category": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/davinci-pas/CodeSystem/PASTempCodes",
+                  "code": "additionalInformation"
+                }
+              ]
+            },
+            "valueReference": {
+              "reference": "DiagnosticReport/mtb-l2345-ct-cap-2026-09-28"
+            }
+          },
+          {
+            "sequence": 7,
+            "category": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/davinci-pas/CodeSystem/PASTempCodes",
+                  "code": "additionalInformation"
+                }
+              ]
+            },
+            "valueReference": {
+              "reference": "DiagnosticReport/mtb-l2345-path-liver-biopsy"
+            }
+          },
+          {
+            "sequence": 8,
+            "category": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/davinci-pas/CodeSystem/PASTempCodes",
+                  "code": "additionalInformation"
+                }
+              ]
+            },
+            "valueReference": {
+              "reference": "MedicationRequest/mtb-l2345-medrx-osimertinib"
+            }
+          },
+          {
+            "sequence": 9,
+            "category": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/davinci-pas/CodeSystem/PASTempCodes",
+                  "code": "additionalInformation"
+                }
+              ]
+            },
+            "valueReference": {
+              "reference": "MedicationRequest/mtb-l2345-medrx-carboplatin"
+            }
+          },
+          {
+            "sequence": 10,
+            "category": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/davinci-pas/CodeSystem/PASTempCodes",
+                  "code": "additionalInformation"
+                }
+              ]
+            },
+            "valueReference": {
+              "reference": "MedicationRequest/mtb-l2345-medrx-pemetrexed"
+            }
+          },
+          {
+            "sequence": 11,
+            "category": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/davinci-pas/CodeSystem/PASTempCodes",
+                  "code": "additionalInformation"
+                }
+              ]
+            },
+            "valueReference": {
+              "reference": "DiagnosticReport/mtb-l2345-molecular-2023-06-09"
+            }
+          },
+          {
+            "sequence": 12,
+            "category": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/davinci-pas/CodeSystem/PASTempCodes",
+                  "code": "additionalInformation"
+                }
+              ]
+            },
+            "valueReference": {
+              "reference": "Observation/mtb-l2345-ecog-2026-10-08"
+            }
+          },
+          {
+            "sequence": 13,
+            "category": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/davinci-pas/CodeSystem/PASTempCodes",
+                  "code": "additionalInformation"
+                }
+              ]
+            },
+            "valueReference": {
+              "reference": "Observation/mtb-l2345-weight-2026-10-08"
+            }
+          },
+          {
+            "sequence": 14,
+            "category": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/davinci-pas/CodeSystem/PASTempCodes",
+                  "code": "additionalInformation"
+                }
+              ]
+            },
+            "valueReference": {
+              "reference": "Observation/mtb-l2345-egfr-l858r"
+            }
+          }
+        ],
+        "diagnosis": [
+          {
+            "sequence": 1,
+            "diagnosisCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/sid/icd-10-cm",
+                  "code": "C34.31",
+                  "display": "Malignant neoplasm of lower lobe, right bronchus or lung"
+                }
+              ]
+            }
+          },
+          {
+            "sequence": 2,
+            "diagnosisCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/sid/icd-10-cm",
+                  "code": "C78.7",
+                  "display": "Secondary malignant neoplasm of liver and intrahepatic bile duct"
+                }
+              ]
+            }
+          },
+          {
+            "sequence": 3,
+            "diagnosisCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/sid/icd-10-cm",
+                  "code": "C79.51",
+                  "display": "Secondary malignant neoplasm of bone"
+                }
+              ]
+            }
+          }
+        ],
+        "insurance": [
+          {
+            "sequence": 1,
+            "focal": true,
+            "coverage": {
+              "reference": "Coverage/mtb-l2345-coverage"
+            }
+          }
+        ],
+        "item": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/extension-itemTraceNumber",
+                "valueIdentifier": {
+                  "system": "http://elimu.io/fhir/mtb-demo/item-trace-number",
+                  "value": "L2345-PA-0001-1"
+                }
+              },
+              {
+                "url": "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/extension-serviceItemRequestType",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "https://codesystem.x12.org/005010/1525",
+                      "code": "HS",
+                      "display": "Health Services Review"
+                    }
+                  ]
+                }
+              },
+              {
+                "url": "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/extension-certificationType",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "https://codesystem.x12.org/005010/1322",
+                      "code": "I",
+                      "display": "Initial"
+                    }
+                  ]
+                }
+              },
+              {
+                "url": "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/extension-requestedService",
+                "valueReference": {
+                  "reference": "MedicationRequest/mtb-l2345-medrx-datopotamab"
+                }
+              }
+            ],
+            "sequence": 1,
+            "careTeamSequence": [
+              1
+            ],
+            "diagnosisSequence": [
+              1,
+              2,
+              3
+            ],
+            "category": {
+              "coding": [
+                {
+                  "system": "https://codesystem.x12.org/005010/1365",
+                  "code": "78",
+                  "display": "Chemotherapy"
+                }
+              ]
+            },
+            "productOrService": {
+              "coding": [
+                {
+                  "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                  "code": "J9011",
+                  "display": "Injection, datopotamab deruxtecan-dlnk, 1 mg"
+                }
+              ]
+            },
+            "servicedPeriod": {
+              "start": "2026-11-09",
+              "end": "2027-02-22"
+            },
+            "locationCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://www.cms.gov/Medicare/Coding/place-of-service-codes/Place_of_Service_Code_Set",
+                  "code": "11",
+                  "display": "Office"
+                }
+              ]
+            },
+            "quantity": {
+              "value": 2670,
+              "unit": "units (1 mg each)"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/Patient/mtb-l2345",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "mtb-l2345",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/profile-beneficiary",
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-patient"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "valueCode": "M"
+          }
+        ],
+        "identifier": [
+          {
+            "use": "usual",
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "MR",
+                  "display": "Medical Record Number"
+                }
+              ]
+            },
+            "system": "http://elimu.io/fhir/mrn",
+            "value": "L2345"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "MB",
+                  "display": "Member Number"
+                }
+              ]
+            },
+            "system": "http://elimu.io/fhir/synthetic-health-plan/member-id",
+            "value": "SHP884120577"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "family": "Lung",
+            "given": [
+              "Larry"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1957-03-14"
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/Coverage/mtb-l2345-coverage",
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "mtb-l2345-coverage",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/profile-coverage"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "active",
+        "subscriberId": "SHP884120577",
+        "beneficiary": {
+          "reference": "Patient/mtb-l2345"
+        },
+        "relationship": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/subscriber-relationship",
+              "code": "self"
+            }
+          ]
+        },
+        "period": {
+          "start": "2026-01-01",
+          "end": "2026-12-31"
+        },
+        "payor": [
+          {
+            "reference": "Organization/mtb-l2345-insurer"
+          }
+        ],
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/coverage-class",
+                  "code": "group"
+                }
+              ]
+            },
+            "value": "GRP-20410",
+            "name": "Demo Employer Group"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/coverage-class",
+                  "code": "plan"
+                }
+              ]
+            },
+            "value": "PPO-GOLD",
+            "name": "Gold PPO"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/Organization/mtb-l2345-insurer",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "mtb-l2345-insurer",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/profile-insurer"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://elimu.io/fhir/synthetic-health-plan/payer-id",
+            "value": "SHP01"
+          }
+        ],
+        "active": true,
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://codesystem.x12.org/005010/98",
+                "code": "PR",
+                "display": "Payer"
+              }
+            ]
+          }
+        ],
+        "name": "Synthetic Health Plan (demo)"
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/Organization/mtb-l2345-requestor",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "mtb-l2345-requestor",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/profile-requestor"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "7300123453"
+          }
+        ],
+        "active": true,
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://codesystem.x12.org/005010/98",
+                "code": "X3"
+              }
+            ]
+          }
+        ],
+        "name": "MTB Demo Cancer Center",
+        "address": [
+          {
+            "line": [
+              "100 Demo Way"
+            ],
+            "city": "Springfield",
+            "state": "IL",
+            "postalCode": "62701",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/PractitionerRole/mtb-l2345-oncologist-role",
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "mtb-l2345-oncologist-role",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/profile-practitionerrole"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "practitioner": {
+          "reference": "Practitioner/mtb-l2345-oncologist"
+        },
+        "organization": {
+          "reference": "Organization/mtb-l2345-requestor"
+        },
+        "code": [
+          {
+            "coding": [
+              {
+                "system": "http://nucc.org/provider-taxonomy",
+                "code": "207RX0202X",
+                "display": "Medical Oncology Physician"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/Practitioner/mtb-l2345-oncologist",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "mtb-l2345-oncologist",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/profile-practitioner",
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "5200987654"
+          },
+          {
+            "system": "http://elimu.io/fhir/practitioner-id",
+            "value": "mtb-oncologist"
+          }
+        ],
+        "name": [
+          {
+            "family": "Oncologist",
+            "given": [
+              "Olivia"
+            ],
+            "prefix": [
+              "Dr."
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "394593009",
+                  "display": "Medical oncology"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/MedicationRequest/mtb-l2345-medrx-datopotamab",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "mtb-l2345-medrx-datopotamab",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/davinci-pas/StructureDefinition/profile-medicationrequest"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "draft",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/ndc",
+              "code": "65597-801-01"
+            }
+          ],
+          "text": "datopotamab deruxtecan-dlnk (Datroway) 100 mg vial"
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345"
+        },
+        "authoredOn": "2026-11-02",
+        "requester": {
+          "reference": "Practitioner/mtb-l2345-oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-l2345-primary-cancer"
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "text": "6 mg/kg (445 mg at 74.2 kg) IV infusion every 3 weeks, 6 cycles, then reassess",
+            "timing": {
+              "repeat": {
+                "count": 6,
+                "frequency": 1,
+                "period": 3,
+                "periodUnit": "wk"
+              }
+            },
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "47625008",
+                  "display": "Intravenous route"
+                }
+              ]
+            },
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "value": 445,
+                  "unit": "mg",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "mg"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/Condition/mtb-l2345-primary-cancer",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "mtb-l2345-primary-cancer",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-primary-cancer-condition"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-histology-morphology-behavior",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "1187332001",
+                  "display": "Adenocarcinoma"
+                }
+              ]
+            }
+          }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "254626006",
+              "display": "Adenocarcinoma of lung"
+            },
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "C34.31",
+              "display": "Malignant neoplasm of lower lobe, right bronchus or lung"
+            }
+          ],
+          "text": "Adenocarcinoma of right lower lobe of lung"
+        },
+        "bodySite": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-laterality-qualifier",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://snomed.info/sct",
+                      "code": "24028007",
+                      "display": "Right"
+                    }
+                  ]
+                }
+              }
+            ],
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "266005",
+                "display": "Structure of lower lobe of right lung"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "onsetDateTime": "2023-05-25",
+        "recordedDate": "2023-05-25",
+        "asserter": {
+          "reference": "Practitioner/mtb-l2345-oncologist",
+          "display": "Dr. Olivia Oncologist"
+        },
+        "note": [
+          {
+            "text": "EGFR exon 21 L858R-mutated (initial molecular report 2023-06-09)."
+          }
+        ],
+        "stage": [
+          {
+            "summary": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "1222841004",
+                  "display": "IVB (AJCC)"
+                }
+              ],
+              "text": "Stage IVB (AJCC)"
+            },
+            "assessment": [
+              {
+                "reference": "Observation/mtb-l2345-tnm-clinical-stage-group"
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "897275008",
+                  "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+                }
+              ]
+            }
+          }
+        ],
+        "evidence": [
+          {
+            "detail": [
+              {
+                "reference": "DiagnosticReport/mtb-l2345-path-rll-fna"
+              },
+              {
+                "reference": "DiagnosticReport/mtb-l2345-path-left-iliac-biopsy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/Condition/mtb-l2345-liver-metastases",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "mtb-l2345-liver-metastases",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-secondary-cancer-condition"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/condition-related",
+            "valueReference": {
+              "reference": "Condition/mtb-l2345-primary-cancer",
+              "display": "Adenocarcinoma of right lower lobe of lung"
+            }
+          }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "94381002",
+              "display": "Metastatic malignant neoplasm to liver"
+            }
+          ]
+        },
+        "note": [
+          {
+            "text": "New lesions in segments 6 and 7 at progression."
+          }
+        ],
+        "bodySite": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "10200004",
+                "display": "Liver structure"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "onsetDateTime": "2026-09-28",
+        "recordedDate": "2026-10-08",
+        "asserter": {
+          "reference": "Practitioner/mtb-l2345-oncologist",
+          "display": "Dr. Olivia Oncologist"
+        },
+        "evidence": [
+          {
+            "detail": [
+              {
+                "reference": "DiagnosticReport/mtb-l2345-ct-cap-2026-09-28"
+              },
+              {
+                "reference": "DiagnosticReport/mtb-l2345-path-liver-biopsy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/Observation/mtb-l2345-tnm-clinical-stage-group",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-tnm-clinical-stage-group",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-stage-group"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "imaging",
+                "display": "Imaging"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-l2345-primary-cancer",
+            "display": "Adenocarcinoma of right lower lobe of lung"
+          }
+        ],
+        "effectiveDateTime": "2023-05-30",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-oncologist",
+            "display": "Dr. Olivia Oncologist"
+          }
+        ],
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "897275008",
+              "display": "American Joint Committee on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "399537006",
+              "display": "Clinical TNM stage grouping"
+            }
+          ]
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1222841004",
+              "display": "IVB (AJCC)"
+            }
+          ]
+        },
+        "hasMember": [
+          {
+            "reference": "Observation/mtb-l2345-tnm-clinical-t"
+          },
+          {
+            "reference": "Observation/mtb-l2345-tnm-clinical-n"
+          },
+          {
+            "reference": "Observation/mtb-l2345-tnm-clinical-m"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/Observation/mtb-l2345-disease-status-2026-09-28",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-disease-status-2026-09-28",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-disease-status"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-disease-status-evidence-type",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "363679005",
+                  "display": "Imaging"
+                }
+              ]
+            }
+          }
+        ],
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "97509-4",
+              "display": "Cancer disease progression"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "focus": [
+          {
+            "reference": "Condition/mtb-l2345-primary-cancer",
+            "display": "Adenocarcinoma of right lower lobe of lung"
+          }
+        ],
+        "effectiveDateTime": "2026-09-28",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-oncologist",
+            "display": "Dr. Olivia Oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "271299001",
+              "display": "Patient's condition worsened"
+            }
+          ]
+        },
+        "note": [
+          {
+            "text": "Progression: enlarging RLL primary, new liver metastases, new LLL nodule."
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/DiagnosticReport/mtb-l2345-ct-cap-2026-09-28",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-l2345-ct-cap-2026-09-28",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP29684-5",
+                "display": "Radiology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "72254-6",
+              "display": "CT Chest and Abdomen and Pelvis W contrast IV"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-09-28",
+        "issued": "2026-09-28T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-radiologist",
+            "display": "Dr. Rita Radiologist"
+          }
+        ],
+        "conclusion": "Progression of disease. Right lower lobe mass enlarged to 3.4 x 2.8 cm (from nadir 2.1 x 1.7 cm). Two new hypoattenuating liver lesions in segments 6 (2.4 cm) and 7 (1.5 cm), consistent with metastases. New 1.1 cm left lower lobe nodule. Osseous metastases stable and sclerotic. No new bone lesions.",
+        "result": [
+          {
+            "reference": "Observation/mtb-l2345-tumor-size-2026-09-28"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/DiagnosticReport/mtb-l2345-path-liver-biopsy",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-l2345-path-liver-biopsy",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP7839-6",
+                "display": "Pathology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11526-1",
+              "display": "Pathology study"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-06",
+        "issued": "2026-10-06T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "conclusion": "Liver segment 6 lesion, CT-guided core biopsy: metastatic adenocarcinoma, TTF-1 positive, consistent with the known lung primary. No small cell or squamous transformation identified. Tissue sent for repeat comprehensive genomic profiling.",
+        "specimen": [
+          {
+            "reference": "Specimen/mtb-l2345-specimen-liver-core"
+          }
+        ],
+        "conclusionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "1187332001",
+                "display": "Adenocarcinoma"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/MedicationRequest/mtb-l2345-medrx-osimertinib",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "mtb-l2345-medrx-osimertinib",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-medication-request"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "363676003",
+                  "display": "Palliative intent"
+                }
+              ]
+            }
+          }
+        ],
+        "status": "active",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "outpatient",
+                "display": "Outpatient"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "1721581",
+              "display": "osimertinib 80 MG Oral Tablet"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "authoredOn": "2023-06-19",
+        "requester": {
+          "reference": "Practitioner/mtb-l2345-oncologist",
+          "display": "Dr. Olivia Oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-l2345-primary-cancer",
+            "display": "Adenocarcinoma of right lower lobe of lung"
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "text": "Osimertinib 80 mg by mouth once daily",
+            "timing": {
+              "repeat": {
+                "boundsPeriod": {
+                  "start": "2023-06-19"
+                },
+                "frequency": 1,
+                "period": 1,
+                "periodUnit": "d"
+              }
+            },
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "26643006",
+                  "display": "Oral route"
+                }
+              ]
+            },
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "value": 80,
+                  "unit": "mg",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "mg"
+                }
+              }
+            ]
+          }
+        ],
+        "note": [
+          {
+            "text": "First-line, with carboplatin/pemetrexed (FLAURA2 regimen) for EGFR L858R-mutated stage IVB adenocarcinoma. Continued after the 2026-09-28 progression scan pending repeat genomic profiling of the liver lesion and molecular tumor board review."
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/MedicationRequest/mtb-l2345-medrx-carboplatin",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "mtb-l2345-medrx-carboplatin",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-medication-request"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "363676003",
+                  "display": "Palliative intent"
+                }
+              ]
+            }
+          }
+        ],
+        "status": "completed",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "outpatient",
+                "display": "Outpatient"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "597195",
+              "display": "carboplatin 10 MG/ML Injectable Solution"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "authoredOn": "2023-06-19",
+        "requester": {
+          "reference": "Practitioner/mtb-l2345-oncologist",
+          "display": "Dr. Olivia Oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-l2345-primary-cancer",
+            "display": "Adenocarcinoma of right lower lobe of lung"
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "text": "Carboplatin AUC 5 IV on day 1 every 21 days x 4 cycles",
+            "timing": {
+              "repeat": {
+                "boundsPeriod": {
+                  "start": "2023-06-19",
+                  "end": "2023-08-21"
+                },
+                "count": 4,
+                "frequency": 1,
+                "period": 21,
+                "periodUnit": "d"
+              }
+            },
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "47625008",
+                  "display": "Intravenous route"
+                }
+              ]
+            }
+          }
+        ],
+        "note": [
+          {
+            "text": "Cycles given 2023-06-19, 2023-07-10, 2023-07-31, 2023-08-21."
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/MedicationRequest/mtb-l2345-medrx-pemetrexed",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "mtb-l2345-medrx-pemetrexed",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-medication-request"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "363676003",
+                  "display": "Palliative intent"
+                }
+              ]
+            }
+          }
+        ],
+        "status": "stopped",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "outpatient",
+                "display": "Outpatient"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "1728072",
+              "display": "pemetrexed 500 MG Injection"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "authoredOn": "2023-06-19",
+        "requester": {
+          "reference": "Practitioner/mtb-l2345-oncologist",
+          "display": "Dr. Olivia Oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-l2345-primary-cancer",
+            "display": "Adenocarcinoma of right lower lobe of lung"
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "text": "Pemetrexed 500 mg/m2 IV on day 1 every 21 days (4 cycles with carboplatin, then maintenance)",
+            "timing": {
+              "repeat": {
+                "boundsPeriod": {
+                  "start": "2023-06-19",
+                  "end": "2026-09-28"
+                },
+                "frequency": 1,
+                "period": 21,
+                "periodUnit": "d"
+              }
+            },
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "47625008",
+                  "display": "Intravenous route"
+                }
+              ]
+            },
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "value": 500,
+                  "unit": "mg/m2",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "mg/m2"
+                }
+              }
+            ]
+          }
+        ],
+        "statusReason": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "266721009",
+              "display": "Absent response to treatment"
+            }
+          ]
+        },
+        "note": [
+          {
+            "text": "With folic acid and vitamin B12 supplementation. Maintenance stopped at progression on 2026-09-28."
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/DiagnosticReport/mtb-l2345-molecular-2023-06-09",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-l2345-molecular-2023-06-09",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP7839-6",
+                "display": "Pathology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "51969-4",
+              "display": "Genetic analysis report"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2023-06-09",
+        "issued": "2023-06-09T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "conclusion": "Initial tumor genomic profiling (RLL FNA cell block, targeted NGS): EGFR exon 21 L858R detected. No ALK, ROS1, RET or NTRK fusions; no MET exon 14 skipping; KRAS and BRAF wild type. Detailed variant-level results are maintained on the genomics server, not in this report.",
+        "specimen": [
+          {
+            "reference": "Specimen/mtb-l2345-specimen-rll-fna"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/Observation/mtb-l2345-ecog-2026-10-08",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-ecog-2026-10-08",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-ecog-performance-status"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "survey",
+                "display": "Survey"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "89247-1",
+              "display": "ECOG Performance Status score"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-08",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-oncologist",
+            "display": "Dr. Olivia Oncologist"
+          }
+        ],
+        "valueInteger": 1,
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LA9623-5",
+                "display": "Restricted in physically strenuous activity but ambulatory and able to carry out work of a light or sedentary nature, e.g., light house work, office work"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/Observation/mtb-l2345-weight-2026-10-08",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-weight-2026-10-08",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/bodyweight",
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-weight"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "29463-7",
+              "display": "Body weight"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-08",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-oncologist",
+            "display": "Dr. Olivia Oncologist"
+          }
+        ],
+        "valueQuantity": {
+          "value": 74.2,
+          "unit": "kg",
+          "system": "http://unitsofmeasure.org",
+          "code": "kg"
+        }
+      }
+    },
+    {
+      "fullUrl": "http://elimu.io/fhir/Observation/mtb-l2345-egfr-l858r",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-egfr-l858r",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "69548-6",
+              "display": "Genetic variant assessment"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA9633-4",
+              "display": "Present"
+            }
+          ]
+        },
+        "note": [
+          {
+            "text": "Source: FHIR Genomics Operations (fhir-gen-ops.herokuapp.com), variant dv-69851b51cd18150898d85c1d."
+          }
+        ],
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48018-6",
+                  "display": "Gene studied [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.genenames.org/geneId",
+                  "code": "HGNC:3236",
+                  "display": "EGFR"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81252-9",
+                  "display": "Discrete genetic variant"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
+                  "code": "NC_000007.14:55191821:T:G"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48004-6",
+                  "display": "DNA change (c.HGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "NM_005228.5:c.2573T>G"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48005-3",
+                  "display": "Amino acid change (pHGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "NP_005219.2:p.Leu858Arg"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
