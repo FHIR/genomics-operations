@@ -2081,6 +2081,57 @@
 					"response": []
 				},
 				{
+					"name": "OR example, restricted to group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/genotype-operations/$find-population-specific-variants?variants=NC_000001.10:144931726:G:A, NC_000001.10:145532548:T:C, NC_000001.10:145592072:A:T&includePatientList=true&group=somatic-or-mixed-sequencing",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"genotype-operations",
+								"$find-population-specific-variants"
+							],
+							"query": [
+								{
+									"key": "variants",
+									"value": "NC_000001.10:144931726:G:A, NC_000001.10:145532548:T:C, NC_000001.10:145592072:A:T"
+								},
+								{
+									"key": "testIdentifiers",
+									"value": "TL000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "specimenIdentifiers",
+									"value": "GS000016660-ASM",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "germline",
+									"disabled": true
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								},
+								{
+									"key": "group",
+									"value": "somatic-or-mixed-sequencing"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "BRAF V600E",
 					"request": {
 						"method": "GET",
@@ -2227,6 +2278,42 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "CYP2D6 SVs in group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/genotype-operations/$find-population-structural-intersecting-variants?ranges=NC_000022.10:42522500-42526812&includePatientList=true&group=somatic-or-mixed-sequencing",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"genotype-operations",
+								"$find-population-structural-intersecting-variants"
+							],
+							"query": [
+								{
+									"key": "ranges",
+									"value": "NC_000022.10:42522500-42526812"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								},
+								{
+									"key": "group",
+									"value": "somatic-or-mixed-sequencing"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -2291,6 +2378,42 @@
 								{
 									"key": "includePatientList",
 									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ERBB2, MET SVs in group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/genotype-operations/$find-population-structural-subsuming-variants?ranges=NC_000017.10:37844346-37884911,NC_000007.13:116312249-116438431&includePatientList=true&group=somatic-or-mixed-sequencing",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"genotype-operations",
+								"$find-population-structural-subsuming-variants"
+							],
+							"query": [
+								{
+									"key": "ranges",
+									"value": "NC_000017.10:37844346-37884911,NC_000007.13:116312249-116438431"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								},
+								{
+									"key": "group",
+									"value": "somatic-or-mixed-sequencing"
 								}
 							]
 						}
@@ -2392,6 +2515,42 @@
 								{
 									"key": "includePatientList",
 									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Group - CYP2C19",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/genotype-operations/$find-population-specific-haplotypes?haplotypes=CYP2C19&includePatientList=true&group=germline-whole-exome-sequencing",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"genotype-operations",
+								"$find-population-specific-haplotypes"
+							],
+							"query": [
+								{
+									"key": "haplotypes",
+									"value": "CYP2C19"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								},
+								{
+									"key": "group",
+									"value": "germline-whole-exome-sequencing"
 								}
 							]
 						}
@@ -2694,6 +2853,62 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Group tx implications of NSCLC",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/phenotype-operations/$find-population-tx-implications?conditions=https://disease-ontology.org|DOID:3908&includePatientList=true&group=somatic-or-mixed-sequencing",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"phenotype-operations",
+								"$find-population-tx-implications"
+							],
+							"query": [
+								{
+									"key": "treatments",
+									"value": "http://www.nlm.nih.gov/research/umls/rxnorm|337525,http://www.nlm.nih.gov/research/umls/rxnorm|1147220,http://www.nlm.nih.gov/research/umls/rxnorm|1721560",
+									"disabled": true
+								},
+								{
+									"key": "genomicSourceClass",
+									"value": "somatic",
+									"disabled": true
+								},
+								{
+									"key": "haplotypes",
+									"value": "CYP2D6 *1/*41",
+									"disabled": true
+								},
+								{
+									"key": "variants",
+									"value": "NM_002524.5:c.182A>C,NM_001354609.2:c.1799T>A",
+									"disabled": true
+								},
+								{
+									"key": "conditions",
+									"value": "https://disease-ontology.org|DOID:3908"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								},
+								{
+									"key": "group",
+									"value": "somatic-or-mixed-sequencing"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -2802,6 +3017,42 @@
 					"response": []
 				},
 				{
+					"name": "Group - hemachromatosis",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/phenotype-operations/$find-population-dx-implications?conditions=https://www.ncbi.nlm.nih.gov/medgen|C3469186&includePatientList=true&group=germline-whole-exome-sequencing",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"phenotype-operations",
+								"$find-population-dx-implications"
+							],
+							"query": [
+								{
+									"key": "conditions",
+									"value": "https://www.ncbi.nlm.nih.gov/medgen|C3469186"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								},
+								{
+									"key": "group",
+									"value": "germline-whole-exome-sequencing"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Population - HBOC, LS, FH",
 					"request": {
 						"method": "GET",
@@ -2868,6 +3119,42 @@
 								{
 									"key": "includePatientList",
 									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Missense variants in group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fhir-gen-ops.herokuapp.com/population-operations/phenotype-operations/$find-population-molecular-consequences?featureConsequences=http://sequenceontology.org|SO:0001583&includePatientList=true&group=somatic-or-mixed-sequencing",
+							"protocol": "https",
+							"host": [
+								"fhir-gen-ops",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"population-operations",
+								"phenotype-operations",
+								"$find-population-molecular-consequences"
+							],
+							"query": [
+								{
+									"key": "featureConsequences",
+									"value": "http://sequenceontology.org|SO:0001583"
+								},
+								{
+									"key": "includePatientList",
+									"value": "true"
+								},
+								{
+									"key": "group",
+									"value": "somatic-or-mixed-sequencing"
 								}
 							]
 						}

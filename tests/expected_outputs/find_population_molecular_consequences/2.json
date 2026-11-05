@@ -1,0 +1,62 @@
+{
+    "parameter": [
+        {
+            "name": "consequences",
+            "part": [
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 16
+                    }
+                },
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 10
+                    }
+                },
+                {
+                    "name": "subject",
+                    "valueString": "CA12345"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "FLATIRON1"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "HCC1143"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "HCC1143a"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "L2345"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "NA18870"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-DD-A1EH"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "m123"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "m6123"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "m7123"
+                }
+            ]
+        }
+    ],
+    "resourceType": "Parameters"
+}

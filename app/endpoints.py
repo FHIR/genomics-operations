@@ -1466,9 +1466,10 @@ def find_study_metadata(
 
 
 def find_population_specific_variants(
-        variants, genomicSourceClass=None, includePatientList=None):
+        variants, genomicSourceClass=None, includePatientList=None, group=None):
 
     # Parameters
+    group_members = common.get_group_members(group)
     variants = list(map(lambda x: x.strip().split(","), variants))
     for i in range(len(variants)):
         variants[i] = list(map(common.get_variant, variants[i]))
@@ -1538,22 +1539,7 @@ def find_population_specific_variants(
 
         passed_patients = set.intersection(*all_patients)
 
-        parameter["part"].append({
-            "name": "numerator",
-            "valueQuantity": {"value": len(passed_patients)}
-        })
-
-        parameter["part"].append({
-            "name": "denominator",
-            "valueQuantity": {"value": common.patients_db.count_documents({})}
-        })
-
-        if includePatientList:
-            for patientID in sorted(passed_patients):
-                parameter["part"].append({
-                    "name": "subject",
-                    "valueString": f"{patientID}"
-                })
+        common.add_population_counts(parameter, passed_patients, group_members, includePatientList)
 
         result["parameter"].append(parameter)
 
@@ -1587,27 +1573,7 @@ def find_population_specific_variants(
                 print(f"DEBUG: Error{e} under find_population_specific_variants query={query}")
                 variant_q = []
 
-            parameter["part"].append({
-                "name": "numerator",
-                "valueQuantity": {"value": len(variant_q)}
-            })
-
-            parameter["part"].append({
-                "name": "denominator",
-                "valueQuantity": {"value": common.patients_db.count_documents({})}
-            })
-
-            patients = []
-
-            for patientID in variant_q:
-                patients.append(f"{patientID['_id']}")
-
-            if includePatientList:
-                for patientID in sorted(patients):
-                    parameter["part"].append({
-                        "name": "subject",
-                        "valueString": f"{patientID}"
-                    })
+            common.add_population_counts(parameter, [f"{patientID['_id']}" for patientID in variant_q], group_members, includePatientList)
 
             result["parameter"].append(parameter)
 
@@ -1618,9 +1584,10 @@ def find_population_specific_variants(
 
 
 def find_population_structural_intersecting_variants(
-        ranges, genomicSourceClass=None, includePatientList=None):
+        ranges, genomicSourceClass=None, includePatientList=None, group=None):
 
     # Parameters
+    group_members = common.get_group_members(group)
     ranges = list(map(common.get_range, ranges))
 
     # Query
@@ -1692,26 +1659,7 @@ def find_population_structural_intersecting_variants(
             print(f"DEBUG: Error{e} under find_population_structural_intersecting_variants query={query}")
             variant_q = []
 
-        parameter["part"].append({
-            "name": "numerator",
-            "valueQuantity": {'value': len(variant_q)}
-        })
-
-        parameter["part"].append({
-            "name": "denominator",
-            "valueQuantity": {"value": common.patients_db.count_documents({})}
-        })
-
-        if includePatientList:
-            patients = []
-            for patientID in variant_q:
-                patients.append(f'{patientID["_id"]}')
-
-            for patientID in sorted(patients):
-                parameter["part"].append({
-                    "name": "subject",
-                    "valueString": f'{patientID}'
-                })
+        common.add_population_counts(parameter, [f"{patientID['_id']}" for patientID in variant_q], group_members, includePatientList)
 
         result["parameter"].append(parameter)
 
@@ -1722,9 +1670,10 @@ def find_population_structural_intersecting_variants(
 
 
 def find_population_structural_subsuming_variants(
-        ranges, genomicSourceClass=None, includePatientList=None):
+        ranges, genomicSourceClass=None, includePatientList=None, group=None):
 
     # Parameters
+    group_members = common.get_group_members(group)
     ranges = list(map(common.get_range, ranges))
 
     # Query
@@ -1779,26 +1728,7 @@ def find_population_structural_subsuming_variants(
             print(f"DEBUG: Error{e} under find_population_structural_subsuming_variants query={query}")
             variant_q = []
 
-        parameter["part"].append({
-            "name": "numerator",
-            "valueQuantity": {'value': len(variant_q)}
-        })
-
-        parameter["part"].append({
-            "name": "denominator",
-            "valueQuantity": {"value": common.patients_db.count_documents({})}
-        })
-
-        if includePatientList:
-            patients = []
-            for patientID in variant_q:
-                patients.append(f'{patientID["_id"]}')
-
-            for patientID in sorted(patients):
-                parameter["part"].append({
-                    "name": "subject",
-                    "valueString": f'{patientID}'
-                })
+        common.add_population_counts(parameter, [f"{patientID['_id']}" for patientID in variant_q], group_members, includePatientList)
 
         result["parameter"].append(parameter)
 
@@ -1809,9 +1739,10 @@ def find_population_structural_subsuming_variants(
 
 
 def find_population_specific_haplotypes(
-        haplotypes, genomicSourceClass=None, includePatientList=None):
+        haplotypes, genomicSourceClass=None, includePatientList=None, group=None):
 
     # Parameters
+    group_members = common.get_group_members(group)
     haplotypes = list(map(lambda x: x.strip().split(","), haplotypes))
     for i in range(len(haplotypes)):
         haplotypes[i] = list(map(common.get_haplotype, haplotypes[i]))
@@ -1885,22 +1816,7 @@ def find_population_specific_haplotypes(
 
         passed_patients = set.intersection(*all_patients)
 
-        parameter["part"].append({
-            "name": "numerator",
-            "valueQuantity": {"value": len(passed_patients)}
-        })
-
-        parameter["part"].append({
-            "name": "denominator",
-            "valueQuantity": {"value": common.patients_db.count_documents({})}
-        })
-
-        if includePatientList:
-            for patientID in sorted(passed_patients):
-                parameter["part"].append({
-                    "name": "subject",
-                    "valueString": f"{patientID}"
-                })
+        common.add_population_counts(parameter, passed_patients, group_members, includePatientList)
 
         result["parameter"].append(parameter)
 
@@ -1938,27 +1854,7 @@ def find_population_specific_haplotypes(
                 print(f"DEBUG: Error{e} under find_population_specific_haplotypes query={query}")
                 haplotype_q = []
 
-            parameter["part"].append({
-                "name": "numerator",
-                "valueQuantity": {"value": len(haplotype_q)}
-            })
-
-            parameter["part"].append({
-                "name": "denominator",
-                "valueQuantity": {"value": common.patients_db.count_documents({})}
-            })
-
-            patients = []
-
-            for patientID in haplotype_q:
-                patients.append(f"{patientID['_id']}")
-
-            if includePatientList:
-                for patientID in sorted(patients):
-                    parameter["part"].append({
-                        "name": "subject",
-                        "valueString": f"{patientID}"
-                    })
+            common.add_population_counts(parameter, [f"{patientID['_id']}" for patientID in haplotype_q], group_members, includePatientList)
 
             result["parameter"].append(parameter)
 
@@ -1970,9 +1866,10 @@ def find_population_specific_haplotypes(
 
 def find_population_tx_implications(
         variants=None, haplotypes=None, treatments=None, conditions=None,
-        genomicSourceClass=None, includePatientList=None):
+        genomicSourceClass=None, includePatientList=None, group=None):
 
     # Parameters
+    group_members = common.get_group_members(group)
     if not variants and not conditions and not treatments and not haplotypes:
         return jsonify({"resourceType": "Parameters"})
 
@@ -2027,26 +1924,7 @@ def find_population_tx_implications(
         parameter["name"] = "implications"
         parameter["part"] = []
 
-        parameter["part"].append({
-            "name": "numerator",
-            "valueQuantity": {'value': len(query_results)}
-        })
-
-        parameter["part"].append({
-            "name": "denominator",
-            "valueQuantity": {"value": common.patients_db.count_documents({})}
-        })
-
-        if includePatientList:
-            patients = []
-            for patientID in query_results:
-                patients.append(f'{patientID["_id"]}')
-
-            for patientID in sorted(patients):
-                parameter["part"].append({
-                    "name": "subject",
-                    "valueString": f'{patientID}'
-                })
+        common.add_population_counts(parameter, [f"{patientID['_id']}" for patientID in query_results], group_members, includePatientList)
 
         result["parameter"].append(parameter)
 
@@ -2065,26 +1943,7 @@ def find_population_tx_implications(
         parameter["name"] = "implications"
         parameter["part"] = []
 
-        parameter["part"].append({
-            "name": "numerator",
-            "valueQuantity": {'value': len(query_results)}
-        })
-
-        parameter["part"].append({
-            "name": "denominator",
-            "valueQuantity": {"value": common.patients_db.count_documents({})}
-        })
-
-        if includePatientList:
-            patients = []
-            for patientID in query_results:
-                patients.append(f'{patientID["_id"]}')
-
-            for patientID in sorted(patients):
-                parameter["part"].append({
-                    "name": "subject",
-                    "valueString": f'{patientID}'
-                })
+        common.add_population_counts(parameter, [f"{patientID['_id']}" for patientID in query_results], group_members, includePatientList)
 
         result["parameter"].append(parameter)
 
@@ -2115,22 +1974,7 @@ def find_population_tx_implications(
 
         patient_ids = list(set(patient_ids))
 
-        parameter["part"].append({
-            "name": "numerator",
-            "valueQuantity": {'value': len(patient_ids)}
-        })
-
-        parameter["part"].append({
-            "name": "denominator",
-            "valueQuantity": {"value": common.patients_db.count_documents({})}
-        })
-
-        if includePatientList:
-            for patientID in sorted(patient_ids):
-                parameter["part"].append({
-                    "name": "subject",
-                    "valueString": f'{patientID}'
-                })
+        common.add_population_counts(parameter, patient_ids, group_members, includePatientList)
 
         result["parameter"].append(parameter)
 
@@ -2155,22 +1999,7 @@ def find_population_tx_implications(
 
         patient_ids = list(set(patient_ids))
 
-        parameter["part"].append({
-            "name": "numerator",
-            "valueQuantity": {'value': len(patient_ids)}
-        })
-
-        parameter["part"].append({
-            "name": "denominator",
-            "valueQuantity": {"value": common.patients_db.count_documents({})}
-        })
-
-        if includePatientList:
-            for patientID in sorted(patient_ids):
-                parameter["part"].append({
-                    "name": "subject",
-                    "valueString": f'{patientID}'
-                })
+        common.add_population_counts(parameter, patient_ids, group_members, includePatientList)
 
         result["parameter"].append(parameter)
 
@@ -2182,9 +2011,10 @@ def find_population_tx_implications(
 
 def find_population_dx_implications(
         variants=None, haplotypes=None, conditions=None, genomicSourceClass=None,
-        includePatientList=None):
+        includePatientList=None, group=None):
 
     # Parameters
+    group_members = common.get_group_members(group)
     if not variants and not conditions and not haplotypes:
         return jsonify({"resourceType": "Parameters"})
 
@@ -2237,26 +2067,7 @@ def find_population_dx_implications(
         parameter["name"] = "implications"
         parameter["part"] = []
 
-        parameter["part"].append({
-            "name": "numerator",
-            "valueQuantity": {'value': len(query_results)}
-        })
-
-        parameter["part"].append({
-            "name": "denominator",
-            "valueQuantity": {"value": common.patients_db.count_documents({})}
-        })
-
-        if includePatientList:
-            patients = []
-            for patientID in query_results:
-                patients.append(f'{patientID["_id"]}')
-
-            for patientID in sorted(patients):
-                parameter["part"].append({
-                    "name": "subject",
-                    "valueString": f'{patientID}'
-                })
+        common.add_population_counts(parameter, [f"{patientID['_id']}" for patientID in query_results], group_members, includePatientList)
 
         result["parameter"].append(parameter)
 
@@ -2275,26 +2086,7 @@ def find_population_dx_implications(
         parameter["name"] = "implications"
         parameter["part"] = []
 
-        parameter["part"].append({
-            "name": "numerator",
-            "valueQuantity": {'value': len(query_results)}
-        })
-
-        parameter["part"].append({
-            "name": "denominator",
-            "valueQuantity": {"value": common.patients_db.count_documents({})}
-        })
-
-        if includePatientList:
-            patients = []
-            for patientID in query_results:
-                patients.append(f'{patientID["_id"]}')
-
-            for patientID in sorted(patients):
-                parameter["part"].append({
-                    "name": "subject",
-                    "valueString": f'{patientID}'
-                })
+        common.add_population_counts(parameter, [f"{patientID['_id']}" for patientID in query_results], group_members, includePatientList)
 
         result["parameter"].append(parameter)
 
@@ -2318,22 +2110,7 @@ def find_population_dx_implications(
 
         patient_ids = list(set(patient_ids))
 
-        parameter["part"].append({
-            "name": "numerator",
-            "valueQuantity": {'value': len(patient_ids)}
-        })
-
-        parameter["part"].append({
-            "name": "denominator",
-            "valueQuantity": {"value": common.patients_db.count_documents({})}
-        })
-
-        if includePatientList:
-            for patientID in sorted(patient_ids):
-                parameter["part"].append({
-                    "name": "subject",
-                    "valueString": f'{patientID}'
-                })
+        common.add_population_counts(parameter, patient_ids, group_members, includePatientList)
 
         result["parameter"].append(parameter)
 
@@ -2345,9 +2122,10 @@ def find_population_dx_implications(
 
 def find_population_molecular_consequences(
         variants=None, featureConsequences=None, genomicSourceClass=None,
-        includePatientList=None):
+        includePatientList=None, group=None):
 
     # Parameters
+    group_members = common.get_group_members(group)
     if not variants and not featureConsequences:
         abort(400, "You must supply either 'variants' or 'featureConsequences'.")
 
@@ -2387,26 +2165,7 @@ def find_population_molecular_consequences(
     parameter["name"] = "consequences"
     parameter["part"] = []
 
-    parameter["part"].append({
-        "name": "numerator",
-        "valueQuantity": {'value': len(query_results)}
-    })
-
-    parameter["part"].append({
-        "name": "denominator",
-        "valueQuantity": {"value": common.patients_db.count_documents({})}
-    })
-
-    if includePatientList:
-        patients = []
-        for patientID in query_results:
-            patients.append(f'{patientID["_id"]}')
-
-        for patientID in sorted(patients):
-            parameter["part"].append({
-                "name": "subject",
-                "valueString": f'{patientID}'
-            })
+    common.add_population_counts(parameter, [f"{patientID['_id']}" for patientID in query_results], group_members, includePatientList)
 
     result["parameter"].append(parameter)
 

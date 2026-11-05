@@ -21,6 +21,13 @@ def test_find_subject_variants_ranges_supplied(client):
     assert response.status_code == 400
 
 
+def test_find_subject_variants_unknown_subject(client):
+    url = tu.find_subject_variants_query('subject=does-not-exist&ranges=NC_000019.9:11200138-11244496')
+    response = client.get(url)
+
+    assert response.status_code == 404
+
+
 def test_find_subject_variants_1(client):
     url = tu.find_subject_variants_query('subject=HG00403&ranges=NC_000019.10:11089431-11133820&includeVariants=true')
     response = client.get(url)

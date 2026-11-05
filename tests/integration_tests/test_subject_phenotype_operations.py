@@ -14,6 +14,13 @@ def test_find_subject_tx_implications_subject_supplied(client):
     assert response.status_code == 400
 
 
+def test_find_subject_tx_implications_unknown_subject(client):
+    url = tu.find_subject_tx_implications_query('subject=does-not-exist&treatments=http://www.nlm.nih.gov/research/umls/rxnorm|704')
+    response = client.get(url)
+
+    assert response.status_code == 404
+
+
 def test_find_subject_tx_implications_1(client):
     url = tu.find_subject_tx_implications_query(
         'conditions=https://disease-ontology.org|DOID:3908,https://disease-ontology.org|DOID:1324,https://disease-ontology.org|DOID:3910&subject=CA12345&variants=NM_001354609.2:c.1799T>A')

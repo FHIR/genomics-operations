@@ -1,0 +1,34 @@
+{
+    "parameter": [
+        {
+            "name": "variants",
+            "part": [
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 16
+                    }
+                },
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 2
+                    }
+                },
+                {
+                    "name": "rangeItem",
+                    "valueString": "NC_000022.10:42522500-42526812"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "ABC456"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "ABC789"
+                }
+            ]
+        }
+    ],
+    "resourceType": "Parameters"
+}

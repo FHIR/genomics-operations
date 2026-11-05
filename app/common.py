@@ -27,6 +27,7 @@ utilities_db = utilities_client.UtilitiesData
 
 # Collections
 patients_db = db.Patients
+group_db = db.Group
 variants_db = db.Variants
 tests_db = db.Tests
 genotypes_db = db.Genotypes
@@ -191,7 +192,43 @@ def get_spdi_elements(response_object):
 
 def validate_subject(patient_id):
     if not patients_db.find_one({"patientID": patient_id}):
-        abort(400, f"Patient ({patient_id}) not found.")
+        abort(404, f"Patient ({patient_id}) not found.")
+
+
+def get_group_members(group):
+    if not group:
+        return None
+
+    record = group_db.find_one({"groupID": group.strip()})
+    if not record:
+        abort(404, f"Group ({group}) not found.")
+
+    return set(record["memberID"])
+
+
+def add_population_counts(parameter, patient_ids, group_members, includePatientList):
+    if group_members is not None:
+        patient_ids = set(patient_ids) & group_members
+        denominator = len(group_members)
+    else:
+        denominator = patients_db.count_documents({})
+
+    parameter["part"].append({
+        "name": "numerator",
+        "valueQuantity": {"value": len(patient_ids)}
+    })
+
+    parameter["part"].append({
+        "name": "denominator",
+        "valueQuantity": {"value": denominator}
+    })
+
+    if includePatientList:
+        for patientID in sorted(patient_ids):
+            parameter["part"].append({
+                "name": "subject",
+                "valueString": f"{patientID}"
+            })
 
 
 def get_variant(variant):
