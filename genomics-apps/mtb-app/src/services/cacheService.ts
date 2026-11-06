@@ -3,7 +3,8 @@ import { ProcessedTxImplication } from './txService';
 import { MolecularConsequence } from './mcService';
 import packageJson from '../../package.json';
 
-const CACHE_SCHEMA_VERSION = '9';
+// 10: molecular consequences now carry their c.HGVS (dnaChange), used to match reported variants
+const CACHE_SCHEMA_VERSION = '10';
 const CACHE_STORAGE_KEY = 'mtb-cache';
 const CACHE_SESSION_STORAGE_KEY = 'mtb-cache-session';
 const DEV_CACHE_OVERRIDE_KEY = 'mtb-enable-dev-cache';

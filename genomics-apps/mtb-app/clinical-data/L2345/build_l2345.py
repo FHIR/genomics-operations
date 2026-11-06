@@ -248,19 +248,105 @@ tumor_size('mtb-l2345-tumor-size-2026-09-28', '2026-09-28', 3.4, 2.8)
 
 DR_CAT_RAD = cc(LOINC, 'LP29684-5', 'Radiology')
 DR_CAT_PATH = cc(LOINC, 'LP7839-6', 'Pathology')
+DR_CAT_GE = cc('http://terminology.hl7.org/CodeSystem/v2-0074', 'GE', 'Genetics')
 
 
-def report(rid, date, cat, code, conclusion, performer, specimen=None, conclusion_code=None, results=None):
+def report(rid, date, cat, code, conclusion, performer, specimen=None, conclusion_code=None, results=None,
+           genomics=False):
+    # A genomic profiling report with structured variants is also an mCODE genomics report
     r = {'resourceType': 'DiagnosticReport', 'id': rid, 'status': 'final', 'category': [cat], 'code': code,
          'subject': PAT, 'effectiveDateTime': date, 'issued': f'{date}T17:00:00-04:00',
          'performer': [performer], 'conclusion': conclusion}
+    profiles = [USCORE + 'us-core-diagnosticreport-note']
+    if genomics:
+        r['category'].append(DR_CAT_GE)
+        profiles.insert(0, MCODE + 'mcode-genomics-report')
     if specimen:
         r['specimen'] = [specimen]
     if conclusion_code:
         r['conclusionCode'] = [conclusion_code]
     if results:
         r['result'] = results
-    add(r, [USCORE + 'us-core-diagnosticreport-note'])
+    add(r, profiles)
+
+
+# Genomic variants and therapeutic implications (incorporating-curated-lab-report-design.md §2.4): variants in
+# the reportable genes from the genomics operations server's L2345 data (GRCh38; recorded as somatic, no VAF),
+# and therapeutic implications in the server's CIViC shape
+GR_TBD = 'http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs'
+HGVS = 'http://varnomen.hgvs.org'
+LAB_GE = obs_cat('laboratory', 'Laboratory') + [DR_CAT_GE]
+NSCLC = cc('https://disease-ontology.org', 'DOID:3908', 'Lung Non-small Cell Carcinoma')
+LUNG_CANCER = cc('https://disease-ontology.org', 'DOID:1324', 'Lung Cancer')
+LUNG_ADENO = cc('https://disease-ontology.org', 'DOID:3910', 'Lung Adenocarcinoma')
+LEVEL_A = 'A (Validated association)'
+LEVEL_B = 'B (Clinical evidence)'
+
+
+def component(code, display, value, system=LOINC):
+    value = value if any(key.startswith('value') for key in value) else {'valueCodeableConcept': value}
+    return {'code': cc(system, code, display), **value}
+
+
+def genomic_variant(rid, date, specimen, gene, hgnc, c_hgvs, p_hgvs, consequence, refseq, spdi, ref, alt, start):
+    return add({
+        'resourceType': 'Observation', 'id': rid, 'status': 'final', 'category': LAB_GE,
+        'code': cc(LOINC, '69548-6', 'Genetic variant assessment'), 'subject': PAT,
+        'effectiveDateTime': date, 'issued': f'{date}T17:00:00-04:00', 'performer': [PATH],
+        'valueCodeableConcept': cc(LOINC, 'LA9633-4', 'Present'),
+        'method': cc(LOINC, 'LA26398-0', 'Sequencing'), 'specimen': specimen,
+        'component': [
+            component('48018-6', 'Gene studied [ID]', cc('http://www.genenames.org', hgnc, gene)),
+            component('48004-6', 'DNA change (c.HGVS)', {'coding': [{'system': HGVS, 'code': c_hgvs}]}),
+            component('48005-3', 'Amino acid change (pHGVS)', {'coding': [{'system': HGVS, 'code': p_hgvs}]}),
+            component('molecular-consequence', 'Molecular Consequence',
+                      cc('http://www.sequenceontology.org/', *consequence), system=GR_TBD),
+            component('48002-0', 'Genomic source class [Type]', cc(LOINC, 'LA6684-0', 'Somatic')),
+            component('48013-7', 'Genomic reference sequence [ID]',
+                      {'coding': [{'system': 'http://www.ncbi.nlm.nih.gov/nuccore', 'code': refseq}]}),
+            component('81252-9', 'Discrete genetic variant',
+                      cc('https://api.ncbi.nlm.nih.gov/variation/v0/', spdi, spdi)),
+            component('69547-8', 'Genomic ref allele [ID]', {'valueString': ref}),
+            # A pure deletion has no alt allele (FHIR strings can't be empty); the server leaves it out too
+            *([component('69551-0', 'Genomic alt allele [ID]', {'valueString': alt})] if alt else []),
+            component('92822-6', 'Genomic coordinate system [Type]', cc(LOINC, 'LA30100-4', '0-based interval counting')),
+            component('81254-5', 'Genomic allele start-end', {'valueRange': {'low': {'value': start}}}),
+        ],
+    }, [MCODE + 'mcode-genomic-variant'])
+
+
+def tx_implication(rid, date, variant, rxcui, drug, implication, evidence, phenotype):
+    return add({
+        'resourceType': 'Observation', 'id': rid, 'status': 'final', 'category': obs_cat('laboratory', 'Laboratory'),
+        'code': cc(GR_TBD, 'therapeutic-implication', 'Therapeutic Implication'), 'subject': PAT,
+        'effectiveDateTime': date, 'issued': f'{date}T17:00:00-04:00', 'performer': [PATH],
+        'derivedFrom': [variant],
+        'component': [
+            component('81259-4', 'Associated phenotype', phenotype),
+            component('93044-6', 'Level of evidence', {'text': evidence}),
+            component('51963-7', 'Medication assessed [ID]', cc(RXN, rxcui, drug)),
+            component('predicted-therapeutic-implication', 'Predicted Therapeutic Implication', {'text': implication},
+                      system=GR_TBD),
+        ],
+    }, ['http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication'])
+
+
+MISSENSE = ('SO:0001583', 'missense_variant')
+FRAMESHIFT = ('SO:0001589', 'frameshift_variant')
+STOP_GAINED = ('SO:0001587', 'stop_gained')
+
+
+def egfr_l858r(year, date, specimen):
+    # EGFR L858R is in both profiling reports; each report's copy carries its own implications
+    variant = genomic_variant(f'mtb-l2345-genomic-variant-egfr-l858r-{year}', date, specimen, 'EGFR', 'HGNC:3236',
+                              'NM_005228.5:c.2573T>G', 'NP_005219.2:p.Leu858Arg', MISSENSE, 'NC_000007.14',
+                              'NC_000007.14:55191821:T:G', 'T', 'G', 55191821)
+    return [variant,
+            # CIViC EID2994, EID2997
+            tx_implication(f'mtb-l2345-tx-implication-erlotinib-l858r-{year}', date, variant, '337525', 'Erlotinib',
+                           'Supports Sensitivity/Response', LEVEL_A, NSCLC),
+            tx_implication(f'mtb-l2345-tx-implication-afatinib-l858r-{year}', date, variant, '1430438', 'Afatinib',
+                           'Supports Sensitivity/Response', LEVEL_A, NSCLC)]
 
 
 report('mtb-l2345-cxr-2023-05-10', '2023-05-10', DR_CAT_RAD, cc(LOINC, '36643-5', 'XR Chest 2 Views'),
@@ -290,8 +376,9 @@ report('mtb-l2345-path-left-iliac-biopsy', '2023-05-30', DR_CAT_PATH, cc(LOINC, 
        cc(SCT, '1187332001', 'Adenocarcinoma'))
 report('mtb-l2345-molecular-2023-06-09', '2023-06-09', DR_CAT_PATH, cc(LOINC, '51969-4', 'Genetic analysis report'),
        'Initial tumor genomic profiling (RLL FNA cell block, targeted NGS): EGFR exon 21 L858R detected. '
-       'No ALK, ROS1, RET or NTRK fusions; no MET exon 14 skipping; KRAS and BRAF wild type. Detailed variant-level '
-       'results are maintained on the genomics server, not in this report.', PATH, SPEC_LUNG)
+       'No ALK, ROS1, RET or NTRK fusions; no MET exon 14 skipping; KRAS and BRAF wild type. EGFR L858R: predicted '
+       'sensitivity to erlotinib and afatinib in non-small cell lung cancer (level A).', PATH, SPEC_LUNG,
+       results=egfr_l858r(2023, '2023-06-09', SPEC_LUNG), genomics=True)
 report('mtb-l2345-ct-cap-2024-03-11', '2024-03-11', DR_CAT_RAD,
        cc(LOINC, '72254-6', 'CT Chest and Abdomen and Pelvis W contrast IV'),
        'Continued decrease in right lower lobe mass, now 2.1 x 1.7 cm (nadir). Right hilar nodes normal in size. '
@@ -310,6 +397,70 @@ report('mtb-l2345-path-liver-biopsy', '2026-10-06', DR_CAT_PATH, cc(LOINC, '1152
        'the known lung primary. No small cell or squamous transformation identified. Tissue sent for repeat '
        'comprehensive genomic profiling.', PATH, SPEC_LIVER,
        cc(SCT, '1187332001', 'Adenocarcinoma'))
+
+# Repeat profiling at progression: the profile the genomics server holds
+REPEAT_DATE = '2026-10-16'
+
+
+def repeat_variant(slug, gene, hgnc, c_hgvs, p_hgvs, consequence, refseq, spdi, ref, alt, start):
+    return genomic_variant(f'mtb-l2345-genomic-variant-{slug}', REPEAT_DATE, SPEC_LIVER, gene, hgnc, c_hgvs, p_hgvs,
+                           consequence, refseq, spdi, ref, alt, start)
+
+
+def repeat_implication(slug, variant, rxcui, drug, implication, evidence, phenotype=NSCLC):
+    return tx_implication(f'mtb-l2345-tx-implication-{slug}', REPEAT_DATE, variant, rxcui, drug, implication,
+                          evidence, phenotype)
+
+
+EGFR_T790M = repeat_variant('egfr-t790m', 'EGFR', 'HGNC:3236', 'NM_005228.5:c.2369C>T', 'NP_005219.2:p.Thr790Met',
+                            MISSENSE, 'NC_000007.14', 'NC_000007.14:55181377:C:T', 'C', 'T', 55181377)
+# The server gives only p.Lys745fs; the full form is from Mutalyzer
+EGFR_K745FS = repeat_variant('egfr-k745fs', 'EGFR', 'HGNC:3236', 'NM_005228.5:c.2232_2250del',
+                             'NP_005219.2:p.(Lys745HisfsTer15)', FRAMESHIFT, 'NC_000007.14',
+                             'NC_000007.14:55174768:CAAGGAATTAAGAGAAGCA:', 'CAAGGAATTAAGAGAAGCA', '', 55174768)
+KRAS_G12C = repeat_variant('kras-g12c', 'KRAS', 'HGNC:6407', 'NM_004985.5:c.34G>T', 'NP_004976.2:p.Gly12Cys',
+                           MISSENSE, 'NC_000012.12', 'NC_000012.12:25245350:C:A', 'C', 'A', 25245350)
+KRAS_G12A = repeat_variant('kras-g12a', 'KRAS', 'HGNC:6407', 'NM_004985.5:c.35G>C', 'NP_004976.2:p.Gly12Ala',
+                           MISSENSE, 'NC_000012.12', 'NC_000012.12:25245349:C:G', 'C', 'G', 25245349)
+BRAF_V600E = repeat_variant('braf-v600e', 'BRAF', 'HGNC:1097', 'NM_004333.6:c.1799T>A', 'NP_004324.2:p.Val600Glu',
+                            MISSENSE, 'NC_000007.14', 'NC_000007.14:140753335:A:T', 'A', 'T', 140753335)
+ALK_F1245V = repeat_variant('alk-f1245v', 'ALK', 'HGNC:427', 'NM_004304.5:c.3733T>G', 'NP_004295.2:p.Phe1245Val',
+                            MISSENSE, 'NC_000002.12', 'NC_000002.12:29213993:A:C', 'A', 'C', 29213993)
+BRCA2_Q66X = repeat_variant('brca2-q66x', 'BRCA2', 'HGNC:1101', 'NM_000059.4:c.196C>T', 'NP_000050.3:p.Gln66Ter',
+                            STOP_GAINED, 'NC_000013.11', 'NC_000013.11:32319204:C:T', 'C', 'T', 32319204)
+# The server gives no c./p. change; both are from Mutalyzer
+STK11_FS = repeat_variant('stk11-k48fs', 'STK11', 'HGNC:11389', 'NM_000455.5:c.143_158del',
+                          'NP_000446.1:p.(Lys48ThrfsTer11)', FRAMESHIFT, 'NC_000019.10',
+                          'NC_000019.10:1207054:AAGTACCTGATGGGGGA:A', 'AAGTACCTGATGGGGGA', 'A', 1207054)
+
+REPEAT_RESULTS = egfr_l858r(2026, REPEAT_DATE, SPEC_LIVER) + [
+    EGFR_T790M,
+    # CIViC EID1592, EID238
+    repeat_implication('osimertinib-t790m', EGFR_T790M, '1721560', 'Osimertinib', 'Supports Sensitivity/Response', LEVEL_A),
+    repeat_implication('erlotinib-t790m', EGFR_T790M, '337525', 'Erlotinib', 'Supports Resistance', LEVEL_A),
+    EGFR_K745FS,
+    KRAS_G12C,
+    # CIViC EID9431 (not in the genomics server's CIViC subset), EID2257
+    repeat_implication('sotorasib-g12c', KRAS_G12C, '2550714', 'Sotorasib', 'Supports Sensitivity/Response', LEVEL_A),
+    repeat_implication('gefitinib-g12c', KRAS_G12C, '328134', 'Gefitinib', 'Supports Resistance', LEVEL_B, LUNG_CANCER),
+    KRAS_G12A,
+    # CIViC EID251
+    repeat_implication('erlotinib-g12a', KRAS_G12A, '337525', 'Erlotinib', 'Supports Resistance', LEVEL_B, LUNG_ADENO),
+    BRAF_V600E,
+    # CIViC EID3017 (in practice dabrafenib + trametinib), EID5958
+    repeat_implication('trametinib-v600e', BRAF_V600E, '1425099', 'Trametinib', 'Supports Sensitivity/Response', LEVEL_A),
+    repeat_implication('vemurafenib-v600e', BRAF_V600E, '1147220', 'Vemurafenib', 'Supports Sensitivity/Response', LEVEL_B),
+    ALK_F1245V, BRCA2_Q66X, STK11_FS,
+]
+
+report('mtb-l2345-molecular-2026-10-16', REPEAT_DATE, DR_CAT_PATH, cc(LOINC, '51969-4', 'Genetic analysis report'),
+       'Repeat comprehensive genomic profiling at progression (liver segment 6 core biopsy, targeted NGS): EGFR L858R '
+       '(known) with EGFR T790M and EGFR c.2232_2250del (p.Lys745HisfsTer15); KRAS G12C and G12A; BRAF V600E; '
+       'ALK F1245V (point mutation; no ALK fusion); BRCA2 Q66*; STK11 c.143_158del (p.Lys48ThrfsTer11). '
+       'Predicted, in non-small cell lung cancer: EGFR T790M, sensitivity to osimertinib and resistance to erlotinib '
+       '(level A); KRAS G12C, sensitivity to sotorasib (level A); BRAF V600E, sensitivity to trametinib (level A) and '
+       'vemurafenib (level B); KRAS G12C and G12A, resistance to gefitinib and erlotinib (level B).',
+       PATH, SPEC_LIVER, results=REPEAT_RESULTS, genomics=True)
 
 # ---------------------------------------------------------------- Tumor markers
 

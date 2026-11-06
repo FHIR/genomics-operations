@@ -49,7 +49,7 @@ These were chosen to fit the variants the genomics server holds for L2345 (see [
 
 ## Genomic data on the genomics operations server
 
-Queried on 2026-10-21 (`fhir-gen-ops.herokuapp.com`, subject `L2345`, NSCLC driver genes). The variants are in the genomics server only; the FHIR bundle does not duplicate them.
+Queried on 2026-10-21 (`fhir-gen-ops.herokuapp.com`, subject `L2345`, NSCLC driver genes). Until 2026-11-05 the variants were in the genomics server only; the FHIR bundle now carries the reported subset as structured genomic reports (see "Structured genomic reports" below).
 
 | Gene | Variant(s) | Role in the story |
 |---|---|---|
@@ -99,3 +99,19 @@ The remaining warnings are all benign:
 curl -X POST -H "Content-Type: application/fhir+json" \
   --data @L2345-transaction-bundle.json https://hapi.fhir.org/baseR4
 ```
+
+## Structured genomic reports (2026-11-05)
+
+Design: `incorporating-curated-lab-report-design.md` (repo root), §2.4. Built by `build_l2345.py` (the genomic helpers after `report()`, the 2023 report, and the "Repeat profiling at progression" block after the liver biopsy report).
+
+- **Initial profiling** `mtb-l2345-molecular-2023-06-09` (existing; RLL FNA): adds the `mcode-genomics-report` profile, category v2-0074 `GE`, and a structured **EGFR L858R** with erlotinib and afatinib implications (both A, NSCLC). The conclusion's "maintained on the genomics server" sentence is replaced by those implications.
+- **Repeat profiling** `mtb-l2345-molecular-2026-10-16` (**new**; liver segment 6 core biopsy of 2026-10-06; Dr. Paul Pathologist): the profile the genomics server holds. Nine variants, all recorded as somatic with no VAF (the server's records carry neither):
+  - EGFR L858R (again, with its own erlotinib/afatinib implications), EGFR T790M, EGFR c.2232_2250del p.(Lys745HisfsTer15)
+  - KRAS G12C and G12A; BRAF V600E; ALK F1245V; BRCA2 Q66*; STK11 c.143_158del p.(Lys48ThrfsTer11)
+  - Full c./p. forms for STK11 and the EGFR frameshift are from Mutalyzer (the server gives none for STK11 and only p.Lys745fs for EGFR).
+  - Left out: the duplicate L858R record (c.2573_2574delinsGT), two synonymous EGFR variants, GATA3 (no consequence) and XRCC1 p.Arg194Trp (a common polymorphism).
+- **Implications in the repeat report** (CIViC A/B lung-cancer evidence, one per drug): osimertinib sensitivity and erlotinib resistance for T790M (A); sotorasib sensitivity (A; CIViC EID9431, **not in the genomics server's CIViC subset**) and gefitinib resistance (B) for KRAS G12C; erlotinib resistance (B) for KRAS G12A; trametinib (A; in practice dabrafenib + trametinib) and vemurafenib (B) sensitivity for BRAF V600E. EGFR K745fs, ALK, BRCA2 and STK11 have none at A/B.
+
+**Validation** against `hl7.fhir.us.mcode#4.0.0` (2026-11-05): 6 errors, all from tx.fhir.org not recognizing the two frameshift p.HGVS values (EGFR, STK11): unknown code, HGVS value set, and the report's link to each variant. The same validator limitation as TCGA-DD-A1EH.
+
+**Reloaded to hapi.fhir.org 2026-11-05**: the 22 new resources were created, the 2023 report updated, and all come back through `Patient/$everything`.

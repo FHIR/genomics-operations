@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useEffect, useLayoutEffect, useState, useRef, useCallback, useMemo } from 'react';
 import Image from 'next/image';
-import { ChevronDown, ChevronUp, ClipboardPlus, Dna, LucideIcon, Network, Sparkles, Table2 } from 'lucide-react';
+import { ChevronDown, ChevronUp, ClipboardPlus, Dna, Images, LucideIcon, Network, Sparkles, Table2 } from 'lucide-react';
 import { Variant } from '@/types/variants';
 import { findSubjectVariantsWithCache } from '@/services/cachedVariantService';
 import SearchForm from '../components/SearchForm';
@@ -27,6 +27,9 @@ import { DEFAULT_ACTIONABILITY_FILTER, FilterCriteria } from "@/cancerFilter/Fil
 import { applyFiltersToVariants } from "@/cancerFilter/filterUtils";
 import { isPhenotypeMatchForImplication, isALevelEvidence } from "@/cancerFilter/phenotypeUtils";
 import { HOW_TO_USE_GROUPS, HOW_TO_USE_TITLE, HowToUseLinkItem } from './howToUseContent';
+import { buildReportedVariants, collectReportedVariants } from '@/lib/reportedVariants';
+import { layerReportedVariants, needsNormalization, SearchedTerm } from '@/lib/reportedVariantLayering';
+import { geneForTranscript, NormalizedVariant, normalizeVariant, resolveSearchRange } from '@/services/reportedVariantLookupService';
 // import EmailSubscription from "@/components/EmailSubscription";
 // import FeedbackForm from "@/components/FeedbackForm";
 
@@ -34,14 +37,15 @@ function isHowToUseLinkItem(item: string | HowToUseLinkItem): item is HowToUseLi
   return typeof item !== 'string';
 }
 
-type CaseView = 'summary' | 'genomic' | 'synthesis';
+type CaseView = 'summary' | 'genomic' | 'imaging' | 'synthesis';
 
-// Each tab has an icon in its own color (lighter when the tab is selected); Synthesis uses the sparkles icon
+// Each tab has an icon in its own color (lighter when the tab is selected); AI Synthesis uses the sparkles icon
 // commonly used to mark AI features
 const CASE_VIEWS: { view: CaseView; label: string; icon: LucideIcon; iconClass: string; activeIconClass: string }[] = [
   { view: 'summary', label: 'Case Summary', icon: ClipboardPlus, iconClass: 'text-sky-600', activeIconClass: 'text-sky-300' },
-  { view: 'genomic', label: 'Genomic Findings', icon: Dna, iconClass: 'text-emerald-600', activeIconClass: 'text-emerald-300' },
-  { view: 'synthesis', label: 'Synthesis', icon: Sparkles, iconClass: 'text-violet-600', activeIconClass: 'text-violet-300' },
+  { view: 'genomic', label: 'Genomics Explorer', icon: Dna, iconClass: 'text-emerald-600', activeIconClass: 'text-emerald-300' },
+  { view: 'imaging', label: 'Imaging', icon: Images, iconClass: 'text-amber-600', activeIconClass: 'text-amber-300' },
+  { view: 'synthesis', label: 'AI Synthesis', icon: Sparkles, iconClass: 'text-violet-600', activeIconClass: 'text-violet-300' },
 ];
 
 function hasActiveSidebarFilters(filters: FilterCriteria, cancerType: string) {
@@ -69,7 +73,8 @@ export default function Home() {
   const [searchInput, setSearchInput] = useState('');
   // No patient is loaded at launch; the MRN box shows "Select a patient"
   const [subjectId, setSubjectId] = useState('');
-  const [results, setResults] = useState<Variant[]>([]);
+  // The genomics server's rows; `results` below adds the patient's reported variants to them
+  const [serverResults, setServerResults] = useState<Variant[]>([]);
   const [filteredResults, setFilteredResults] = useState<Variant[]>([]);
   const [searchStatus, setSearchStatus] = useState<Record<string, string>>({});
   const [invalidRanges, setInvalidRanges] = useState<string[]>([]);
@@ -85,7 +90,7 @@ export default function Home() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [activeView, setActiveView] = useState<'results' | 'pathways'>('results');
   // The case views below the banner. The app opens on Case Summary; once the first patient is chosen it stays there
-  // if they have clinical data and moves to Genomic Findings if they don't (decided once, unless the user picks a tab first); after that the
+  // if they have clinical data and moves to Genomics Explorer if they don't (decided once, unless the user picks a tab first); after that the
   // chosen tab stays put when the patient changes
   const [caseView, setCaseView] = useState<CaseView>('summary');
   const initialViewChosenRef = useRef(false);
@@ -158,6 +163,78 @@ export default function Home() {
       .then(setCooccurrenceProfiles)
       .catch((error) => console.error('Error loading co-occurrence knowledge base:', error));
   }, []);
+
+  // Reported variants (incorporating-curated-lab-report-design.md §4): the patient's genetic-report variants join the
+  // server's rows for each finished search term whose gene or range covers them, flagged and with credited implications
+  const reportedRecords = useMemo(() => {
+    if (!clinicalRecord) {
+      return [];
+    }
+    const index = new Map(clinicalRecord.resources.map((resource) => [`${resource.resourceType}/${resource.id}`, resource]));
+    return collectReportedVariants(buildReportedVariants(clinicalRecord.resources, index));
+  }, [clinicalRecord]);
+  const [resolvedRanges, setResolvedRanges] = useState<Map<string, string>>(new Map());
+  const [normalizedVariants, setNormalizedVariants] = useState<Map<string, NormalizedVariant | null>>(new Map());
+  const [lookedUpGenes, setLookedUpGenes] = useState<Map<string, string>>(new Map());
+  const requestedLookupsRef = useRef(new Set<string>());
+  const searchedTerms: SearchedTerm[] = useMemo(() => Object.entries(searchStatus)
+    .filter(([, status]) => status === 'found' || status === 'no results')
+    .map(([term]) => ({ term, range: resolvedRanges.get(term) })), [searchStatus, resolvedRanges]);
+
+  // Each finished term's range, also for terms the server found nothing in (a reported variant may still be there)
+  useEffect(() => {
+    if (reportedRecords.length === 0) {
+      return;
+    }
+    searchedTerms.filter(({ term, range }) => !range && !requestedLookupsRef.current.has(`range|${term}`)).forEach(({ term }) => {
+      requestedLookupsRef.current.add(`range|${term}`);
+      resolveSearchRange(term).then((range) => {
+        if (range) {
+          setResolvedRanges((previous) => new Map(previous).set(term, range));
+        }
+      });
+    });
+  }, [searchedTerms, reportedRecords]);
+
+  // A normalize-variant lookup only for a reported variant the cheap comparisons can't place (§4.2)
+  useEffect(() => {
+    for (const record of reportedRecords) {
+      const input = record.spdi ?? record.gHgvs ?? record.cHgvs;
+      const lookupKey = `normalize|${record.key}`;
+      if (!input || requestedLookupsRef.current.has(lookupKey)) {
+        continue;
+      }
+      if (searchedTerms.some((term) => needsNormalization(record, term, serverResults.filter((row) => row.range === term.term)))) {
+        requestedLookupsRef.current.add(lookupKey);
+        normalizeVariant(input).then((normalized) => setNormalizedVariants((previous) => new Map(previous).set(record.key, normalized)));
+      }
+    }
+  }, [reportedRecords, searchedTerms, serverResults]);
+
+  // Genes for the Reported genes preset: the report's own, else the c.HGVS transcript's (§4.1)
+  useEffect(() => {
+    for (const record of reportedRecords) {
+      const transcript = record.cHgvs?.split(':')[0];
+      const lookupKey = `gene|${record.key}`;
+      if (record.gene || !transcript || requestedLookupsRef.current.has(lookupKey)) {
+        continue;
+      }
+      requestedLookupsRef.current.add(lookupKey);
+      geneForTranscript(transcript).then((gene) => {
+        if (gene) {
+          setLookedUpGenes((previous) => new Map(previous).set(record.key, gene));
+        }
+      });
+    }
+  }, [reportedRecords]);
+  const reportedGenes = useMemo(() => [...new Set(reportedRecords
+    .map((record) => record.gene ?? lookedUpGenes.get(record.key))
+    .filter((gene): gene is string => Boolean(gene)))].sort(), [reportedRecords, lookedUpGenes]);
+
+  const results = useMemo(
+    () => layerReportedVariants(serverResults, searchedTerms, reportedRecords, normalizedVariants),
+    [serverResults, searchedTerms, reportedRecords, normalizedVariants]
+  );
 
   // Co-occurrence is checked against all results, so filters never hide it; it reruns as results arrive
   const cooccurrenceMatches = useMemo(
@@ -302,7 +379,7 @@ export default function Home() {
   const handleSubjectIdChange = useCallback((value: string) => {
     abortControllersRef.current.forEach((controller) => controller.abort());
     abortControllersRef.current.clear();
-    setResults([]);
+    setServerResults([]);
     setFilteredResults([]);
     setSearchStatus({});
     setInvalidRanges([]);
@@ -373,6 +450,9 @@ export default function Home() {
           (variant.txImplications && variant.txImplications.length > 0) ||
           (variant.dxImplications && variant.dxImplications.length > 0)
         );
+      } else if (actionableLabel === "Reported variants") {
+        // Only the patient's reported variants, with all their implications (§4.5)
+        filtered = filtered.filter((variant) => (variant.reportedIn?.length ?? 0) > 0);
       } else if (actionableLabel === "Possibly actionable") {
         filtered = filtered.map(variant => ({
           ...variant,
@@ -426,9 +506,12 @@ export default function Home() {
     });
     return counts;
   }, [results]);
+  // A term the server found nothing in still counts as found when a reported variant is there
+  const displayedSearchStatus = useMemo(() => Object.fromEntries(Object.entries(searchStatus).map(([term, status]) =>
+    [term, status === 'no results' && (variantCountsByTerm[term] ?? 0) > 0 ? 'found' : status])), [searchStatus, variantCountsByTerm]);
   const collapsedSearchSummary = [
     searchInput.trim() || 'No search terms loaded',
-    Object.keys(searchStatus).length > 0 ? searchSummaryText(searchStatus) : undefined,
+    Object.keys(searchStatus).length > 0 ? searchSummaryText(displayedSearchStatus) : undefined,
   ].filter(Boolean).join(' · ');
 
   const handleSearch = async () => {
@@ -437,7 +520,7 @@ export default function Home() {
       return;
     }
     if (!searchInput.trim()) {
-      setResults([]);
+      setServerResults([]);
       setFilteredResults([]);
       setSearchStatus({});
       setInvalidRanges([]);
@@ -465,7 +548,7 @@ export default function Home() {
     const newControllers = new Map<string, AbortController>();
     const searchId = ++searchIdRef.current; // Use useRef for better ID generation
 
-    setResults([]);
+    setServerResults([]);
     setFilteredResults([]);
     setInvalidRanges([]);
     setSelectedVariantIds(new Set());
@@ -499,7 +582,7 @@ export default function Home() {
 
         if (processedVariants.length > 0) {
           // Add all processed variants at once - they already have all implications
-          setResults(prev => [...prev, ...processedVariants]);
+          setServerResults(prev => [...prev, ...processedVariants]);
 
           if (!controller.signal.aborted) {
             setSearchStatus(prev => ({ ...prev, [term]: 'found' }));
@@ -603,6 +686,15 @@ export default function Home() {
           </div>
         )}
 
+        {/* Placeholder until imaging data (slides, diagnostic images) is pulled in */}
+        {caseView === 'imaging' && (
+          <div className="mb-8 rounded-3xl bg-slate-100 p-3 ring-1 ring-inset ring-slate-200 sm:p-5">
+            <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center text-slate-600 shadow-sm">
+              No images available.
+            </div>
+          </div>
+        )}
+
         {/* Kept mounted while hidden, so a generated synthesis is still there when you return to the tab */}
         <div className={caseView === 'synthesis' ? 'mb-8 rounded-3xl bg-slate-100 p-3 ring-1 ring-inset ring-slate-200 sm:p-5' : 'hidden'}>
           <SynthesisView subjectId={subjectId} />
@@ -620,7 +712,7 @@ export default function Home() {
 
         {/* Genomic findings stay mounted on other tabs, so searches, results and predictions survive switching */}
         <div className={caseView === 'genomic' ? '' : 'hidden'}>
-          {/* A light emerald wash (the Genomic Findings tab's color) makes the search box stand out on the white page */}
+          {/* A light emerald wash (the Genomics Explorer tab's color) makes the search box stand out on the white page */}
           <section aria-label="Variant search" className="mb-8 rounded-2xl border border-emerald-200 bg-gradient-to-b from-emerald-50 to-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_4px_12px_rgba(15,23,42,0.04)]">
             <div className={`flex flex-wrap items-center justify-between gap-3 ${isSearchWorkspaceCollapsed ? '' : 'mb-4 border-b border-emerald-100 pb-3'}`}>
               <div className="flex min-w-0 flex-1 items-center gap-2.5">
@@ -652,11 +744,13 @@ export default function Home() {
                   isSearching={isSearching}
                   selectedCancerType={selectedCancerType}
                   onPresetSelect={handlePresetSelect}
+                  reportedGenes={reportedGenes}
+                  onReportedGenesSelect={() => handleSearchInputChange(reportedGenes.join(', '))}
                   enableCatVrsQueries={enableCatVrsQueries}
                   onEnableCatVrsQueriesChange={setEnableCatVrsQueries}
                 />
                 <SearchStatus
-                  searchStatus={searchStatus}
+                  searchStatus={displayedSearchStatus}
                   invalidRanges={invalidRanges}
                   variantCounts={variantCountsByTerm}
                   onCancelSearch={handleCancelSearch}
@@ -756,9 +850,6 @@ export default function Home() {
                   <h2 id="how-to-use-title" className="text-2xl font-bold text-gray-900">
                     {HOW_TO_USE_TITLE}
                   </h2>
-                  <p className="mt-2 text-sm text-gray-600">
-                    These notes summarize the current search, filtering, and results behavior in the app.
-                  </p>
                 </div>
                 <button
                   type="button"

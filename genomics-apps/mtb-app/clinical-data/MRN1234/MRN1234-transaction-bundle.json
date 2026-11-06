@@ -963,6 +963,7 @@
         "id": "mtb-mrn1234-genomics-report-2026-02-26",
         "meta": {
           "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomics-report",
             "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
           ],
           "tag": [
@@ -981,6 +982,15 @@
                 "system": "http://loinc.org",
                 "code": "LP7839-6",
                 "display": "Pathology"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "GE",
+                "display": "Genetics"
               }
             ]
           }
@@ -1011,11 +1021,460 @@
             "reference": "Specimen/mtb-mrn1234-specimen-breast-biopsy"
           }
         ],
-        "conclusion": "Seven-gene panel (BRCA1, BRCA2, CDH1, PALB2, PTEN, STK11, TP53): pathogenic PALB2 NM_024675.3:c.3549C>A (p.Tyr1183Ter), ClinVar 128144. No other pathogenic variants. Detailed variant-level results are maintained on the genomics server, not in this report."
+        "result": [
+          {
+            "reference": "Observation/mtb-mrn1234-genomic-variant-palb2"
+          },
+          {
+            "reference": "Observation/mtb-mrn1234-genomic-region-studied"
+          },
+          {
+            "reference": "Observation/mtb-mrn1234-tx-implication-olaparib"
+          }
+        ],
+        "conclusion": "Seven-gene panel (BRCA1, BRCA2, CDH1, PALB2, PTEN, STK11, TP53): pathogenic PALB2 NM_024675.3:c.3549C>A (p.Tyr1183Ter), ClinVar 128144. No other pathogenic variants. Germline. Predicted sensitivity to olaparib in breast cancer (level B)."
       },
       "request": {
         "method": "PUT",
         "url": "DiagnosticReport/mtb-mrn1234-genomics-report-2026-02-26"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-genomic-variant-palb2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-genomic-variant-palb2",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomic-variant"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "GE",
+                "display": "Genetics"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "69548-6",
+              "display": "Genetic variant assessment"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234",
+          "display": "Jenny M"
+        },
+        "effectiveDateTime": "2026-02-26",
+        "issued": "2026-02-26T17:00:00-05:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA9633-4",
+              "display": "Present"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA26398-0",
+              "display": "Sequencing"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-mrn1234-specimen-breast-biopsy"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48018-6",
+                  "display": "Gene studied [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:26144",
+                  "display": "PALB2"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81252-9",
+                  "display": "Discrete genetic variant"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.ncbi.nlm.nih.gov/clinvar",
+                  "code": "128144",
+                  "display": "NM_024675.3(PALB2):c.3549C>A (p.Tyr1183Ter)"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81290-9",
+                  "display": "Genomic DNA change (gHGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NC_000016.10:g.23603471G>T"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48002-0",
+                  "display": "Genomic source class [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA6683-2",
+                  "display": "Germline"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "53037-8",
+                  "display": "Genetic variation clinical significance [Imp]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA6668-3",
+                  "display": "Pathogenic"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-genomic-variant-palb2"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-genomic-region-studied",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-genomic-region-studied",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomic-region-studied"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "GE",
+                "display": "Genetics"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "53041-0",
+              "display": "DNA region of interest panel"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234",
+          "display": "Jenny M"
+        },
+        "effectiveDateTime": "2026-02-26",
+        "issued": "2026-02-26T17:00:00-05:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ],
+        "specimen": {
+          "reference": "Specimen/mtb-mrn1234-specimen-breast-biopsy"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48018-6",
+                  "display": "Gene studied [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:1100",
+                  "display": "BRCA1"
+                },
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:1101",
+                  "display": "BRCA2"
+                },
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:1748",
+                  "display": "CDH1"
+                },
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:26144",
+                  "display": "PALB2"
+                },
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:9588",
+                  "display": "PTEN"
+                },
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:11389",
+                  "display": "STK11"
+                },
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:11998",
+                  "display": "TP53"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-genomic-region-studied"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-mrn1234-tx-implication-olaparib",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-mrn1234-tx-implication-olaparib",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+              "code": "therapeutic-implication",
+              "display": "Therapeutic Implication"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234",
+          "display": "Jenny M"
+        },
+        "effectiveDateTime": "2026-02-26",
+        "issued": "2026-02-26T17:00:00-05:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist",
+            "display": "Dr. Owen Oncologist"
+          }
+        ],
+        "derivedFrom": [
+          {
+            "reference": "Observation/mtb-mrn1234-genomic-variant-palb2"
+          }
+        ],
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81259-4",
+                  "display": "Associated phenotype"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://disease-ontology.org",
+                  "code": "DOID:1612",
+                  "display": "Breast Cancer"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "93044-6",
+                  "display": "Level of evidence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "B (Clinical evidence)"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "51963-7",
+                  "display": "Medication assessed [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                  "code": "1597582",
+                  "display": "Olaparib"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "predicted-therapeutic-implication",
+                  "display": "Predicted Therapeutic Implication"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Supports Sensitivity/Response"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-mrn1234-tx-implication-olaparib"
       }
     },
     {

@@ -62,13 +62,22 @@ function ImplicationDisplay({ implication }: { implication: ProcessedTxImplicati
             <div className="text-gray-700 mb-2 whitespace-normal break-words">
                 <span className="font-medium text-gray-900">{buildDisplayString()}</span>
             </div>
+            {/* An implication from the patient's genetic report(s), with the CIViC link too when the server has it */}
+            {(implication.reportSources?.length ?? 0) > 0 && (
+                <span
+                    title={implication.reportSources?.map((source) => [source.title, source.date].filter(Boolean).join(' · ')).join('; ')}
+                    className="mr-2 inline-flex rounded bg-emerald-50 px-1.5 font-semibold text-emerald-800 ring-1 ring-inset ring-emerald-200"
+                >
+                    Report
+                </span>
+            )}
             {implication.hyperlink && (
                 <a
                     href={implication.hyperlink}
                     target="_blank"
                     rel="noopener noreferrer"
                     title={implication.hyperlinkTitle}
-                    className="text-blue-600 hover:text-blue-800 hover:underline text-sm"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
                 >
                     {implication.hyperlinkLabel
                         ? implication.hyperlinkLabel
@@ -148,7 +157,7 @@ export default function TxImplicationCell({ implications, cooccurrences = [] }: 
                     {viewMode === 'limited' && distinctImplications.length > 2 && (
                         <button
                             onClick={() => setViewMode('distinct')}
-                            className="text-sm text-blue-600 hover:underline"
+                            className="text-blue-600 hover:underline"
                         >
                             View all distinct implications ({distinctImplications.length})
                         </button>
@@ -158,7 +167,7 @@ export default function TxImplicationCell({ implications, cooccurrences = [] }: 
                     {viewMode === 'distinct' && distinctImplications.length > 2 && (
                         <button
                             onClick={() => setViewMode('limited')}
-                            className="text-sm text-blue-600 hover:underline"
+                            className="text-blue-600 hover:underline"
                         >
                             View less
                         </button>
@@ -168,7 +177,7 @@ export default function TxImplicationCell({ implications, cooccurrences = [] }: 
                     {distinctImplications.length !== implications.length && viewMode === 'limited' && (
                         <button
                             onClick={() => setViewMode('all')}
-                            className="text-sm text-blue-600 hover:underline"
+                            className="text-blue-600 hover:underline"
                         >
                             View all implications ({implications.length})
                         </button>
@@ -178,7 +187,7 @@ export default function TxImplicationCell({ implications, cooccurrences = [] }: 
                     {viewMode === 'all' && (
                         <button
                             onClick={() => setViewMode('limited')}
-                            className="text-sm text-blue-600 hover:underline"
+                            className="text-blue-600 hover:underline"
                         >
                             View less
                         </button>

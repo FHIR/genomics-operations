@@ -13,6 +13,8 @@ export interface MolecularConsequence {
     impact: string;
     hyperlink: string;
     proteinChange?: string;
+    dnaChange?: string; // c.HGVS, e.g. NM_005228.5:c.2573T>G
+    referenceTranscript?: string;
 }
 
 // Helper to extract interpretation and add fixed hyperlink

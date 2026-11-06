@@ -2,6 +2,12 @@ import { DxImplication } from '@/services/dxService';
 import { ProcessedTxImplication } from '@/services/txService';
 import { MolecularConsequence } from '@/services/mcService';
 
+// A genetic report a variant or implication came from (incorporating-curated-lab-report-design.md §4)
+export interface ReportCredit {
+    title: string;
+    date?: string;
+}
+
 export interface Variant {
     id?: string;  // Unique identifier for the variant
     range: string;  // The original search term (gene or range)
@@ -18,4 +24,6 @@ export interface Variant {
     isLoading?: boolean; // Optional loading state for incremental display
     searchId?: number; // Optional search ID for tracking which search operation this belongs to
     error?: string; // Optional error message if fetching failed
+    reportedIn?: ReportCredit[]; // The patient's genetic reports that include this variant
+    isReportOnly?: boolean; // Built from a report; the genomics server doesn't have this variant
 }

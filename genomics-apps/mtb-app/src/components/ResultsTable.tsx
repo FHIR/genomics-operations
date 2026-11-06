@@ -857,7 +857,7 @@ export default function ResultsTable({
         : 'View extended evidence details';
 
   return (
-    // One white card with the Genomic Findings tab's emerald as its border; joins the Results tab above it
+    // One white card with the Genomics Explorer tab's emerald as its border; joins the Results tab above it
     <div className="rounded-2xl border border-emerald-200 bg-white p-3 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_4px_12px_rgba(15,23,42,0.04)] sm:p-4">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-2">
@@ -958,7 +958,7 @@ export default function ResultsTable({
         </div>
       )}
       <div className="max-h-[75vh] overflow-auto rounded-xl border border-slate-200 bg-white">
-        <table className="w-full border-collapse table-fixed" style={{ minWidth: Math.max(totalTableWidth, minimumTableWidth) }}>
+        <table className="w-full border-collapse table-fixed text-xs" style={{ minWidth: Math.max(totalTableWidth, minimumTableWidth) }}>
           <colgroup>
             <col style={{ width: SELECTION_COLUMN_WIDTH }} />
             {visibleColumns.map((column) => {

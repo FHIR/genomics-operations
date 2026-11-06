@@ -57,7 +57,7 @@ The draft failed validation with 69 errors. 53 of them came from one cause: the 
 - The sister's breast cancer (age 64), which is in the narrative but was missing from the draft.
 
 **Content fixes**
-- **Genomic resources dropped:** GenomicVariant (PALB2), genomic region studied and genomics report, replaced by a text-only genomic report (design doc §3.3). See the genomics-server note below.
+- **Genomic resources dropped:** GenomicVariant (PALB2), genomic region studied and genomics report, replaced by a text-only genomic report (design doc §3.3). See the genomics-server note below. *Reversed 2026-11-05; see "Structured genomic report" below.*
 - **Primary cancer:**
   - The SNOMED code from the IG, 353431000119107, is now inactive. It's replaced by 408643008 *Infiltrating duct carcinoma of breast*, a code in the VSAC Breast Cancer value set that sets the predictor's tumor type (design doc §5.5). Laterality is in the text ("…of left breast") and the body site.
   - ICD-10-CM C50.912 and the left-breast body site are added.
@@ -72,11 +72,11 @@ The draft failed validation with 69 errors. 53 of them came from one cause: the 
 
 - **Size vs. T category:** the tumor is 2.5 cm, which is T2 (2–5 cm), yet the IG says cT3 and pT3. With pT2 pN0 the pathologic stage would be IIA. The bundle keeps the IG's T3 / IIB.
 - **Age:** the narrative says 55, but the IG's birth date (1965-01-01) makes her 53 at diagnosis. The bundle keeps the birth date (shifted), so she's 53.
-- **PALB2 origin:** the IG marks the variant *somatic*. Seven-gene panels like this are usually germline tests. The text report doesn't state an origin.
+- **PALB2 origin:** the IG marks the variant *somatic*. Seven-gene panels like this are usually germline tests. *Changed to germline 2026-11-05; see below.*
 
 ## Genomic data on the genomics operations server
 
-Queried 2026-10-22 (subject `MRN1234`). The server has data for this subject, but **not the PALB2 variant**: the only hit across PALB2, BRCA1 and TP53 is TP53 NC_000017.10:7578412:C:A (GRCh37). So the server's MRN1234 is a different synthetic profile from the IG's Jenny M. The MTB demo would show a TP53 variant in Genomic findings and a PALB2 finding in the clinical reports. That's worth reconciling, or at least explaining, before a demo.
+Queried 2026-10-22 (subject `MRN1234`). The server has data for this subject, but **not the PALB2 variant**: the only hit across PALB2, BRCA1 and TP53 is TP53 NC_000017.10:7578412:C:A (GRCh37). So the server's MRN1234 is a different synthetic profile from the IG's Jenny M. The MTB demo shows a TP53 variant in the Genomics Explorer and the PALB2 variant in the clinical report. This mismatch is now kept on purpose (2026-11-05) to work out how the app renders a reported variant the full genomic data set doesn't contain (`incorporating-curated-lab-report-design.md` §2.5).
 
 ## Data-shape features this bundle exercises
 
@@ -105,3 +105,17 @@ HL7 FHIR validator against `hl7.fhir.us.mcode#4.0.0` with tx.fhir.org: **0 error
 curl -X POST -H "Content-Type: application/fhir+json" \
   --data @MRN1234-transaction-bundle.json https://hapi.fhir.org/baseR4
 ```
+
+## Structured genomic report (2026-11-05)
+
+Design: `incorporating-curated-lab-report-design.md` (repo root), §2.3. The text-only genetic report becomes a structured mCODE genomics report, from the IG's Jenny M genomic examples plus a new therapeutic implication.
+
+- **Report** `mtb-mrn1234-genomics-report-2026-02-26`: adds the `mcode-genomics-report` profile (US Core note profile kept), category v2-0074 `GE` after Pathology, and `result` references to the three Observations below. The conclusion's last sentence ("Detailed variant-level results are maintained on the genomics server…") is replaced by "Germline. Predicted sensitivity to olaparib in breast cancer (level B)."
+- **Variant** `mtb-mrn1234-genomic-variant-palb2` (mcode-genomic-variant): PALB2 (HGNC:26144), ClinVar 128144 NM_024675.3(PALB2):c.3549C>A (p.Tyr1183Ter), gHGVS NC_000016.10:g.23603471G>T, on the biopsy specimen. Changed from the IG: **germline** (LA6683-2) instead of somatic, and clinical significance *Pathogenic* (LA6668-3) added.
+- **Region studied** `mtb-mrn1234-genomic-region-studied` (mcode-genomic-region-studied): the seven panel genes. The IG's bare HGNC numbers become `HGNC:` codes, matching the variant.
+- **Therapeutic implication** `mtb-mrn1234-tx-implication-olaparib` (Genomics Reporting therapeutic-implication), derived from the variant: olaparib (RxNorm 1597582), Breast Cancer (DOID:1612), "Supports Sensitivity/Response", evidence "B (Clinical evidence)". This follows the shape of the genomics operations server's CIViC implications, with official displays and no CIViC identifiers.
+- All four are dated 2026-02-26 (the IG's 2018-03-15, shifted), with Dr. Owen Oncologist as performer and displays on every coding.
+
+**Validation:** 0 errors against `hl7.fhir.us.mcode#4.0.0` (2026-11-05). New warnings are benign: no narrative; HGNC, ClinVar and Disease Ontology code systems unknown to the validator; and the implication's value is text, not a code from the Genetic Therapeutic Implications value set.
+
+**Reloaded to hapi.fhir.org 2026-11-05**: the three new Observations were created, the report updated, and all four come back through `Patient/$everything`.

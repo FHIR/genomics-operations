@@ -26,6 +26,11 @@ export default function OncogenicityPredictionCell({
         ONCOGENICITY_SLOW_REQUEST_MS,
     );
 
+    // A reported variant the genomics server doesn't have can't be predicted there
+    if (variant.isReportOnly) {
+        return <span className="text-gray-400">—</span>;
+    }
+
     if (variant.variantType !== 'simple') {
         return (
             <div className="text-xs leading-5 text-gray-500 whitespace-normal break-words">

@@ -1,4 +1,5 @@
 // THERAPEUTIC IMPLICATION API CALL
+import type { ReportCredit } from '@/types/variants';
 import { FhirResponse, FhirObservation } from '@/utils/fhirInterfaces';
 import { TxComponentCodes } from '@/utils/ComponentCodes';
 import { processFhirResponse } from '@/utils/fhirProcessor';
@@ -28,6 +29,7 @@ export interface ProcessedTxImplication {
     sourceObservationIds?: string[];
     civicVariantIds?: string[]; // Every CIViC variant this implication matched (used for co-occurrence checks)
     civicProfileIds?: string[]; // CIViC molecular profiles this implication matched (Cat-VRS results identify these)
+    reportSources?: ReportCredit[]; // The patient's genetic reports that give this implication
 }
 
 const getTxImplicationIdentityKey = (implication: ProcessedTxImplication) => [

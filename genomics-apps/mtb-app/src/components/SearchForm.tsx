@@ -17,6 +17,9 @@ interface SearchFormProps {
   onPresetSelect: (selection: PresetSelection) => void;
   enableCatVrsQueries: boolean;
   onEnableCatVrsQueriesChange: (enabled: boolean) => void;
+  // Genes of the patient's reported variants; the preset fills the search box with them
+  reportedGenes: string[];
+  onReportedGenesSelect: () => void;
 }
 
 const presetClassName = 'rounded-full px-3 py-1 text-sm font-medium ring-1 ring-inset transition-colors focus:outline-none focus:ring-2 focus:ring-blue-300';
@@ -30,6 +33,8 @@ export default function SearchForm({
   onPresetSelect,
   enableCatVrsQueries,
   onEnableCatVrsQueriesChange,
+  reportedGenes,
+  onReportedGenesSelect,
 }: SearchFormProps) {
   const [cancerPresetLabels, setCancerPresetLabels] = useState<string[]>([]);
   const [globalGeneListLabels, setGlobalGeneListLabels] = useState<string[]>([]);
@@ -81,6 +86,19 @@ export default function SearchForm({
 
       <div className="flex flex-wrap items-center gap-2 text-sm">
         <span className="mr-0.5 font-semibold text-slate-700">Presets</span>
+        {reportedGenes.length > 0 && (
+          <>
+            <button
+              type="button"
+              onClick={onReportedGenesSelect}
+              title={reportedGenes.join(', ')}
+              className={`${presetClassName} bg-emerald-100 font-semibold text-emerald-900 ring-emerald-300 hover:bg-emerald-200`}
+            >
+              Reported genes ({reportedGenes.length})
+            </button>
+            <span className="mx-1 h-5 w-px bg-slate-200" aria-hidden="true" />
+          </>
+        )}
         {/* Cancer-specific presets follow the Dx in the banner; general lists are always available */}
         {cancerPresetLabels.length > 0 ? (
           <>

@@ -12,6 +12,7 @@ import {
 import { CrosswalkRow } from '@/cancerFilter/tumorTypeCrosswalk';
 import { hasTimelineDate, isMedication } from '@/lib/treatmentTimeline';
 import { ClinicalRecord } from '@/services/clinicalService';
+import { buildReportedVariants, ReportedVariantsData } from '@/lib/reportedVariants';
 import {
   CODE_SYSTEM_NAMES,
   conceptLabel,
@@ -104,6 +105,8 @@ export interface CaseSummaryData {
   comorbiditiesNotListed: ComorbidityNote[];
   allergies: AllergyIntolerance[];
   reportGroups: ReportGroup[];
+  // The lab's genetic reports: variants and their therapeutic implications
+  reportedVariants: ReportedVariantsData;
   familyHistory: FamilyMemberHistory[];
   // For the treatment timeline: dated medications and procedures, and disease status about the main cancer
   medications: FhirResource[];
@@ -387,6 +390,10 @@ export function classifyClinicalRecord(record: ClinicalRecord, crosswalk: Crossw
   const attached = new Set(primaryCancers.flatMap((cancer) => cancer.stageGroups.map((group) => resourceKey(group.observation))));
   const otherStaging = stageGroups.filter((group) => !attached.has(resourceKey(group.observation)));
 
+  // Genomic variants, regions studied and therapeutic implications have their own card, so they stay out of Labs
+  const reportedVariants = buildReportedVariants(usable, index);
+  reportedVariants.genomicObservations.forEach(place);
+
   // Remaining observations by category
   const byCategory: Record<'labs' | 'imaging' | 'assessments' | 'vitals', Observation[]> = { labs: [], imaging: [], assessments: [], vitals: [] };
   const comorbidityObservations: Observation[] = [];
@@ -488,6 +495,7 @@ export function classifyClinicalRecord(record: ClinicalRecord, crosswalk: Crossw
     comorbiditiesNotListed,
     allergies,
     reportGroups,
+    reportedVariants,
     medications,
     procedures,
     diseaseStatuses,

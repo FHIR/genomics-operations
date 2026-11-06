@@ -9,9 +9,13 @@ interface SectionCardProps {
   className?: string;
   // Cap the body's height (about 10 lines) and scroll inside it, so large records don't stretch the page
   scrollBody?: boolean;
+  // Fill the height the parent gives the card (a flex column) and scroll the body inside it
+  fillHeight?: boolean;
+  // Below the body, outside its scroll area
+  footer?: ReactNode;
 }
 
-export function SectionCard({ section, actions, children, className = '', scrollBody = false }: SectionCardProps) {
+export function SectionCard({ section, actions, children, className = '', scrollBody = false, fillHeight = false, footer }: SectionCardProps) {
   const { title, icon: Icon, accent } = CASE_SECTIONS[section];
   return (
     <section
@@ -19,7 +23,7 @@ export function SectionCard({ section, actions, children, className = '', scroll
       aria-label={title}
       // Leaves room for the sticky banner and jump bar when scrolled to
       style={{ scrollMarginTop: 'var(--case-scroll-offset, 8rem)' }}
-      className={`rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_4px_12px_rgba(15,23,42,0.04)] ${className}`}>
+      className={`rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_4px_12px_rgba(15,23,42,0.04)] ${fillHeight ? 'flex flex-col' : ''} ${className}`}>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
         <div className="flex items-center gap-2.5">
           <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${ACCENT_CLASSES[accent]}`} aria-hidden="true">
@@ -29,7 +33,9 @@ export function SectionCard({ section, actions, children, className = '', scroll
         </div>
         {actions}
       </div>
-      {scrollBody ? <div className="max-h-64 overflow-y-auto pr-1">{children}</div> : children}
+      {fillHeight ? <div className="min-h-0 flex-1 overflow-y-auto pr-1">{children}</div>
+        : scrollBody ? <div className="max-h-64 overflow-y-auto pr-1">{children}</div> : children}
+      {footer && <div className="mt-4 shrink-0 border-t border-slate-100 pt-3">{footer}</div>}
     </section>
   );
 }

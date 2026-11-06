@@ -1,6 +1,7 @@
 import {
   CalendarRange,
   ClipboardList,
+  Dna,
   FileText,
   FlaskConical,
   HeartPulse,
@@ -41,6 +42,7 @@ export interface CaseSection {
 
 export const CASE_SECTIONS = {
   diagnosis: { title: 'Cancer diagnosis & staging', short: 'Diagnosis', icon: Ribbon, accent: 'violet' },
+  variants: { title: 'Reported variants', short: 'Variants', icon: Dna, accent: 'emerald' },
   timeline: { title: 'Treatment timeline', short: 'Timeline', icon: CalendarRange, accent: 'blue' },
   labs: { title: 'Lab & pathology results', short: 'Labs', icon: FlaskConical, accent: 'teal' },
   imaging: { title: 'Imaging observations', short: 'Imaging', icon: ScanLine, accent: 'indigo' },

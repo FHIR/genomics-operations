@@ -268,17 +268,24 @@ tumor_size('mtb-hcc1143-tumor-size-2024-05-20', '2024-05-20', 2.3, 1.8,
 
 DR_CAT_RAD = cc(LOINC, 'LP29684-5', 'Radiology')
 DR_CAT_PATH = cc(LOINC, 'LP7839-6', 'Pathology')
+DR_CAT_GE = cc('http://terminology.hl7.org/CodeSystem/v2-0074', 'GE', 'Genetics')
 
 
-def report(rid, date, cat, code, conclusion, performer, specimen=None, conclusion_code=None):
+def report(rid, date, cat, code, conclusion, performer, specimen=None, conclusion_code=None, results=None):
+    # A report with structured results (the tumor profiling report) is also an mCODE genomics report
     r = {'resourceType': 'DiagnosticReport', 'id': rid, 'status': 'final', 'category': [cat], 'code': code,
          'subject': PAT, 'effectiveDateTime': date, 'issued': f'{date}T17:00:00-04:00',
          'performer': [performer], 'conclusion': conclusion}
+    profiles = [USCORE + 'us-core-diagnosticreport-note']
+    if results:
+        r['category'].append(DR_CAT_GE)
+        r['result'] = results
+        profiles.insert(0, MCODE + 'mcode-genomics-report')
     if specimen:
         r['specimen'] = [specimen]
     if conclusion_code:
         r['conclusionCode'] = [conclusion_code]
-    add(r, [USCORE + 'us-core-diagnosticreport-note'])
+    add(r, profiles)
 
 
 IDC = cc(SCT, '82711006', 'Infiltrating duct carcinoma')
@@ -299,10 +306,88 @@ report('mtb-hcc1143-path-partial-mastectomy', '2024-05-20', DR_CAT_PATH, cc(LOIN
 report('mtb-hcc1143-germline-2024-06-07', '2024-06-07', DR_CAT_PATH, cc(LOINC, '51969-4', 'Genetic analysis report'),
        'Germline multigene hereditary cancer panel (peripheral blood): no pathogenic or likely pathogenic variants '
        'identified, including BRCA1, BRCA2, PALB2, TP53, PTEN, CHEK2 and ATM.', PATH)
-report('mtb-hcc1143-molecular-2024-06-14', '2024-06-14', DR_CAT_PATH, cc(LOINC, '51969-4', 'Genetic analysis report'),
-       'Tumor genomic profiling (partial mastectomy specimen, with matched normal): TP53 c.743G>A (p.Arg248Gln), '
-       'homozygous. No pathogenic alterations in PIK3CA, AKT1, PTEN, BRCA1 or BRCA2. Microsatellite stable. '
-       'Detailed variant-level results are maintained on the genomics server, not in this report.', PATH, SPEC_LUMP)
+
+# Tumor profiling: the variants in the reportable genes (incorporating-curated-lab-report-design.md §2.4,
+# Appendix A) that change a protein, from the genomics operations server's HCC1143 data (GRCh38), and
+# their therapeutic implications in the server's CIViC shape
+GR_TBD = 'http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs'
+HGVS = 'http://varnomen.hgvs.org'
+LAB_GE = obs_cat('laboratory', 'Laboratory') + [cc('http://terminology.hl7.org/CodeSystem/v2-0074', 'GE', 'Genetics')]
+MOLECULAR_DATE = '2024-06-14'
+BREAST_CANCER_DOID = cc('https://disease-ontology.org', 'DOID:1612', 'Breast Cancer')
+
+
+def component(code, display, value, system=LOINC):
+    value = value if any(key.startswith('value') for key in value) else {'valueCodeableConcept': value}
+    return {'code': cc(system, code, display), **value}
+
+
+def genomic_variant(rid, gene, hgnc, c_hgvs, p_hgvs, consequence, refseq, spdi, ref, alt, start):
+    return add({
+        'resourceType': 'Observation', 'id': rid, 'status': 'final', 'category': LAB_GE,
+        'code': cc(LOINC, '69548-6', 'Genetic variant assessment'), 'subject': PAT,
+        'effectiveDateTime': MOLECULAR_DATE, 'issued': f'{MOLECULAR_DATE}T17:00:00-04:00', 'performer': [PATH],
+        'valueCodeableConcept': cc(LOINC, 'LA9633-4', 'Present'),
+        'method': cc(LOINC, 'LA26398-0', 'Sequencing'), 'specimen': SPEC_LUMP,
+        'component': [
+            component('48018-6', 'Gene studied [ID]', cc('http://www.genenames.org', hgnc, gene)),
+            component('48004-6', 'DNA change (c.HGVS)', {'coding': [{'system': HGVS, 'code': c_hgvs}]}),
+            component('48005-3', 'Amino acid change (pHGVS)', {'coding': [{'system': HGVS, 'code': p_hgvs}]}),
+            component('molecular-consequence', 'Molecular Consequence',
+                      cc('http://www.sequenceontology.org/', *consequence), system=GR_TBD),
+            component('48002-0', 'Genomic source class [Type]', cc(LOINC, 'LA6684-0', 'Somatic')),
+            component('48013-7', 'Genomic reference sequence [ID]',
+                      {'coding': [{'system': 'http://www.ncbi.nlm.nih.gov/nuccore', 'code': refseq}]}),
+            component('81252-9', 'Discrete genetic variant',
+                      cc('https://api.ncbi.nlm.nih.gov/variation/v0/', spdi, spdi)),
+            component('81258-6', 'Sample VAF', {'valueQuantity': qty(0.25, 'relative frequency of a particular allele in the specimen', '1')}),
+            component('69547-8', 'Genomic ref allele [ID]', {'valueString': ref}),
+            component('69551-0', 'Genomic alt allele [ID]', {'valueString': alt}),
+            component('92822-6', 'Genomic coordinate system [Type]', cc(LOINC, 'LA30100-4', '0-based interval counting')),
+            component('81254-5', 'Genomic allele start-end', {'valueRange': {'low': {'value': start}}}),
+        ],
+    }, [MCODE + 'mcode-genomic-variant'])
+
+
+def tx_implication(rid, variant, rxcui, drug, implication, evidence):
+    return add({
+        'resourceType': 'Observation', 'id': rid, 'status': 'final', 'category': obs_cat('laboratory', 'Laboratory'),
+        'code': cc(GR_TBD, 'therapeutic-implication', 'Therapeutic Implication'), 'subject': PAT,
+        'effectiveDateTime': MOLECULAR_DATE, 'issued': f'{MOLECULAR_DATE}T17:00:00-04:00', 'performer': [PATH],
+        'derivedFrom': [variant],
+        'component': [
+            component('81259-4', 'Associated phenotype', BREAST_CANCER_DOID),
+            component('93044-6', 'Level of evidence', {'text': evidence}),
+            component('51963-7', 'Medication assessed [ID]', cc(RXN, rxcui, drug)),
+            component('predicted-therapeutic-implication', 'Predicted Therapeutic Implication', {'text': implication},
+                      system=GR_TBD),
+        ],
+    }, ['http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication'])
+
+
+TP53_VARIANT = genomic_variant('mtb-hcc1143-genomic-variant-tp53-r248q', 'TP53', 'HGNC:11998', 'NM_000546.6:c.743G>A',
+                               'NP_000537.3:p.Arg248Gln', ('SO:0001583', 'missense_variant'), 'NC_000017.11',
+                               'NC_000017.11:7674219:C:T', 'C', 'T', 7674219)
+FGFR2_VARIANT = genomic_variant('mtb-hcc1143-genomic-variant-fgfr2-r203c', 'FGFR2', 'HGNC:3689', 'NM_000141.5:c.607C>T',
+                                'NP_000132.3:p.Arg203Cys', ('SO:0001583', 'missense_variant'), 'NC_000010.11',
+                                'NC_000010.11:121551306:G:A', 'G', 'A', 121551306)
+# CIViC EID2783 (TP53 DNA binding domain mutation; R248 contacts DNA)
+TX_TAMOXIFEN = tx_implication('mtb-hcc1143-tx-implication-tamoxifen', TP53_VARIANT, '10324', 'Tamoxifen',
+                              'Supports Resistance', 'B (Clinical evidence)')
+# CIViC EID11883, molecular profile 4950 (FGFR1 or FGFR2 alteration); submitted, not yet accepted in CIViC
+TX_SUNITINIB = tx_implication('mtb-hcc1143-tx-implication-sunitinib', FGFR2_VARIANT, '357977', 'Sunitinib',
+                              'Does Not Support Sensitivity/Response', 'B (Clinical evidence)')
+# Invented for the demo (Bob, 2026-11-05); no source
+TX_PEMIGATINIB = tx_implication('mtb-hcc1143-tx-implication-pemigatinib', FGFR2_VARIANT, '2359268', 'Pemigatinib',
+                                'Supports Sensitivity/Response', 'D (Preclinical evidence)')
+
+report('mtb-hcc1143-molecular-2024-06-14', MOLECULAR_DATE, DR_CAT_PATH, cc(LOINC, '51969-4', 'Genetic analysis report'),
+       'Tumor genomic profiling (partial mastectomy specimen, with matched normal): TP53 c.743G>A (p.Arg248Gln) and '
+       'FGFR2 c.607C>T (p.Arg203Cys). No pathogenic alterations in PIK3CA, AKT1, PTEN, BRCA1 or BRCA2. '
+       'Microsatellite stable. TP53 p.Arg248Gln: predicted resistance to tamoxifen in breast cancer (level B). '
+       'FGFR2 p.Arg203Cys: sunitinib not supported (level B); predicted sensitivity to pemigatinib (level D, '
+       'preclinical).', PATH, SPEC_LUMP,
+       results=[TP53_VARIANT, FGFR2_VARIANT, TX_TAMOXIFEN, TX_SUNITINIB, TX_PEMIGATINIB])
 report('mtb-hcc1143-mammogram-2025-05-19', '2025-05-19', DR_CAT_RAD, cc(LOINC, '24605-8', 'MG Breast Diagnostic'),
        'Post-lumpectomy and radiation changes in the right breast. No suspicious mass or calcifications. '
        'Left breast unremarkable. BI-RADS 2.', RAD)

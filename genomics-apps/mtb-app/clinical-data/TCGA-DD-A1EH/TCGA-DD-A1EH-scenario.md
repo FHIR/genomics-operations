@@ -92,3 +92,21 @@ HL7 FHIR validator against `hl7.fhir.us.mcode#4.0.0` with tx.fhir.org: **0 error
 curl -X POST -H "Content-Type: application/fhir+json" \
   --data @TCGA-DD-A1EH-transaction-bundle.json https://hapi.fhir.org/baseR4
 ```
+
+## Structured genomic report (2026-11-05)
+
+Design: `incorporating-curated-lab-report-design.md` (repo root), §2.4. Source: `higado (transaction).json` in this folder, an older transaction bundle from the Logica MTB server (36 variants, 3 therapeutic and 3 diagnostic implications, no report). Only variants in the design doc's Appendix A genes are kept, and only drug implications.
+
+- **Report** `mtb-tcga-dd-a1eh-ngs-2026-07-28`: adds the `mcode-genomics-report` profile (US Core note profile kept), category v2-0074 `GE` after Pathology, and `result` references to the four Observations below ahead of MSI and TMB. The conclusion now names only what's kept: ARID1A ×2 and JAK1, MSI/TMB, the ruxolitinib implication, and the NCT05023655 trial (the patient's enrolled study). AXIN1, its trial (NCT06005974) and the "additional variants of uncertain significance" are gone.
+- **Variants** (mcode-genomic-variant, somatic, GRCh37, components as in the source plus displays):
+  - `mtb-tcga-dd-a1eh-genomic-variant-arid1a-r1721`: ARID1A NM_006015.6:c.5161C>T, NP_006006.3:p.Arg1721*, stop gained (source 104)
+  - `mtb-tcga-dd-a1eh-genomic-variant-arid1a-v2169fs`: ARID1A NM_006015.6:c.6504_6505insT, NP_006006.3:p.(Val2169CysfsTer56), frameshift (source 105)
+  - `mtb-tcga-dd-a1eh-genomic-variant-jak1-a1086s`: JAK1 NM_001320923.2:c.3256G>T, NP_001307852.1:p.Ala1086Ser, missense (source 106)
+  - Protein changes are new (the source has none). Arg1721* and Ala1086Ser match the genomics operations server; the frameshift is the full form computed from the NCBI transcript and confirmed by Mutalyzer (the server and old report text give the short form p.Val2169fs).
+- **Therapeutic implication** `mtb-tcga-dd-a1eh-tx-implication-ruxolitinib` (from source 138), derived from the JAK1 variant: ruxolitinib (RxNorm 1193326), Hepatocellular Carcinoma (DOID:684), "Does Not Support Sensitivity/Response", evidence "D (Preclinical evidence)". Same shape as MRN1234's.
+- **Left out:** AXIN1 c.1939dupC (not in Appendix A; findable only in the Genomics Explorer), the mislabeled second "AXIN1" variant (a PSMC5 variant), the other 30 variants, trial implications 139/140 and diagnostic implications 152–154.
+- All dated 2026-07-22 (issued 2026-07-28), Dr. Owen Oncologist as performer. There's no Specimen resource in this bundle, so the variants have none.
+
+**Validation** against `hl7.fhir.us.mcode#4.0.0` (2026-11-05): 3 errors, all from tx.fhir.org not recognizing the frameshift p.HGVS. It rejects every frameshift form tried, including Mutalyzer's own, while accepting the other two protein changes; this is a validator limitation, not an instance problem (Bob, 2026-11-05). The errors: the code is "unknown", so it fails the HGVS value set, and so the report's link to that variant finds no profile match. Warnings are the benign kinds seen in MRN1234.
+
+**Reloaded to hapi.fhir.org 2026-11-05**: the four new Observations were created, the report updated, and all come back through `Patient/$everything`.

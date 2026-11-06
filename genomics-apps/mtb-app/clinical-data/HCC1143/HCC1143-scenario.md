@@ -112,3 +112,21 @@ The remaining warnings are the same benign ones as L2345 (no narrative, RxNorm v
 curl -X POST -H "Content-Type: application/fhir+json" \
   --data @HCC1143-transaction-bundle.json https://hapi.fhir.org/baseR4
 ```
+
+## Structured genomic report (2026-11-05)
+
+Design: `incorporating-curated-lab-report-design.md` (repo root), §2.4. Built by `build_hcc1143.py` (the "Tumor profiling" block before the molecular report).
+
+- **Report** `mtb-hcc1143-molecular-2024-06-14`: adds the `mcode-genomics-report` profile (US Core note profile kept), category v2-0074 `GE` after Pathology, and `result` references to the five Observations below. The conclusion drops "homozygous" (the genomics server's VAF is 0.25; the published cell-line data above still says homozygous) and adds FGFR2 and the implications. The germline panel report stays text-only.
+- **Variants** (mcode-genomic-variant, somatic, VAF 0.25, GRCh38, from the genomics operations server's HCC1143 data; the only protein-changing variants among the 9 it has in the reportable genes):
+  - `mtb-hcc1143-genomic-variant-tp53-r248q`: TP53 NM_000546.6:c.743G>A, NP_000537.3:p.Arg248Gln, NC_000017.11:7674219:C:T
+  - `mtb-hcc1143-genomic-variant-fgfr2-r203c`: FGFR2 NM_000141.5:c.607C>T, NP_000132.3:p.Arg203Cys, NC_000010.11:121551306:G:A
+- **Therapeutic implications** (Breast Cancer, DOID:1612; same shape as MRN1234's):
+  - `mtb-hcc1143-tx-implication-tamoxifen` (TP53): tamoxifen, Supports Resistance, B. CIViC EID2783 (TP53 DNA binding domain mutation).
+  - `mtb-hcc1143-tx-implication-sunitinib` (FGFR2): sunitinib, Does Not Support Sensitivity/Response, B. CIViC EID11883 (molecular profile 4950, FGFR1 or FGFR2 alteration), still *submitted* in CIViC.
+  - `mtb-hcc1143-tx-implication-pemigatinib` (FGFR2): pemigatinib, Supports Sensitivity/Response, D. **Invented for the demo** (Bob, 2026-11-05).
+- She's ER-negative, so the tamoxifen implication is accurate but not actionable.
+
+**Validation:** 0 errors against `hl7.fhir.us.mcode#4.0.0` (2026-11-05). New warnings are benign: HGNC, NCBI nuccore/variation and Sequence Ontology code systems unknown to the validator, and the implications' CIViC text in place of a coded value.
+
+**Reloaded to hapi.fhir.org 2026-11-05**: the five new Observations were created, the report updated, and all come back through `Patient/$everything`.

@@ -203,7 +203,7 @@ export default function PathwaysView({
                                         {getVariantGene(variant) ?? variant.range} {getVariantShortLabel(variant)}
                                     </div>
                                     <div className="mt-0.5 break-all font-mono text-xs text-gray-600">{variant.variant}</div>
-                                    <div className="-mx-3">
+                                    <div className="-mx-3 text-sm">
                                         <TxImplicationCell implications={variant.txImplications} />
                                     </div>
                                     {variant.id && (

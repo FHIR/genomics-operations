@@ -20,6 +20,7 @@ import JumpBar from './JumpBar';
 import LabsSection from './LabsSection';
 import TreatmentTimeline from './TreatmentTimeline';
 import ReportsSection from './ReportsSection';
+import ReportedVariantsSection from './ReportedVariantsSection';
 import { Chip, SectionCard } from './SectionCard';
 
 const NO_KNOWN_ALLERGY_CODES = [`${SNOMED}|716186003`, `${SNOMED}|409137002`];
@@ -112,7 +113,7 @@ function DiagnosisSection({ data }: { data: CaseSummaryData }) {
           {data.primaryCancers.map(({ condition, stageGroups }) => (
             <div key={condition.id} className="flex flex-col gap-3">
               <PrimaryCancerHeader condition={condition} latestStage={stageGroups[0]?.observation} />
-              <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                 {/* Only the newest staging gets the note; AJCC stage isn't reassigned when disease spreads */}
                 {stageGroups.map((group, position) => (
                   <StageCard
@@ -134,7 +135,7 @@ function DiagnosisSection({ data }: { data: CaseSummaryData }) {
             </div>
           ))}
           {(data.otherStaging.length > 0 || data.looseTnmCategories.length > 0) && (
-            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
               {data.otherStaging.map((group) => <StageCard key={group.observation.id} group={group} />)}
               {data.looseTnmCategories.length > 0 && (
                 <div className="flex flex-col gap-1 rounded-xl bg-slate-50 p-4 text-sm ring-1 ring-inset ring-slate-200">
@@ -332,14 +333,14 @@ export default function CaseSummary({ subjectId, clinicalState, onRetry, onGoToG
         {clinicalState.status === 'loading' && 'Loading clinical data…'}
         {clinicalState.status === 'none' && (
           <span className="inline-flex flex-col items-center gap-3">
-            <span>No clinical data found for MRN {subjectId}. Genomic Findings still work as usual.</span>
+            <span>No clinical data found for MRN {subjectId}. Genomics Explorer still works as usual.</span>
             <button
               type="button"
               onClick={onGoToGenomicFindings}
               className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800"
             >
               <Dna size={16} aria-hidden="true" className="text-emerald-300" />
-              Go to Genomic Findings
+              Go to Genomics Explorer
             </button>
           </span>
         )}
@@ -356,7 +357,16 @@ export default function CaseSummary({ subjectId, clinicalState, onRetry, onGoToG
   return (
     <div className="flex flex-col gap-5">
       <JumpBar />
-      <DiagnosisSection data={data} />
+      {/* Diagnosis takes two thirds of the row on wide screens and Reported variants the rest; the variants card
+          is positioned over its cell so the diagnosis card sets the row's height, and its body scrolls */}
+      <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
+        <div className="xl:col-span-2">
+          <DiagnosisSection data={data} />
+        </div>
+        <div className="relative xl:min-h-[20rem]">
+          <ReportedVariantsSection data={data.reportedVariants} onOpenGenomicsExplorer={onGoToGenomicFindings} className="xl:absolute xl:inset-0" />
+        </div>
+      </div>
       <TreatmentTimeline timeline={timeline} />
       <LabsSection labs={data.labs} index={data.index} />
       {/* Three cards per row on wide screens, two on medium, one on narrow */}

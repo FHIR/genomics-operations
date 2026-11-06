@@ -54,7 +54,8 @@ export const findComponentValue = (components: Component[], code: string): strin
         return component?.valueCodeableConcept?.coding?.[0]?.display || '';
     }
 
-    if (code === '48005-3' || code === '93044-6') {
+    // HGVS and the transcript come as text (the c.HGVS was read from valueString before, so it was always empty)
+    if (code === '48004-6' || code === '51958-7' || code === '48005-3' || code === '93044-6') {
         return component?.valueCodeableConcept?.text || '';
     }
 

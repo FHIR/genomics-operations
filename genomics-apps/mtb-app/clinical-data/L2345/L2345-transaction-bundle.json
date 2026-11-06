@@ -2135,12 +2135,560 @@
       }
     },
     {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-genomic-variant-egfr-l858r-2023",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-genomic-variant-egfr-l858r-2023",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomic-variant"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "GE",
+                "display": "Genetics"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "69548-6",
+              "display": "Genetic variant assessment"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2023-06-09",
+        "issued": "2023-06-09T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA9633-4",
+              "display": "Present"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA26398-0",
+              "display": "Sequencing"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-l2345-specimen-rll-fna"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48018-6",
+                  "display": "Gene studied [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:3236",
+                  "display": "EGFR"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48004-6",
+                  "display": "DNA change (c.HGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NM_005228.5:c.2573T>G"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48005-3",
+                  "display": "Amino acid change (pHGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NP_005219.2:p.Leu858Arg"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "molecular-consequence",
+                  "display": "Molecular Consequence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.sequenceontology.org/",
+                  "code": "SO:0001583",
+                  "display": "missense_variant"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48002-0",
+                  "display": "Genomic source class [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA6684-0",
+                  "display": "Somatic"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48013-7",
+                  "display": "Genomic reference sequence [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+                  "code": "NC_000007.14"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81252-9",
+                  "display": "Discrete genetic variant"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
+                  "code": "NC_000007.14:55191821:T:G",
+                  "display": "NC_000007.14:55191821:T:G"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69547-8",
+                  "display": "Genomic ref allele [ID]"
+                }
+              ]
+            },
+            "valueString": "T"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69551-0",
+                  "display": "Genomic alt allele [ID]"
+                }
+              ]
+            },
+            "valueString": "G"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92822-6",
+                  "display": "Genomic coordinate system [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA30100-4",
+                  "display": "0-based interval counting"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81254-5",
+                  "display": "Genomic allele start-end"
+                }
+              ]
+            },
+            "valueRange": {
+              "low": {
+                "value": 55191821
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-genomic-variant-egfr-l858r-2023"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-tx-implication-erlotinib-l858r-2023",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-tx-implication-erlotinib-l858r-2023",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+              "code": "therapeutic-implication",
+              "display": "Therapeutic Implication"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2023-06-09",
+        "issued": "2023-06-09T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "derivedFrom": [
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-egfr-l858r-2023"
+          }
+        ],
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81259-4",
+                  "display": "Associated phenotype"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://disease-ontology.org",
+                  "code": "DOID:3908",
+                  "display": "Lung Non-small Cell Carcinoma"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "93044-6",
+                  "display": "Level of evidence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "A (Validated association)"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "51963-7",
+                  "display": "Medication assessed [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                  "code": "337525",
+                  "display": "Erlotinib"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "predicted-therapeutic-implication",
+                  "display": "Predicted Therapeutic Implication"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Supports Sensitivity/Response"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-tx-implication-erlotinib-l858r-2023"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-tx-implication-afatinib-l858r-2023",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-tx-implication-afatinib-l858r-2023",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+              "code": "therapeutic-implication",
+              "display": "Therapeutic Implication"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2023-06-09",
+        "issued": "2023-06-09T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "derivedFrom": [
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-egfr-l858r-2023"
+          }
+        ],
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81259-4",
+                  "display": "Associated phenotype"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://disease-ontology.org",
+                  "code": "DOID:3908",
+                  "display": "Lung Non-small Cell Carcinoma"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "93044-6",
+                  "display": "Level of evidence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "A (Validated association)"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "51963-7",
+                  "display": "Medication assessed [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                  "code": "1430438",
+                  "display": "Afatinib"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "predicted-therapeutic-implication",
+                  "display": "Predicted Therapeutic Implication"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Supports Sensitivity/Response"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-tx-implication-afatinib-l858r-2023"
+      }
+    },
+    {
       "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-l2345-molecular-2023-06-09",
       "resource": {
         "resourceType": "DiagnosticReport",
         "id": "mtb-l2345-molecular-2023-06-09",
         "meta": {
           "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomics-report",
             "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
           ],
           "tag": [
@@ -2159,6 +2707,15 @@
                 "system": "http://loinc.org",
                 "code": "LP7839-6",
                 "display": "Pathology"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "GE",
+                "display": "Genetics"
               }
             ]
           }
@@ -2184,10 +2741,21 @@
             "display": "Dr. Paul Pathologist"
           }
         ],
-        "conclusion": "Initial tumor genomic profiling (RLL FNA cell block, targeted NGS): EGFR exon 21 L858R detected. No ALK, ROS1, RET or NTRK fusions; no MET exon 14 skipping; KRAS and BRAF wild type. Detailed variant-level results are maintained on the genomics server, not in this report.",
+        "conclusion": "Initial tumor genomic profiling (RLL FNA cell block, targeted NGS): EGFR exon 21 L858R detected. No ALK, ROS1, RET or NTRK fusions; no MET exon 14 skipping; KRAS and BRAF wild type. EGFR L858R: predicted sensitivity to erlotinib and afatinib in non-small cell lung cancer (level A).",
         "specimen": [
           {
             "reference": "Specimen/mtb-l2345-specimen-rll-fna"
+          }
+        ],
+        "result": [
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-egfr-l858r-2023"
+          },
+          {
+            "reference": "Observation/mtb-l2345-tx-implication-erlotinib-l858r-2023"
+          },
+          {
+            "reference": "Observation/mtb-l2345-tx-implication-afatinib-l858r-2023"
           }
         ]
       },
@@ -2448,6 +3016,3866 @@
       "request": {
         "method": "PUT",
         "url": "DiagnosticReport/mtb-l2345-path-liver-biopsy"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-genomic-variant-egfr-t790m",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-genomic-variant-egfr-t790m",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomic-variant"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "GE",
+                "display": "Genetics"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "69548-6",
+              "display": "Genetic variant assessment"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-16",
+        "issued": "2026-10-16T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA9633-4",
+              "display": "Present"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA26398-0",
+              "display": "Sequencing"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-l2345-specimen-liver-core"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48018-6",
+                  "display": "Gene studied [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:3236",
+                  "display": "EGFR"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48004-6",
+                  "display": "DNA change (c.HGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NM_005228.5:c.2369C>T"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48005-3",
+                  "display": "Amino acid change (pHGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NP_005219.2:p.Thr790Met"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "molecular-consequence",
+                  "display": "Molecular Consequence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.sequenceontology.org/",
+                  "code": "SO:0001583",
+                  "display": "missense_variant"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48002-0",
+                  "display": "Genomic source class [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA6684-0",
+                  "display": "Somatic"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48013-7",
+                  "display": "Genomic reference sequence [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+                  "code": "NC_000007.14"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81252-9",
+                  "display": "Discrete genetic variant"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
+                  "code": "NC_000007.14:55181377:C:T",
+                  "display": "NC_000007.14:55181377:C:T"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69547-8",
+                  "display": "Genomic ref allele [ID]"
+                }
+              ]
+            },
+            "valueString": "C"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69551-0",
+                  "display": "Genomic alt allele [ID]"
+                }
+              ]
+            },
+            "valueString": "T"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92822-6",
+                  "display": "Genomic coordinate system [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA30100-4",
+                  "display": "0-based interval counting"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81254-5",
+                  "display": "Genomic allele start-end"
+                }
+              ]
+            },
+            "valueRange": {
+              "low": {
+                "value": 55181377
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-genomic-variant-egfr-t790m"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-genomic-variant-egfr-k745fs",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-genomic-variant-egfr-k745fs",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomic-variant"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "GE",
+                "display": "Genetics"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "69548-6",
+              "display": "Genetic variant assessment"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-16",
+        "issued": "2026-10-16T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA9633-4",
+              "display": "Present"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA26398-0",
+              "display": "Sequencing"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-l2345-specimen-liver-core"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48018-6",
+                  "display": "Gene studied [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:3236",
+                  "display": "EGFR"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48004-6",
+                  "display": "DNA change (c.HGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NM_005228.5:c.2232_2250del"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48005-3",
+                  "display": "Amino acid change (pHGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NP_005219.2:p.(Lys745HisfsTer15)"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "molecular-consequence",
+                  "display": "Molecular Consequence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.sequenceontology.org/",
+                  "code": "SO:0001589",
+                  "display": "frameshift_variant"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48002-0",
+                  "display": "Genomic source class [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA6684-0",
+                  "display": "Somatic"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48013-7",
+                  "display": "Genomic reference sequence [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+                  "code": "NC_000007.14"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81252-9",
+                  "display": "Discrete genetic variant"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
+                  "code": "NC_000007.14:55174768:CAAGGAATTAAGAGAAGCA:",
+                  "display": "NC_000007.14:55174768:CAAGGAATTAAGAGAAGCA:"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69547-8",
+                  "display": "Genomic ref allele [ID]"
+                }
+              ]
+            },
+            "valueString": "CAAGGAATTAAGAGAAGCA"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92822-6",
+                  "display": "Genomic coordinate system [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA30100-4",
+                  "display": "0-based interval counting"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81254-5",
+                  "display": "Genomic allele start-end"
+                }
+              ]
+            },
+            "valueRange": {
+              "low": {
+                "value": 55174768
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-genomic-variant-egfr-k745fs"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-genomic-variant-kras-g12c",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-genomic-variant-kras-g12c",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomic-variant"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "GE",
+                "display": "Genetics"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "69548-6",
+              "display": "Genetic variant assessment"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-16",
+        "issued": "2026-10-16T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA9633-4",
+              "display": "Present"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA26398-0",
+              "display": "Sequencing"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-l2345-specimen-liver-core"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48018-6",
+                  "display": "Gene studied [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:6407",
+                  "display": "KRAS"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48004-6",
+                  "display": "DNA change (c.HGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NM_004985.5:c.34G>T"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48005-3",
+                  "display": "Amino acid change (pHGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NP_004976.2:p.Gly12Cys"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "molecular-consequence",
+                  "display": "Molecular Consequence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.sequenceontology.org/",
+                  "code": "SO:0001583",
+                  "display": "missense_variant"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48002-0",
+                  "display": "Genomic source class [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA6684-0",
+                  "display": "Somatic"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48013-7",
+                  "display": "Genomic reference sequence [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+                  "code": "NC_000012.12"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81252-9",
+                  "display": "Discrete genetic variant"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
+                  "code": "NC_000012.12:25245350:C:A",
+                  "display": "NC_000012.12:25245350:C:A"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69547-8",
+                  "display": "Genomic ref allele [ID]"
+                }
+              ]
+            },
+            "valueString": "C"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69551-0",
+                  "display": "Genomic alt allele [ID]"
+                }
+              ]
+            },
+            "valueString": "A"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92822-6",
+                  "display": "Genomic coordinate system [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA30100-4",
+                  "display": "0-based interval counting"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81254-5",
+                  "display": "Genomic allele start-end"
+                }
+              ]
+            },
+            "valueRange": {
+              "low": {
+                "value": 25245350
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-genomic-variant-kras-g12c"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-genomic-variant-kras-g12a",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-genomic-variant-kras-g12a",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomic-variant"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "GE",
+                "display": "Genetics"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "69548-6",
+              "display": "Genetic variant assessment"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-16",
+        "issued": "2026-10-16T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA9633-4",
+              "display": "Present"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA26398-0",
+              "display": "Sequencing"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-l2345-specimen-liver-core"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48018-6",
+                  "display": "Gene studied [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:6407",
+                  "display": "KRAS"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48004-6",
+                  "display": "DNA change (c.HGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NM_004985.5:c.35G>C"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48005-3",
+                  "display": "Amino acid change (pHGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NP_004976.2:p.Gly12Ala"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "molecular-consequence",
+                  "display": "Molecular Consequence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.sequenceontology.org/",
+                  "code": "SO:0001583",
+                  "display": "missense_variant"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48002-0",
+                  "display": "Genomic source class [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA6684-0",
+                  "display": "Somatic"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48013-7",
+                  "display": "Genomic reference sequence [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+                  "code": "NC_000012.12"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81252-9",
+                  "display": "Discrete genetic variant"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
+                  "code": "NC_000012.12:25245349:C:G",
+                  "display": "NC_000012.12:25245349:C:G"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69547-8",
+                  "display": "Genomic ref allele [ID]"
+                }
+              ]
+            },
+            "valueString": "C"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69551-0",
+                  "display": "Genomic alt allele [ID]"
+                }
+              ]
+            },
+            "valueString": "G"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92822-6",
+                  "display": "Genomic coordinate system [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA30100-4",
+                  "display": "0-based interval counting"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81254-5",
+                  "display": "Genomic allele start-end"
+                }
+              ]
+            },
+            "valueRange": {
+              "low": {
+                "value": 25245349
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-genomic-variant-kras-g12a"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-genomic-variant-braf-v600e",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-genomic-variant-braf-v600e",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomic-variant"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "GE",
+                "display": "Genetics"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "69548-6",
+              "display": "Genetic variant assessment"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-16",
+        "issued": "2026-10-16T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA9633-4",
+              "display": "Present"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA26398-0",
+              "display": "Sequencing"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-l2345-specimen-liver-core"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48018-6",
+                  "display": "Gene studied [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:1097",
+                  "display": "BRAF"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48004-6",
+                  "display": "DNA change (c.HGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NM_004333.6:c.1799T>A"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48005-3",
+                  "display": "Amino acid change (pHGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NP_004324.2:p.Val600Glu"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "molecular-consequence",
+                  "display": "Molecular Consequence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.sequenceontology.org/",
+                  "code": "SO:0001583",
+                  "display": "missense_variant"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48002-0",
+                  "display": "Genomic source class [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA6684-0",
+                  "display": "Somatic"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48013-7",
+                  "display": "Genomic reference sequence [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+                  "code": "NC_000007.14"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81252-9",
+                  "display": "Discrete genetic variant"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
+                  "code": "NC_000007.14:140753335:A:T",
+                  "display": "NC_000007.14:140753335:A:T"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69547-8",
+                  "display": "Genomic ref allele [ID]"
+                }
+              ]
+            },
+            "valueString": "A"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69551-0",
+                  "display": "Genomic alt allele [ID]"
+                }
+              ]
+            },
+            "valueString": "T"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92822-6",
+                  "display": "Genomic coordinate system [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA30100-4",
+                  "display": "0-based interval counting"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81254-5",
+                  "display": "Genomic allele start-end"
+                }
+              ]
+            },
+            "valueRange": {
+              "low": {
+                "value": 140753335
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-genomic-variant-braf-v600e"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-genomic-variant-alk-f1245v",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-genomic-variant-alk-f1245v",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomic-variant"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "GE",
+                "display": "Genetics"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "69548-6",
+              "display": "Genetic variant assessment"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-16",
+        "issued": "2026-10-16T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA9633-4",
+              "display": "Present"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA26398-0",
+              "display": "Sequencing"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-l2345-specimen-liver-core"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48018-6",
+                  "display": "Gene studied [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:427",
+                  "display": "ALK"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48004-6",
+                  "display": "DNA change (c.HGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NM_004304.5:c.3733T>G"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48005-3",
+                  "display": "Amino acid change (pHGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NP_004295.2:p.Phe1245Val"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "molecular-consequence",
+                  "display": "Molecular Consequence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.sequenceontology.org/",
+                  "code": "SO:0001583",
+                  "display": "missense_variant"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48002-0",
+                  "display": "Genomic source class [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA6684-0",
+                  "display": "Somatic"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48013-7",
+                  "display": "Genomic reference sequence [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+                  "code": "NC_000002.12"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81252-9",
+                  "display": "Discrete genetic variant"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
+                  "code": "NC_000002.12:29213993:A:C",
+                  "display": "NC_000002.12:29213993:A:C"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69547-8",
+                  "display": "Genomic ref allele [ID]"
+                }
+              ]
+            },
+            "valueString": "A"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69551-0",
+                  "display": "Genomic alt allele [ID]"
+                }
+              ]
+            },
+            "valueString": "C"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92822-6",
+                  "display": "Genomic coordinate system [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA30100-4",
+                  "display": "0-based interval counting"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81254-5",
+                  "display": "Genomic allele start-end"
+                }
+              ]
+            },
+            "valueRange": {
+              "low": {
+                "value": 29213993
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-genomic-variant-alk-f1245v"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-genomic-variant-brca2-q66x",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-genomic-variant-brca2-q66x",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomic-variant"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "GE",
+                "display": "Genetics"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "69548-6",
+              "display": "Genetic variant assessment"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-16",
+        "issued": "2026-10-16T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA9633-4",
+              "display": "Present"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA26398-0",
+              "display": "Sequencing"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-l2345-specimen-liver-core"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48018-6",
+                  "display": "Gene studied [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:1101",
+                  "display": "BRCA2"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48004-6",
+                  "display": "DNA change (c.HGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NM_000059.4:c.196C>T"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48005-3",
+                  "display": "Amino acid change (pHGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NP_000050.3:p.Gln66Ter"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "molecular-consequence",
+                  "display": "Molecular Consequence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.sequenceontology.org/",
+                  "code": "SO:0001587",
+                  "display": "stop_gained"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48002-0",
+                  "display": "Genomic source class [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA6684-0",
+                  "display": "Somatic"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48013-7",
+                  "display": "Genomic reference sequence [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+                  "code": "NC_000013.11"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81252-9",
+                  "display": "Discrete genetic variant"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
+                  "code": "NC_000013.11:32319204:C:T",
+                  "display": "NC_000013.11:32319204:C:T"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69547-8",
+                  "display": "Genomic ref allele [ID]"
+                }
+              ]
+            },
+            "valueString": "C"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69551-0",
+                  "display": "Genomic alt allele [ID]"
+                }
+              ]
+            },
+            "valueString": "T"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92822-6",
+                  "display": "Genomic coordinate system [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA30100-4",
+                  "display": "0-based interval counting"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81254-5",
+                  "display": "Genomic allele start-end"
+                }
+              ]
+            },
+            "valueRange": {
+              "low": {
+                "value": 32319204
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-genomic-variant-brca2-q66x"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-genomic-variant-stk11-k48fs",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-genomic-variant-stk11-k48fs",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomic-variant"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "GE",
+                "display": "Genetics"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "69548-6",
+              "display": "Genetic variant assessment"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-16",
+        "issued": "2026-10-16T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA9633-4",
+              "display": "Present"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA26398-0",
+              "display": "Sequencing"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-l2345-specimen-liver-core"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48018-6",
+                  "display": "Gene studied [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:11389",
+                  "display": "STK11"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48004-6",
+                  "display": "DNA change (c.HGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NM_000455.5:c.143_158del"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48005-3",
+                  "display": "Amino acid change (pHGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NP_000446.1:p.(Lys48ThrfsTer11)"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "molecular-consequence",
+                  "display": "Molecular Consequence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.sequenceontology.org/",
+                  "code": "SO:0001589",
+                  "display": "frameshift_variant"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48002-0",
+                  "display": "Genomic source class [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA6684-0",
+                  "display": "Somatic"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48013-7",
+                  "display": "Genomic reference sequence [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+                  "code": "NC_000019.10"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81252-9",
+                  "display": "Discrete genetic variant"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
+                  "code": "NC_000019.10:1207054:AAGTACCTGATGGGGGA:A",
+                  "display": "NC_000019.10:1207054:AAGTACCTGATGGGGGA:A"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69547-8",
+                  "display": "Genomic ref allele [ID]"
+                }
+              ]
+            },
+            "valueString": "AAGTACCTGATGGGGGA"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69551-0",
+                  "display": "Genomic alt allele [ID]"
+                }
+              ]
+            },
+            "valueString": "A"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92822-6",
+                  "display": "Genomic coordinate system [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA30100-4",
+                  "display": "0-based interval counting"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81254-5",
+                  "display": "Genomic allele start-end"
+                }
+              ]
+            },
+            "valueRange": {
+              "low": {
+                "value": 1207054
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-genomic-variant-stk11-k48fs"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-genomic-variant-egfr-l858r-2026",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-genomic-variant-egfr-l858r-2026",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomic-variant"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "GE",
+                "display": "Genetics"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "69548-6",
+              "display": "Genetic variant assessment"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-16",
+        "issued": "2026-10-16T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA9633-4",
+              "display": "Present"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA26398-0",
+              "display": "Sequencing"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-l2345-specimen-liver-core"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48018-6",
+                  "display": "Gene studied [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:3236",
+                  "display": "EGFR"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48004-6",
+                  "display": "DNA change (c.HGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NM_005228.5:c.2573T>G"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48005-3",
+                  "display": "Amino acid change (pHGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NP_005219.2:p.Leu858Arg"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "molecular-consequence",
+                  "display": "Molecular Consequence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.sequenceontology.org/",
+                  "code": "SO:0001583",
+                  "display": "missense_variant"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48002-0",
+                  "display": "Genomic source class [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA6684-0",
+                  "display": "Somatic"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48013-7",
+                  "display": "Genomic reference sequence [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+                  "code": "NC_000007.14"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81252-9",
+                  "display": "Discrete genetic variant"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
+                  "code": "NC_000007.14:55191821:T:G",
+                  "display": "NC_000007.14:55191821:T:G"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69547-8",
+                  "display": "Genomic ref allele [ID]"
+                }
+              ]
+            },
+            "valueString": "T"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69551-0",
+                  "display": "Genomic alt allele [ID]"
+                }
+              ]
+            },
+            "valueString": "G"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92822-6",
+                  "display": "Genomic coordinate system [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA30100-4",
+                  "display": "0-based interval counting"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81254-5",
+                  "display": "Genomic allele start-end"
+                }
+              ]
+            },
+            "valueRange": {
+              "low": {
+                "value": 55191821
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-genomic-variant-egfr-l858r-2026"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-tx-implication-erlotinib-l858r-2026",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-tx-implication-erlotinib-l858r-2026",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+              "code": "therapeutic-implication",
+              "display": "Therapeutic Implication"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-16",
+        "issued": "2026-10-16T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "derivedFrom": [
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-egfr-l858r-2026"
+          }
+        ],
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81259-4",
+                  "display": "Associated phenotype"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://disease-ontology.org",
+                  "code": "DOID:3908",
+                  "display": "Lung Non-small Cell Carcinoma"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "93044-6",
+                  "display": "Level of evidence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "A (Validated association)"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "51963-7",
+                  "display": "Medication assessed [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                  "code": "337525",
+                  "display": "Erlotinib"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "predicted-therapeutic-implication",
+                  "display": "Predicted Therapeutic Implication"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Supports Sensitivity/Response"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-tx-implication-erlotinib-l858r-2026"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-tx-implication-afatinib-l858r-2026",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-tx-implication-afatinib-l858r-2026",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+              "code": "therapeutic-implication",
+              "display": "Therapeutic Implication"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-16",
+        "issued": "2026-10-16T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "derivedFrom": [
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-egfr-l858r-2026"
+          }
+        ],
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81259-4",
+                  "display": "Associated phenotype"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://disease-ontology.org",
+                  "code": "DOID:3908",
+                  "display": "Lung Non-small Cell Carcinoma"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "93044-6",
+                  "display": "Level of evidence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "A (Validated association)"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "51963-7",
+                  "display": "Medication assessed [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                  "code": "1430438",
+                  "display": "Afatinib"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "predicted-therapeutic-implication",
+                  "display": "Predicted Therapeutic Implication"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Supports Sensitivity/Response"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-tx-implication-afatinib-l858r-2026"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-tx-implication-osimertinib-t790m",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-tx-implication-osimertinib-t790m",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+              "code": "therapeutic-implication",
+              "display": "Therapeutic Implication"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-16",
+        "issued": "2026-10-16T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "derivedFrom": [
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-egfr-t790m"
+          }
+        ],
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81259-4",
+                  "display": "Associated phenotype"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://disease-ontology.org",
+                  "code": "DOID:3908",
+                  "display": "Lung Non-small Cell Carcinoma"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "93044-6",
+                  "display": "Level of evidence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "A (Validated association)"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "51963-7",
+                  "display": "Medication assessed [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                  "code": "1721560",
+                  "display": "Osimertinib"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "predicted-therapeutic-implication",
+                  "display": "Predicted Therapeutic Implication"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Supports Sensitivity/Response"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-tx-implication-osimertinib-t790m"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-tx-implication-erlotinib-t790m",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-tx-implication-erlotinib-t790m",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+              "code": "therapeutic-implication",
+              "display": "Therapeutic Implication"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-16",
+        "issued": "2026-10-16T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "derivedFrom": [
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-egfr-t790m"
+          }
+        ],
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81259-4",
+                  "display": "Associated phenotype"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://disease-ontology.org",
+                  "code": "DOID:3908",
+                  "display": "Lung Non-small Cell Carcinoma"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "93044-6",
+                  "display": "Level of evidence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "A (Validated association)"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "51963-7",
+                  "display": "Medication assessed [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                  "code": "337525",
+                  "display": "Erlotinib"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "predicted-therapeutic-implication",
+                  "display": "Predicted Therapeutic Implication"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Supports Resistance"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-tx-implication-erlotinib-t790m"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-tx-implication-sotorasib-g12c",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-tx-implication-sotorasib-g12c",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+              "code": "therapeutic-implication",
+              "display": "Therapeutic Implication"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-16",
+        "issued": "2026-10-16T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "derivedFrom": [
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-kras-g12c"
+          }
+        ],
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81259-4",
+                  "display": "Associated phenotype"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://disease-ontology.org",
+                  "code": "DOID:3908",
+                  "display": "Lung Non-small Cell Carcinoma"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "93044-6",
+                  "display": "Level of evidence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "A (Validated association)"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "51963-7",
+                  "display": "Medication assessed [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                  "code": "2550714",
+                  "display": "Sotorasib"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "predicted-therapeutic-implication",
+                  "display": "Predicted Therapeutic Implication"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Supports Sensitivity/Response"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-tx-implication-sotorasib-g12c"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-tx-implication-gefitinib-g12c",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-tx-implication-gefitinib-g12c",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+              "code": "therapeutic-implication",
+              "display": "Therapeutic Implication"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-16",
+        "issued": "2026-10-16T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "derivedFrom": [
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-kras-g12c"
+          }
+        ],
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81259-4",
+                  "display": "Associated phenotype"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://disease-ontology.org",
+                  "code": "DOID:1324",
+                  "display": "Lung Cancer"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "93044-6",
+                  "display": "Level of evidence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "B (Clinical evidence)"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "51963-7",
+                  "display": "Medication assessed [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                  "code": "328134",
+                  "display": "Gefitinib"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "predicted-therapeutic-implication",
+                  "display": "Predicted Therapeutic Implication"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Supports Resistance"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-tx-implication-gefitinib-g12c"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-tx-implication-erlotinib-g12a",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-tx-implication-erlotinib-g12a",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+              "code": "therapeutic-implication",
+              "display": "Therapeutic Implication"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-16",
+        "issued": "2026-10-16T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "derivedFrom": [
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-kras-g12a"
+          }
+        ],
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81259-4",
+                  "display": "Associated phenotype"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://disease-ontology.org",
+                  "code": "DOID:3910",
+                  "display": "Lung Adenocarcinoma"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "93044-6",
+                  "display": "Level of evidence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "B (Clinical evidence)"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "51963-7",
+                  "display": "Medication assessed [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                  "code": "337525",
+                  "display": "Erlotinib"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "predicted-therapeutic-implication",
+                  "display": "Predicted Therapeutic Implication"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Supports Resistance"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-tx-implication-erlotinib-g12a"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-tx-implication-trametinib-v600e",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-tx-implication-trametinib-v600e",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+              "code": "therapeutic-implication",
+              "display": "Therapeutic Implication"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-16",
+        "issued": "2026-10-16T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "derivedFrom": [
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-braf-v600e"
+          }
+        ],
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81259-4",
+                  "display": "Associated phenotype"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://disease-ontology.org",
+                  "code": "DOID:3908",
+                  "display": "Lung Non-small Cell Carcinoma"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "93044-6",
+                  "display": "Level of evidence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "A (Validated association)"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "51963-7",
+                  "display": "Medication assessed [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                  "code": "1425099",
+                  "display": "Trametinib"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "predicted-therapeutic-implication",
+                  "display": "Predicted Therapeutic Implication"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Supports Sensitivity/Response"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-tx-implication-trametinib-v600e"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-l2345-tx-implication-vemurafenib-v600e",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-l2345-tx-implication-vemurafenib-v600e",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+              "code": "therapeutic-implication",
+              "display": "Therapeutic Implication"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-16",
+        "issued": "2026-10-16T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "derivedFrom": [
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-braf-v600e"
+          }
+        ],
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81259-4",
+                  "display": "Associated phenotype"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://disease-ontology.org",
+                  "code": "DOID:3908",
+                  "display": "Lung Non-small Cell Carcinoma"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "93044-6",
+                  "display": "Level of evidence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "B (Clinical evidence)"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "51963-7",
+                  "display": "Medication assessed [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                  "code": "1147220",
+                  "display": "Vemurafenib"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "predicted-therapeutic-implication",
+                  "display": "Predicted Therapeutic Implication"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Supports Sensitivity/Response"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-l2345-tx-implication-vemurafenib-v600e"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-l2345-molecular-2026-10-16",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-l2345-molecular-2026-10-16",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomics-report",
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP7839-6",
+                "display": "Pathology"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "GE",
+                "display": "Genetics"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "51969-4",
+              "display": "Genetic analysis report"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "effectiveDateTime": "2026-10-16",
+        "issued": "2026-10-16T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-l2345-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "conclusion": "Repeat comprehensive genomic profiling at progression (liver segment 6 core biopsy, targeted NGS): EGFR L858R (known) with EGFR T790M and EGFR c.2232_2250del (p.Lys745HisfsTer15); KRAS G12C and G12A; BRAF V600E; ALK F1245V (point mutation; no ALK fusion); BRCA2 Q66*; STK11 c.143_158del (p.Lys48ThrfsTer11). Predicted, in non-small cell lung cancer: EGFR T790M, sensitivity to osimertinib and resistance to erlotinib (level A); KRAS G12C, sensitivity to sotorasib (level A); BRAF V600E, sensitivity to trametinib (level A) and vemurafenib (level B); KRAS G12C and G12A, resistance to gefitinib and erlotinib (level B).",
+        "specimen": [
+          {
+            "reference": "Specimen/mtb-l2345-specimen-liver-core"
+          }
+        ],
+        "result": [
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-egfr-l858r-2026"
+          },
+          {
+            "reference": "Observation/mtb-l2345-tx-implication-erlotinib-l858r-2026"
+          },
+          {
+            "reference": "Observation/mtb-l2345-tx-implication-afatinib-l858r-2026"
+          },
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-egfr-t790m"
+          },
+          {
+            "reference": "Observation/mtb-l2345-tx-implication-osimertinib-t790m"
+          },
+          {
+            "reference": "Observation/mtb-l2345-tx-implication-erlotinib-t790m"
+          },
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-egfr-k745fs"
+          },
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-kras-g12c"
+          },
+          {
+            "reference": "Observation/mtb-l2345-tx-implication-sotorasib-g12c"
+          },
+          {
+            "reference": "Observation/mtb-l2345-tx-implication-gefitinib-g12c"
+          },
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-kras-g12a"
+          },
+          {
+            "reference": "Observation/mtb-l2345-tx-implication-erlotinib-g12a"
+          },
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-braf-v600e"
+          },
+          {
+            "reference": "Observation/mtb-l2345-tx-implication-trametinib-v600e"
+          },
+          {
+            "reference": "Observation/mtb-l2345-tx-implication-vemurafenib-v600e"
+          },
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-alk-f1245v"
+          },
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-brca2-q66x"
+          },
+          {
+            "reference": "Observation/mtb-l2345-genomic-variant-stk11-k48fs"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-l2345-molecular-2026-10-16"
       }
     },
     {

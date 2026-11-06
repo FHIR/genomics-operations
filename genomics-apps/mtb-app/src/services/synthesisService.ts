@@ -1,6 +1,6 @@
 // The case synthesis for a patient. For the demo it is pre-generated Markdown stored in
 // public/data/synthesis/<MRN>.md (mtb-clinical-data-design.md section 6.2); a real AI call (with a
-// server-held key) could replace this function without changing the Synthesis tab.
+// server-held key) could replace this function without changing the AI Synthesis tab.
 
 const SYNTHESIS_BASE_PATH = '/data/synthesis';
 

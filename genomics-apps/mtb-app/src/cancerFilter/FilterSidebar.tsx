@@ -8,6 +8,7 @@ export const ACTIONABILITY_OPTIONS = [
   'Actionable, this tumor type',
   'Actionable, any tumor type',
   'Possibly actionable',
+  'Reported variants',
   'None',
 ] as const;
 
@@ -432,6 +433,9 @@ export default function FilterSidebar({ isOpen, onClose, onFilterChange, results
                     )}
                     {option === 'Possibly actionable' && (
                       <span className="block text-xs text-gray-500">Non-A evidence levels only.</span>
+                    )}
+                    {option === 'Reported variants' && (
+                      <span className="block text-xs text-gray-500">Only variants from the patient&apos;s genetic reports, with all their implications.</span>
                     )}
                     {option === 'None' && (
                       <span className="block text-xs text-gray-500">Do not apply actionability filtering.</span>

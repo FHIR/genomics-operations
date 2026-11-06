@@ -2254,12 +2254,1010 @@
       }
     },
     {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-genomic-variant-tp53-r248q",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-genomic-variant-tp53-r248q",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomic-variant"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "GE",
+                "display": "Genetics"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "69548-6",
+              "display": "Genetic variant assessment"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-06-14",
+        "issued": "2024-06-14T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA9633-4",
+              "display": "Present"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA26398-0",
+              "display": "Sequencing"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-hcc1143-specimen-partial-mastectomy"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48018-6",
+                  "display": "Gene studied [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:11998",
+                  "display": "TP53"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48004-6",
+                  "display": "DNA change (c.HGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NM_000546.6:c.743G>A"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48005-3",
+                  "display": "Amino acid change (pHGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NP_000537.3:p.Arg248Gln"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "molecular-consequence",
+                  "display": "Molecular Consequence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.sequenceontology.org/",
+                  "code": "SO:0001583",
+                  "display": "missense_variant"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48002-0",
+                  "display": "Genomic source class [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA6684-0",
+                  "display": "Somatic"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48013-7",
+                  "display": "Genomic reference sequence [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+                  "code": "NC_000017.11"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81252-9",
+                  "display": "Discrete genetic variant"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
+                  "code": "NC_000017.11:7674219:C:T",
+                  "display": "NC_000017.11:7674219:C:T"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81258-6",
+                  "display": "Sample VAF"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 0.25,
+              "unit": "relative frequency of a particular allele in the specimen",
+              "system": "http://unitsofmeasure.org",
+              "code": "1"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69547-8",
+                  "display": "Genomic ref allele [ID]"
+                }
+              ]
+            },
+            "valueString": "C"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69551-0",
+                  "display": "Genomic alt allele [ID]"
+                }
+              ]
+            },
+            "valueString": "T"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92822-6",
+                  "display": "Genomic coordinate system [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA30100-4",
+                  "display": "0-based interval counting"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81254-5",
+                  "display": "Genomic allele start-end"
+                }
+              ]
+            },
+            "valueRange": {
+              "low": {
+                "value": 7674219
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-genomic-variant-tp53-r248q"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-genomic-variant-fgfr2-r203c",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-genomic-variant-fgfr2-r203c",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomic-variant"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "GE",
+                "display": "Genetics"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "69548-6",
+              "display": "Genetic variant assessment"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-06-14",
+        "issued": "2024-06-14T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA9633-4",
+              "display": "Present"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA26398-0",
+              "display": "Sequencing"
+            }
+          ]
+        },
+        "specimen": {
+          "reference": "Specimen/mtb-hcc1143-specimen-partial-mastectomy"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48018-6",
+                  "display": "Gene studied [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.genenames.org",
+                  "code": "HGNC:3689",
+                  "display": "FGFR2"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48004-6",
+                  "display": "DNA change (c.HGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NM_000141.5:c.607C>T"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48005-3",
+                  "display": "Amino acid change (pHGVS)"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://varnomen.hgvs.org",
+                  "code": "NP_000132.3:p.Arg203Cys"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "molecular-consequence",
+                  "display": "Molecular Consequence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.sequenceontology.org/",
+                  "code": "SO:0001583",
+                  "display": "missense_variant"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48002-0",
+                  "display": "Genomic source class [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA6684-0",
+                  "display": "Somatic"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48013-7",
+                  "display": "Genomic reference sequence [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+                  "code": "NC_000010.11"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81252-9",
+                  "display": "Discrete genetic variant"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://api.ncbi.nlm.nih.gov/variation/v0/",
+                  "code": "NC_000010.11:121551306:G:A",
+                  "display": "NC_000010.11:121551306:G:A"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81258-6",
+                  "display": "Sample VAF"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 0.25,
+              "unit": "relative frequency of a particular allele in the specimen",
+              "system": "http://unitsofmeasure.org",
+              "code": "1"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69547-8",
+                  "display": "Genomic ref allele [ID]"
+                }
+              ]
+            },
+            "valueString": "G"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "69551-0",
+                  "display": "Genomic alt allele [ID]"
+                }
+              ]
+            },
+            "valueString": "A"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "92822-6",
+                  "display": "Genomic coordinate system [Type]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "LA30100-4",
+                  "display": "0-based interval counting"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81254-5",
+                  "display": "Genomic allele start-end"
+                }
+              ]
+            },
+            "valueRange": {
+              "low": {
+                "value": 121551306
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-genomic-variant-fgfr2-r203c"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-tx-implication-tamoxifen",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-tx-implication-tamoxifen",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+              "code": "therapeutic-implication",
+              "display": "Therapeutic Implication"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-06-14",
+        "issued": "2024-06-14T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "derivedFrom": [
+          {
+            "reference": "Observation/mtb-hcc1143-genomic-variant-tp53-r248q"
+          }
+        ],
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81259-4",
+                  "display": "Associated phenotype"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://disease-ontology.org",
+                  "code": "DOID:1612",
+                  "display": "Breast Cancer"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "93044-6",
+                  "display": "Level of evidence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "B (Clinical evidence)"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "51963-7",
+                  "display": "Medication assessed [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                  "code": "10324",
+                  "display": "Tamoxifen"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "predicted-therapeutic-implication",
+                  "display": "Predicted Therapeutic Implication"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Supports Resistance"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-tx-implication-tamoxifen"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-tx-implication-sunitinib",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-tx-implication-sunitinib",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+              "code": "therapeutic-implication",
+              "display": "Therapeutic Implication"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-06-14",
+        "issued": "2024-06-14T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "derivedFrom": [
+          {
+            "reference": "Observation/mtb-hcc1143-genomic-variant-fgfr2-r203c"
+          }
+        ],
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81259-4",
+                  "display": "Associated phenotype"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://disease-ontology.org",
+                  "code": "DOID:1612",
+                  "display": "Breast Cancer"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "93044-6",
+                  "display": "Level of evidence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "B (Clinical evidence)"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "51963-7",
+                  "display": "Medication assessed [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                  "code": "357977",
+                  "display": "Sunitinib"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "predicted-therapeutic-implication",
+                  "display": "Predicted Therapeutic Implication"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Does Not Support Sensitivity/Response"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-tx-implication-sunitinib"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/mtb-hcc1143-tx-implication-pemigatinib",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "mtb-hcc1143-tx-implication-pemigatinib",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+              "code": "therapeutic-implication",
+              "display": "Therapeutic Implication"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "effectiveDateTime": "2024-06-14",
+        "issued": "2024-06-14T17:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-hcc1143-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "derivedFrom": [
+          {
+            "reference": "Observation/mtb-hcc1143-genomic-variant-fgfr2-r203c"
+          }
+        ],
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "81259-4",
+                  "display": "Associated phenotype"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://disease-ontology.org",
+                  "code": "DOID:1612",
+                  "display": "Breast Cancer"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "93044-6",
+                  "display": "Level of evidence"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "D (Preclinical evidence)"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "51963-7",
+                  "display": "Medication assessed [ID]"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                  "code": "2359268",
+                  "display": "Pemigatinib"
+                }
+              ]
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs",
+                  "code": "predicted-therapeutic-implication",
+                  "display": "Predicted Therapeutic Implication"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Supports Sensitivity/Response"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/mtb-hcc1143-tx-implication-pemigatinib"
+      }
+    },
+    {
       "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-hcc1143-molecular-2024-06-14",
       "resource": {
         "resourceType": "DiagnosticReport",
         "id": "mtb-hcc1143-molecular-2024-06-14",
         "meta": {
           "profile": [
+            "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomics-report",
             "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
           ],
           "tag": [
@@ -2278,6 +3276,15 @@
                 "system": "http://loinc.org",
                 "code": "LP7839-6",
                 "display": "Pathology"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "GE",
+                "display": "Genetics"
               }
             ]
           }
@@ -2303,7 +3310,24 @@
             "display": "Dr. Paul Pathologist"
           }
         ],
-        "conclusion": "Tumor genomic profiling (partial mastectomy specimen, with matched normal): TP53 c.743G>A (p.Arg248Gln), homozygous. No pathogenic alterations in PIK3CA, AKT1, PTEN, BRCA1 or BRCA2. Microsatellite stable. Detailed variant-level results are maintained on the genomics server, not in this report.",
+        "conclusion": "Tumor genomic profiling (partial mastectomy specimen, with matched normal): TP53 c.743G>A (p.Arg248Gln) and FGFR2 c.607C>T (p.Arg203Cys). No pathogenic alterations in PIK3CA, AKT1, PTEN, BRCA1 or BRCA2. Microsatellite stable. TP53 p.Arg248Gln: predicted resistance to tamoxifen in breast cancer (level B). FGFR2 p.Arg203Cys: sunitinib not supported (level B); predicted sensitivity to pemigatinib (level D, preclinical).",
+        "result": [
+          {
+            "reference": "Observation/mtb-hcc1143-genomic-variant-tp53-r248q"
+          },
+          {
+            "reference": "Observation/mtb-hcc1143-genomic-variant-fgfr2-r203c"
+          },
+          {
+            "reference": "Observation/mtb-hcc1143-tx-implication-tamoxifen"
+          },
+          {
+            "reference": "Observation/mtb-hcc1143-tx-implication-sunitinib"
+          },
+          {
+            "reference": "Observation/mtb-hcc1143-tx-implication-pemigatinib"
+          }
+        ],
         "specimen": [
           {
             "reference": "Specimen/mtb-hcc1143-specimen-partial-mastectomy"

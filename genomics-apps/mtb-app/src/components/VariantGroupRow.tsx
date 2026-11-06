@@ -1,3 +1,4 @@
+import { FileText } from 'lucide-react';
 import { JSX, useEffect, useState } from 'react';
 import { Variant } from '@/types/variants';
 import { DxImplication } from '@/services/dxService';
@@ -147,8 +148,20 @@ export default function VariantGroupRow({
                                 )}
                             </div>
                             {variant.molecularConsequences?.[0]?.proteinChange && (
-                                <div className="mt-1 text-sm text-gray-600 whitespace-normal break-words">
+                                <div className="mt-1 text-gray-600 whitespace-normal break-words">
                                     ({variant.molecularConsequences[0].proteinChange})
+                                </div>
+                            )}
+                            {/* In the patient's genetic report(s) (incorporating-curated-lab-report-design.md §4.4) */}
+                            {(variant.reportedIn?.length ?? 0) > 0 && (
+                                <div className="mt-1.5">
+                                    <span
+                                        title={variant.reportedIn?.map((report) => [report.title, report.date].filter(Boolean).join(' · ')).join('; ')}
+                                        className="inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-emerald-100 px-2 py-px font-semibold text-emerald-800 ring-1 ring-inset ring-emerald-300"
+                                    >
+                                        <FileText size={11} strokeWidth={2.5} aria-hidden="true" />
+                                        Reported
+                                    </span>
                                 </div>
                             )}
                         </td>
@@ -171,7 +184,7 @@ export default function VariantGroupRow({
                     );
                 case 'oncogenicityPrediction':
                     return (
-                        <td key={column.id} className="p-3 align-top text-sm text-gray-600 whitespace-normal break-words">
+                        <td key={column.id} className="p-3 align-top text-gray-600 whitespace-normal break-words">
                             <OncogenicityPredictionCell
                                 variant={variant}
                                 result={oncogenicityResults[getOncogenicityKey(variant)]}
@@ -212,7 +225,7 @@ export default function VariantGroupRow({
         <>
             {/* Each search term starts with a green band naming it and its variant count */}
             <tr>
-                <td colSpan={columns.length + 1} className="border-y border-emerald-100 bg-emerald-50/70 px-3 py-1.5 text-sm">
+                <td colSpan={columns.length + 1} className="border-y border-emerald-100 bg-emerald-50/70 px-3 py-1.5">
                     <span className="font-bold text-emerald-800">{range}</span>
                     <span className="text-emerald-700"> · {variants.length} variant{variants.length === 1 ? '' : 's'}</span>
                 </td>
@@ -229,7 +242,7 @@ export default function VariantGroupRow({
             ))}
             {rest.length > 0 && (
                 <tr>
-                    <td colSpan={columns.length + 1} className="text-center p-2 text-sm">
+                    <td colSpan={columns.length + 1} className="text-center p-2">
                         <button
                             className="text-blue-600 hover:underline"
                             onClick={() => setExpanded(!expanded)}
