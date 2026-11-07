@@ -37,6 +37,7 @@ ARID1A p.Arg1721Ter (stop gained); ARID1A p.Val2169CysfsTer56 (frameshift); JAK1
 | ClinVar | 4530199 ARID1A p.Arg1721Ter (no classification). No records: AXIN1 c.1939dup, IRF2 p.Glu191Ter, INHBA p.Arg308Cys, JAK1 p.Ala1086Ser |
 | CIViC | JAK1 A1086S: EID10058 (ruxolitinib, HCC, level D, does not support). ARID1A loss: EID7328 (sorafenib, liver cancer, level D). AXIN1: nothing in liver cancer |
 | TCGA pathways | WNT (AXIN1) |
+| `CIViC_Cooccurrence_KB.csv` (2026-10-02), checked 2026-11-07 | No profile with his genes (ARID1A, JAK1, AXIN1, IRF2) |
 | Crossref, DOI 10.1200/JCO.20.01757 | Hepatitis B Virus Screening and Management for Patients With Cancer Prior to Therapy: ASCO PCO Update, *J Clin Oncol* 2020 |
 
 ## Labels (openFDA, retrieved 2026-11-06)

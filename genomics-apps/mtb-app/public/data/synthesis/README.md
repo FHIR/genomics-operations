@@ -199,7 +199,7 @@ The **search window** reaches back to the earliest of: the AI's training cutoff 
 **Rules for what is listed:**
 
 - A therapy is listed as an option only when an FDA label covers the patient's situation, or a CIViC evidence item at level A or B does.
-- Combination therapy for co-occurring alterations is listed only when an FDA label or CIViC co-occurring-variant evidence at level A or B supports it. Lower-level co-occurrence evidence can be mentioned, labeled with its level, but not as a basis for treatment.
+- Combination therapy for co-occurring alterations is an option only when an FDA label or CIViC co-occurring-variant evidence at level A or B supports it, and is then ranked with the other options (§5). Lower-level co-occurrence evidence can be mentioned, labeled with its level, in an option's considerations or under Not recommended (when it points to resistance), but not as a basis for treatment.
 - New evidence not yet in a label or CIViC at level A or B (a recent trial result, an FDA announcement ahead of the label) goes in Emerging evidence, not in the treatment options, however strong it is.
 - Evidence for a variant in a different disease is noted as such (e.g. "Evidence only in neuroblastoma"), not used for this patient.
 - Only recruiting trials are offered as options. A trial the clinical record shows the patient is on is listed with its status on ClinicalTrials.gov, whatever it is.
@@ -267,8 +267,11 @@ Each synthesis has the same sections, in this order.
   2. **Fit to the patient's setting:** line of therapy, prior treatment (e.g. a drug already received or progressed on), and the label's or trial's eligibility.
   3. **Patient factors:** performance status, organ function, comorbidities, allergies and expected toxicity.
 
-  Where options are too close to call, say so and rank them together rather than forcing an order. Clinical trials can be ranked among the options when one is a better fit than the standard choices; otherwise they're listed after the ranked options. Then, as they apply:
-  - **Combination therapy for co-occurring alterations**, under the rule in §3.
+  Where options are too close to call, say so and rank them together rather than forcing an order. Clinical trials can be ranked among the options when one is a better fit than the standard choices; otherwise they're listed after the ranked options.
+
+  **Combinations for co-occurring alterations are ranked with everything else**, not listed separately: one that addresses two of the patient's drivers can well rank first. Label such an option with the alterations it addresses (e.g. *"For co-occurring EGFR L858R + MET amplification"*) and cite the co-occurrence evidence. The same criteria apply, so strong co-occurrence evidence for a drug the patient has already progressed on ranks low or not at all. If the co-occurring-variant evidence was checked and none applies, say so in one line under Treatment options.
+
+  Then, as they apply:
   - **Not indicated by the patient's findings:** therapies a reader might expect, and why the label or evidence doesn't cover this patient.
   - **Potential clinical trials:** a table (Trial | Design | Locations), headed with the search date and "eligibility must be confirmed with each site." If none matched, say what was searched.
 - **Emerging evidence:** new evidence relevant to the patient's findings or disease setting that isn't yet in a label or CIViC at level A or B (§3, Recent evidence). Each item says what was found, its source and date, the kind of evidence (e.g. phase 3 trial, single-arm study, accelerated approval announcement), and how it bears on this patient, for the tumor board to weigh. It is not a recommendation. If nothing was found, say so and give the search window (e.g. "No new evidence found in searches covering 2026-06-01 to 2026-11-06").
@@ -294,6 +297,7 @@ Each synthesis has the same sections, in this order.
 - [ ] Every fact in the case summary is in the bundle.
 - [ ] Every driver named in Cancer drivers meets the driver rule (§2.5), with its classification looked up; the section has a bottom line, a driver table and one paragraph of prose.
 - [ ] Treatment options are ranked, each with a reason for its place.
+- [ ] The co-occurring-variant evidence was checked for the patient's alterations, and Treatment options reflects it: qualifying combinations ranked and labeled, weaker evidence in considerations or Not recommended, or a line saying none applies.
 - [ ] Every option, "not indicated" item and trial has a reference, and every reference is used.
 - [ ] Every fact was looked up while writing this synthesis and is in the search log; none is stated from memory (§3).
 - [ ] The recent-evidence search covered the search window (§3), and Emerging evidence states the window.

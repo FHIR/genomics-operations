@@ -72,6 +72,8 @@ ARID1A helps package DNA so genes are switched on and off correctly; its loss wa
 2. **Regorafenib** or **cabozantinib** (rank 2, tied). Each labeled for HCC previously treated with sorafenib. *Why second:* labeled, but another oral multikinase inhibitor after progression on sorafenib.
 3. **Ramucirumab** (rank 3). Labeled after sorafenib for HCC with AFP ≥ 400 ng/mL. *Why third:* needs a current AFP; his only value predates surgery.
 
+**Co-occurring alterations:** CIViC co-occurring-variant evidence was checked for his alterations; none applies.
+
 **Not indicated by his findings:**
 - **Atezolizumab + bevacizumab, lenvatinib:** labeled for first-line treatment (atezolizumab + bevacizumab for patients with no prior systemic therapy); he has had sorafenib.
 - **Pembrolizumab for MSI-H or TMB-high tumors:** he is microsatellite stable with TMB 1.3 mutations/Mb (pembrolizumab remains an option through its HCC indication, above).
