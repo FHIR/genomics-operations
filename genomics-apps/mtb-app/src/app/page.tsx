@@ -41,9 +41,10 @@ type CaseView = 'summary' | 'genomic' | 'imaging' | 'synthesis';
 
 // Each tab has an icon in its own color (lighter when the tab is selected); AI Synthesis uses the sparkles icon
 // commonly used to mark AI features
-const CASE_VIEWS: { view: CaseView; label: string; icon: LucideIcon; iconClass: string; activeIconClass: string }[] = [
+// The Genomics Explorer's tooltip says it holds the full data set, unlike the lab's report on the Case Summary
+const CASE_VIEWS: { view: CaseView; label: string; icon: LucideIcon; iconClass: string; activeIconClass: string; tooltip?: string }[] = [
   { view: 'summary', label: 'Case Summary', icon: ClipboardPlus, iconClass: 'text-sky-600', activeIconClass: 'text-sky-300' },
-  { view: 'genomic', label: 'Genomics Explorer', icon: Dna, iconClass: 'text-emerald-600', activeIconClass: 'text-emerald-300' },
+  { view: 'genomic', label: 'Genomics Explorer', icon: Dna, iconClass: 'text-emerald-600', activeIconClass: 'text-emerald-300', tooltip: 'Full genomic data set' },
   { view: 'imaging', label: 'Imaging', icon: Images, iconClass: 'text-amber-600', activeIconClass: 'text-amber-300' },
   { view: 'synthesis', label: 'AI Synthesis', icon: Sparkles, iconClass: 'text-violet-600', activeIconClass: 'text-violet-300' },
 ];
@@ -164,7 +165,7 @@ export default function Home() {
       .catch((error) => console.error('Error loading co-occurrence knowledge base:', error));
   }, []);
 
-  // Reported variants (incorporating-curated-lab-report-design.md §4): the patient's genetic-report variants join the
+  // Reported variants: the patient's genetic-report variants join the
   // server's rows for each finished search term whose gene or range covers them, flagged and with credited implications
   const reportedRecords = useMemo(() => {
     if (!clinicalRecord) {
@@ -196,7 +197,7 @@ export default function Home() {
     });
   }, [searchedTerms, reportedRecords]);
 
-  // A normalize-variant lookup only for a reported variant the cheap comparisons can't place (§4.2)
+  // A normalize-variant lookup only for a reported variant the cheap comparisons (SPDI, c.HGVS) can't place
   useEffect(() => {
     for (const record of reportedRecords) {
       const input = record.spdi ?? record.gHgvs ?? record.cHgvs;
@@ -211,7 +212,7 @@ export default function Home() {
     }
   }, [reportedRecords, searchedTerms, serverResults]);
 
-  // Genes for the Reported genes preset: the report's own, else the c.HGVS transcript's (§4.1)
+  // Genes for the Reported genes preset: the report's own, else the c.HGVS transcript's
   useEffect(() => {
     for (const record of reportedRecords) {
       const transcript = record.cHgvs?.split(':')[0];
@@ -451,7 +452,7 @@ export default function Home() {
           (variant.dxImplications && variant.dxImplications.length > 0)
         );
       } else if (actionableLabel === "Reported variants") {
-        // Only the patient's reported variants, with all their implications (§4.5)
+        // Only the patient's reported variants, with all their implications
         filtered = filtered.filter((variant) => (variant.reportedIn?.length ?? 0) > 0);
       } else if (actionableLabel === "Possibly actionable") {
         filtered = filtered.map(variant => ({
@@ -655,13 +656,14 @@ export default function Home() {
         />
 
         <div className="mb-6 flex flex-wrap gap-2" role="tablist" aria-label="Case views">
-          {CASE_VIEWS.map(({ view, label, icon: Icon, iconClass, activeIconClass }) => {
+          {CASE_VIEWS.map(({ view, label, icon: Icon, iconClass, activeIconClass, tooltip }) => {
             const isActive = caseView === view;
             return (
               <button
                 key={view}
                 type="button"
                 role="tab"
+                title={tooltip}
                 aria-selected={isActive}
                 onClick={() => chooseCaseView(view)}
                 className={`inline-flex items-center gap-2 rounded-lg border px-5 py-2 text-sm font-semibold ${isActive ? 'border-slate-900 bg-slate-900 text-white' : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'}`}
@@ -737,6 +739,10 @@ export default function Home() {
 
             {!isSearchWorkspaceCollapsed && (
               <div className="flex flex-col gap-3">
+                {/* Sets this tab apart from the lab's report on the Case Summary: this is the complete data set */}
+                <p className="-mt-1 text-sm text-slate-600">
+                  Search the patient&apos;s complete genomic data set, including variants not in the curated report.
+                </p>
                 <SearchForm
                   searchInput={searchInput}
                   setSearchInput={handleSearchInputChange}

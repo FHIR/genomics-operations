@@ -1,6 +1,6 @@
 # Higado Sobreviviente (MRN TCGA-DD-A1EH): clinical scenario
 
-Synthetic patient for the MTB app clinical-data demo (see `mtb-clinical-data-design.md` in the repo root).
+Synthetic patient for the MTB app clinical-data demo.
 
 **Files**
 - [TCGA-DD-A1EH-transaction-bundle.json](TCGA-DD-A1EH-transaction-bundle.json): the bundle (mCODE STU4 / US Core 6.1), **edited directly**.
@@ -36,7 +36,7 @@ The source bundle failed validation with 43 errors (20 in the genomic resources)
 **Confirmed by Bob 2026-10-22:** dates moved to the present, genomic resources dropped from the HAPI bundle, the two primary cancers merged, the MRN system changed.
 
 **Content**
-- **Genomic resources dropped (Bob, 2026-10-22):** 36 GenomicVariant, 3 therapeutic-implication and 3 diagnostic-implication Observations. The genomics server already holds this patient's variants (ARID1A, AXIN1, SI, PACS2 and others, on GRCh37 accessions), and genomics isn't duplicated on HAPI for the demo. Real-world feeds *will* carry genomic resources alongside clinical data; how the app handles that overlap is an open design item (design doc §3.3). MSI and TMB are kept as tumor markers. A **text-only NGS DiagnosticReport** summarizes the findings and candidate trials. It lists only variants the genomics server holds (ARID1A p.Arg1721* and p.Val2169fs; AXIN1 p.Arg647fs).
+- **Genomic resources dropped (Bob, 2026-10-22):** 36 GenomicVariant, 3 therapeutic-implication and 3 diagnostic-implication Observations. The genomics server already holds this patient's variants (ARID1A, AXIN1, SI, PACS2 and others, on GRCh37 accessions), and genomics isn't duplicated on HAPI for the demo. Real-world feeds *will* carry genomic resources alongside clinical data; how the app handles that overlap was an open question at the time. MSI and TMB are kept as tumor markers. A **text-only NGS DiagnosticReport** summarizes the findings and candidate trials. It lists only variants the genomics server holds (ARID1A p.Arg1721* and p.Val2169fs; AXIN1 p.Arg647fs).
   - Revised 2026-10-22: the source bundle's APOB::CLU fusion isn't on the genomics server, and its second "AXIN1" variant (c.715C>T) was placed on chromosome 17, not at AXIN1 (chromosome 16). Both were removed from the report.
 - **One primary cancer:** the source had two PrimaryCancerConditions, the original (right lobe, stage IIIA) and a recurrence copy (left lobe, onset 2021-10-31, stage IV, category encounter-diagnosis). The app would read two separate primary cancers. Now there is one primary with `clinicalStatus` = recurrence. The left-lobe recurrence is a **SecondaryCancerCondition** (metastatic malignant neoplasm to liver, left lobe). The stage-IV summary is dropped: AJCC stage isn't reassigned at recurrence.
 - **Primary cancer details added:** histology (SNOMED 25370001 Hepatocellular carcinoma; ICD-O-3 8170/3), ICD-10-CM C22.0, verification status, links to both stage groups.
@@ -69,6 +69,8 @@ Queried 2026-10-22 (subject `TCGA-DD-A1EH`). Variants returned include ARID1A NC
 
 The bundle keeps ResearchStudy status `active`. With the dates moved to 2026, this is illustrative: both trials have since been terminated in reality.
 
+*Update (2026-11-06):* on the shifted timeline this is no longer only illustrative. Ipsen withdrew tazemetostat worldwide on 2026-03-09 and ended all its trials and expanded access (secondary hematologic malignancies in SYMPHONY-1), yet the bundle enrolls him on 2026-08-09 and has tazemetostat active (order 2026-10-15). The case synthesis flags this as a recommendation to stop tazemetostat. For a realistic case, either date the enrollment before March 2026 with the drug stopped at withdrawal, or use a trial that is open.
+
 ## Data-shape features this bundle exercises
 
 - **Encounters, ResearchStudy, ResearchSubject:** resource types the other bundles don't have. They should land in "Other resources", or a future section.
@@ -95,7 +97,7 @@ curl -X POST -H "Content-Type: application/fhir+json" \
 
 ## Structured genomic report (2026-11-05)
 
-Design: `incorporating-curated-lab-report-design.md` (repo root), §2.4. Source: `higado (transaction).json` in this folder, an older transaction bundle from the Logica MTB server (36 variants, 3 therapeutic and 3 diagnostic implications, no report). Only variants in the design doc's Appendix A genes are kept, and only drug implications.
+Source: `higado (transaction).json` in this folder, an older transaction bundle from the Logica MTB server (36 variants, 3 therapeutic and 3 diagnostic implications, no report). Only variants in the 228 reportable genes are kept, and only drug implications.
 
 - **Report** `mtb-tcga-dd-a1eh-ngs-2026-07-28`: adds the `mcode-genomics-report` profile (US Core note profile kept), category v2-0074 `GE` after Pathology, and `result` references to the four Observations below ahead of MSI and TMB. The conclusion now names only what's kept: ARID1A ×2 and JAK1, MSI/TMB, the ruxolitinib implication, and the NCT05023655 trial (the patient's enrolled study). AXIN1, its trial (NCT06005974) and the "additional variants of uncertain significance" are gone.
 - **Variants** (mcode-genomic-variant, somatic, GRCh37, components as in the source plus displays):

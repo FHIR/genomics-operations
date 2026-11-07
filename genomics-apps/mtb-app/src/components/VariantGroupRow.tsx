@@ -152,7 +152,7 @@ export default function VariantGroupRow({
                                     ({variant.molecularConsequences[0].proteinChange})
                                 </div>
                             )}
-                            {/* In the patient's genetic report(s) (incorporating-curated-lab-report-design.md §4.4) */}
+                            {/* The Reported chip: the variant is in the patient's genetic report(s) */}
                             {(variant.reportedIn?.length ?? 0) > 0 && (
                                 <div className="mt-1.5">
                                     <span

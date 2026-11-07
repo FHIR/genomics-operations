@@ -2,7 +2,7 @@ import { DxImplication } from '@/services/dxService';
 import { ProcessedTxImplication } from '@/services/txService';
 import { MolecularConsequence } from '@/services/mcService';
 
-// A genetic report a variant or implication came from (incorporating-curated-lab-report-design.md §4)
+// A genetic report a variant or implication came from (for the Reported chip and Report tags)
 export interface ReportCredit {
     title: string;
     date?: string;

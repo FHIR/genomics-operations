@@ -80,6 +80,7 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
                     'Beside the diagnosis, Reported variants lists the genomic variants recorded from the lab\'s genetic reports, grouped by report (newest first) under the report\'s name and date. Hover over a report header for its specimen and performer.',
                     'Each variant shows its gene and change, its origin (germline or somatic) and the therapeutic implications reported for it: the drug, the predicted effect, and an Evidence pill with the level (A highest to E). Hover over a variant for its full HGVS and genomic location, and over an Evidence pill for the full level and the cancer type it applies to.',
                     'Variants are listed with the strongest evidence first; variants without an implication come last. A report without structured variants shows its conclusion instead.',
+                    'These are the variants the lab chose to report, interpreted as of the report date. The Genomics Explorer holds the patient\'s complete genomic data with current annotations, so it can show variants the report left out (for example, below the lab\'s reporting thresholds or of uncertain significance) and newer evidence. That difference is expected, not an error. The card\'s "See full genomic data in Genomics Explorer" link opens the Explorer.',
                 ],
             },
             {
@@ -103,6 +104,7 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
             {
                 title: 'Search Basics',
                 items: [
+                    'The Genomics Explorer searches the patient\'s complete genomic data set, with annotations that are current today. The Case Summary\'s Reported variants card shows only what the lab chose to report, as of the report date. So the Explorer can show variants that aren\'t on the report, and evidence that has changed since; that is expected, not an error.',
                     'Choose a patient in the banner before searching.',
                     'Enter one or more gene symbols separated by commas, for example: BRAF, EGFR, ALK.',
                     'You can also search by genomic range using zero-based RefSeq:start-end format, for example: NC_000007.14:55019016-55211628.',
@@ -226,7 +228,8 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
             {
                 title: 'Generating a Synthesis',
                 items: [
-                    'Open the AI Synthesis tab and click Generate synthesis. After a short progress display, the synthesis appears: a case summary, genomic findings, information gaps and treatment options, including recruiting clinical trials, with references.',
+                    'Open the AI Synthesis tab and click Generate synthesis. After a short progress display, the synthesis appears: the reason for the visit and the questions for the tumor board, a case summary, genomic findings, the cancer drivers (a bottom line, a table of drivers and a short explanation), information gaps, ranked treatment options with recruiting clinical trials, emerging evidence, and references.',
+                    'The Contents line at the top links to each section; click a link to scroll to it.',
                     'In this demo the syntheses are pre-generated for the four example patients (L2345, HCC1143, MRN1234 and TCGA-DD-A1EH) and labeled as such; other patients show that no synthesis is available. A future version could generate them live with an AI model.',
                     'A generated synthesis stays on the tab while you look at other tabs, and is cleared when you choose a different patient.',
                     'The synthesis is a research demonstration based on synthetic patients and is not for clinical use.',

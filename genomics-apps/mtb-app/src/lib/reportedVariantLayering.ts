@@ -4,8 +4,8 @@ import { MolecularConsequence } from '@/services/mcService';
 import { NormalizedVariant } from '@/services/reportedVariantLookupService';
 import { ReportedVariantRecord } from '@/lib/reportedVariants';
 
-// Layering the patient's reported variants onto the Genomics Explorer's results
-// (incorporating-curated-lab-report-design.md §4): the union of the server's variants and the reported ones,
+// Layering the patient's reported variants onto the Genomics Explorer's results:
+// the union of the server's variants and the reported ones,
 // within the searched genes and ranges, with the reported ones flagged and their implications credited
 
 export interface SearchedTerm {
@@ -54,7 +54,7 @@ function candidateSpdis(record: ReportedVariantRecord, normalized?: NormalizedVa
 }
 
 /**
- * Whether a server row is this reported variant (§4.2): by SPDI, by c.HGVS (same transcript and version), or by a
+ * Whether a server row is this reported variant: by SPDI, by c.HGVS (same transcript and version), or by a
  * normalized SPDI. Never by protein text; structural-variant rows never match.
  */
 export function matchesRow(record: ReportedVariantRecord, row: Variant, normalized?: NormalizedVariant | null) {
@@ -68,7 +68,7 @@ export function matchesRow(record: ReportedVariantRecord, row: Variant, normaliz
 }
 
 /**
- * Whether the variant's genomic span lies within a range (§4.1): true or false when a known SPDI is in the range's
+ * Whether the variant's genomic span lies within a range: true or false when a known SPDI is in the range's
  * build, false when it's on another chromosome, undefined when only a lookup can tell.
  */
 export function withinRange(record: ReportedVariantRecord, range: string | undefined, normalized?: NormalizedVariant | null) {
@@ -114,7 +114,7 @@ function reportImplications(record: ReportedVariantRecord): ProcessedTxImplicati
 }
 
 // The report's implications first, each credited to its reports; one the server also has keeps the server's
-// CIViC link (§4.3, Implication sources). Then the server's other implications, as before.
+// CIViC link. Then the server's other implications, as before.
 function mergeImplications(server: ProcessedTxImplication[], fromReports: ProcessedTxImplication[]) {
   const used = new Set<number>();
   const merged = fromReports.map((reported) => {
@@ -162,7 +162,7 @@ function reportOnlyRow(record: ReportedVariantRecord, term: SearchedTerm, normal
 }
 
 /**
- * The union (§4.3): each searched term's server rows, reported ones flagged with their reports and implications
+ * The union: each searched term's server rows, reported ones flagged with their reports and implications
  * merged, then the reported variants within the term's range that the server doesn't have.
  */
 export function layerReportedVariants(

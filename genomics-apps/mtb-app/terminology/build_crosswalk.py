@@ -1,7 +1,7 @@
 """Build public/data/MTB_TumorTypeCrosswalk.csv from the VSAC value-set spreadsheets in value-sets/.
 
 Each value set maps to a predictor tumorType (blank when the predictor has no matching type) and a
-gene-list "Cancer category" (see mtb-clinical-data-design.md section 5.5). The spreadsheets are used
+gene-list "Cancer category" (as in public/data/MTB_KB_GeneLists.csv). The spreadsheets are used
 exactly as downloaded from VSAC; to refresh, download newer versions and rerun:
 
     python terminology/build_crosswalk.py

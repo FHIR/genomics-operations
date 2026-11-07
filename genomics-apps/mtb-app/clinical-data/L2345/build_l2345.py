@@ -270,7 +270,7 @@ def report(rid, date, cat, code, conclusion, performer, specimen=None, conclusio
     add(r, profiles)
 
 
-# Genomic variants and therapeutic implications (incorporating-curated-lab-report-design.md §2.4): variants in
+# Genomic variants and therapeutic implications: variants in
 # the reportable genes from the genomics operations server's L2345 data (GRCh38; recorded as somatic, no VAF),
 # and therapeutic implications in the server's CIViC shape
 GR_TBD = 'http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs'

@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { isValidElement, useEffect, useRef, useState, type ReactNode } from 'react';
 import ReactMarkdown, { Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Sparkles } from 'lucide-react';
 import { fetchSynthesis } from '@/services/synthesisService';
 
-// The demo's syntheses are pre-generated (mtb-clinical-data-design.md 6.2); these steps stand in for the
+// The demo's syntheses are pre-generated (public/data/synthesis/); these steps stand in for the
 // work a live model would do, shown briefly before the stored result appears
 const PROGRESS_STEPS = [
   'Reviewing the clinical record…',
@@ -21,19 +21,47 @@ type SynthesisState =
   | { status: 'unavailable' }
   | { status: 'error'; message: string };
 
+// The plain text of rendered Markdown children, for heading ids
+function nodeText(node: ReactNode): string {
+  if (typeof node === 'string' || typeof node === 'number') return String(node);
+  if (Array.isArray(node)) return node.map(nodeText).join('');
+  if (isValidElement<{ children?: ReactNode }>(node)) return nodeText(node.props.children);
+  return '';
+}
+
+// Section ids for the synthesis's table of contents: "Reason for visit" -> "reason-for-visit"
+function headingId(children: ReactNode): string {
+  return nodeText(children).toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
 // Markdown elements styled to match the Case Summary cards
 const MARKDOWN_COMPONENTS: Components = {
   h1: ({ children }) => <h1 className="mb-4 text-2xl font-bold tracking-tight text-slate-900">{children}</h1>,
-  h2: ({ children }) => <h2 className="mb-3 mt-8 border-b border-slate-200 pb-1.5 text-lg font-semibold text-slate-900">{children}</h2>,
+  h2: ({ children }) => (
+    <h2 id={headingId(children)} className="mb-3 mt-8 scroll-mt-4 border-b border-slate-200 pb-1.5 text-lg font-semibold text-slate-900">{children}</h2>
+  ),
   h3: ({ children }) => <h3 className="mb-2 mt-5 text-base font-semibold text-slate-900">{children}</h3>,
   p: ({ children }) => <p className="my-2 leading-relaxed text-slate-700">{children}</p>,
   ul: ({ children }) => <ul className="my-2 list-disc space-y-1 pl-6 text-slate-700">{children}</ul>,
   ol: ({ children }) => <ol className="my-2 list-decimal space-y-1 pl-6 text-slate-700">{children}</ol>,
   li: ({ children }) => <li className="leading-relaxed">{children}</li>,
   strong: ({ children }) => <strong className="font-semibold text-slate-900">{children}</strong>,
-  a: ({ href, children }) => (
-    <a href={href} target="_blank" rel="noopener noreferrer" className="font-medium text-blue-600 hover:underline">{children}</a>
-  ),
+  a: ({ href, children }) =>
+    href?.startsWith('#') ? (
+      // In-page link (the table of contents): scroll to the section, staying on the tab
+      <a
+        href={href}
+        onClick={(event) => {
+          event.preventDefault();
+          document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }}
+        className="font-medium text-blue-600 hover:underline"
+      >
+        {children}
+      </a>
+    ) : (
+      <a href={href} target="_blank" rel="noopener noreferrer" className="font-medium text-blue-600 hover:underline">{children}</a>
+    ),
   blockquote: ({ children }) => (
     <blockquote className="my-4 rounded-lg bg-amber-50 px-4 py-1 text-amber-900 ring-1 ring-inset ring-amber-200 [&_p]:text-amber-900">{children}</blockquote>
   ),

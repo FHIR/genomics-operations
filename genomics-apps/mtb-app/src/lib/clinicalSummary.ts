@@ -1,7 +1,7 @@
 import { CodeableConcept, Condition, FhirResource, Observation, Patient, ResearchStudy, ResearchSubject } from '@/types/fhir';
 import { CaseDx, CrosswalkRow, mapCodingsToTumorType } from '@/cancerFilter/tumorTypeCrosswalk';
 
-// Selection rules for the patient banner (mtb-clinical-data-design.md sections 4.2 and 4.3). Every item
+// Selection rules for the patient banner. Every item
 // is recognized by mCODE profile OR standard code, so data without declared profiles still shows up.
 
 export const MCODE = 'http://hl7.org/fhir/us/mcode/StructureDefinition/';
@@ -320,7 +320,7 @@ function nctNumber(study: ResearchStudy | undefined) {
 }
 
 /**
- * Research studies the patient is enrolled in, as one banner chip (mtb-clinical-data-design.md section 15):
+ * Research studies the patient is enrolled in, as one banner chip:
  * ResearchSubjects with an enrolled status whose period hasn't ended, each resolved to its ResearchStudy.
  */
 export function getStudyEnrollments(resources: FhirResource[], today = new Date()): StudyEnrollment | undefined {

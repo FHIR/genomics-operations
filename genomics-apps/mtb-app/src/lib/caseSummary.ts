@@ -31,7 +31,7 @@ import {
   STAGE_GROUP_CODES,
 } from '@/lib/clinicalSummary';
 
-// Sorts a patient's clinical record into the Case summary sections (mtb-clinical-data-design.md 4.2, 4.3).
+// Sorts a patient's clinical record into the Case summary sections.
 // Staging, TNM categories and disease status are recognized first, by mCODE profile or code, because
 // authors file them under different Observation categories (exam, imaging, laboratory). Everything else
 // goes by Observation.category and resource type, and whatever isn't recognized lands in Other resources.

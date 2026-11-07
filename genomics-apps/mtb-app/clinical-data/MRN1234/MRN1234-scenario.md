@@ -1,6 +1,6 @@
 # Jenny M (MRN1234): clinical scenario
 
-Synthetic patient for the MTB app clinical-data demo (see `mtb-clinical-data-design.md` in the repo root). Jenny M is the mCODE IG's own illustrative patient.
+Synthetic patient for the MTB app clinical-data demo. Jenny M is the mCODE IG's own illustrative patient.
 
 **Files**
 - [MRN1234-transaction-bundle.json](MRN1234-transaction-bundle.json): the bundle (mCODE STU4 / US Core 6.1), **edited directly**.
@@ -57,9 +57,9 @@ The draft failed validation with 69 errors. 53 of them came from one cause: the 
 - The sister's breast cancer (age 64), which is in the narrative but was missing from the draft.
 
 **Content fixes**
-- **Genomic resources dropped:** GenomicVariant (PALB2), genomic region studied and genomics report, replaced by a text-only genomic report (design doc §3.3). See the genomics-server note below. *Reversed 2026-11-05; see "Structured genomic report" below.*
+- **Genomic resources dropped:** GenomicVariant (PALB2), genomic region studied and genomics report, replaced by a text-only genomic report. See the genomics-server note below. *Reversed 2026-11-05; see "Structured genomic report" below.*
 - **Primary cancer:**
-  - The SNOMED code from the IG, 353431000119107, is now inactive. It's replaced by 408643008 *Infiltrating duct carcinoma of breast*, a code in the VSAC Breast Cancer value set that sets the predictor's tumor type (design doc §5.5). Laterality is in the text ("…of left breast") and the body site.
+  - The SNOMED code from the IG, 353431000119107, is now inactive. It's replaced by 408643008 *Infiltrating duct carcinoma of breast*, a code in the VSAC Breast Cancer value set that sets the predictor's tumor type. Laterality is in the text ("…of left breast") and the body site.
   - ICD-10-CM C50.912 and the left-breast body site are added.
   - The stage summary said **IIIC**, contradicting the stage group (IIB). Now there is one IIB entry per stage group.
 - **Clinical stage group:** its members pointed at the IG's *pathologic* T/N/M; now the clinical cT3/cN0/cM0. Category, focus and the current AJCC method display are added.
@@ -76,7 +76,9 @@ The draft failed validation with 69 errors. 53 of them came from one cause: the 
 
 ## Genomic data on the genomics operations server
 
-Queried 2026-10-22 (subject `MRN1234`). The server has data for this subject, but **not the PALB2 variant**: the only hit across PALB2, BRCA1 and TP53 is TP53 NC_000017.10:7578412:C:A (GRCh37). So the server's MRN1234 is a different synthetic profile from the IG's Jenny M. The MTB demo shows a TP53 variant in the Genomics Explorer and the PALB2 variant in the clinical report. This mismatch is now kept on purpose (2026-11-05) to work out how the app renders a reported variant the full genomic data set doesn't contain (`incorporating-curated-lab-report-design.md` §2.5).
+Queried 2026-10-22 (subject `MRN1234`). The server has data for this subject, but **not the PALB2 variant**: the only hit across PALB2, BRCA1 and TP53 is TP53 NC_000017.10:7578412:C:A (GRCh37). So the server's MRN1234 is a different synthetic profile from the IG's Jenny M. The MTB demo shows a TP53 variant in the Genomics Explorer and the PALB2 variant in the clinical report. This mismatch is now kept on purpose (2026-11-05) to work out how the app renders a reported variant the full genomic data set doesn't contain.
+
+*Update (2026-11-06): no longer true.* The server now has the PALB2 variant (GRCh37 `NC_000016.9:23614791:G:T`, no genomic origin recorded), alongside 17 somatic variants in other cancer genes (TP53, SMAD4, ARID1A, RNF43 and others). So the reported PALB2 now matches a server variant in the Genomics Explorer. The server's test (MRN1234-1, 2023-05-15, specimen "A2", simple variants only) still doesn't match the 2026 germline panel; see `../README.md` §4.
 
 ## Data-shape features this bundle exercises
 
@@ -108,7 +110,7 @@ curl -X POST -H "Content-Type: application/fhir+json" \
 
 ## Structured genomic report (2026-11-05)
 
-Design: `incorporating-curated-lab-report-design.md` (repo root), §2.3. The text-only genetic report becomes a structured mCODE genomics report, from the IG's Jenny M genomic examples plus a new therapeutic implication.
+The text-only genetic report becomes a structured mCODE genomics report, from the IG's Jenny M genomic examples plus a new therapeutic implication.
 
 - **Report** `mtb-mrn1234-genomics-report-2026-02-26`: adds the `mcode-genomics-report` profile (US Core note profile kept), category v2-0074 `GE` after Pathology, and `result` references to the three Observations below. The conclusion's last sentence ("Detailed variant-level results are maintained on the genomics server…") is replaced by "Germline. Predicted sensitivity to olaparib in breast cancer (level B)."
 - **Variant** `mtb-mrn1234-genomic-variant-palb2` (mcode-genomic-variant): PALB2 (HGNC:26144), ClinVar 128144 NM_024675.3(PALB2):c.3549C>A (p.Tyr1183Ter), gHGVS NC_000016.10:g.23603471G>T, on the biopsy specimen. Changed from the IG: **germline** (LA6683-2) instead of somatic, and clinical significance *Pathogenic* (LA6668-3) added.

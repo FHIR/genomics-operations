@@ -307,8 +307,7 @@ report('mtb-hcc1143-germline-2024-06-07', '2024-06-07', DR_CAT_PATH, cc(LOINC, '
        'Germline multigene hereditary cancer panel (peripheral blood): no pathogenic or likely pathogenic variants '
        'identified, including BRCA1, BRCA2, PALB2, TP53, PTEN, CHEK2 and ATM.', PATH)
 
-# Tumor profiling: the variants in the reportable genes (incorporating-curated-lab-report-design.md §2.4,
-# Appendix A) that change a protein, from the genomics operations server's HCC1143 data (GRCh38), and
+# Tumor profiling: the variants in the reportable genes (the 228-gene reportable list) that change a protein, from the genomics operations server's HCC1143 data (GRCh38), and
 # their therapeutic implications in the server's CIViC shape
 GR_TBD = 'http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs'
 HGVS = 'http://varnomen.hgvs.org'

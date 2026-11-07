@@ -1,7 +1,7 @@
 import { EvidenceLevel, ReportedImplication, ReportedVariant, ReportedVariantsData } from '@/lib/reportedVariants';
 import { SectionCard } from './SectionCard';
 
-// The Reported variants card (incorporating-curated-lab-report-design.md §3, design canvas artboards 7 and 9):
+// The Reported variants card:
 // one group per genetic report, each variant with its therapeutic implications and their evidence levels
 
 const EVIDENCE_TONES: Partial<Record<EvidenceLevel, string>> = {

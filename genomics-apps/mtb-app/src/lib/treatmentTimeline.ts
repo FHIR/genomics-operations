@@ -10,7 +10,7 @@ import {
 } from '@/lib/clinicalSummary';
 import { bodySiteText, CaseSummaryData, resolveReference } from '@/lib/caseSummary';
 
-// Builds the Case summary's treatment timeline (mtb-clinical-data-design.md 4.2, "Treatment timeline rules").
+// Builds the Case summary's treatment timeline.
 // Every mark comes from a FHIR resource; nothing is inferred. Row order is fixed: active medications A–Z,
 // inactive medications A–Z, radiotherapy, procedures, disease status, diagnosis & metastases.
 

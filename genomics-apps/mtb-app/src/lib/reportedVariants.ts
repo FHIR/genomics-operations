@@ -3,7 +3,7 @@ import { ReportCredit } from '@/types/variants';
 import { conceptLabel, formatDate, LOINC } from '@/lib/clinicalSummary';
 import { TxComponentCodes } from '@/utils/ComponentCodes';
 
-// The Reported variants card (incorporating-curated-lab-report-design.md §3): the variants and therapeutic
+// The Reported variants card: the variants and therapeutic
 // implications that came into the record from the lab's genetic reports, grouped by report
 
 const GR_TBD = 'http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/tbd-codes-cs';
@@ -46,7 +46,7 @@ export interface ReportedVariant {
   // Genomic source class, e.g. "Germline"
   origin?: string;
   implications: ReportedImplication[];
-  // Identity, for matching against the genomics server's variants (incorporating-curated-lab-report-design.md §4.2)
+  // Identity, for matching against the genomics server's variants (by SPDI, then c.HGVS, then normalized SPDI)
   spdi?: string; // NCBI variation SPDI, when the report has one
   cHgvs?: string;
   pHgvs?: string;

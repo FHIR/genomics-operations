@@ -64,7 +64,7 @@ Uses:
 ## Molecular Tumor Board
 https://mtb-app-elimu1.vercel.app/
 
-This demonstration app is intended to show how FHIR can enable advanced functionality within a MTB application. The app allows you to browser somatic testing results, associate results with therapeutic options, compute oncogenicity prediction, and more.
+This demonstration app is intended to show how FHIR can enable advanced functionality within a MTB application. For a patient chosen by MRN, it shows the clinical record from a FHIR server (mCODE), including the lab's reported genomic variants and therapeutic implications; lets you search the patient's complete genomic data, with the reported variants layered in, and associate results with therapeutic options, co-occurring variants and pathway diagrams; computes oncogenicity predictions; and shows an AI case synthesis for the tumor board.
 
 Uses: 
 * find-subject-variants
@@ -72,3 +72,4 @@ Uses:
 * find-subject-molecular-consequences
 * find-subject-tx-implications
 * find-subject-dx-implications
+* utilities: get-feature-coordinates, normalize-variant
