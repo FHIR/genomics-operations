@@ -1,4 +1,4 @@
-bioutils==0.6.1
+bioutils==0.6.2
 connexion[swagger-ui]==2.14.0
 deepdiff==6.7.1
 dnspython==2.2.1
@@ -18,8 +18,8 @@ toml==0.10.2
 pandas==2.2.2
 numpy==2.0.2
 pyliftover==0.4
-hgvs==1.5.4
+hgvs==1.5.7
 py-ard==1.5.3
 openpyxl==3.1.5
 pyvcf3==1.0.3
-tqdm==4.65.1
+tqdm==4.70.1

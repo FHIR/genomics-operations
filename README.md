@@ -103,17 +103,17 @@ currently imported database schema.
 - Go to the UTA dump download site (http://dl.biocommons.org/uta/) and get the latest `<UTA_SCHEMA>.pgd.gz` file.
 - Go to https://dashboard.heroku.com/apps/fhir-gen-ops/resources and click on the "Heroku Postgres" instance (it will
 open a new window)
-- Go to the Settings tab
-- Click "View Credentials"
+- Go to the Settings tab and click "Reset Database" to remove all the existing data
+- Go to the Credentials tab and click the edit button for the first user where you can click the Show button under Passwords
 - Use the fields from this window to fill in the variables below
 
 ```shell
 $ POSTGRES_HOST="<Heroku Postgres Host>"
 $ POSTGRES_DATABASE="<Heroku Postgres Database>"
 $ POSTGRES_USER="<Heroku Postgres User>"
-$ PGPASSWORD="<Heroku Postgres Password>"
+$ POSTGRES_PASSWORD="<Heroku Postgres Password>"
 $ UTA_SCHEMA="<UTA Schema>" # Specify the UTA schema of the UTA dump you downloaded (example: uta_20240523b)
-$ gzip -cdq ${UTA_SCHEMA}.pgd.gz | grep -v '^GRANT USAGE ON SCHEMA .* TO anonymous;$' | grep -v '^ALTER .* OWNER TO uta_admin;$' | psql -U ${POSTGRES_USER} -1 -v ON_ERROR_STOP=1 -d ${POSTGRES_DATABASE} -h ${POSTGRES_HOST} -Eae
+$ gzip -cdq ${UTA_SCHEMA}.pgd.gz | grep -v '^GRANT USAGE ON SCHEMA .* TO anonymous;$' | grep -v '^ALTER .* OWNER TO uta_admin;$' | psql -1 -v ON_ERROR_STOP=1 -Eae postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/${POSTGRES_DATABASE}
 ```
 
 Note: The `grep -v` commands are required because the Heroku Postgres instance doesn't allow us to create a new role.
