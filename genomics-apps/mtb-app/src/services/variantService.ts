@@ -1,5 +1,16 @@
 import { Variant } from '@/types/variants';
 
+/**
+ * The genomics server has no data for this patient (it answers 404 "Patient (…) not found").
+ * The patient may still have a clinical record, and reported variants, on the clinical FHIR server.
+ */
+export class PatientNotOnServerError extends Error {
+    constructor(subjectId: string) {
+        super(`The genomics server has no data for patient ${subjectId}`);
+        this.name = 'PatientNotOnServerError';
+    }
+}
+
 // API Configuration
 const API_CONFIG = {
     baseUrl: 'https://fhir-gen-ops.herokuapp.com',
@@ -179,6 +190,10 @@ export const findSubjectVariants = async (
             fetch(simpleVariantsUrl),
             fetch(structuralVariantsUrl)
         ]);
+
+        if (simpleResponse.status === 404 || structuralResponse.status === 404) {
+            throw new PatientNotOnServerError(subjectId);
+        }
 
         if (!simpleResponse.ok) {
             throw new Error(`API error: ${simpleResponse.status} ${simpleResponse.statusText}`);

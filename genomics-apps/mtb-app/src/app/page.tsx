@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { ChevronDown, ChevronUp, ClipboardPlus, Dna, Images, LucideIcon, Network, Sparkles, Table2 } from 'lucide-react';
 import { Variant } from '@/types/variants';
 import { findSubjectVariantsWithCache } from '@/services/cachedVariantService';
+import { PatientNotOnServerError } from '@/services/variantService';
 import SearchForm from '../components/SearchForm';
 import PatientBanner from '../components/PatientBanner';
 import CaseSummary from '../components/caseSummary/CaseSummary';
@@ -179,7 +180,7 @@ export default function Home() {
   const [lookedUpGenes, setLookedUpGenes] = useState<Map<string, string>>(new Map());
   const requestedLookupsRef = useRef(new Set<string>());
   const searchedTerms: SearchedTerm[] = useMemo(() => Object.entries(searchStatus)
-    .filter(([, status]) => status === 'found' || status === 'no results')
+    .filter(([, status]) => status === 'found' || status === 'no results' || status === 'not_on_server')
     .map(([term]) => ({ term, range: resolvedRanges.get(term) })), [searchStatus, resolvedRanges]);
 
   // Each finished term's range, also for terms the server found nothing in (a reported variant may still be there)
@@ -507,12 +508,14 @@ export default function Home() {
     });
     return counts;
   }, [results]);
-  // A term the server found nothing in still counts as found when a reported variant is there
+  // A term the server found nothing in (or has no data for) still counts as found when a reported variant is there
   const displayedSearchStatus = useMemo(() => Object.fromEntries(Object.entries(searchStatus).map(([term, status]) =>
-    [term, status === 'no results' && (variantCountsByTerm[term] ?? 0) > 0 ? 'found' : status])), [searchStatus, variantCountsByTerm]);
+    [term, (status === 'no results' || status === 'not_on_server') && (variantCountsByTerm[term] ?? 0) > 0 ? 'found' : status])), [searchStatus, variantCountsByTerm]);
+  // The genomics server has no data for this patient: results come only from the genetic report
+  const noServerData = Object.values(searchStatus).includes('not_on_server');
   const collapsedSearchSummary = [
     searchInput.trim() || 'No search terms loaded',
-    Object.keys(searchStatus).length > 0 ? searchSummaryText(displayedSearchStatus) : undefined,
+    Object.keys(searchStatus).length > 0 ? searchSummaryText(displayedSearchStatus, noServerData) : undefined,
   ].filter(Boolean).join(' · ');
 
   const handleSearch = async () => {
@@ -565,12 +568,22 @@ export default function Home() {
     setSearchStatus(initialStatus);
     abortControllersRef.current = newControllers;
 
+    // Once the server says it has no data for this patient, the remaining terms aren't sent
+    let patientNotOnServer = false;
+
     // Process each search term sequentially and update results incrementally
     for (const term of searchTerms) {
       if (!term) continue;
 
       const controller = newControllers.get(term);
       if (!controller) continue;
+
+      if (patientNotOnServer) {
+        if (!controller.signal.aborted) {
+          setSearchStatus(prev => ({ ...prev, [term]: 'not_on_server' }));
+        }
+        continue;
+      }
 
       try {
         // Use the cached variant service - it handles all implications internally
@@ -594,24 +607,16 @@ export default function Home() {
           }
         }
       } catch (error) {
-        if (!controller.signal.aborted) {
-          console.error(`Error searching for ${term}:`, error);
-
-          // Check if the error is related to invalid MRN (400 status)
-          const errorMessage = error instanceof Error ? error.message : String(error);
-          if (errorMessage.includes('400')) {
-            // Check if this might be an MRN issue by seeing if the term looks like a gene
-            const isLikelyGene = /^[A-Z0-9]+$/.test(term) || /^NC_\d+\.\d+:\d+-\d+$/.test(term);
-            if (isLikelyGene) {
-              setSearchStatus(prev => ({ ...prev, [term]: 'invalid_mrn' }));
-            } else {
-              setSearchStatus(prev => ({ ...prev, [term]: 'error' }));
-              setInvalidRanges(prev => [...prev, term]);
-            }
-          } else {
-            setSearchStatus(prev => ({ ...prev, [term]: 'error' }));
-            setInvalidRanges(prev => [...prev, term]);
+        if (error instanceof PatientNotOnServerError) {
+          // Not an error in the term: the patient's reported variants can still show for it
+          patientNotOnServer = true;
+          if (!controller.signal.aborted) {
+            setSearchStatus(prev => ({ ...prev, [term]: 'not_on_server' }));
           }
+        } else if (!controller.signal.aborted) {
+          console.error(`Error searching for ${term}:`, error);
+          setSearchStatus(prev => ({ ...prev, [term]: 'error' }));
+          setInvalidRanges(prev => [...prev, term]);
         }
       }
     }
@@ -757,6 +762,7 @@ export default function Home() {
                 />
                 <SearchStatus
                   searchStatus={displayedSearchStatus}
+                  noServerData={noServerData}
                   invalidRanges={invalidRanges}
                   variantCounts={variantCountsByTerm}
                   onCancelSearch={handleCancelSearch}

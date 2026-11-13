@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Info } from 'lucide-react';
 
 // Search status as a row of chips, one per search term (mockup: Search Workspace redesign, states B–F).
 // Terms are searched one at a time in order, so the first term still marked 'searching' is the one in
@@ -8,8 +9,10 @@ import { useEffect, useState } from 'react';
 const CHIP_CAP = 12;
 
 interface SearchStatusProps {
-  // Search term → 'searching' | 'found' | 'no results' | 'error' | 'invalid_mrn' | 'cancelled'
+  // Search term → 'searching' | 'found' | 'no results' | 'not_on_server' | 'error' | 'cancelled'
   searchStatus: Record<string, string>;
+  // The genomics server has no data for this patient, so results come only from the genetic report
+  noServerData: boolean;
   invalidRanges: string[];
   // Variants found per search term
   variantCounts: Record<string, number>;
@@ -33,13 +36,14 @@ const CHIP_CLASSES: Record<ChipKind, string> = {
   cancelled: 'bg-orange-50 text-orange-800 ring-orange-200',
 };
 
-function buildChips(searchStatus: Record<string, string>, variantCounts: Record<string, number>): Chip[] {
+function buildChips(searchStatus: Record<string, string>, variantCounts: Record<string, number>, noServerData: boolean): Chip[] {
+  const fromReport = noServerData ? ' (report)' : '';
   const current = Object.keys(searchStatus).find((term) => searchStatus[term] === 'searching');
   return Object.entries(searchStatus).map(([term, status]) => {
     switch (status) {
       case 'found': {
         const count = variantCounts[term] ?? 0;
-        return { term, kind: 'found', label: count > 0 ? `✓ ${term} · ${count} variant${count === 1 ? '' : 's'}` : `✓ ${term} · Results found` };
+        return { term, kind: 'found', label: count > 0 ? `✓ ${term} · ${count} variant${count === 1 ? '' : 's'}${fromReport}` : `✓ ${term} · Results found` };
       }
       case 'searching':
         return term === current
@@ -47,8 +51,8 @@ function buildChips(searchStatus: Record<string, string>, variantCounts: Record<
           : { term, kind: 'waiting', label: `${term} · Waiting` };
       case 'no results':
         return { term, kind: 'none', label: `○ ${term} · No results found` };
-      case 'invalid_mrn':
-        return { term, kind: 'error', label: `✕ ${term} · Invalid MRN - Patient not found` };
+      case 'not_on_server':
+        return { term, kind: 'none', label: `${term} · Not on genomics server` };
       case 'cancelled':
         return { term, kind: 'cancelled', label: `${term} · Cancelled` };
       default:
@@ -58,19 +62,25 @@ function buildChips(searchStatus: Record<string, string>, variantCounts: Record<
 }
 
 /**
- * One-line summary of a search, e.g. "46 of 83 searched · 3 found · 43 no results found".
+ * One-line summary of a search, e.g. "46 of 83 searched · 3 found · 43 no results found", or with no data on the
+ * genomics server "11 searched · 1 found in the report · 10 not on the genomics server".
  */
-export function searchSummaryText(searchStatus: Record<string, string>) {
+export function searchSummaryText(searchStatus: Record<string, string>, noServerData = false) {
   const statuses = Object.values(searchStatus);
   const count = (...values: string[]) => statuses.filter((status) => values.includes(status)).length;
   const done = statuses.length - count('searching');
   const parts = [
     count('searching') > 0 ? `${done} of ${statuses.length} searched` : `${statuses.length} searched`,
-    `${count('found')} found`,
-    `${count('no results')} no results found`,
+    noServerData ? `${count('found')} found in the report` : `${count('found')} found`,
   ];
-  if (count('error', 'invalid_mrn') > 0) {
-    parts.push(`${count('error', 'invalid_mrn')} with errors`);
+  if (!noServerData || count('no results') > 0) {
+    parts.push(`${count('no results')} no results found`);
+  }
+  if (count('not_on_server') > 0) {
+    parts.push(`${count('not_on_server')} not on the genomics server`);
+  }
+  if (count('error') > 0) {
+    parts.push(`${count('error')} with errors`);
   }
   if (count('cancelled') > 0) {
     parts.push(`${count('cancelled')} cancelled`);
@@ -84,7 +94,7 @@ function ChipView({ chip }: { chip: Chip }) {
   );
 }
 
-export default function SearchStatus({ searchStatus, invalidRanges, variantCounts, onCancelSearch }: SearchStatusProps) {
+export default function SearchStatus({ searchStatus, noServerData, invalidRanges, variantCounts, onCancelSearch }: SearchStatusProps) {
   const [showAll, setShowAll] = useState(false);
   const terms = Object.keys(searchStatus);
   const termKey = terms.join('\n');
@@ -98,7 +108,7 @@ export default function SearchStatus({ searchStatus, invalidRanges, variantCount
     return null;
   }
 
-  const chips = buildChips(searchStatus, variantCounts);
+  const chips = buildChips(searchStatus, variantCounts, noServerData);
   const isSearching = chips.some((chip) => chip.kind === 'searching' || chip.kind === 'waiting');
   const doneCount = chips.filter((chip) => chip.kind !== 'searching' && chip.kind !== 'waiting').length;
   const isLong = chips.length > CHIP_CAP;
@@ -111,9 +121,18 @@ export default function SearchStatus({ searchStatus, invalidRanges, variantCount
 
   return (
     <div className="flex flex-col gap-2.5 border-t border-emerald-100 pt-3">
+      {noServerData && (
+        <div className="flex items-start gap-2 rounded-lg bg-amber-50 px-3 py-2.5 text-sm text-amber-900 ring-1 ring-inset ring-amber-300">
+          <Info size={16} className="mt-0.5 flex-shrink-0" aria-hidden="true" />
+          <span>
+            <span className="font-semibold">The genomics server has no data for this patient.</span>{' '}
+            Results below come only from the patient&apos;s genetic report.
+          </span>
+        </div>
+      )}
       <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm">
         <span className="font-semibold text-slate-700">Status</span>
-        <span className="text-slate-600">{searchSummaryText(searchStatus)}</span>
+        <span className="text-slate-600">{searchSummaryText(searchStatus, noServerData)}</span>
         <span className="flex-1" />
         {isSearching && (
           <button type="button" onClick={onCancelSearch} className="font-semibold text-red-700 hover:underline">
