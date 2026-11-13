@@ -10,7 +10,7 @@ import {
   Reference,
 } from '@/types/fhir';
 import { CrosswalkRow } from '@/cancerFilter/tumorTypeCrosswalk';
-import { hasTimelineDate, isMedication } from '@/lib/treatmentTimeline';
+import { hasTimelineDate, isGenomicStudyAnalysis, isMedication } from '@/lib/treatmentTimeline';
 import { ClinicalRecord } from '@/services/clinicalService';
 import { buildReportedVariants, ReportedVariantsData } from '@/lib/reportedVariants';
 import {
@@ -456,7 +456,8 @@ export function classifyClinicalRecord(record: ClinicalRecord, crosswalk: Crossw
 
   // Treatment timeline. Disease status follows the banner chip: final results about the main cancer (or with no focus)
   const medications = usable.filter((resource) => isMedication(resource) && hasTimelineDate(resource));
-  const procedures = usable.filter((resource) => resource.resourceType === 'Procedure' && hasTimelineDate(resource));
+  const procedures = usable.filter((resource) => resource.resourceType === 'Procedure' && hasTimelineDate(resource)
+    && !isGenomicStudyAnalysis(resource));
   [...medications, ...procedures].forEach(place);
   const mainCancer = primaries[0];
   const diseaseStatuses = diseaseStatusObservations.filter((observation) => ['final', 'amended', 'corrected'].includes(observation.status ?? '')

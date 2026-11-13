@@ -85,6 +85,13 @@ export function isRadiotherapy(procedure: FhirResource) {
   return hasProfile(procedure, 'mcode-radiotherapy-course-summary') || hasCode(code, RADIOTHERAPY_CODES);
 }
 
+const GENOMIC_STUDY_ANALYSIS_PROFILE = 'http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/genomic-study-analysis';
+
+// A GenomicStudyAnalysis is a Procedure that details its GenomicStudy, not a separate procedure, so it stays off the timeline
+export function isGenomicStudyAnalysis(procedure: FhirResource) {
+  return procedure.meta?.profile?.some((profile) => profile.split('|')[0] === GENOMIC_STUDY_ANALYSIS_PROFILE) ?? false;
+}
+
 function procedureDates(procedure: FhirResource): { start?: string; end?: string } {
   const period = procedure.performedPeriod as Period | undefined;
   const dateTime = procedure.performedDateTime as string | undefined;
