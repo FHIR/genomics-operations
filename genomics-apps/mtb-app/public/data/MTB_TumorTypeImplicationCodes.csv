@@ -1,0 +1,41 @@
+geneListCategory,system,code,display
+Any,https://disease-ontology.org,DOID:162,Cancer
+Any,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl,C9292,Solid Neoplasm
+Breast Cancer,https://disease-ontology.org,DOID:1612,Breast Cancer
+Breast Cancer,https://disease-ontology.org,DOID:3459,Breast Carcinoma
+Breast Cancer,https://disease-ontology.org,DOID:3458,Breast Adenocarcinoma
+Breast Cancer,https://disease-ontology.org,DOID:3007,Breast Ductal Carcinoma
+Breast Cancer,https://disease-ontology.org,DOID:0050938,Breast Lobular Carcinoma
+Breast Cancer,https://disease-ontology.org,DOID:4922,Breast Secretory Carcinoma
+Breast Cancer,https://disease-ontology.org,DOID:6587,Breast Tubular Carcinoma
+Breast Cancer,https://disease-ontology.org,DOID:6263,Inflammatory Breast Carcinoma
+Breast Cancer,https://disease-ontology.org,DOID:0060548,Luminal Breast Carcinoma A
+Breast Cancer,https://disease-ontology.org,DOID:0060075,Estrogen Receptor-positive Breast Cancer
+Breast Cancer,https://disease-ontology.org,DOID:0060076,Estrogen Receptor-negative Breast Cancer
+Breast Cancer,https://disease-ontology.org,DOID:0060079,HER2 Positive Breast Cancer
+Breast Cancer,https://disease-ontology.org,DOID:0060080,HER2 Negative Breast Cancer
+Breast Cancer,https://disease-ontology.org,DOID:0060081,Triple-negative Breast Cancer
+Colorectal Cancer,https://disease-ontology.org,DOID:9256,Colorectal Cancer
+Colorectal Cancer,https://disease-ontology.org,DOID:0050861,Colorectal Adenocarcinoma
+Colorectal Cancer,https://disease-ontology.org,DOID:219,Colon Cancer
+Colorectal Cancer,https://disease-ontology.org,DOID:234,Colon Adenocarcinoma
+Colorectal Cancer,https://disease-ontology.org,DOID:1520,Colon Carcinoma
+Colorectal Cancer,https://disease-ontology.org,DOID:3029,Colon Mucinous Adenocarcinoma
+Colorectal Cancer,https://disease-ontology.org,DOID:3033,Colon Signet Ring Adenocarcinoma
+Colorectal Cancer,https://disease-ontology.org,DOID:1993,Rectum Cancer
+Colorectal Cancer,https://disease-ontology.org,DOID:1996,Rectum Adenocarcinoma
+Hepatocellular Carcinoma,https://disease-ontology.org,DOID:684,Hepatocellular Carcinoma
+Hepatocellular Carcinoma,https://disease-ontology.org,DOID:0080182,Mixed Fibrolamellar Hepatocellular Carcinoma
+Hepatocellular Carcinoma,https://disease-ontology.org,DOID:0070322,Childhood Hepatocellular Carcinoma
+Hepatocellular Carcinoma,https://disease-ontology.org,DOID:3571,Liver Cancer
+Non-Small Cell Lung Cancer,https://disease-ontology.org,DOID:3908,Lung Non-small Cell Carcinoma
+Non-Small Cell Lung Cancer,https://disease-ontology.org,DOID:3910,Lung Adenocarcinoma
+Non-Small Cell Lung Cancer,https://disease-ontology.org,DOID:3907,Lung Squamous Cell Carcinoma
+Non-Small Cell Lung Cancer,https://disease-ontology.org,DOID:6482,Lung Acinar Adenocarcinoma
+Non-Small Cell Lung Cancer,https://disease-ontology.org,DOID:0080303,Mucinous Lung Adenocarcinoma
+Non-Small Cell Lung Cancer,https://disease-ontology.org,DOID:4556,Lung Large Cell Carcinoma
+Non-Small Cell Lung Cancer,https://disease-ontology.org,DOID:4829,Adenosquamous Lung Carcinoma
+Non-Small Cell Lung Cancer,https://disease-ontology.org,DOID:0080777,Lung Sarcomatoid Carcinoma
+Non-Small Cell Lung Cancer,https://disease-ontology.org,DOID:0050932,Lung Mucoepidermoid Carcinoma
+Non-Small Cell Lung Cancer,https://disease-ontology.org,DOID:1324,Lung Cancer
+Non-Small Cell Lung Cancer,https://disease-ontology.org,DOID:3905,Lung Carcinoma

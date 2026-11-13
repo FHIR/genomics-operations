@@ -4,7 +4,6 @@ export const GLOBAL_GENE_LIST_CATEGORY = "Any";
 
 export type KBRow = {
     "Cancer category": string;
-    "Phenotype (for filtering implications)": string;
     "Label": string;
     "Region": string;
 };
@@ -17,7 +16,6 @@ export type PresetSelection = {
 function normalizeRow(row: KBRow): KBRow {
     return {
         "Cancer category": row["Cancer category"]?.trim() ?? "",
-        "Phenotype (for filtering implications)": row["Phenotype (for filtering implications)"]?.trim() ?? "",
         "Label": row["Label"]?.trim() ?? "",
         "Region": row["Region"]?.trim() ?? "",
     };

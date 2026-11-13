@@ -105,6 +105,7 @@ function sameImplication(left: ProcessedTxImplication, right: ProcessedTxImplica
 function reportImplications(record: ReportedVariantRecord): ProcessedTxImplication[] {
   return record.implications.map((implication) => ({
     phenotypicContext: implication.phenotype ?? '',
+    phenotypeCodings: implication.phenotypeCodings?.flatMap(({ system, code, display }) => (code ? [{ system, code, display }] : [])),
     evidenceLevel: implication.evidence ?? '',
     medication: implication.drug ?? '',
     therapeuticImplication: implication.implication ?? '',

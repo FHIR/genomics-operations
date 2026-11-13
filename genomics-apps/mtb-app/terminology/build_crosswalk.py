@@ -23,7 +23,18 @@ VALUE_SETS = {
     'BreastCancer.xlsx': ('Breast Cancer', 'Breast Cancer'),
     'NonSmallCellLungCancer.xlsx': ('Non-Small Cell Lung Cancer', 'Non-Small Cell Lung Cancer'),
     'HepatocellularCarcinoma.xlsx': ('', 'Hepatocellular Carcinoma'),
+    'ColorectalCancer.xlsx': ('', 'Colorectal Cancer'),
 }
+
+# Codes added to a tumor type when its VSAC value set lacks them; their crosswalk rows get valueSetOid "local".
+# If a newer VSAC version adds one of these codes, the build fails as a duplicate: remove it from this list.
+LOCAL_CODES = [
+    # The ASCO colorectal value set has no adenocarcinoma codes, and the TCGA colorectal patients
+    # are coded with these three
+    ('http://snomed.info/sct', '1701000119104', 'Primary adenocarcinoma of colon (disorder)', 'Colorectal Cancer'),
+    ('http://snomed.info/sct', '254582000', 'Adenocarcinoma of rectum (disorder)', 'Colorectal Cancer'),
+    ('http://snomed.info/sct', '425178004', 'Adenocarcinoma of rectosigmoid junction (disorder)', 'Colorectal Cancer'),
+]
 
 # VSAC code system names -> FHIR system URIs
 CODE_SYSTEMS = {
@@ -58,7 +69,7 @@ def main():
         workbook = openpyxl.load_workbook(HERE / 'value-sets' / filename, read_only=True)
         oid = value_set_oid(workbook)
         for entry in expansion(workbook):
-            system = CODE_SYSTEMS[entry['Code System']]
+            system = CODE_SYSTEMS[str(entry['Code System'])]
             code = str(entry['Code'])
             if (system, code) in seen:
                 raise ValueError(f'{code} is in both {seen[(system, code)]} and {filename}')
@@ -71,6 +82,20 @@ def main():
                 'geneListCategory': gene_list_category,
                 'valueSetOid': oid,
             })
+
+    predictor_by_category = {category: predictor for predictor, category in VALUE_SETS.values()}
+    for system, code, display, gene_list_category in LOCAL_CODES:
+        if (system, code) in seen:
+            raise ValueError(f'local code {code} is already in {seen[(system, code)]}')
+        seen[(system, code)] = 'LOCAL_CODES'
+        out_rows.append({
+            'system': system,
+            'code': code,
+            'display': display,
+            'predictorTumorType': predictor_by_category[gene_list_category],
+            'geneListCategory': gene_list_category,
+            'valueSetOid': 'local',
+        })
 
     with open(OUT, 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=list(out_rows[0]))

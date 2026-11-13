@@ -5,36 +5,14 @@ interface RegionLoaderProps {
     presetSelection: PresetSelection | null;
     requestId: number;
     onRegionsLoaded: (regions: string[]) => void;
-    onPhenotypesLoaded?: (phenotypes: Set<string>) => void;
 }
 
-
-
-export default function RegionLoader({ presetSelection, requestId, onRegionsLoaded, onPhenotypesLoaded }: RegionLoaderProps) {
+export default function RegionLoader({ presetSelection, requestId, onRegionsLoaded }: RegionLoaderProps) {
     const [kbRows, setKbRows] = useState<KBRow[]>([]);
 
     useEffect(() => {
-        loadGeneListKbRows().then((rows) => {
-            setKbRows(rows);
-
-            // Extract phenotypes if callback is provided
-            if (onPhenotypesLoaded) {
-                const phenotypes = new Set<string>();
-                rows.forEach(row => {
-                    const phenotypeColumn = row["Phenotype (for filtering implications)"];
-                    if (phenotypeColumn) {
-                        const individualPhenotypes = phenotypeColumn.split(';').map(p => p.trim());
-                        individualPhenotypes.forEach(phenotype => {
-                            if (phenotype) {
-                                phenotypes.add(phenotype);
-                            }
-                        });
-                    }
-                });
-                onPhenotypesLoaded(phenotypes);
-            }
-        });
-    }, [onPhenotypesLoaded]);
+        loadGeneListKbRows().then(setKbRows);
+    }, []);
 
     useEffect(() => {
         if (!presetSelection || requestId === 0 || kbRows.length === 0) return;

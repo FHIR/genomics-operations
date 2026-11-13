@@ -1,4 +1,4 @@
-import { FhirResponse, Component, FhirObservation } from "@/utils/fhirInterfaces";
+import { FhirResponse, Component, FhirObservation, Coding } from "@/utils/fhirInterfaces";
 
 type ComponentMap = Record<string, string>;
 
@@ -45,21 +45,37 @@ export const processFhirResponse = <T>(
         });
 };
 
+const componentsWithCode = (components: Component[], code: string) =>
+    components.filter(c => c.code.coding?.some(coding => coding.code === code));
+
+const joinedDisplays = (components: Component[], code: string, separator: string) =>
+    componentsWithCode(components, code)
+        .map(c => c.valueCodeableConcept?.coding?.[0]?.display || c.valueCodeableConcept?.text || '')
+        .filter(Boolean)
+        .join(separator);
+
+/**
+ * Every coding of every component with the code, e.g. all of an implication's cancer types (one component each)
+ */
+export const findComponentCodings = (components: Component[] | undefined, code: string): Coding[] =>
+    componentsWithCode(components ?? [], code).flatMap(c => c.valueCodeableConcept?.coding ?? []);
+
 export const findComponentValue = (components: Component[], code: string): string => {
     // A combination therapy has one medication-assessed component per drug: show them all, joined with +
     if (code === '51963-7') {
-        return components
-            .filter(c => c.code.coding?.some(coding => coding.code === code))
-            .map(c => c.valueCodeableConcept?.coding?.[0]?.display || '')
-            .filter(Boolean)
-            .join(' + ');
+        return joinedDisplays(components, code, ' + ');
+    }
+
+    // An implication can apply to several cancer types, one component each: show them all, joined with ;
+    if (code === '81259-4') {
+        return joinedDisplays(components, code, '; ');
     }
 
     const component = components.find(c =>
         c.code.coding?.some(coding => coding.code === code)
     );
 
-    if (code === '53037-8' || code === '81259-4' || code === 'feature-consequence' || code === '51963-7') {
+    if (code === '53037-8' || code === 'feature-consequence') {
         return component?.valueCodeableConcept?.coding?.[0]?.display || '';
     }
 

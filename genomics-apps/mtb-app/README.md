@@ -57,7 +57,7 @@ The Case Summary shows what the lab chose to report, as of the report date; the 
 
 * **Clinical data:** a FHIR R4 server (currently `https://hapi.fhir.org/baseR4`). Patients are found by MRN (`Patient.identifier` with system `http://elimu.io/fhir/mrn`) and loaded with `Patient/$everything`. The demo patients' mCODE transaction bundles, and the guide to creating new cases, are in `clinical-data/` (see `clinical-data/README.md`).
 * **Genomic data:** the Genomics Operations reference server (`https://fhir-gen-ops.herokuapp.com`): subject operations for variants, structural variants, molecular consequences and Tx/Dx implications, with the patient's MRN as subject. For layering reported variants, the app also calls the server's `utilities` for the few reported variants that need it: `normalize-variant` (a reported variant's SPDI in each genome build) and `get-feature-coordinates` (a gene's or transcript's range), cached for the session.
-* **Knowledge files** in `public/data/`: preset gene lists, the Dx crosswalk, the CIViC co-occurrence knowledge base, the pathway diagrams, the OncoKB cancer gene list, and the pre-generated syntheses.
+* **Knowledge files** in `public/data/`: preset gene lists, the Dx crosswalk, the cancer-type codes for each tumor type, the CIViC co-occurrence knowledge base, the pathway diagrams, the OncoKB cancer gene list, and the pre-generated syntheses.
 
 ---
 
@@ -114,7 +114,8 @@ src/
 
 public/data/
 ├── MTB_KB_GeneLists.csv        # Cancer types and preset gene lists
-├── MTB_TumorTypeCrosswalk.csv  # Recorded diagnosis (SNOMED CT) to tumor type
+├── MTB_TumorTypeCrosswalk.csv  # Recorded diagnosis (SNOMED CT) to tumor type (built by terminology/build_crosswalk.py)
+├── MTB_TumorTypeImplicationCodes.csv  # Cancer-type codes (Disease Ontology, NCIt) that count as each tumor type
 ├── CIViC_Cooccurrence_KB.csv   # Co-occurrence profiles (built by scripts/build_civic_cooccurrence_kb.py)
 ├── OncoKB_CancerGeneList.tsv   # OncoKB cancer gene list (used when writing syntheses)
 ├── pathways/                   # 10 TCGA pathway diagrams (JSON)
@@ -204,7 +205,7 @@ Structural variants do not currently support oncogenicity prediction. Computed p
 * Evidence levels, medications, implications
 * Molecular consequences and impact levels
 * Diagnostic significance and ClinVar ratings
-* Custom phenotype matching
+* Actionable, this tumor type matches the implication's cancer-type code against the tumor type's codes
 
 ---
 

@@ -1,6 +1,6 @@
-import { processFhirResponse } from '@/utils/fhirProcessor';
+import { findComponentCodings, processFhirResponse } from '@/utils/fhirProcessor';
 import { dxComponentCodes } from '@/utils/ComponentCodes';
-import { FhirResponse, FhirObservation } from '@/utils/fhirInterfaces';
+import { Coding, FhirResponse, FhirObservation } from '@/utils/fhirInterfaces';
 
 // URLs
 const FHIR_BASE_URL = 'https://fhir-gen-ops.herokuapp.com';
@@ -11,6 +11,7 @@ const CLINVAR_SYSTEM = 'http://www.ncbi.nlm.nih.gov/clinvar';
 export interface DxImplication {
     clinicalSignificance?: string;
     predictedPhenotype?: string;
+    phenotypeCodings?: Coding[]; // The cancer types the evidence applies to, for matching the patient's tumor type
     evidenceLevel?: string;
     variantId?: string;
     clinvarLink?: string;
@@ -22,7 +23,8 @@ export interface DxImplication {
 const dxExtraFieldsExtractor = (resource: FhirObservation): Partial<DxImplication> => {
     const variantId = resource.identifier?.find(id => id.system === CLINVAR_SYSTEM)?.value || '';
     const clinvarLink = variantId ? `https://www.ncbi.nlm.nih.gov/clinvar/variation/${variantId}/` : '';
-    return { variantId, clinvarLink };
+    const phenotypeCodings = findComponentCodings(resource.component, dxComponentCodes.predictedPhenotype);
+    return { variantId, clinvarLink, phenotypeCodings };
 };
 
 export async function processDxImplications(

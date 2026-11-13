@@ -1,163 +1,279 @@
-Cancer category,Phenotype (for filtering implications),Label,Region
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,AKT1
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,BRCA1
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,BRCA2
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,ERBB2
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,ESR1
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,NTRK1
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,NTRK2
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,NTRK3
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,PIK3CA
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Actionable Gene List,PTEN
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,AKT1
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,AR
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,ATM
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,BRCA1
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,BRCA2
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,CHEK2
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,ERBB2
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,ESR1
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,FGFR1
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,NTRK1
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,NTRK2
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,NTRK3
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,PALB2
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,PIK3CA
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,PTEN
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,RB1
-Breast Cancer,Breast Carcinoma; Breast Ductal Carcinoma,Extended Gene List,TP53
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,ALK
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,BRAF
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,EGFR
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,ERBB2
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,KRAS
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,MET
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,NTRK1
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,NTRK2
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,NTRK3
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,RET
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Actionable Gene List,ROS1
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,ALK
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,BRAF
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,EGFR
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,ERBB2
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,KEAP1
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,KRAS
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,MET
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,NRG1
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,NTRK1
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,NTRK2
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,NTRK3
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,PIK3CA
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,RET
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,ROS1
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,STK11
-Non-Small Cell Lung Cancer,Lung Non-small Cell Carcinoma; Lung Adenocarcinoma; Lung Squamous Cell Carcinoma,Extended Gene List,TP53
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,ARID1A
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,ARID2
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,AXIN1
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,CD44
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,CDK9
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,CEACAM1
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,DNAJB1
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,EGFR
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,FGF19
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,FGF3
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,FGF4
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,FGFR1
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,FGFR2
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,FGFR4
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,GALNT14
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,JAK1
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,KIF23
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,KRAS
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,NEDD9
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,PBLD
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,PRKACA
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,PROM1
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,PTPN6
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,RAF1
-Hepatocellular Carcinoma,Hepatocellular Carcinoma; Liver Cancer; Mixed Fibrolamellar Hepatocellular Carcinoma,Extended Gene List,VEGFC
-Any,,ACMG Secondary Findings,ABCD1
-Any,,ACMG Secondary Findings,ACTA2
-Any,,ACMG Secondary Findings,ACTC1
-Any,,ACMG Secondary Findings,ACVRL1
-Any,,ACMG Secondary Findings,APC
-Any,,ACMG Secondary Findings,APOB
-Any,,ACMG Secondary Findings,ATP7B
-Any,,ACMG Secondary Findings,BAG3
-Any,,ACMG Secondary Findings,BMPR1A
-Any,,ACMG Secondary Findings,BRCA1
-Any,,ACMG Secondary Findings,BRCA2
-Any,,ACMG Secondary Findings,BTD
-Any,,ACMG Secondary Findings,CACNA1S
-Any,,ACMG Secondary Findings,CALM1
-Any,,ACMG Secondary Findings,CALM2
-Any,,ACMG Secondary Findings,CALM3
-Any,,ACMG Secondary Findings,CASQ2
-Any,,ACMG Secondary Findings,COL3A1
-Any,,ACMG Secondary Findings,CYP27A1
-Any,,ACMG Secondary Findings,DES
-Any,,ACMG Secondary Findings,DSC2
-Any,,ACMG Secondary Findings,DSG2
-Any,,ACMG Secondary Findings,DSP
-Any,,ACMG Secondary Findings,ENG
-Any,,ACMG Secondary Findings,FBN1
-Any,,ACMG Secondary Findings,FLNC
-Any,,ACMG Secondary Findings,GAA
-Any,,ACMG Secondary Findings,GLA
-Any,,ACMG Secondary Findings,HFE
-Any,,ACMG Secondary Findings,HNF1A
-Any,,ACMG Secondary Findings,KCNH2
-Any,,ACMG Secondary Findings,KCNQ1
-Any,,ACMG Secondary Findings,LDLR
-Any,,ACMG Secondary Findings,LMNA
-Any,,ACMG Secondary Findings,MAX
-Any,,ACMG Secondary Findings,MEN1
-Any,,ACMG Secondary Findings,MLH1
-Any,,ACMG Secondary Findings,MSH2
-Any,,ACMG Secondary Findings,MSH6
-Any,,ACMG Secondary Findings,MUTYH
-Any,,ACMG Secondary Findings,MYBPC3
-Any,,ACMG Secondary Findings,MYH11
-Any,,ACMG Secondary Findings,MYH7
-Any,,ACMG Secondary Findings,MYL2
-Any,,ACMG Secondary Findings,MYL3
-Any,,ACMG Secondary Findings,NF2
-Any,,ACMG Secondary Findings,OTC
-Any,,ACMG Secondary Findings,PALB2
-Any,,ACMG Secondary Findings,PCSK9
-Any,,ACMG Secondary Findings,PKP2
-Any,,ACMG Secondary Findings,PLN
-Any,,ACMG Secondary Findings,PMS2
-Any,,ACMG Secondary Findings,PRKAG2
-Any,,ACMG Secondary Findings,PTEN
-Any,,ACMG Secondary Findings,RB1
-Any,,ACMG Secondary Findings,RBM20
-Any,,ACMG Secondary Findings,RET
-Any,,ACMG Secondary Findings,RPE65
-Any,,ACMG Secondary Findings,RYR1
-Any,,ACMG Secondary Findings,RYR2
-Any,,ACMG Secondary Findings,SCN5A
-Any,,ACMG Secondary Findings,SDHAF2
-Any,,ACMG Secondary Findings,SDHB
-Any,,ACMG Secondary Findings,SDHC
-Any,,ACMG Secondary Findings,SDHD
-Any,,ACMG Secondary Findings,SMAD3
-Any,,ACMG Secondary Findings,SMAD4
-Any,,ACMG Secondary Findings,STK11
-Any,,ACMG Secondary Findings,TGFBR1
-Any,,ACMG Secondary Findings,TGFBR2
-Any,,ACMG Secondary Findings,TMEM43
-Any,,ACMG Secondary Findings,TNNC1
-Any,,ACMG Secondary Findings,TNNI3
-Any,,ACMG Secondary Findings,TNNT2
-Any,,ACMG Secondary Findings,TP53
-Any,,ACMG Secondary Findings,TPM1
-Any,,ACMG Secondary Findings,TRDN
-Any,,ACMG Secondary Findings,TSC1
-Any,,ACMG Secondary Findings,TSC2
-Any,,ACMG Secondary Findings,TTN
-Any,,ACMG Secondary Findings,TTR
-Any,,ACMG Secondary Findings,VHL
-Any,,ACMG Secondary Findings,WT1
+Cancer category,Label,Region
+Breast Cancer,Actionable Gene List,AKT1
+Breast Cancer,Actionable Gene List,BRCA1
+Breast Cancer,Actionable Gene List,BRCA2
+Breast Cancer,Actionable Gene List,ERBB2
+Breast Cancer,Actionable Gene List,ESR1
+Breast Cancer,Actionable Gene List,NTRK1
+Breast Cancer,Actionable Gene List,NTRK2
+Breast Cancer,Actionable Gene List,NTRK3
+Breast Cancer,Actionable Gene List,PIK3CA
+Breast Cancer,Actionable Gene List,PTEN
+Breast Cancer,Extended Gene List,AKT1
+Breast Cancer,Extended Gene List,AR
+Breast Cancer,Extended Gene List,ATM
+Breast Cancer,Extended Gene List,BRCA1
+Breast Cancer,Extended Gene List,BRCA2
+Breast Cancer,Extended Gene List,CHEK2
+Breast Cancer,Extended Gene List,ERBB2
+Breast Cancer,Extended Gene List,ESR1
+Breast Cancer,Extended Gene List,FGFR1
+Breast Cancer,Extended Gene List,NTRK1
+Breast Cancer,Extended Gene List,NTRK2
+Breast Cancer,Extended Gene List,NTRK3
+Breast Cancer,Extended Gene List,PALB2
+Breast Cancer,Extended Gene List,PIK3CA
+Breast Cancer,Extended Gene List,PTEN
+Breast Cancer,Extended Gene List,RB1
+Breast Cancer,Extended Gene List,TP53
+Non-Small Cell Lung Cancer,Actionable Gene List,ALK
+Non-Small Cell Lung Cancer,Actionable Gene List,BRAF
+Non-Small Cell Lung Cancer,Actionable Gene List,EGFR
+Non-Small Cell Lung Cancer,Actionable Gene List,ERBB2
+Non-Small Cell Lung Cancer,Actionable Gene List,KRAS
+Non-Small Cell Lung Cancer,Actionable Gene List,MET
+Non-Small Cell Lung Cancer,Actionable Gene List,NTRK1
+Non-Small Cell Lung Cancer,Actionable Gene List,NTRK2
+Non-Small Cell Lung Cancer,Actionable Gene List,NTRK3
+Non-Small Cell Lung Cancer,Actionable Gene List,RET
+Non-Small Cell Lung Cancer,Actionable Gene List,ROS1
+Non-Small Cell Lung Cancer,Extended Gene List,ALK
+Non-Small Cell Lung Cancer,Extended Gene List,BRAF
+Non-Small Cell Lung Cancer,Extended Gene List,EGFR
+Non-Small Cell Lung Cancer,Extended Gene List,ERBB2
+Non-Small Cell Lung Cancer,Extended Gene List,KEAP1
+Non-Small Cell Lung Cancer,Extended Gene List,KRAS
+Non-Small Cell Lung Cancer,Extended Gene List,MET
+Non-Small Cell Lung Cancer,Extended Gene List,NRG1
+Non-Small Cell Lung Cancer,Extended Gene List,NTRK1
+Non-Small Cell Lung Cancer,Extended Gene List,NTRK2
+Non-Small Cell Lung Cancer,Extended Gene List,NTRK3
+Non-Small Cell Lung Cancer,Extended Gene List,PIK3CA
+Non-Small Cell Lung Cancer,Extended Gene List,RET
+Non-Small Cell Lung Cancer,Extended Gene List,ROS1
+Non-Small Cell Lung Cancer,Extended Gene List,STK11
+Non-Small Cell Lung Cancer,Extended Gene List,TP53
+Hepatocellular Carcinoma,Extended Gene List,ARID1A
+Hepatocellular Carcinoma,Extended Gene List,ARID2
+Hepatocellular Carcinoma,Extended Gene List,AXIN1
+Hepatocellular Carcinoma,Extended Gene List,CD44
+Hepatocellular Carcinoma,Extended Gene List,CDK9
+Hepatocellular Carcinoma,Extended Gene List,CEACAM1
+Hepatocellular Carcinoma,Extended Gene List,DNAJB1
+Hepatocellular Carcinoma,Extended Gene List,EGFR
+Hepatocellular Carcinoma,Extended Gene List,FGF19
+Hepatocellular Carcinoma,Extended Gene List,FGF3
+Hepatocellular Carcinoma,Extended Gene List,FGF4
+Hepatocellular Carcinoma,Extended Gene List,FGFR1
+Hepatocellular Carcinoma,Extended Gene List,FGFR2
+Hepatocellular Carcinoma,Extended Gene List,FGFR4
+Hepatocellular Carcinoma,Extended Gene List,GALNT14
+Hepatocellular Carcinoma,Extended Gene List,JAK1
+Hepatocellular Carcinoma,Extended Gene List,KIF23
+Hepatocellular Carcinoma,Extended Gene List,KRAS
+Hepatocellular Carcinoma,Extended Gene List,NEDD9
+Hepatocellular Carcinoma,Extended Gene List,PBLD
+Hepatocellular Carcinoma,Extended Gene List,PRKACA
+Hepatocellular Carcinoma,Extended Gene List,PROM1
+Hepatocellular Carcinoma,Extended Gene List,PTPN6
+Hepatocellular Carcinoma,Extended Gene List,RAF1
+Hepatocellular Carcinoma,Extended Gene List,VEGFC
+Colorectal Cancer,Actionable Gene List,BRAF
+Colorectal Cancer,Actionable Gene List,ERBB2
+Colorectal Cancer,Actionable Gene List,KRAS
+Colorectal Cancer,Actionable Gene List,MLH1
+Colorectal Cancer,Actionable Gene List,MSH2
+Colorectal Cancer,Actionable Gene List,MSH6
+Colorectal Cancer,Actionable Gene List,NRAS
+Colorectal Cancer,Actionable Gene List,PMS2
+Colorectal Cancer,Extended Gene List,AKT1
+Colorectal Cancer,Extended Gene List,ALCAM
+Colorectal Cancer,Extended Gene List,ALK
+Colorectal Cancer,Extended Gene List,AMBRA1
+Colorectal Cancer,Extended Gene List,APC
+Colorectal Cancer,Extended Gene List,ARAF
+Colorectal Cancer,Extended Gene List,AREG
+Colorectal Cancer,Extended Gene List,ARID1A
+Colorectal Cancer,Extended Gene List,ATM
+Colorectal Cancer,Extended Gene List,B2M
+Colorectal Cancer,Extended Gene List,BARD1
+Colorectal Cancer,Extended Gene List,BIRC7
+Colorectal Cancer,Extended Gene List,BRAF
+Colorectal Cancer,Extended Gene List,CD44
+Colorectal Cancer,Extended Gene List,CDKN1A
+Colorectal Cancer,Extended Gene List,CDX2
+Colorectal Cancer,Extended Gene List,CEACAM1
+Colorectal Cancer,Extended Gene List,CIC
+Colorectal Cancer,Extended Gene List,CMPK1
+Colorectal Cancer,Extended Gene List,CTNNB1
+Colorectal Cancer,Extended Gene List,DCC
+Colorectal Cancer,Extended Gene List,DHFR
+Colorectal Cancer,Extended Gene List,DKK1
+Colorectal Cancer,Extended Gene List,DPYS
+Colorectal Cancer,Extended Gene List,DTYMK
+Colorectal Cancer,Extended Gene List,DUT
+Colorectal Cancer,Extended Gene List,EGFR
+Colorectal Cancer,Extended Gene List,EIF4EBP1
+Colorectal Cancer,Extended Gene List,EPAS1
+Colorectal Cancer,Extended Gene List,EPCAM
+Colorectal Cancer,Extended Gene List,EPHB4
+Colorectal Cancer,Extended Gene List,ERBB2
+Colorectal Cancer,Extended Gene List,ERBB3
+Colorectal Cancer,Extended Gene List,ERCC6
+Colorectal Cancer,Extended Gene List,EREG
+Colorectal Cancer,Extended Gene List,EZH2
+Colorectal Cancer,Extended Gene List,FBXW7
+Colorectal Cancer,Extended Gene List,FGFR1
+Colorectal Cancer,Extended Gene List,FGFR2
+Colorectal Cancer,Extended Gene List,FLT3
+Colorectal Cancer,Extended Gene List,FOS
+Colorectal Cancer,Extended Gene List,FOXC2
+Colorectal Cancer,Extended Gene List,FOXF1
+Colorectal Cancer,Extended Gene List,FPGS
+Colorectal Cancer,Extended Gene List,GGH
+Colorectal Cancer,Extended Gene List,GNAS
+Colorectal Cancer,Extended Gene List,GSTP1
+Colorectal Cancer,Extended Gene List,HIF1A
+Colorectal Cancer,Extended Gene List,HLA-C
+Colorectal Cancer,Extended Gene List,HRAS
+Colorectal Cancer,Extended Gene List,HSPA5
+Colorectal Cancer,Extended Gene List,HSPH1
+Colorectal Cancer,Extended Gene List,IRS2
+Colorectal Cancer,Extended Gene List,JAK1
+Colorectal Cancer,Extended Gene List,JAK2
+Colorectal Cancer,Extended Gene List,JUN
+Colorectal Cancer,Extended Gene List,KDR
+Colorectal Cancer,Extended Gene List,KIT
+Colorectal Cancer,Extended Gene List,KMT2D
+Colorectal Cancer,Extended Gene List,KRAS
+Colorectal Cancer,Extended Gene List,LGR5
+Colorectal Cancer,Extended Gene List,MAP2K1
+Colorectal Cancer,Extended Gene List,MET
+Colorectal Cancer,Extended Gene List,MLH1
+Colorectal Cancer,Extended Gene List,MSH2
+Colorectal Cancer,Extended Gene List,MSH3
+Colorectal Cancer,Extended Gene List,MSH6
+Colorectal Cancer,Extended Gene List,MTHFR
+Colorectal Cancer,Extended Gene List,NCOA3
+Colorectal Cancer,Extended Gene List,NME1
+Colorectal Cancer,Extended Gene List,NOTCH1
+Colorectal Cancer,Extended Gene List,NOTCH3
+Colorectal Cancer,Extended Gene List,NR2F2
+Colorectal Cancer,Extended Gene List,NRAS
+Colorectal Cancer,Extended Gene List,NRG1
+Colorectal Cancer,Extended Gene List,NT5C
+Colorectal Cancer,Extended Gene List,NT5E
+Colorectal Cancer,Extended Gene List,NTRK1
+Colorectal Cancer,Extended Gene List,NTRK3
+Colorectal Cancer,Extended Gene List,PIK3CA
+Colorectal Cancer,Extended Gene List,PIK3R1
+Colorectal Cancer,Extended Gene List,PMS2
+Colorectal Cancer,Extended Gene List,POLD1
+Colorectal Cancer,Extended Gene List,POLE
+Colorectal Cancer,Extended Gene List,POU5F1
+Colorectal Cancer,Extended Gene List,PPP1R15A
+Colorectal Cancer,Extended Gene List,PSMD4
+Colorectal Cancer,Extended Gene List,PTEN
+Colorectal Cancer,Extended Gene List,PTGS2
+Colorectal Cancer,Extended Gene List,PTP4A3
+Colorectal Cancer,Extended Gene List,RET
+Colorectal Cancer,Extended Gene List,ROS1
+Colorectal Cancer,Extended Gene List,RRM1
+Colorectal Cancer,Extended Gene List,SH2B3
+Colorectal Cancer,Extended Gene List,SLFN11
+Colorectal Cancer,Extended Gene List,SMAD4
+Colorectal Cancer,Extended Gene List,THBS2
+Colorectal Cancer,Extended Gene List,TOP1
+Colorectal Cancer,Extended Gene List,TP53
+Colorectal Cancer,Extended Gene List,TYMS
+Colorectal Cancer,Extended Gene List,UCK2
+Colorectal Cancer,Extended Gene List,UGT1A1
+Colorectal Cancer,Extended Gene List,UMPS
+Colorectal Cancer,Extended Gene List,UNG
+Colorectal Cancer,Extended Gene List,VEGFA
+Colorectal Cancer,Extended Gene List,WNT11
+Colorectal Cancer,Extended Gene List,WNT6
+Colorectal Cancer,Extended Gene List,ZEB1
+Any,ACMG Secondary Findings,ABCD1
+Any,ACMG Secondary Findings,ACTA2
+Any,ACMG Secondary Findings,ACTC1
+Any,ACMG Secondary Findings,ACVRL1
+Any,ACMG Secondary Findings,APC
+Any,ACMG Secondary Findings,APOB
+Any,ACMG Secondary Findings,ATP7B
+Any,ACMG Secondary Findings,BAG3
+Any,ACMG Secondary Findings,BMPR1A
+Any,ACMG Secondary Findings,BRCA1
+Any,ACMG Secondary Findings,BRCA2
+Any,ACMG Secondary Findings,BTD
+Any,ACMG Secondary Findings,CACNA1S
+Any,ACMG Secondary Findings,CALM1
+Any,ACMG Secondary Findings,CALM2
+Any,ACMG Secondary Findings,CALM3
+Any,ACMG Secondary Findings,CASQ2
+Any,ACMG Secondary Findings,COL3A1
+Any,ACMG Secondary Findings,CYP27A1
+Any,ACMG Secondary Findings,DES
+Any,ACMG Secondary Findings,DSC2
+Any,ACMG Secondary Findings,DSG2
+Any,ACMG Secondary Findings,DSP
+Any,ACMG Secondary Findings,ENG
+Any,ACMG Secondary Findings,FBN1
+Any,ACMG Secondary Findings,FLNC
+Any,ACMG Secondary Findings,GAA
+Any,ACMG Secondary Findings,GLA
+Any,ACMG Secondary Findings,HFE
+Any,ACMG Secondary Findings,HNF1A
+Any,ACMG Secondary Findings,KCNH2
+Any,ACMG Secondary Findings,KCNQ1
+Any,ACMG Secondary Findings,LDLR
+Any,ACMG Secondary Findings,LMNA
+Any,ACMG Secondary Findings,MAX
+Any,ACMG Secondary Findings,MEN1
+Any,ACMG Secondary Findings,MLH1
+Any,ACMG Secondary Findings,MSH2
+Any,ACMG Secondary Findings,MSH6
+Any,ACMG Secondary Findings,MUTYH
+Any,ACMG Secondary Findings,MYBPC3
+Any,ACMG Secondary Findings,MYH11
+Any,ACMG Secondary Findings,MYH7
+Any,ACMG Secondary Findings,MYL2
+Any,ACMG Secondary Findings,MYL3
+Any,ACMG Secondary Findings,NF2
+Any,ACMG Secondary Findings,OTC
+Any,ACMG Secondary Findings,PALB2
+Any,ACMG Secondary Findings,PCSK9
+Any,ACMG Secondary Findings,PKP2
+Any,ACMG Secondary Findings,PLN
+Any,ACMG Secondary Findings,PMS2
+Any,ACMG Secondary Findings,PRKAG2
+Any,ACMG Secondary Findings,PTEN
+Any,ACMG Secondary Findings,RB1
+Any,ACMG Secondary Findings,RBM20
+Any,ACMG Secondary Findings,RET
+Any,ACMG Secondary Findings,RPE65
+Any,ACMG Secondary Findings,RYR1
+Any,ACMG Secondary Findings,RYR2
+Any,ACMG Secondary Findings,SCN5A
+Any,ACMG Secondary Findings,SDHAF2
+Any,ACMG Secondary Findings,SDHB
+Any,ACMG Secondary Findings,SDHC
+Any,ACMG Secondary Findings,SDHD
+Any,ACMG Secondary Findings,SMAD3
+Any,ACMG Secondary Findings,SMAD4
+Any,ACMG Secondary Findings,STK11
+Any,ACMG Secondary Findings,TGFBR1
+Any,ACMG Secondary Findings,TGFBR2
+Any,ACMG Secondary Findings,TMEM43
+Any,ACMG Secondary Findings,TNNC1
+Any,ACMG Secondary Findings,TNNI3
+Any,ACMG Secondary Findings,TNNT2
+Any,ACMG Secondary Findings,TP53
+Any,ACMG Secondary Findings,TPM1
+Any,ACMG Secondary Findings,TRDN
+Any,ACMG Secondary Findings,TSC1
+Any,ACMG Secondary Findings,TSC2
+Any,ACMG Secondary Findings,TTN
+Any,ACMG Secondary Findings,TTR
+Any,ACMG Secondary Findings,VHL
+Any,ACMG Secondary Findings,WT1

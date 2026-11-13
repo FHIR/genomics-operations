@@ -122,3 +122,28 @@ http://snomed.info/sct,187769009,Primary carcinoma of liver (disorder),,Hepatoce
 http://snomed.info/sct,253018005,Fibrolamellar hepatocellular carcinoma (disorder),,Hepatocellular Carcinoma,2.16.840.1.113762.1.4.1056.93
 http://snomed.info/sct,274902006,Combined hepatocellular carcinoma and cholangiocarcinoma (disorder),,Hepatocellular Carcinoma,2.16.840.1.113762.1.4.1056.93
 http://snomed.info/sct,95214007,Primary malignant neoplasm of liver (disorder),,Hepatocellular Carcinoma,2.16.840.1.113762.1.4.1056.93
+http://snomed.info/sct,109838007,Overlapping malignant neoplasm of colon (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,109839004,"Overlapping malignant neoplasm of rectum, anus and anal canal (disorder)",,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,1286877004,Malignant neoplasm of cecum and/or colon and/or rectum (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,130371000119101,Primary malignant neuroendocrine neoplasm of cecum (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,130381000119103,Primary malignant neuroendocrine neoplasm of ascending colon (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,187760008,"Malignant neoplasm of rectum, rectosigmoid junction and anus (disorder)",,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,363350007,Malignant neoplasm of cecum (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,363406005,Malignant neoplasm of colon (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,371977004,Primary malignant neoplasm of cecum (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,448994001,Malignant epithelial neoplasm of upper rectum (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,721698005,Primary malignant neuroendocrine neoplasm of colon (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,721700001,Primary malignant neuroendocrine neoplasm of rectum (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,93683002,Primary malignant neoplasm of ascending colon (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,93761005,Primary malignant neoplasm of colon (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,93771007,Primary malignant neoplasm of descending colon (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,93826009,Primary malignant neoplasm of hepatic flexure of colon (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,93980002,Primary malignant neoplasm of rectosigmoid junction (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,93984006,Primary malignant neoplasm of rectum (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,94006002,Primary malignant neoplasm of sigmoid colon (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,94072004,Primary malignant neoplasm of splenic flexure of colon (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,94105000,Primary malignant neoplasm of transverse colon (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,96281000119107,Overlapping malignant neoplasm of colon and rectum (disorder),,Colorectal Cancer,2.16.840.1.113883.3.1444.3.215
+http://snomed.info/sct,1701000119104,Primary adenocarcinoma of colon (disorder),,Colorectal Cancer,local
+http://snomed.info/sct,254582000,Adenocarcinoma of rectum (disorder),,Colorectal Cancer,local
+http://snomed.info/sct,425178004,Adenocarcinoma of rectosigmoid junction (disorder),,Colorectal Cancer,local

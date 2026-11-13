@@ -1,4 +1,4 @@
-import { DiagnosticReport, FhirResource, Observation, Reference } from '@/types/fhir';
+import { Coding, DiagnosticReport, FhirResource, Observation, Reference } from '@/types/fhir';
 import { ReportCredit } from '@/types/variants';
 import { conceptLabel, formatDate, LOINC } from '@/lib/clinicalSummary';
 import { TxComponentCodes } from '@/utils/ComponentCodes';
@@ -33,6 +33,7 @@ export interface ReportedImplication {
   evidence?: string;
   level?: EvidenceLevel;
   phenotype?: string;
+  phenotypeCodings?: Coding[]; // The cancer types the evidence applies to, for matching the patient's tumor type
 }
 
 export interface ReportedVariant {
@@ -188,6 +189,19 @@ function drugs(observation: Observation) {
   return names.length > 0 ? names.join(' + ') : undefined;
 }
 
+// An implication can apply to several cancer types, one component each
+function phenotypeComponents(observation: Observation) {
+  return (observation.component ?? [])
+    .filter((candidate) => candidate.code?.coding?.some((coding) => coding.code === TxComponentCodes.phenotypicContext));
+}
+
+function phenotypes(observation: Observation) {
+  const names = phenotypeComponents(observation)
+    .map((candidate) => conceptLabel(candidate.valueCodeableConcept) ?? candidate.valueString)
+    .filter((name): name is string => Boolean(name));
+  return names.length > 0 ? names.join('; ') : undefined;
+}
+
 function toImplication(observation: Observation): ReportedImplication {
   const evidence = componentText(observation, TxComponentCodes.evidenceLevel);
   const letter = evidence?.match(/^([A-E])\b/)?.[1] as EvidenceLevel | undefined;
@@ -197,7 +211,8 @@ function toImplication(observation: Observation): ReportedImplication {
     implication: componentText(observation, TxComponentCodes.therapeuticImplication),
     evidence,
     level: letter,
-    phenotype: componentText(observation, TxComponentCodes.phenotypicContext),
+    phenotype: phenotypes(observation),
+    phenotypeCodings: phenotypeComponents(observation).flatMap((candidate) => candidate.valueCodeableConcept?.coding ?? []),
   };
 }
 

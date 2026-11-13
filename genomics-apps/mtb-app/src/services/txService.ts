@@ -1,8 +1,8 @@
 // THERAPEUTIC IMPLICATION API CALL
 import type { ReportCredit } from '@/types/variants';
-import { FhirResponse, FhirObservation } from '@/utils/fhirInterfaces';
+import { Coding, FhirResponse, FhirObservation } from '@/utils/fhirInterfaces';
 import { TxComponentCodes } from '@/utils/ComponentCodes';
-import { processFhirResponse } from '@/utils/fhirProcessor';
+import { findComponentCodings, processFhirResponse } from '@/utils/fhirProcessor';
 
 // URLs
 const FHIR_BASE_URL = 'https://fhir-gen-ops.herokuapp.com';
@@ -17,6 +17,7 @@ const CIVIC_IDENTIFIER_URLS: Record<string, (value: string) => string> = {
 export interface ProcessedTxImplication {
     resourceId?: string;
     phenotypicContext: string;
+    phenotypeCodings?: Coding[]; // The cancer types the evidence applies to, for matching the patient's tumor type
     evidenceLevel: string;
     medication: string;
     therapeuticImplication: string;
@@ -185,6 +186,7 @@ const txExtraFieldsExtractor = (resource: FhirObservation): Partial<ProcessedTxI
 
         return {
             resourceId: resource.id,
+            phenotypeCodings: findComponentCodings(resource.component, TxComponentCodes.phenotypicContext),
             hyperlink: clinicalTrialId ? `https://clinicaltrials.gov/study/${clinicalTrialId}` : '',
             hyperlinkLabel: clinicalTrialId ? 'Clinical Trial link' : undefined,
             hyperlinkTitle: medicationCoding?.display || '',
@@ -199,6 +201,7 @@ const txExtraFieldsExtractor = (resource: FhirObservation): Partial<ProcessedTxI
 
     return {
         resourceId: resource.id,
+        phenotypeCodings: findComponentCodings(resource.component, TxComponentCodes.phenotypicContext),
         hyperlink: getCivicHyperlink(resource),
         categoricalVariantName,
         sourceObservationIds: getDerivedFromObservationIds(resource),

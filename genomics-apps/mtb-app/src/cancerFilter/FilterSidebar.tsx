@@ -16,6 +16,14 @@ export type ActionabilityFilter = typeof ACTIONABILITY_OPTIONS[number];
 
 export const DEFAULT_ACTIONABILITY_FILTER: ActionabilityFilter = 'Actionable, this tumor type';
 
+/**
+ * "Actionable, this tumor type" needs a tumor type; without one, "Actionable, any tumor type" stands in. The
+ * choice itself is kept, so it applies again once the Dx has a tumor type.
+ */
+export function effectiveActionabilityFilter(filter: ActionabilityFilter, hasTumorType: boolean): ActionabilityFilter {
+  return filter === 'Actionable, this tumor type' && !hasTumorType ? 'Actionable, any tumor type' : filter;
+}
+
 export interface ActiveFilter<T> {
   value: T;
   source: FilterSource;
@@ -39,6 +47,7 @@ interface FilterSidebarProps {
   onFilterChange: (filters: FilterCriteria) => void;
   results: Variant[];
   currentFilters?: FilterCriteria;
+  hasTumorType: boolean;
 }
 
 interface FilterSectionProps {
@@ -75,7 +84,7 @@ function FilterSection({ title, isOpen, onToggle, children }: FilterSectionProps
   );
 }
 
-export default function FilterSidebar({ isOpen, onClose, onFilterChange, results, currentFilters }: FilterSidebarProps) {
+export default function FilterSidebar({ isOpen, onClose, onFilterChange, results, currentFilters, hasTumorType }: FilterSidebarProps) {
   const [filters, setFilters] = useState<FilterCriteria>(currentFilters || {
     selectedImpacts: [],
     selectedConsequences: [],
@@ -414,19 +423,26 @@ export default function FilterSidebar({ isOpen, onClose, onFilterChange, results
             onToggle={() => toggleSection('actionability')}
           >
             <div className="space-y-3">
-              {ACTIONABILITY_OPTIONS.map((option) => (
-                <label key={option} className="flex items-start gap-2">
+              {ACTIONABILITY_OPTIONS.map((option) => {
+                const isUnavailable = option === 'Actionable, this tumor type' && !hasTumorType;
+                return (
+                <label key={option} className={`flex items-start gap-2 ${isUnavailable ? 'cursor-not-allowed opacity-50' : ''}`}>
                   <input
                     type="radio"
                     name="actionability-filter"
-                    checked={filters.actionableFilter === option}
+                    checked={effectiveActionabilityFilter(filters.actionableFilter, hasTumorType) === option}
+                    disabled={isUnavailable}
                     onChange={() => handleActionabilityChange(option)}
                     className="mt-1 border-gray-300 text-blue-600 focus:ring-blue-500"
                   />
                   <span className="text-sm text-gray-700">
                     <span className="font-medium">{option}</span>
                     {option === 'Actionable, this tumor type' && (
-                      <span className="block text-xs text-gray-500">A-level evidence with phenotype matching for the selected cancer type.</span>
+                      <span className="block text-xs text-gray-500">
+                        {isUnavailable
+                          ? 'Needs a Dx with a tumor type.'
+                          : 'A-level evidence for the selected tumor type, matched by cancer type codes.'}
+                      </span>
                     )}
                     {option === 'Actionable, any tumor type' && (
                       <span className="block text-xs text-gray-500">A-level evidence for any tumor type.</span>
@@ -442,7 +458,8 @@ export default function FilterSidebar({ isOpen, onClose, onFilterChange, results
                     )}
                   </span>
                 </label>
-              ))}
+                );
+              })}
             </div>
           </FilterSection>
 

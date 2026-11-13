@@ -24,9 +24,10 @@ import { getPatientDxOptions, getPrimaryCancerConditions } from "@/lib/clinicalS
 import RegionLoader from "@/cancerFilter/regionLoader";
 import { PresetSelection } from "@/cancerFilter/geneListKb";
 import FilterSidebar from "@/cancerFilter/FilterSidebar";
-import { DEFAULT_ACTIONABILITY_FILTER, FilterCriteria } from "@/cancerFilter/FilterSidebar";
+import { DEFAULT_ACTIONABILITY_FILTER, effectiveActionabilityFilter, FilterCriteria } from "@/cancerFilter/FilterSidebar";
 import { applyFiltersToVariants } from "@/cancerFilter/filterUtils";
-import { isPhenotypeMatchForImplication, isALevelEvidence } from "@/cancerFilter/phenotypeUtils";
+import { isALevelEvidence } from "@/cancerFilter/evidenceLevel";
+import { loadTumorTypeImplicationCodes, matchesTumorType, TumorTypeCodeIndex } from "@/cancerFilter/tumorTypeCodes";
 import { HOW_TO_USE_GROUPS, HOW_TO_USE_TITLE, HowToUseLinkItem } from './howToUseContent';
 import { buildReportedVariants, collectReportedVariants } from '@/lib/reportedVariants';
 import { layerReportedVariants, needsNormalization, SearchedTerm } from '@/lib/reportedVariantLayering';
@@ -50,11 +51,8 @@ const CASE_VIEWS: { view: CaseView; label: string; icon: LucideIcon; iconClass: 
   { view: 'synthesis', label: 'AI Synthesis', icon: Sparkles, iconClass: 'text-violet-600', activeIconClass: 'text-violet-300' },
 ];
 
-function hasActiveSidebarFilters(filters: FilterCriteria, cancerType: string) {
-  const actionabilityIsActive = filters.actionableFilter !== 'None' &&
-    (filters.actionableFilter !== DEFAULT_ACTIONABILITY_FILTER || Boolean(cancerType));
-
-  return actionabilityIsActive ||
+function hasActiveSidebarFilters(filters: FilterCriteria) {
+  return filters.actionableFilter !== 'None' ||
     filters.selectedImpacts.length > 0 ||
     filters.selectedConsequences.length > 0 ||
     filters.selectedDxSignificances.length > 0 ||
@@ -86,6 +84,8 @@ export default function Home() {
   // filtering and the oncogenicity predictor's tumorType
   const [caseDx, setCaseDx] = useState<CaseDx | null>(null);
   const [tumorTypeCrosswalk, setTumorTypeCrosswalk] = useState<CrosswalkRow[]>([]);
+  // The cancer-type codes that count for each tumor type, for "Actionable, this tumor type"
+  const [tumorTypeCodes, setTumorTypeCodes] = useState<TumorTypeCodeIndex>(new Map());
   const [selectedPreset, setSelectedPreset] = useState<PresetSelection | null>(null);
   const [presetRequestId, setPresetRequestId] = useState(0);
   const [isSearchWorkspaceCollapsed, setIsSearchWorkspaceCollapsed] = useState(false);
@@ -135,6 +135,9 @@ export default function Home() {
     loadTumorTypeCrosswalk()
       .then(setTumorTypeCrosswalk)
       .catch((error) => console.error('Error loading tumor type crosswalk:', error));
+    loadTumorTypeImplicationCodes()
+      .then(setTumorTypeCodes)
+      .catch((error) => console.error('Error loading tumor type implication codes:', error));
   }, []);
 
   const primaryCancerConditions = useMemo(
@@ -406,31 +409,21 @@ export default function Home() {
     variants: Variant[],
     filters: FilterCriteria,
     cancerType: string,
+    codeIndex: TumorTypeCodeIndex,
   ): Variant[] => {
     try {
       let filtered = applyFiltersToVariants(variants, filters);
-      const actionableLabel = filters.actionableFilter;
+      // Without a tumor type, "Actionable, this tumor type" stands as "Actionable, any tumor type"
+      const actionableLabel = effectiveActionabilityFilter(filters.actionableFilter, Boolean(cancerType));
 
       if (actionableLabel === "Actionable, this tumor type") {
-        if (!cancerType) {
-          return filtered;
-        }
-
+        // A-level evidence whose cancer-type code is allowed for the tumor type, or for all cancers
         filtered = filtered.map(variant => ({
           ...variant,
-          txImplications: variant.txImplications?.filter(tx => {
-            const hasALevel = isALevelEvidence(tx.evidenceLevel);
-            const phenotypeMatch = isPhenotypeMatchForImplication(tx.phenotypicContext, cancerType);
-
-            return hasALevel && phenotypeMatch;
-          }),
-          dxImplications: variant.dxImplications?.filter(dx => {
-            const hasALevel = isALevelEvidence(dx.evidenceLevel);
-
-            const phenotypeMatch = isPhenotypeMatchForImplication(dx.predictedPhenotype, cancerType);
-
-            return hasALevel && phenotypeMatch;
-          })
+          txImplications: variant.txImplications?.filter(tx =>
+            isALevelEvidence(tx.evidenceLevel) && matchesTumorType(tx.phenotypeCodings, cancerType, codeIndex)),
+          dxImplications: variant.dxImplications?.filter(dx =>
+            isALevelEvidence(dx.evidenceLevel) && matchesTumorType(dx.phenotypeCodings, cancerType, codeIndex))
         })).filter(variant =>
           (variant.txImplications && variant.txImplications.length > 0) ||
           (variant.dxImplications && variant.dxImplications.length > 0)
@@ -484,21 +477,21 @@ export default function Home() {
 
   const handleFilterChange = useCallback((filters: FilterCriteria) => {
     setCurrentFilters(filters);
-    const filtered = applyUnifiedFilters(results, filters, selectedCancerType);
+    const filtered = applyUnifiedFilters(results, filters, selectedCancerType, tumorTypeCodes);
     setFilteredResults(filtered);
-  }, [results, selectedCancerType, applyUnifiedFilters]);
+  }, [results, selectedCancerType, tumorTypeCodes, applyUnifiedFilters]);
 
   // Apply filters whenever currentFilters, results, or related dependencies change
   useEffect(() => {
     if (results.length > 0) {
-      const filtered = applyUnifiedFilters(results, currentFilters, selectedCancerType);
+      const filtered = applyUnifiedFilters(results, currentFilters, selectedCancerType, tumorTypeCodes);
       setFilteredResults(filtered);
     } else {
       setFilteredResults([]);
     }
-  }, [results, currentFilters, selectedCancerType, applyUnifiedFilters]);
+  }, [results, currentFilters, selectedCancerType, tumorTypeCodes, applyUnifiedFilters]);
 
-  const hasActiveFilters = hasActiveSidebarFilters(currentFilters, selectedCancerType);
+  const hasActiveFilters = hasActiveSidebarFilters(currentFilters);
   const isSearching = Object.values(searchStatus).includes('searching');
   // Each variant records the search term it was found under
   const variantCountsByTerm = useMemo(() => {
@@ -776,6 +769,7 @@ export default function Home() {
             onClose={() => setIsFilterOpen(false)}
             results={results}
             currentFilters={currentFilters}
+            hasTumorType={Boolean(selectedCancerType)}
           />
           {/* Folder tabs: the active one is white with the emerald outline and joins the card below; the other has a
               light outline and fill so it reads as clickable */}
