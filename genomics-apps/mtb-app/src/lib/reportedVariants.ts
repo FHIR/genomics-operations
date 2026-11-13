@@ -179,12 +179,21 @@ function evidenceRank(level: EvidenceLevel | undefined) {
   return level ? EVIDENCE_ORDER.indexOf(level) : EVIDENCE_ORDER.length;
 }
 
+// A combination therapy has one medication-assessed component per drug: "Docetaxel + Selumetinib"
+function drugs(observation: Observation) {
+  const names = (observation.component ?? [])
+    .filter((candidate) => candidate.code?.coding?.some((coding) => coding.code === TxComponentCodes.medication))
+    .map((candidate) => capitalized(conceptLabel(candidate.valueCodeableConcept) ?? candidate.valueString))
+    .filter((name): name is string => Boolean(name));
+  return names.length > 0 ? names.join(' + ') : undefined;
+}
+
 function toImplication(observation: Observation): ReportedImplication {
   const evidence = componentText(observation, TxComponentCodes.evidenceLevel);
   const letter = evidence?.match(/^([A-E])\b/)?.[1] as EvidenceLevel | undefined;
   return {
     key: key(observation),
-    drug: capitalized(componentText(observation, TxComponentCodes.medication)),
+    drug: drugs(observation),
     implication: componentText(observation, TxComponentCodes.therapeuticImplication),
     evidence,
     level: letter,

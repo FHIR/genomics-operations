@@ -46,6 +46,15 @@ export const processFhirResponse = <T>(
 };
 
 export const findComponentValue = (components: Component[], code: string): string => {
+    // A combination therapy has one medication-assessed component per drug: show them all, joined with +
+    if (code === '51963-7') {
+        return components
+            .filter(c => c.code.coding?.some(coding => coding.code === code))
+            .map(c => c.valueCodeableConcept?.coding?.[0]?.display || '')
+            .filter(Boolean)
+            .join(' + ');
+    }
+
     const component = components.find(c =>
         c.code.coding?.some(coding => coding.code === code)
     );
