@@ -161,6 +161,7 @@ export const findSubjectVariantsWithCache = async (
     sourceObservationId: pv.sourceObservationId,
     variant: pv.variant,
     variantType: pv.variantType,
+    structural: pv.structural,
     genomicSourceClass: pv.genomicSourceClass,
     variantAlleleFrequency: pv.variantAlleleFrequency,
     dxImplications: pv.dxImplications,

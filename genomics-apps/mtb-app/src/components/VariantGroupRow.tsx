@@ -1,6 +1,7 @@
 import { FileText } from 'lucide-react';
 import { JSX, useEffect, useState } from 'react';
 import { Variant } from '@/types/variants';
+import { getStructuralLabelParts } from '@/lib/variantDisplay';
 import { DxImplication } from '@/services/dxService';
 import { ProcessedTxImplication } from '@/services/txService';
 import { MolecularConsequence } from '@/services/mcService';
@@ -63,19 +64,19 @@ const renderVariantLabel = (variant: Variant) => {
         );
     }
 
-    const structuralMatch = /^(.*?)(\s\([^)]+\))?(\s\(Copies:.*\))?$/.exec(variant.variant);
-
-    if (!structuralMatch) {
+    if (!variant.structural) {
         return <strong>{variant.variant}</strong>;
     }
 
-    const [, dnaChangeType = variant.variant, locationSuffix = '', copiesSuffix = ''] = structuralMatch;
+    // e.g. "Copy number variation (NC_000006.11:117609462-117747018) (1 copy)", "CD74::ROS1 gene fusion"
+    const { heading, qualifiers } = getStructuralLabelParts(variant.structural);
+    const insertedSequence = variant.structural.insertedSequence;
 
     return (
-        <>
-            <span className="font-semibold">{dnaChangeType}</span>
-            <span>{locationSuffix}{copiesSuffix}</span>
-        </>
+        <span title={insertedSequence ? `Inserted sequence: ${insertedSequence}` : undefined}>
+            <span className="font-semibold">{heading}</span>
+            {qualifiers.map((qualifier) => <span key={qualifier}> ({qualifier})</span>)}
+        </span>
     );
 };
 

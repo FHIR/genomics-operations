@@ -80,6 +80,7 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
                 items: [
                     'Beside the diagnosis, Reported variants lists the genomic variants recorded from the lab\'s genetic reports, grouped by report (newest first) under the report\'s name and date. Hover over a report header for its specimen and performer.',
                     'Each variant shows its gene and change, its origin (germline or somatic) and the therapeutic implications reported for it: the drug, the predicted effect, and an Evidence pill with the level (A highest to E). Hover over a variant for its full HGVS and genomic location, and over an Evidence pill for the full level and the cancer type it applies to.',
+                    'A structural variant shows its change type and the copy number when reported, for example ROS1 Copy number variation (1 copy); hover for its genomic location. A gene fusion shows both partners, for example CD74::ROS1 Gene fusion; hover for the report\'s note on it.',
                     'Variants are listed with the strongest evidence first; variants without an implication come last. A report without structured variants shows its conclusion instead.',
                     'These are the variants the lab chose to report, interpreted as of the report date. The Genomics Explorer holds the patient\'s complete genomic data with current annotations, so it can show variants the report left out (for example, below the lab\'s reporting thresholds or of uncertain significance) and newer evidence. That difference is expected, not an error. The card\'s "See full genomic data in Genomics Explorer" link opens the Explorer.',
                 ],
@@ -129,7 +130,8 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
                 items: [
                     'Results are grouped by the searched range or gene, each group under a band naming it and its variant count, and are sorted by Range by default. Click the arrow beside a column name to sort by that column (up for A-Z, down for Z-A).',
                     'Simple variants are labeled as SNV, MNV, or InDel.',
-                    'Structural variants display the DNA change type first, followed by the genomic location in parentheses, and copy number when available.',
+                    'Structural variants display the DNA change type first, followed by the genomic location in parentheses, and the copy number when available, for example Copy number variation (NC_000006.11:117609462-117747018) (1 copy). Hover over an insertion for its inserted sequence, when recorded.',
+                    'A gene fusion displays its partner genes, for example CD74::ROS1 gene fusion.',
                     'The Variant column may also show the first protein change below the main variant label when a molecular consequence is available.',
                 ],
             },
@@ -144,6 +146,7 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
                 title: 'Reported Variants',
                 items: [
                     'The results include the variants from the patient\'s genetic reports (the ones on the Case Summary\'s Reported variants card) that fall in the searched genes or ranges, alongside the genomic server\'s variants. A variant in both appears once.',
+                    'A reported structural variant is the same as a server one when the change type, genomic location and copy number all agree. A reported gene fusion appears under each searched gene or range that holds one of its partners, so searching both partners shows it twice.',
                     'A Reported chip under the variant marks it; hover over it for the report or reports it came from. A variant the genomic server doesn\'t have has the same chip, and no SnpEff consequence, Dx implications or oncogenicity prediction, since those come from the server.',
                     'Therapeutic implications from a report carry a Report tag (hover for the report). When the genomic server has the same implication, it also keeps its CIViC entry link. Report implications count toward the actionability filters like any other.',
                     'The Reported genes preset fills the search box with the genes of the patient\'s reported variants. The Reported variants actionability option shows only reported variants, with all their implications.',

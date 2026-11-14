@@ -1,4 +1,5 @@
-import { Variant } from '@/types/variants';
+import { StructuralDetails, Variant } from '@/types/variants';
+import { getStructuralDescription } from '@/lib/variantDisplay';
 import { ProcessedTxImplication } from '@/services/txService';
 import { MolecularConsequence } from '@/services/mcService';
 import { NormalizedVariant } from '@/services/reportedVariantLookupService';
@@ -6,7 +7,8 @@ import { ReportedVariantRecord } from '@/lib/reportedVariants';
 
 // Layering the patient's reported variants onto the Genomics Explorer's results:
 // the union of the server's variants and the reported ones,
-// within the searched genes and ranges, with the reported ones flagged and their implications credited
+// within the searched genes and ranges, with the reported ones flagged and their implications credited.
+// Structural variants match and place by their recorded fields; fusions (not on the server) place by their partner genes.
 
 export interface SearchedTerm {
   term: string;
@@ -53,13 +55,26 @@ function candidateSpdis(record: ReportedVariantRecord, normalized?: NormalizedVa
     .filter((spdi): spdi is string => Boolean(spdi));
 }
 
+// Same change type and location, and the same copy number when both give one (exact: overlap could pair different segments)
+function sameStructuralVariant(reported: StructuralDetails, server: StructuralDetails) {
+  return !reported.fusionGenes && !server.fusionGenes
+    && reported.changeType === server.changeType
+    && reported.referenceSequence === server.referenceSequence
+    && reported.start !== undefined && reported.start === server.start
+    && reported.end !== undefined && reported.end === server.end
+    && (reported.copyNumber === undefined || server.copyNumber === undefined || reported.copyNumber === server.copyNumber);
+}
+
 /**
  * Whether a server row is this reported variant: by SPDI, by c.HGVS (same transcript and version), or by a
- * normalized SPDI. Never by protein text; structural-variant rows never match.
+ * normalized SPDI; a structural variant by its recorded fields. Never by protein text.
  */
 export function matchesRow(record: ReportedVariantRecord, row: Variant, normalized?: NormalizedVariant | null) {
-  if (row.variantType === 'structural' || row.isReportOnly) {
+  if (row.isReportOnly) {
     return false;
+  }
+  if (record.structural || row.variantType === 'structural') {
+    return Boolean(record.structural && row.structural && sameStructuralVariant(record.structural, row.structural));
   }
   if (candidateSpdis(record, normalized).includes(row.variant)) {
     return true;
@@ -67,14 +82,51 @@ export function matchesRow(record: ReportedVariantRecord, row: Variant, normaliz
   return Boolean(record.cHgvs) && (row.molecularConsequences ?? []).some((consequence) => consequence.dnaChange === record.cHgvs);
 }
 
+// Whether two spans on the same reference sequence share any position
+function overlaps(start: number, end: number, target: GenomicRange) {
+  return start <= target.end && end >= target.start;
+}
+
+// A structural variant (not a fusion) overlaps the range: true or false in the same build, false on another
+// chromosome, undefined in another build of the same chromosome (no lookup can tell)
+function structuralWithinRange(structural: StructuralDetails, target: GenomicRange) {
+  const { referenceSequence, start, end } = structural;
+  if (!referenceSequence || start === undefined || end === undefined) {
+    return undefined;
+  }
+  if (referenceSequence === target.accession) {
+    return overlaps(start, end, target);
+  }
+  return chromosome(referenceSequence) === chromosome(target.accession) ? undefined : false;
+}
+
+/**
+ * Whether a fusion belongs under a searched term: the term is one of its partner genes, or a range that one
+ * partner's coordinates (either build) overlap. False until those coordinates are known.
+ */
+export function fusionInTerm(fusionGenes: string[], term: SearchedTerm, geneRanges: Map<string, string[]>) {
+  if (fusionGenes.includes(term.term)) {
+    return true;
+  }
+  const target = parseRange(term.term);
+  return Boolean(target) && fusionGenes.some((gene) => (geneRanges.get(gene) ?? [])
+    .map(parseRange)
+    .some((partner) => partner !== undefined && target !== undefined && partner.accession === target.accession
+      && overlaps(partner.start, partner.end, target)));
+}
+
 /**
  * Whether the variant's genomic span lies within a range: true or false when a known SPDI is in the range's
- * build, false when it's on another chromosome, undefined when only a lookup can tell.
+ * build, false when it's on another chromosome, undefined when only a lookup can tell. A structural variant
+ * needs only to overlap the range; a fusion is placed by fusionInTerm instead.
  */
 export function withinRange(record: ReportedVariantRecord, range: string | undefined, normalized?: NormalizedVariant | null) {
   const target = parseRange(range);
   if (!target) {
     return undefined;
+  }
+  if (record.structural) {
+    return record.structural.fusionGenes ? false : structuralWithinRange(record.structural, target);
   }
   const spdis = candidateSpdis(record, normalized).map(parseSpdi).filter((spdi): spdi is Spdi => spdi !== undefined);
   const sameBuild = spdis.find((spdi) => spdi.accession === target.accession);
@@ -92,7 +144,8 @@ export function withinRange(record: ReportedVariantRecord, range: string | undef
  * matches, and its location in the range's build is unknown.
  */
 export function needsNormalization(record: ReportedVariantRecord, term: SearchedTerm, rows: Variant[]) {
-  return !rows.some((row) => matchesRow(record, row)) && term.range !== undefined && withinRange(record, term.range) === undefined;
+  // normalize-variant takes SPDI or HGVS, which structural variants and fusions don't have
+  return !record.structural && !rows.some((row) => matchesRow(record, row)) && term.range !== undefined && withinRange(record, term.range) === undefined;
 }
 
 function sameImplication(left: ProcessedTxImplication, right: ProcessedTxImplication) {
@@ -138,6 +191,21 @@ function uniqueCredits(records: ReportedVariantRecord[]) {
 }
 
 function reportOnlyRow(record: ReportedVariantRecord, term: SearchedTerm, normalized?: NormalizedVariant | null): Variant {
+  const shared = {
+    id: `reported|${term.term}|${record.key}`,
+    range: term.term,
+    resolvedRange: term.range,
+    genomicSourceClass: record.origin,
+    variantAlleleFrequency: record.vaf,
+    dxImplications: [],
+    txImplications: reportImplications(record),
+    isLoading: false,
+    reportedIn: record.reports,
+    isReportOnly: true,
+  };
+  if (record.structural) {
+    return { ...shared, variant: getStructuralDescription(record.structural), variantType: 'structural', structural: record.structural, molecularConsequences: [] };
+  }
   const range = parseRange(term.range);
   const spdis = candidateSpdis(record, normalized);
   // Shown in the range's build when known, like the server's rows
@@ -145,32 +213,20 @@ function reportOnlyRow(record: ReportedVariantRecord, term: SearchedTerm, normal
   const consequences: MolecularConsequence[] = record.pHgvs || record.cHgvs
     ? [{ featureConsequence: '', interpretation: '', impact: '', hyperlink: '', proteinChange: record.pHgvs, dnaChange: record.cHgvs }]
     : [];
-  return {
-    id: `reported|${term.term}|${record.key}`,
-    range: term.term,
-    resolvedRange: term.range,
-    variant,
-    variantType: 'simple',
-    genomicSourceClass: record.origin,
-    variantAlleleFrequency: record.vaf,
-    dxImplications: [],
-    txImplications: reportImplications(record),
-    molecularConsequences: consequences,
-    isLoading: false,
-    reportedIn: record.reports,
-    isReportOnly: true,
-  };
+  return { ...shared, variant, variantType: 'simple', molecularConsequences: consequences };
 }
 
 /**
  * The union: each searched term's server rows, reported ones flagged with their reports and implications
- * merged, then the reported variants within the term's range that the server doesn't have.
+ * merged, then the reported variants within the term's range that the server doesn't have, and the reported
+ * fusions with a partner in the term (geneRanges: each fusion partner's coordinates, for range terms).
  */
 export function layerReportedVariants(
   serverRows: Variant[],
   terms: SearchedTerm[],
   records: ReportedVariantRecord[],
   normalized: Map<string, NormalizedVariant | null>,
+  geneRanges: Map<string, string[]>,
 ): Variant[] {
   if (records.length === 0) {
     return serverRows;
@@ -190,7 +246,11 @@ export function layerReportedVariants(
       });
     }
     for (const record of records) {
-      if (!matchedKeys.has(record.key) && withinRange(record, term.range, normalized.get(record.key)) === true) {
+      const fusionGenes = record.structural?.fusionGenes;
+      const inTerm = fusionGenes
+        ? fusionInTerm(fusionGenes, term, geneRanges)
+        : withinRange(record, term.range, normalized.get(record.key)) === true;
+      if (!matchedKeys.has(record.key) && inTerm) {
         output.push(reportOnlyRow(record, term, normalized.get(record.key)));
       }
     }

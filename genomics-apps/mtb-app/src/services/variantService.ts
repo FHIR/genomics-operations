@@ -1,4 +1,5 @@
-import { Variant } from '@/types/variants';
+import { StructuralDetails, Variant } from '@/types/variants';
+import { getStructuralDescription } from '@/lib/variantDisplay';
 
 /**
  * The genomics server has no data for this patient (it answers 404 "Patient (…) not found").
@@ -51,6 +52,7 @@ interface FhirVariantResource {
         valueQuantity?: {
             value?: number;
         };
+        valueString?: string;
         valueRange?: {
             low?: {
                 value?: number;
@@ -126,33 +128,21 @@ const findComponent = (resource: FhirVariantResource, code: string) =>
         component.code?.coding?.some(coding => coding.code === code)
     );
 
-const extractStructuralLocation = (resource: FhirVariantResource): string => {
-    const referenceSequence = findComponent(resource, '48013-7')?.valueCodeableConcept?.coding?.[0]?.code || '';
+// A structural variant's fields: change type, location (outer range, else inner), copy number and inserted bases
+const extractStructuralDetails = (resource: FhirVariantResource): StructuralDetails => {
     const outerRange = findComponent(resource, '81301-4')?.valueRange;
     const innerRange = findComponent(resource, '81302-2')?.valueRange;
-    const selectedRange = outerRange?.low?.value !== undefined && outerRange?.high?.value !== undefined
-        ? outerRange
-        : innerRange;
-    const start = selectedRange?.low?.value;
-    const end = selectedRange?.high?.value;
-
-    if (!referenceSequence || start === undefined || end === undefined) {
-        return referenceSequence;
-    }
-
-    return `${referenceSequence}:${start}-${end}`;
-};
-
-const extractStructuralVariantString = (resource: FhirVariantResource): string => {
-    const rawDnaChangeType = findComponent(resource, '48019-4')?.valueCodeableConcept?.coding?.[0]?.display || 'Structural variant';
-    const dnaChangeType = rawDnaChangeType.charAt(0).toUpperCase() + rawDnaChangeType.slice(1);
-    const location = extractStructuralLocation(resource);
-    const copyNumber = findComponent(resource, '82155-3')?.valueQuantity?.value;
-    const copiesSuffix = copyNumber !== undefined ? ` (Copies: ${copyNumber})` : '';
-
-    const locationSuffix = location ? ` (${location})` : '';
-
-    return `${dnaChangeType}${locationSuffix}${copiesSuffix}`.trim();
+    const range = outerRange?.low?.value !== undefined && outerRange?.high?.value !== undefined ? outerRange : innerRange;
+    const insertedSequence = findComponent(resource, '69551-0')?.valueString;
+    return {
+        changeType: findComponent(resource, '48019-4')?.valueCodeableConcept?.coding?.[0]?.display,
+        referenceSequence: findComponent(resource, '48013-7')?.valueCodeableConcept?.coding?.[0]?.code,
+        start: range?.low?.value,
+        end: range?.high?.value,
+        copyNumber: findComponent(resource, '82155-3')?.valueQuantity?.value,
+        // Only literal bases; a symbolic allele such as <INS> is not a sequence
+        insertedSequence: insertedSequence && /^[ACGTN]+$/i.test(insertedSequence) ? insertedSequence : undefined,
+    };
 };
 
 const extractGenomicSourceClass = (resource: FhirVariantResource): string =>
@@ -221,18 +211,22 @@ export const findSubjectVariants = async (
                 txImplications: [],
                 molecularConsequences: []
             } satisfies Variant)),
-            ...extractVariantResources(structuralData).map(resource => ({
-                range,
-                resolvedRange: genomicRange,
-                sourceObservationId: resource.id,
-                variant: extractStructuralVariantString(resource),
-                variantType: 'structural' as const,
-                genomicSourceClass: extractGenomicSourceClass(resource),
-                variantAlleleFrequency: extractVariantAlleleFrequency(resource),
-                dxImplications: [],
-                txImplications: [],
-                molecularConsequences: []
-            } satisfies Variant))
+            ...extractVariantResources(structuralData).map(resource => {
+                const structural = extractStructuralDetails(resource);
+                return {
+                    range,
+                    resolvedRange: genomicRange,
+                    sourceObservationId: resource.id,
+                    variant: getStructuralDescription(structural),
+                    variantType: 'structural' as const,
+                    structural,
+                    genomicSourceClass: extractGenomicSourceClass(resource),
+                    variantAlleleFrequency: extractVariantAlleleFrequency(resource),
+                    dxImplications: [],
+                    txImplications: [],
+                    molecularConsequences: []
+                } satisfies Variant;
+            })
         ];
 
     } catch (error) {

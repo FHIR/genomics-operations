@@ -1,7 +1,7 @@
 import { getFeatureCoordinates } from './variantService';
 
 // Lookups for layering reported variants onto the Genomics Explorer: a reported variant's SPDI in each build,
-// and a gene's or transcript's range. They're made only for the few reported variants that need them, once each, and cached for the session.
+// a gene's or transcript's range, and a fusion partner's coordinates in both builds. They're made only for the few reported variants that need them, once each, and cached for the session.
 
 const UTILITIES_URL = 'https://fhir-gen-ops.herokuapp.com/utilities';
 const GENOMIC_RANGE = /^NC_\d+\.\d+:\d+-\d+$/;
@@ -14,6 +14,7 @@ export interface NormalizedVariant {
 const normalizedCache = new Map<string, Promise<NormalizedVariant | null>>();
 const geneCache = new Map<string, Promise<string | undefined>>();
 const rangeCache = new Map<string, Promise<string | undefined>>();
+const coordinatesCache = new Map<string, Promise<string[]>>();
 
 // A failed lookup is evicted so a later search can retry it
 function cached<T>(cache: Map<string, Promise<T>>, key: string, load: () => Promise<T>, fallback: T): Promise<T> {
@@ -66,4 +67,19 @@ export function resolveSearchRange(term: string): Promise<string | undefined> {
     return Promise.resolve(term);
   }
   return cached(rangeCache, term, () => getFeatureCoordinates(term), undefined);
+}
+
+/**
+ * A gene's build 37 and build 38 coordinates, e.g. ["NC_000006.11:117609462-117747018", "NC_000006.12:…"],
+ * for placing a fusion under a range search that covers one of its partners.
+ */
+export function geneCoordinates(gene: string): Promise<string[]> {
+  return cached(coordinatesCache, gene, async () => {
+    const response = await fetch(`${UTILITIES_URL}/get-feature-coordinates?gene=${encodeURIComponent(gene)}`);
+    if (!response.ok) {
+      throw new Error(`get-feature-coordinates failed (HTTP ${response.status})`);
+    }
+    const data = await response.json() as { build37Coordinates?: string; build38Coordinates?: string }[];
+    return [data?.[0]?.build37Coordinates, data?.[0]?.build38Coordinates].filter((range): range is string => Boolean(range && GENOMIC_RANGE.test(range)));
+  }, []);
 }

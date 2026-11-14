@@ -31,7 +31,7 @@ import { loadTumorTypeImplicationCodes, matchesTumorType, TumorTypeCodeIndex } f
 import { HOW_TO_USE_GROUPS, HOW_TO_USE_TITLE, HowToUseLinkItem } from './howToUseContent';
 import { buildReportedVariants, collectReportedVariants } from '@/lib/reportedVariants';
 import { layerReportedVariants, needsNormalization, SearchedTerm } from '@/lib/reportedVariantLayering';
-import { geneForTranscript, NormalizedVariant, normalizeVariant, resolveSearchRange } from '@/services/reportedVariantLookupService';
+import { geneCoordinates, geneForTranscript, NormalizedVariant, normalizeVariant, resolveSearchRange } from '@/services/reportedVariantLookupService';
 // import EmailSubscription from "@/components/EmailSubscription";
 // import FeedbackForm from "@/components/FeedbackForm";
 
@@ -181,6 +181,7 @@ export default function Home() {
   const [resolvedRanges, setResolvedRanges] = useState<Map<string, string>>(new Map());
   const [normalizedVariants, setNormalizedVariants] = useState<Map<string, NormalizedVariant | null>>(new Map());
   const [lookedUpGenes, setLookedUpGenes] = useState<Map<string, string>>(new Map());
+  const [fusionGeneRanges, setFusionGeneRanges] = useState<Map<string, string[]>>(new Map());
   const requestedLookupsRef = useRef(new Set<string>());
   const searchedTerms: SearchedTerm[] = useMemo(() => Object.entries(searchStatus)
     .filter(([, status]) => status === 'found' || status === 'no results' || status === 'not_on_server')
@@ -216,6 +217,21 @@ export default function Home() {
     }
   }, [reportedRecords, searchedTerms, serverResults]);
 
+  // A reported fusion's partner coordinates, once a range is searched (a gene search places it by symbol)
+  useEffect(() => {
+    if (!searchedTerms.some(({ term }) => /^NC_\d+\.\d+:\d+-\d+$/.test(term))) {
+      return;
+    }
+    for (const gene of reportedRecords.flatMap((record) => record.structural?.fusionGenes ?? [])) {
+      const lookupKey = `coordinates|${gene}`;
+      if (requestedLookupsRef.current.has(lookupKey)) {
+        continue;
+      }
+      requestedLookupsRef.current.add(lookupKey);
+      geneCoordinates(gene).then((ranges) => setFusionGeneRanges((previous) => new Map(previous).set(gene, ranges)));
+    }
+  }, [reportedRecords, searchedTerms]);
+
   // Genes for the Reported genes preset: the report's own, else the c.HGVS transcript's
   useEffect(() => {
     for (const record of reportedRecords) {
@@ -232,13 +248,14 @@ export default function Home() {
       });
     }
   }, [reportedRecords]);
+  // A fusion contributes each partner
   const reportedGenes = useMemo(() => [...new Set(reportedRecords
-    .map((record) => record.gene ?? lookedUpGenes.get(record.key))
+    .flatMap((record) => record.structural?.fusionGenes ?? [record.gene ?? lookedUpGenes.get(record.key)])
     .filter((gene): gene is string => Boolean(gene)))].sort(), [reportedRecords, lookedUpGenes]);
 
   const results = useMemo(
-    () => layerReportedVariants(serverResults, searchedTerms, reportedRecords, normalizedVariants),
-    [serverResults, searchedTerms, reportedRecords, normalizedVariants]
+    () => layerReportedVariants(serverResults, searchedTerms, reportedRecords, normalizedVariants, fusionGeneRanges),
+    [serverResults, searchedTerms, reportedRecords, normalizedVariants, fusionGeneRanges]
   );
 
   // Co-occurrence is checked against all results, so filters never hide it; it reruns as results arrive
@@ -536,7 +553,9 @@ export default function Home() {
           return term; // Keep genomic ranges as-is
         }
         return term.toUpperCase(); // Convert gene symbols to uppercase
-      });
+      })
+      // A term given twice ("ERBB2, erbb2") is searched once, so its variants aren't listed twice
+      .filter((term, position, terms) => terms.indexOf(term) === position);
     // Cancel any ongoing searches
     abortControllersRef.current.forEach(controller => controller.abort());
     abortControllersRef.current.clear();

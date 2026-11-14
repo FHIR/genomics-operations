@@ -1,5 +1,6 @@
 import { Coding, DiagnosticReport, FhirResource, Observation, Reference } from '@/types/fhir';
-import { ReportCredit } from '@/types/variants';
+import { ReportCredit, StructuralDetails } from '@/types/variants';
+import { getFusionName, getStructuralChange, getStructuralLocation } from '@/lib/variantDisplay';
 import { conceptLabel, formatDate, LOINC } from '@/lib/clinicalSummary';
 import { TxComponentCodes } from '@/utils/ComponentCodes';
 
@@ -19,7 +20,15 @@ const COMPONENT = {
   discreteVariant: '81252-9',
   gHgvs: '81290-9',
   origin: '48002-0',
+  changeType: '48019-4',
+  copyNumber: '82155-3',
+  referenceSequence: '48013-7',
+  outerRange: '81301-4',
+  innerRange: '81302-2',
+  altAllele: '69551-0',
+  molecularConsequence: 'molecular-consequence',
 };
+const GENE_FUSION = 'SO:0001565';
 const EVIDENCE_ORDER = ['A', 'B', 'C', 'D', 'E'];
 
 export type EvidenceLevel = 'A' | 'B' | 'C' | 'D' | 'E';
@@ -38,7 +47,7 @@ export interface ReportedImplication {
 
 export interface ReportedVariant {
   key: string;
-  // Absent when the report doesn't name the gene
+  // Absent when the report doesn't name the gene; a fusion's partners joined, e.g. "CD74::ROS1"
   gene?: string;
   // The change without its transcript prefix, e.g. "c.3549C>A (p.Tyr1183Ter)"; absent when not recorded
   change?: string;
@@ -53,6 +62,8 @@ export interface ReportedVariant {
   pHgvs?: string;
   gHgvs?: string;
   vaf?: number;
+  // A structural variant's or fusion's fields (no HGVS); absent for a simple variant
+  structural?: StructuralDetails;
 }
 
 export interface GeneticReportGroup {
@@ -127,6 +138,43 @@ function componentText(observation: Observation, code: string) {
   return conceptLabel(value?.valueCodeableConcept) ?? value?.valueString;
 }
 
+// Every gene component's symbol, in recorded order (a fusion has one per partner)
+function geneSymbols(observation: Observation) {
+  return (observation.component ?? [])
+    .filter((candidate) => candidate.code?.coding?.some((coding) => coding.code === COMPONENT.gene))
+    .map((candidate) => conceptLabel(candidate.valueCodeableConcept) ?? candidate.valueString)
+    .filter((gene): gene is string => Boolean(gene));
+}
+
+function isFusion(observation: Observation) {
+  return (observation.component ?? []).some((candidate) => candidate.code?.coding?.some((coding) => coding.code === COMPONENT.molecularConsequence)
+    && candidate.valueCodeableConcept?.coding?.some((coding) => coding.code === GENE_FUSION));
+}
+
+// A structural variant's fields (DNA change type, location, copy number) or a fusion's partner genes;
+// undefined for a simple variant
+function structuralDetails(observation: Observation): StructuralDetails | undefined {
+  if (isFusion(observation)) {
+    return { fusionGenes: geneSymbols(observation) };
+  }
+  const changeType = componentCoding(observation, COMPONENT.changeType)?.display;
+  if (!changeType) {
+    return undefined;
+  }
+  const outer = component(observation, COMPONENT.outerRange)?.valueRange;
+  const inner = component(observation, COMPONENT.innerRange)?.valueRange;
+  const range = outer?.low?.value !== undefined && outer?.high?.value !== undefined ? outer : inner;
+  const insertedSequence = component(observation, COMPONENT.altAllele)?.valueString;
+  return {
+    changeType,
+    referenceSequence: componentCoding(observation, COMPONENT.referenceSequence)?.code,
+    start: range?.low?.value,
+    end: range?.high?.value,
+    copyNumber: component(observation, COMPONENT.copyNumber)?.valueQuantity?.value,
+    insertedSequence: insertedSequence && /^[ACGTN]+$/i.test(insertedSequence) ? insertedSequence : undefined,
+  };
+}
+
 // "NM_006015.6:c.5161C>T" becomes "c.5161C>T"; "NP_006006.3:p.(Val2169CysfsTer56)" becomes "p.(Val2169CysfsTer56)"
 function withoutAccession(hgvs: string | undefined) {
   return hgvs?.replace(/^[^:]*:/, '');
@@ -146,9 +194,14 @@ function variantChange(observation: Observation) {
   return componentCoding(observation, COMPONENT.gHgvs)?.code ?? discrete?.code;
 }
 
-function variantDetails(observation: Observation) {
+function variantDetails(observation: Observation, structural: StructuralDetails | undefined) {
   const discrete = componentCoding(observation, COMPONENT.discreteVariant);
+  const notes = ((observation.note as { text?: string }[] | undefined) ?? []).map((note) => note.text);
   return [
+    structural && getStructuralLocation(structural),
+    structural?.insertedSequence && `Inserted sequence: ${structural.insertedSequence}`,
+    // A fusion's note, e.g. "CD74-ROS1 fusion; in-frame"
+    ...(structural?.fusionGenes ? notes : []),
     componentCoding(observation, COMPONENT.cHgvs)?.code,
     componentCoding(observation, COMPONENT.pHgvs)?.code,
     discrete?.system === CLINVAR ? discrete.display : undefined,
@@ -243,19 +296,23 @@ export function buildReportedVariants(resources: FhirResource[], index: Map<stri
   const genomicObservations = observations.filter((observation) => isGeneticVariant(observation) || isRegionStudied(observation) || isTherapeuticImplication(observation));
 
   // Each variant with the implications derived from it
-  const variants = new Map<string, ReportedVariant>(variantObservations.map((observation) => [key(observation), {
-    key: key(observation),
-    gene: componentText(observation, COMPONENT.gene),
-    change: variantChange(observation),
-    details: variantDetails(observation),
-    origin: capitalized(componentText(observation, COMPONENT.origin)),
-    implications: [],
-    spdi: discreteSpdi(observation),
-    cHgvs: componentCoding(observation, COMPONENT.cHgvs)?.code ?? clinVarHgvs(observation)?.cHgvs,
-    pHgvs: componentCoding(observation, COMPONENT.pHgvs)?.code ?? clinVarHgvs(observation)?.pHgvs,
-    gHgvs: componentCoding(observation, COMPONENT.gHgvs)?.code,
-    vaf: component(observation, '81258-6')?.valueQuantity?.value,
-  }]));
+  const variants = new Map<string, ReportedVariant>(variantObservations.map((observation) => {
+    const structural = structuralDetails(observation);
+    return [key(observation), {
+      key: key(observation),
+      gene: (structural?.fusionGenes && getFusionName(structural)) || componentText(observation, COMPONENT.gene),
+      change: variantChange(observation) ?? (structural && getStructuralChange(structural)),
+      details: variantDetails(observation, structural),
+      origin: capitalized(componentText(observation, COMPONENT.origin)),
+      implications: [],
+      spdi: discreteSpdi(observation),
+      cHgvs: componentCoding(observation, COMPONENT.cHgvs)?.code ?? clinVarHgvs(observation)?.cHgvs,
+      pHgvs: componentCoding(observation, COMPONENT.pHgvs)?.code ?? clinVarHgvs(observation)?.pHgvs,
+      gHgvs: componentCoding(observation, COMPONENT.gHgvs)?.code,
+      vaf: component(observation, '81258-6')?.valueQuantity?.value,
+      structural,
+    }];
+  }));
   const otherImplications: ReportedImplication[] = [];
   for (const observation of implicationObservations) {
     const implication = toImplication(observation);
@@ -303,8 +360,17 @@ function implicationIdentity(implication: ReportedImplication) {
     .map((part) => (part ?? '').toLowerCase()).join('|');
 }
 
+// The same structural variant in two reports is one record: same gene, change type, location and copy number
+// (genes sharing one copy-number segment stay separate); a fusion, by its partner genes
+function structuralIdentity(structural: StructuralDetails, gene?: string) {
+  return structural.fusionGenes
+    ? `fusion|${structural.fusionGenes.join('::')}`
+    : ['structural', gene, structural.changeType, structural.referenceSequence, structural.start, structural.end, structural.copyNumber].join('|');
+}
+
 /**
- * The patient's reported variants, one record per distinct variant (by SPDI, else gHGVS, else c.HGVS), each
+ * The patient's reported variants, one record per distinct variant (by SPDI, else gHGVS, else c.HGVS; a
+ * structural variant or fusion by its recorded fields), each
  * crediting the reports it was in; implications that more than one report gives count once.
  */
 export function collectReportedVariants(data: ReportedVariantsData): ReportedVariantRecord[] {
@@ -312,7 +378,7 @@ export function collectReportedVariants(data: ReportedVariantsData): ReportedVar
   for (const group of data.groups) {
     const credit: ReportCredit = { title: group.title, date: group.date };
     for (const variant of group.variants) {
-      const identity = variant.spdi ?? variant.gHgvs ?? variant.cHgvs ?? variant.key;
+      const identity = variant.spdi ?? variant.gHgvs ?? variant.cHgvs ?? (variant.structural && structuralIdentity(variant.structural, variant.gene)) ?? variant.key;
       let record = records.get(identity);
       if (!record) {
         record = { ...variant, reports: [], implications: [] };

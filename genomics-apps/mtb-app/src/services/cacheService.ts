@@ -1,10 +1,12 @@
 import { DxImplication } from './dxService';
 import { ProcessedTxImplication } from './txService';
 import { MolecularConsequence } from './mcService';
+import { StructuralDetails } from '@/types/variants';
 import packageJson from '../../package.json';
 
 // 10: molecular consequences now carry their c.HGVS (dnaChange), used to match reported variants
-const CACHE_SCHEMA_VERSION = '10';
+// 11: structural variants carry their recorded fields (structural), used for their labels and to match reported ones
+const CACHE_SCHEMA_VERSION = '11';
 const CACHE_STORAGE_KEY = 'mtb-cache';
 const CACHE_SESSION_STORAGE_KEY = 'mtb-cache-session';
 const DEV_CACHE_OVERRIDE_KEY = 'mtb-enable-dev-cache';
@@ -16,6 +18,7 @@ interface ProcessedVariantCache {
   sourceObservationId?: string;
   variant: string;
   variantType?: 'simple' | 'structural';
+  structural?: StructuralDetails;
   genomicSourceClass?: string;
   variantAlleleFrequency?: number;
   dxImplications: DxImplication[];
