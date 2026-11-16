@@ -131,6 +131,25 @@ export interface DiagnosticReport extends FhirResource {
   conclusion?: string;
   conclusionCode?: CodeableConcept[];
   presentedForm?: { contentType?: string; data?: string; title?: string }[];
+  imagingStudy?: Reference[];
+}
+
+export interface ImagingStudy extends FhirResource {
+  resourceType: 'ImagingStudy';
+  identifier?: Identifier[];
+  status?: string;
+  modality?: Coding[];
+  started?: string;
+  endpoint?: Reference[];
+  description?: string;
+  series?: { uid: string; modality?: Coding; description?: string; endpoint?: Reference[] }[];
+  note?: { text?: string }[];
+}
+
+export interface Endpoint extends FhirResource {
+  resourceType: 'Endpoint';
+  address?: string;
+  name?: string;
 }
 
 export interface FamilyMemberHistory extends FhirResource {

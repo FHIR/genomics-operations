@@ -1,6 +1,6 @@
 # AI Case Synthesis: Higado Sobreviviente (MRN TCGA-DD-A1EH)
 
-> **Demo: synthesis pre-generated for this case** (2026-11-06). Research demonstration, synthetic patient, not for clinical use.
+> **Demo: synthesis pre-generated for this case** (2026-11-06; imaging findings added 2026-11-16). Research demonstration, synthetic patient, not for clinical use.
 
 **Contents:** [Reason for visit](#reason-for-visit) · [Case summary](#case-summary) · [Genomic findings](#genomic-findings) · [Cancer drivers](#cancer-drivers) · [Information gaps](#information-gaps) · [Treatment options](#treatment-options) · [Emerging evidence](#emerging-evidence) · [References](#references)
 
@@ -17,11 +17,11 @@ Hepatocellular carcinoma with liver and lung recurrence, progressed on sorafenib
 - **Patient:** 24-year-old man. Chronic hepatitis B (diagnosed 2022), on tenofovir since 2026-01. Latex allergy.
 - **Diagnosis:** hepatocellular carcinoma of the right lobe on liver biopsy (2025-12-20). AFP 780 ng/mL and Child-Pugh A (score 5) (2025-12-31). Clinical stage IIIA (cT3 cN0 cM0). ECOG 0.
 - **Surgery (2026-01-26):** right hepatectomy; pT3 pN0, stage IIIA. Background liver: inactive chronic hepatitis B with fibrosis.
-- **Recurrence (2026-05-02):** intrahepatic recurrence in the left lobe and lung metastases. Sorafenib 400 mg twice daily started.
-- **Progression (2026-07-14)** on sorafenib.
+- **Recurrence (2026-05-02):** intrahepatic recurrence in the left lobe and lung metastases. CT chest, abdomen and pelvis: 2.6 cm left-lobe lesion (segment 3) and multiple bilateral lung nodules, the largest 1.4 cm. Sorafenib 400 mg twice daily started.
+- **Progression (2026-07-14)** on sorafenib. CT chest and abdomen (2026-07-13): lung metastases larger and more numerous (largest 2.2 cm), left-lobe lesion 3.9 cm. MRI abdomen (2026-07-14): left-lobe lesion 4.0 cm, a new 1.2 cm nodule in segment 2, no portal vein tumor thrombus, no ascites.
 - **Tumor sequencing (2026-07-22):** ARID1A p.Arg1721\* and p.Val2169fs; JAK1 p.Ala1086Ser; microsatellite stable; tumor mutational burden 1.3 mutations/Mb. ECOG 0 (2026-07-28).
 - **Trial treatment:** on study NCT05023655 (tazemetostat for ARID1A-mutated solid tumors) from 2026-08-09; sorafenib stopped at enrollment; tazemetostat 800 mg twice daily recorded as active (order dated 2026-10-15).
-- **Current status (2026-10-15):** stable disease. No recent labs, AFP, imaging reports or Child-Pugh score since the recurrence are recorded.
+- **Current status (2026-10-15):** stable disease. No labs, AFP or Child-Pugh score are recorded since the recurrence, and no imaging since the July 2026 progression scans.
 
 ## Genomic findings
 
@@ -53,7 +53,7 @@ ARID1A helps package DNA so genes are switched on and off correctly; its loss wa
 - **Tazemetostat status:** the record shows him enrolling (2026-08-09) and receiving tazemetostat after the drug's worldwide withdrawal and the trial's termination (March 2026). Whether he is actually taking it, and for how long, should be confirmed.
 - **Current AFP** (needed for ramucirumab eligibility, AFP ≥ 400 ng/mL; also for monitoring). The only value (780 ng/mL) predates resection.
 - **Current liver function and Child-Pugh class:** last recorded 2025-12-31, before resection and recurrence. Needed to choose systemic therapy.
-- **Extent of disease:** no imaging reports for the 2026-05 recurrence, the 2026-07 progression or the current assessment.
+- **Extent of disease:** the latest imaging is from the July 2026 progression (CT 2026-07-13, MRI 2026-07-14). No scan is recorded for the 2026-10-15 assessment of stable disease, so current disease extent, including the size of the left-lobe lesion and lung metastases on trial treatment, is unknown.
 - **Hepatitis B status:** viral load and antigen status aren't recorded; relevant to immunotherapy safety.
 - **Genomic data source:** the genomic data's test is dated 2020-01-20, years before the 2026 report, and holds only small variants; variant allele frequencies are recorded as 0, a placeholder.
 

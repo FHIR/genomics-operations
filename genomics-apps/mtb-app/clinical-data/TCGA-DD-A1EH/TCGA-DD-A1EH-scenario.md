@@ -112,3 +112,32 @@ Source: `higado (transaction).json` in this folder, an older transaction bundle 
 **Validation** against `hl7.fhir.us.mcode#4.0.0` (2026-11-05): 3 errors, all from tx.fhir.org not recognizing the frameshift p.HGVS. It rejects every frameshift form tried, including Mutalyzer's own, while accepting the other two protein changes; this is a validator limitation, not an instance problem (Bob, 2026-11-05). The errors: the code is "unknown", so it fails the HGVS value set, and so the report's link to that variant finds no profile match. Warnings are the benign kinds seen in MRN1234.
 
 **Reloaded to hapi.fhir.org 2026-11-05**: the four new Observations were created, the report updated, and all come back through `Patient/$everything`.
+
+## Images and imaging reports (2026-11-16)
+
+This patient is a real TCGA liver cancer case, and the NCI Imaging Data Commons (IDC, collection `tcga_lihc`) holds their own CT, MR and slides. Each IDC study is an ImagingStudy, linked from a new report, in the same shape as the generated TCGA patients' (Study UID identifier, modality, series, the shared `Endpoint/nci-idc-dicomweb`, and a note with the IDC viewer link and the real DICOM date). The MTB app's Imaging tab lists them and embeds the IDC viewer.
+
+**Dates.** The scans span five months of 2001 and the slides are from 2014. Each scan is placed at a scenario event; the real gaps nearly fit, and only the gap between the two liver CTs changes (32 → 64 days). `ImagingStudy.started` is the record date; the note gives the real one, which is what the viewer shows.
+
+| Real date | Study (DICOM description) | Record date | Scenario event | Report |
+|---|---|---|---|---|
+| 2001-01-26 | CT, `Abdomen^12_0_Liver_BiPhase (Adult)` | 2026-01-06 | Diagnosis, staging | CT Abdomen WO and W contrast IV (LOINC 36267-3) |
+| 2014-06-19 | 3 slides, `Histopathology` (FFPE HE TP DX1, Frozen HE TP TS1, Frozen HE NT TSA) | 2026-01-26 | Right hepatectomy | Pathology study (11526-1), coded Hepatocellular carcinoma (SNOMED 25370001) |
+| 2001-02-27 | CT, `Abdomen^12_0_Liver_BiPhase (Adult)` | 2026-03-11 | Post-resection baseline | CT Abdomen WO and W contrast IV |
+| 2001-04-20 | CT, `*CT Chest,Abdomen,Pelv` | 2026-05-02 | Liver and lung recurrence | CT Chest and Abdomen and Pelvis W contrast IV (72254-6) |
+| 2001-06-29 | CT, `Thorax^02_0_Chest_Routine (Adult)` (with arterial and portal venous liver phases) | 2026-07-13 | Progression | CT Chest and Abdomen W contrast IV (42275-8) |
+| 2001-06-30 | MR, `MRI Abd wo&w` | 2026-07-14 | Progression | MR Abdomen WO and W contrast IV (24557-1) |
+
+**Reports follow the scenario, not the pixels**, so an image may not show what its report says. Their findings are invented but fit the record: two right-lobe tumors (7.8 and 2.1 cm, consistent with cT3/pT3 N0 M0), a clear post-resection baseline, a 2.6 cm left-lobe recurrence with bilateral lung nodules (largest 1.4 cm) on 2026-05-02, and growth on 2026-07-13/14 (left lobe 3.9–4.0 cm, lung nodules to 2.2 cm, a new 1.2 cm segment 2 nodule). The pathology report adds margins negative and keeps the recorded background: chronic hepatitis, inactive, with fibrosis.
+
+**Series order.** Each ImagingStudy lists every image series, with the one the viewer should open first at the top: the axial portal or venous phase for the liver CTs, Liver-Biphase for the recurrence CT, Chest Routine for 2026-07-13, the post-contrast LAVA series for the MR, and the FFPE diagnostic slide for the slides. Series descriptions are included (the generated patients' studies have none). AI annotation series (IDC's liver segmentations on the 2001-02-27 and 2001-06-29 CTs, TIL maps on the FFPE slide) aren't listed; the viewer offers them.
+
+**Other changes**
+- Two Practitioners, Dr. Rita Radiologist and Dr. Paul Pathologist, perform the new reports (as in L2345).
+- `Endpoint/nci-idc-dicomweb` is included so the bundle stands alone; it is identical to the one the generated patients share.
+- The 2026-05-02 and 2026-07-14 disease-status Observations cite the imaging they rest on in `derivedFrom`: the recurrence CT's ImagingStudy, and the progression CT's and MR's. (`derivedFrom` can't reference a DiagnosticReport in R4; the reports link the same studies.) The right hepatectomy Procedure cites the pathology report in `report`.
+
+**Validation** against `hl7.fhir.us.mcode#4.0.0` with tx.fhir.org (2026-11-16): the 15 new resources have no errors; their warnings are the benign kinds (no narrative; the pathology report's LOINC code is outside the extensible US Core value set). The bundle has 3 errors, the frameshift p.HGVS that tx.fhir.org doesn't recognize (accepted 2026-11-05).
+- Fixed the same day: the primary cancer's code, SNOMED CT 109841003, is active, but in the 2026-07-01 release its fully specified name changed to "Hepatocellular carcinoma (disorder)". The old display, "Liver cell carcinoma (disorder)", is now an inactive description, which caused 11 errors (the display itself, plus 10 profile-match errors in resources referencing the primary cancer). Only the display changed. The app's Dx now reads "Hepatocellular carcinoma"; the tumor-type mapping goes by code and is unchanged.
+
+**Reloaded to hapi.fhir.org 2026-11-16**: 14 resources created, 43 updated (the shared IDC Endpoint already existed). `Patient/$everything` returns the 6 ImagingStudies, 7 DiagnosticReports and the Endpoint, and the MTB app's Imaging tab shows them. Reloaded again after the display fix (57 updated).

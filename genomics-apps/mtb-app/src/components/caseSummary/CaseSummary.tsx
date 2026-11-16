@@ -16,6 +16,7 @@ import {
   StageGroup,
 } from '@/lib/caseSummary';
 import { buildTreatmentTimeline } from '@/lib/treatmentTimeline';
+import { buildImageCatalog, imagesByReport, reportImagesLabel } from '@/lib/imaging';
 import JumpBar from './JumpBar';
 import LabsSection from './LabsSection';
 import TreatmentTimeline from './TreatmentTimeline';
@@ -310,12 +311,21 @@ interface CaseSummaryProps {
   onRetry: () => void;
   // Offered when the patient has no clinical data
   onGoToGenomicFindings: () => void;
+  // A report's image link: opens the Imaging tab at that report's images
+  onOpenReportImages: (reportKey: string) => void;
   crosswalk: CrosswalkRow[];
 }
 
-export default function CaseSummary({ subjectId, clinicalState, onRetry, onGoToGenomicFindings, crosswalk }: CaseSummaryProps) {
+export default function CaseSummary({ subjectId, clinicalState, onRetry, onGoToGenomicFindings, onOpenReportImages, crosswalk }: CaseSummaryProps) {
   const record = clinicalState.status === 'loaded' ? clinicalState.record : null;
   const data = useMemo(() => (record ? classifyClinicalRecord(record, crosswalk) : null), [record, crosswalk]);
+  const imageLinks = useMemo(() => {
+    const labels = new Map<string, string>();
+    if (record) {
+      imagesByReport(buildImageCatalog(record.resources)).forEach((entries, reportKey) => labels.set(reportKey, reportImagesLabel(entries)));
+    }
+    return { labels, onOpen: onOpenReportImages };
+  }, [record, onOpenReportImages]);
   const timeline = useMemo(() => {
     if (!data) {
       return null;
@@ -390,7 +400,7 @@ export default function CaseSummary({ subjectId, clinicalState, onRetry, onGoToG
           <FamilyHistoryList entries={data.familyHistory} />
         </SectionCard>
       </div>
-      <ReportsSection groups={data.reportGroups} />
+      <ReportsSection groups={data.reportGroups} imageLinks={imageLinks} />
     </div>
   );
 }

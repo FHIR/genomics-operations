@@ -27,7 +27,7 @@ The app is built around a typical MTB workflow: a patient's case, including tumo
 * **Four tabs:**
   * **Case Summary:** the clinical record from the FHIR server, including the **Reported variants** card: the variants and therapeutic implications from the lab's genetic reports.
   * **Genomics Explorer:** read-only search of the patient's complete genomic data set by gene symbol or genomic range, with presets, actionability filters, co-occurring variants, pathway diagrams and oncogenicity prediction. Reported variants are layered into the results.
-  * **Imaging:** a placeholder for pathology slides and diagnostic images.
+  * **Imaging:** the patient's radiology and pathology slide studies, viewed in the NCI Imaging Data Commons viewer embedded in the tab.
   * **AI Synthesis:** a case synthesis for the tumor board (pre-generated for the demo patients).
 
 The Case Summary shows what the lab chose to report, as of the report date; the Genomics Explorer shows the complete data set with current annotations. A variant in the Explorer that isn't on the report is expected, not an error.
@@ -38,6 +38,7 @@ The Case Summary shows what the lab chose to report, as of the report date; the 
 
 * **Patient Banner and Dx**: MRN selection (patients with clinical data listed first), key clinical status, and a Dx that drives the gene-list presets, the "Actionable, this tumor type" filter and the oncogenicity predictor's tumor type. Recorded diagnoses map to tumor types by SNOMED CT code (`public/data/MTB_TumorTypeCrosswalk.csv`)
 * **Case Summary**: diagnosis and staging, treatment timeline, labs and pathology, reports and other clinical sections, with a jump bar
+* **Imaging**: a newest-first list of the patient's ImagingStudy resources (CT, PET/CT, MR, NM, slides) that folds to one line when a study is open, above the embedded IDC viewer (OHIF for radiology, SLIM for slides). Reports with linked images (`DiagnosticReport.imagingStudy`) get an image chip in the Case Summary that opens the tab at those images. Slide studies open on their FFPE diagnostic slide. For synthetic patients, an amber note gives the record's shifted date and the image's real date (read from the ImagingStudy note)
 * **Reported Variants**: the lab's reported variants grouped by report, with origin, therapeutic implications and evidence levels, and a link to the full data in the Genomics Explorer
 * **Reported Variant Layering**: reported variants in the searched genes or ranges join the Explorer's results (a variant in both appears once), marked with a Reported chip; report implications carry a Report tag and count toward the actionability filters. A Reported genes preset and a Reported variants actionability option
 * **Intelligent Search**: Search by gene symbols (e.g., `BRAF`, `EGFR`) or genomic ranges (e.g., `NC_000007.14:55019016-55211628`)
@@ -57,6 +58,7 @@ The Case Summary shows what the lab chose to report, as of the report date; the 
 
 * **Clinical data:** a FHIR R4 server (currently `https://hapi.fhir.org/baseR4`). Patients are found by MRN (`Patient.identifier` with system `http://elimu.io/fhir/mrn`) and loaded with `Patient/$everything`. The demo patients' mCODE transaction bundles, and the guide to creating new cases, are in `clinical-data/` (see `clinical-data/README.md`).
 * **Genomic data:** the Genomics Operations reference server (`https://fhir-gen-ops.herokuapp.com`): subject operations for variants, structural variants, molecular consequences and Tx/Dx implications, with the patient's MRN as subject. For layering reported variants, the app also calls the server's `utilities` for the few reported variants that need it: `normalize-variant` (a reported variant's SPDI in each genome build) and `get-feature-coordinates` (a gene's or transcript's range), cached for the session.
+* **Images:** the [NCI Imaging Data Commons](https://portal.imaging.datacommons.cancer.gov/) (IDC). The clinical record's ImagingStudy resources carry the DICOM study and series UIDs and an Endpoint pointing at IDC's DICOMweb service; the app builds the IDC viewer URL from those UIDs and embeds the viewer. For a slide study it asks that DICOMweb service for the slide names (one lookup per study, cached for the session) to open the FFPE diagnostic slide. IDC's TCGA images are CC BY 3.0. IDC also publishes AI-derived overlays (CC BY 4.0) for many studies, which its viewers offer.
 * **Knowledge files** in `public/data/`: preset gene lists, the Dx crosswalk, the cancer-type codes for each tumor type, the CIViC co-occurrence knowledge base, the pathway diagrams, the OncoKB cancer gene list, and the pre-generated syntheses.
 
 ---
@@ -84,6 +86,7 @@ src/
 ├── components/             # Reusable UI components
 │   ├── PatientBanner.tsx   # MRN, clinical status, Dx
 │   ├── caseSummary/        # Case Summary sections, incl. ReportedVariantsSection.tsx
+│   ├── imaging/            # Imaging tab: image list and embedded IDC viewer
 │   ├── SynthesisView.tsx   # AI Synthesis tab (Markdown rendering, table of contents)
 │   ├── sidebar/            # Filter sidebar components
 │   ├── ResultsTable.tsx    # Main results display
@@ -106,8 +109,9 @@ src/
 │   ├── reportedVariantLookupService.ts  # normalize-variant / get-feature-coordinates lookups for reported variants
 │   ├── cooccurrenceService.ts   # CIViC co-occurrence knowledge base and matching
 │   ├── pathwayService.ts        # Pathway diagram loading
+│   ├── idcService.ts            # Finds a slide study's FFPE diagnostic slide in the Imaging Data Commons
 │   └── synthesisService.ts      # Loads a patient's synthesis
-├── lib/                    # Shared logic: case summary, reported variants and layering, treatment timeline, display labels
+├── lib/                    # Shared logic: case summary, reported variants and layering, treatment timeline, image catalog, display labels
 ├── types/                  # TypeScript type definitions
 ├── cancerFilter/           # Cancer type filtering logic
 └── utils/                  # Utility functions

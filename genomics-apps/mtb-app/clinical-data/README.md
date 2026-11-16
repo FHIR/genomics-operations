@@ -61,6 +61,17 @@ These made the syntheses harder or vaguer when missing:
 - **Consistent staging:** the T category must fit the recorded size (MRN1234 records pT3 for a 2.5 cm tumor).
 - **Germline testing** recorded whenever a variant could be inherited (L2345's BRCA2 Q66\* is a known germline pathogenic variant, reported as somatic, with no germline test).
 
+### 2.3 Images
+
+The app's Imaging tab shows a case's images from the NCI Imaging Data Commons (IDC). For each IDC study:
+
+- An **ImagingStudy**: `identifier` `urn:dicom:uid` = `urn:oid:<StudyInstanceUID>`; `modality` (DICOM: CT, MR, PT, NM, SM); `series` with each series' UID and modality; `started` = the record date; `endpoint` → the shared `Endpoint/nci-idc-dicomweb` (include it in the bundle); `description`.
+- **List first the series the viewer should open first** (an axial diagnostic series, not a scout); for slides the app finds the FFPE diagnostic slide itself.
+- **When record dates are shifted**, a `note` stating the real date: `The study date in the DICOM headers (shown by the IDC viewer) is YYYY-MM-DD.` The app shows both dates when they differ.
+- The **report** that reads the images references the ImagingStudy in `DiagnosticReport.imagingStudy`; that gives it an image link in the Case Summary.
+
+`idc-index` (Python) finds a patient's studies and series by PatientID. TCGA-DD-A1EH is the hand-built example; the generated TCGA patients have the same shape.
+
 ## 3. The genomic data on the server
 
 Loaded with the scripts in `utilities/` (see `utilities/README.md`):

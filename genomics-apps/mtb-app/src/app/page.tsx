@@ -11,6 +11,7 @@ import SearchForm from '../components/SearchForm';
 import PatientBanner from '../components/PatientBanner';
 import CaseSummary from '../components/caseSummary/CaseSummary';
 import SynthesisView from '../components/SynthesisView';
+import ImagingView, { ImagingFocusRequest } from '../components/imaging/ImagingView';
 import SearchStatus, { searchSummaryText } from '../components/SearchStatus';
 import ResultsTable, { HighlightRequest } from '../components/ResultsTable';
 import SelectionTray from '../components/SelectionTray';
@@ -100,6 +101,12 @@ export default function Home() {
     initialViewChosenRef.current = true;
     setCaseView(view);
   }, []);
+  // A report's image link in the Case Summary opens the Imaging tab at that report's images
+  const [imagingFocus, setImagingFocus] = useState<ImagingFocusRequest | null>(null);
+  const openReportImages = useCallback((reportKey: string) => {
+    setImagingFocus((previous) => ({ reportKey, nonce: (previous?.nonce ?? 0) + 1 }));
+    chooseCaseView('imaging');
+  }, [chooseCaseView]);
   const [selectedVariantIds, setSelectedVariantIds] = useState<Set<string>>(new Set());
   const [visibleVariantIds, setVisibleVariantIds] = useState<string[]>([]);
   const [highlightRequest, setHighlightRequest] = useState<HighlightRequest | null>(null);
@@ -407,6 +414,7 @@ export default function Home() {
     setInvalidRanges([]);
     setSelectedVariantIds(new Set());
     setActiveView('results');
+    setImagingFocus(null);
     setSubjectId(value);
   }, []);
 
@@ -635,8 +643,9 @@ export default function Home() {
   };
   return (
     <div className="min-h-screen bg-white px-4 py-6 text-black sm:px-6 lg:px-8">
-      {/* One centered container that fills the window up to 1400px; sections adapt to its width */}
-      <main className={`mx-auto w-full max-w-[1400px] ${selectedVariants.length > 0 ? 'pb-24' : ''}`}>
+      {/* One centered container that fills the window up to 1400px; sections adapt to its width. The Imaging tab
+          uses the whole window, so the image viewer grows on large monitors */}
+      <main className={`mx-auto w-full ${caseView === 'imaging' ? '' : 'max-w-[1400px]'} ${selectedVariants.length > 0 ? 'pb-24' : ''}`}>
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-4">
             <h1 className="text-4xl font-bold sm:text-5xl">Molecular Tumor Board</h1>
@@ -697,6 +706,7 @@ export default function Home() {
           <div className="mb-8 rounded-3xl bg-slate-100 p-3 ring-1 ring-inset ring-slate-200 sm:p-5">
             <CaseSummary
               onGoToGenomicFindings={() => chooseCaseView('genomic')}
+              onOpenReportImages={openReportImages}
               subjectId={subjectId}
               clinicalState={clinicalState}
               onRetry={retryClinicalRecord}
@@ -705,14 +715,17 @@ export default function Home() {
           </div>
         )}
 
-        {/* Placeholder until imaging data (slides, diagnostic images) is pulled in */}
-        {caseView === 'imaging' && (
-          <div className="mb-8 rounded-3xl bg-slate-100 p-3 ring-1 ring-inset ring-slate-200 sm:p-5">
-            <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center text-slate-600 shadow-sm">
-              No images available.
-            </div>
-          </div>
-        )}
+        {/* Kept mounted while hidden, so an open image is still there when you return to the tab; remounted per
+            patient so nothing carries over */}
+        <div className={caseView === 'imaging' ? 'mb-8 rounded-3xl bg-slate-100 p-3 ring-1 ring-inset ring-slate-200 sm:p-5' : 'hidden'}>
+          <ImagingView
+            key={subjectId}
+            subjectId={subjectId}
+            clinicalState={clinicalState}
+            onRetry={retryClinicalRecord}
+            focusRequest={imagingFocus}
+          />
+        </div>
 
         {/* Kept mounted while hidden, so a generated synthesis is still there when you return to the tab */}
         <div className={caseView === 'synthesis' ? 'mb-8 rounded-3xl bg-slate-100 p-3 ring-1 ring-inset ring-slate-200 sm:p-5' : 'hidden'}>

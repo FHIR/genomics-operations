@@ -1616,6 +1616,11 @@
             "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
             "display": "Dr. Owen Oncologist"
           }
+        ],
+        "derivedFrom": [
+          {
+            "reference": "ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-959986642831"
+          }
         ]
       },
       "request": {
@@ -1816,6 +1821,14 @@
           {
             "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
             "display": "Dr. Owen Oncologist"
+          }
+        ],
+        "derivedFrom": [
+          {
+            "reference": "ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-200293764710"
+          },
+          {
+            "reference": "ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-649561605548"
           }
         ]
       },
@@ -2807,7 +2820,7 @@
             {
               "system": "http://snomed.info/sct",
               "code": "109841003",
-              "display": "Liver cell carcinoma (disorder)"
+              "display": "Hepatocellular carcinoma (disorder)"
             },
             {
               "system": "http://hl7.org/fhir/sid/icd-10-cm",
@@ -3662,6 +3675,11 @@
               }
             ]
           }
+        ],
+        "report": [
+          {
+            "reference": "DiagnosticReport/mtb-tcga-dd-a1eh-path-right-hepatectomy-2026-01-26"
+          }
         ]
       },
       "request": {
@@ -3762,6 +3780,1542 @@
       "request": {
         "method": "PUT",
         "url": "Practitioner/mtb-tcga-dd-a1eh-oncologist"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Practitioner/mtb-tcga-dd-a1eh-radiologist",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "mtb-tcga-dd-a1eh-radiologist",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://elimu.io/fhir/practitioner-id",
+            "value": "mtb-radiologist"
+          }
+        ],
+        "name": [
+          {
+            "family": "Radiologist",
+            "given": [
+              "Rita"
+            ],
+            "prefix": [
+              "Dr."
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "394914008",
+                  "display": "Radiology - specialty"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/mtb-tcga-dd-a1eh-radiologist"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Practitioner/mtb-tcga-dd-a1eh-pathologist",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "mtb-tcga-dd-a1eh-pathologist",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://elimu.io/fhir/practitioner-id",
+            "value": "mtb-pathologist"
+          }
+        ],
+        "name": [
+          {
+            "family": "Pathologist",
+            "given": [
+              "Paul"
+            ],
+            "prefix": [
+              "Dr."
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "394915009",
+                  "display": "General pathology (specialty)"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/mtb-tcga-dd-a1eh-pathologist"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Endpoint/nci-idc-dicomweb",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "nci-idc-dicomweb",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "dicom-wado-rs",
+          "display": "DICOM WADO-RS"
+        },
+        "name": "NCI Imaging Data Commons DICOMweb (viewer proxy)",
+        "payloadType": [
+          {
+            "text": "DICOM"
+          }
+        ],
+        "address": "https://proxy.imaging.datacommons.cancer.gov/current/viewer-only-no-downloads-see-tinyurl-dot-com-slash-3j3d9jyp/dicomWeb"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/nci-idc-dicomweb"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-698612029419",
+      "resource": {
+        "resourceType": "ImagingStudy",
+        "id": "mtb-tcga-dd-a1eh-imaging-study-698612029419",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "available",
+        "identifier": [
+          {
+            "system": "urn:dicom:uid",
+            "value": "urn:oid:1.3.6.1.4.1.14519.5.2.1.3344.4008.251415498218991545698612029419"
+          }
+        ],
+        "modality": [
+          {
+            "system": "http://dicom.nema.org/resources/ontology/DCM",
+            "code": "CT",
+            "display": "Computed Tomography"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "started": "2026-01-06",
+        "endpoint": [
+          {
+            "reference": "Endpoint/nci-idc-dicomweb"
+          }
+        ],
+        "numberOfSeries": 5,
+        "description": "Abdomen^12_0_Liver_BiPhase (Adult)",
+        "series": [
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.195362430107088002915061674288",
+            "number": 4,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "Portal phase  3.0  B40f",
+            "numberOfInstances": 179,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.182467907664677384765675701796",
+            "number": 1,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "Topogram  1.0  T20s",
+            "numberOfInstances": 1,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.465671663711024326515844202596",
+            "number": 2,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "w/o liver (opt.)  5.0  B40f",
+            "numberOfInstances": 52,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.507540001158436761016541844513",
+            "number": 3,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "Late art. phase  3.0  B40f",
+            "numberOfInstances": 103,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.469209870590212024928027866164",
+            "number": 5,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "coronal Portal phase  3.0  B40f",
+            "numberOfInstances": 83,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          }
+        ],
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+            "display": "Liver cell carcinoma"
+          }
+        ],
+        "note": [
+          {
+            "text": "Images in the NCI Imaging Data Commons: https://viewer.imaging.datacommons.cancer.gov/v3/viewer/?StudyInstanceUIDs=1.3.6.1.4.1.14519.5.2.1.3344.4008.251415498218991545698612029419&initialSeriesInstanceUID=1.3.6.1.4.1.14519.5.2.1.3344.4008.195362430107088002915061674288 (real images from TCGA; this record's dates and report texts are synthetic, so the images may not match the report). The study date in the DICOM headers (shown by the IDC viewer) is 2001-01-26."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-698612029419"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-520770797703",
+      "resource": {
+        "resourceType": "ImagingStudy",
+        "id": "mtb-tcga-dd-a1eh-imaging-study-520770797703",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "available",
+        "identifier": [
+          {
+            "system": "urn:dicom:uid",
+            "value": "urn:oid:1.3.6.1.4.1.14519.5.2.1.3344.4008.114918398611791628520770797703"
+          }
+        ],
+        "modality": [
+          {
+            "system": "http://dicom.nema.org/resources/ontology/DCM",
+            "code": "CT",
+            "display": "Computed Tomography"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "started": "2026-03-11",
+        "endpoint": [
+          {
+            "reference": "Endpoint/nci-idc-dicomweb"
+          }
+        ],
+        "numberOfSeries": 5,
+        "description": "Abdomen^12_0_Liver_BiPhase (Adult)",
+        "series": [
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.158553233207257650675607710531",
+            "number": 4,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "venous phase  3.0  B40f",
+            "numberOfInstances": 183,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.708281866706930223809111265923",
+            "number": 1,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "Topogram  0.6  T20s",
+            "numberOfInstances": 1,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.191279109666843286970885612466",
+            "number": 2,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "Liver w/o (opt)  5.0  B40f",
+            "numberOfInstances": 54,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.528527982325292531978902370574",
+            "number": 3,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "arterial phase  3.0  B40f",
+            "numberOfInstances": 108,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.304322839382332304403421123993",
+            "number": 5,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "coronal venous phase",
+            "numberOfInstances": 88,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          }
+        ],
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+            "display": "Liver cell carcinoma"
+          }
+        ],
+        "note": [
+          {
+            "text": "Images in the NCI Imaging Data Commons: https://viewer.imaging.datacommons.cancer.gov/v3/viewer/?StudyInstanceUIDs=1.3.6.1.4.1.14519.5.2.1.3344.4008.114918398611791628520770797703&initialSeriesInstanceUID=1.3.6.1.4.1.14519.5.2.1.3344.4008.158553233207257650675607710531 (real images from TCGA; this record's dates and report texts are synthetic, so the images may not match the report). The study date in the DICOM headers (shown by the IDC viewer) is 2001-02-27."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-520770797703"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-959986642831",
+      "resource": {
+        "resourceType": "ImagingStudy",
+        "id": "mtb-tcga-dd-a1eh-imaging-study-959986642831",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "available",
+        "identifier": [
+          {
+            "system": "urn:dicom:uid",
+            "value": "urn:oid:1.3.6.1.4.1.14519.5.2.1.3344.4008.276411550230131446959986642831"
+          }
+        ],
+        "modality": [
+          {
+            "system": "http://dicom.nema.org/resources/ontology/DCM",
+            "code": "CT",
+            "display": "Computed Tomography"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "started": "2026-05-02",
+        "endpoint": [
+          {
+            "reference": "Endpoint/nci-idc-dicomweb"
+          }
+        ],
+        "numberOfSeries": 5,
+        "description": "*CT Chest,Abdomen,Pelv",
+        "series": [
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.139156711600947700374935600741",
+            "number": 3,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "Liver-Biphase",
+            "numberOfInstances": 369,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.120269967899232483604831956334",
+            "number": 2,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "SCOUT",
+            "numberOfInstances": 1,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.287202034568814657804294127758",
+            "number": 5,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "HR thins",
+            "numberOfInstances": 272,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.144054037204912196215988373138",
+            "number": 400,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "Cor AP",
+            "numberOfInstances": 87,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.331809613730220153575551669661",
+            "number": 500,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "MIP Thins TH",
+            "numberOfInstances": 33,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          }
+        ],
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+            "display": "Liver cell carcinoma"
+          }
+        ],
+        "note": [
+          {
+            "text": "Images in the NCI Imaging Data Commons: https://viewer.imaging.datacommons.cancer.gov/v3/viewer/?StudyInstanceUIDs=1.3.6.1.4.1.14519.5.2.1.3344.4008.276411550230131446959986642831&initialSeriesInstanceUID=1.3.6.1.4.1.14519.5.2.1.3344.4008.139156711600947700374935600741 (real images from TCGA; this record's dates and report texts are synthetic, so the images may not match the report). The study date in the DICOM headers (shown by the IDC viewer) is 2001-04-20."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-959986642831"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-200293764710",
+      "resource": {
+        "resourceType": "ImagingStudy",
+        "id": "mtb-tcga-dd-a1eh-imaging-study-200293764710",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "available",
+        "identifier": [
+          {
+            "system": "urn:dicom:uid",
+            "value": "urn:oid:1.3.6.1.4.1.14519.5.2.1.3344.4008.266568840516598684200293764710"
+          }
+        ],
+        "modality": [
+          {
+            "system": "http://dicom.nema.org/resources/ontology/DCM",
+            "code": "CT",
+            "display": "Computed Tomography"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "started": "2026-07-13",
+        "endpoint": [
+          {
+            "reference": "Endpoint/nci-idc-dicomweb"
+          }
+        ],
+        "numberOfSeries": 12,
+        "description": "Thorax^02_0_Chest_Routine (Adult)",
+        "series": [
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.180093687915976598175531436843",
+            "number": 3,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "Chest Routine  5.0  B40f",
+            "numberOfInstances": 75,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.950048518551690092836114851573",
+            "number": 2,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "Topogram  1.0  T20s",
+            "numberOfInstances": 1,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.121901765028698957794203464452",
+            "number": 4,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "Hi Res Recons 1.5mm B46",
+            "numberOfInstances": 256,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.173650699739964716678079340316",
+            "number": 5,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "MIP axial Chest",
+            "numberOfInstances": 33,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.207188395872055409832924654871",
+            "number": 6,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "PreMonitoring  9.0  B40f",
+            "numberOfInstances": 1,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.311920963854093892685072489346",
+            "number": 7,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "Monitoring  9.0  B40f",
+            "numberOfInstances": 4,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.336451395223174621319606562381",
+            "number": 8,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "Arterial  3.0  B40f",
+            "numberOfInstances": 94,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.307824857984712165398940224559",
+            "number": 9,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "P.Venous  3.0  B40f",
+            "numberOfInstances": 181,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.150731818010634307938925068434",
+            "number": 10,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "3 min delay live  3.0  B40f",
+            "numberOfInstances": 94,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.362445211383106249502208207554",
+            "number": 11,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "Coronal Arterial  3.0  SPO  cor",
+            "numberOfInstances": 83,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.151900163999258560102678087762",
+            "number": 12,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "CoronalP.Venous  3.0  SPO  cor",
+            "numberOfInstances": 73,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.273417752924001815052665565421",
+            "number": 13,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "CT",
+              "display": "Computed Tomography"
+            },
+            "description": "P.Venous  2.0  B40f",
+            "numberOfInstances": 301,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          }
+        ],
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+            "display": "Liver cell carcinoma"
+          }
+        ],
+        "note": [
+          {
+            "text": "Images in the NCI Imaging Data Commons: https://viewer.imaging.datacommons.cancer.gov/v3/viewer/?StudyInstanceUIDs=1.3.6.1.4.1.14519.5.2.1.3344.4008.266568840516598684200293764710&initialSeriesInstanceUID=1.3.6.1.4.1.14519.5.2.1.3344.4008.180093687915976598175531436843 (real images from TCGA; this record's dates and report texts are synthetic, so the images may not match the report). The study date in the DICOM headers (shown by the IDC viewer) is 2001-06-29."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-200293764710"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-649561605548",
+      "resource": {
+        "resourceType": "ImagingStudy",
+        "id": "mtb-tcga-dd-a1eh-imaging-study-649561605548",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "available",
+        "identifier": [
+          {
+            "system": "urn:dicom:uid",
+            "value": "urn:oid:1.3.6.1.4.1.14519.5.2.1.3344.4008.225073561725995217649561605548"
+          }
+        ],
+        "modality": [
+          {
+            "system": "http://dicom.nema.org/resources/ontology/DCM",
+            "code": "MR",
+            "display": "Magnetic Resonance"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "started": "2026-07-14",
+        "endpoint": [
+          {
+            "reference": "Endpoint/nci-idc-dicomweb"
+          }
+        ],
+        "numberOfSeries": 12,
+        "description": "MRI Abd wo&w",
+        "series": [
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.175185911159158089736140437534",
+            "number": 9,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "MR",
+              "display": "Magnetic Resonance"
+            },
+            "description": "lava post",
+            "numberOfInstances": 372,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.186101738663923224352042439717",
+            "number": 12,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "MR",
+              "display": "Magnetic Resonance"
+            },
+            "description": "lava post",
+            "numberOfInstances": 124,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.286364902292649618443073531277",
+            "number": 1,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "MR",
+              "display": "Magnetic Resonance"
+            },
+            "description": "3 plane loc",
+            "numberOfInstances": 51,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.163909720479036779578962344075",
+            "number": 2,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "MR",
+              "display": "Magnetic Resonance"
+            },
+            "description": "ax rt fse",
+            "numberOfInstances": 34,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.888536918685634751967834735356",
+            "number": 3,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "MR",
+              "display": "Magnetic Resonance"
+            },
+            "description": "cor ssfse",
+            "numberOfInstances": 24,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.262541902130175138986004500843",
+            "number": 4,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "MR",
+              "display": "Magnetic Resonance"
+            },
+            "description": "ASSET calibration",
+            "numberOfInstances": 80,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.276738604948498601353517481293",
+            "number": 5,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "MR",
+              "display": "Magnetic Resonance"
+            },
+            "description": "lava pre",
+            "numberOfInstances": 124,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.142045317270373151153609754924",
+            "number": 6,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "MR",
+              "display": "Magnetic Resonance"
+            },
+            "description": "(diffusion)",
+            "numberOfInstances": 40,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.332701155198853689506660682996",
+            "number": 7,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "MR",
+              "display": "Magnetic Resonance"
+            },
+            "description": "improved IP/OP",
+            "numberOfInstances": 72,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.152118893333660073687922894286",
+            "number": 8,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "MR",
+              "display": "Magnetic Resonance"
+            },
+            "description": "realtime",
+            "numberOfInstances": 31,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.133578199442471358486415513594",
+            "number": 10,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "MR",
+              "display": "Magnetic Resonance"
+            },
+            "description": "ax spgr",
+            "numberOfInstances": 36,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.14519.5.2.1.3344.4008.192562295053210529534149779151",
+            "number": 11,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "MR",
+              "display": "Magnetic Resonance"
+            },
+            "description": "ax fsfiesta2d",
+            "numberOfInstances": 60,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          }
+        ],
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+            "display": "Liver cell carcinoma"
+          }
+        ],
+        "note": [
+          {
+            "text": "Images in the NCI Imaging Data Commons: https://viewer.imaging.datacommons.cancer.gov/v3/viewer/?StudyInstanceUIDs=1.3.6.1.4.1.14519.5.2.1.3344.4008.225073561725995217649561605548&initialSeriesInstanceUID=1.3.6.1.4.1.14519.5.2.1.3344.4008.175185911159158089736140437534 (real images from TCGA; this record's dates and report texts are synthetic, so the images may not match the report). The study date in the DICOM headers (shown by the IDC viewer) is 2001-06-30."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-649561605548"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-143171946530",
+      "resource": {
+        "resourceType": "ImagingStudy",
+        "id": "mtb-tcga-dd-a1eh-imaging-study-143171946530",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "available",
+        "identifier": [
+          {
+            "system": "urn:dicom:uid",
+            "value": "urn:oid:2.25.274013514591210231186337853143171946530"
+          }
+        ],
+        "modality": [
+          {
+            "system": "http://dicom.nema.org/resources/ontology/DCM",
+            "code": "SM",
+            "display": "Slide Microscopy"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "started": "2026-01-26",
+        "endpoint": [
+          {
+            "reference": "Endpoint/nci-idc-dicomweb"
+          }
+        ],
+        "numberOfSeries": 3,
+        "description": "Histopathology",
+        "series": [
+          {
+            "uid": "1.3.6.1.4.1.5962.99.1.1947806573.1609278958.1638330379117.2.0",
+            "number": 1,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "SM",
+              "display": "Slide Microscopy"
+            },
+            "description": "FFPE HE TP DX1",
+            "numberOfInstances": 5,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.5962.99.1.1954640988.1248012541.1638337213532.2.0",
+            "number": 1,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "SM",
+              "display": "Slide Microscopy"
+            },
+            "description": "Frozen HE NT TSA",
+            "numberOfInstances": 4,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          },
+          {
+            "uid": "1.3.6.1.4.1.5962.99.1.1975522104.1497559071.1638358094648.2.0",
+            "number": 1,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "SM",
+              "display": "Slide Microscopy"
+            },
+            "description": "Frozen HE TP TS1",
+            "numberOfInstances": 5,
+            "endpoint": [
+              {
+                "reference": "Endpoint/nci-idc-dicomweb"
+              }
+            ]
+          }
+        ],
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+            "display": "Liver cell carcinoma"
+          }
+        ],
+        "note": [
+          {
+            "text": "Images in the NCI Imaging Data Commons: https://viewer.imaging.datacommons.cancer.gov/slim/studies/2.25.274013514591210231186337853143171946530/series/1.3.6.1.4.1.5962.99.1.1947806573.1609278958.1638330379117.2.0 (real images from TCGA; this record's dates and report texts are synthetic, so the images may not match the report). The study date in the DICOM headers (shown by the IDC viewer) is 2014-06-19."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-143171946530"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-tcga-dd-a1eh-ct-abdomen-2026-01-06",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-tcga-dd-a1eh-ct-abdomen-2026-01-06",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP29684-5",
+                "display": "Radiology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "36267-3",
+              "display": "CT Abdomen WO and W contrast IV"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "effectiveDateTime": "2026-01-06",
+        "issued": "2026-01-06T17:00:00-05:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-radiologist",
+            "display": "Dr. Rita Radiologist"
+          }
+        ],
+        "imagingStudy": [
+          {
+            "reference": "ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-698612029419"
+          }
+        ],
+        "conclusion": "Multiphase liver CT. Two arterially enhancing masses with portal venous washout in the right hepatic lobe: 7.8 cm in segment 7 and 2.1 cm in segment 6 (LI-RADS 5), consistent with hepatocellular carcinoma. No portal or hepatic vein invasion. Background liver with features of chronic liver disease; no ascites. Left lobe clear. No abdominal lymphadenopathy or extrahepatic disease."
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-tcga-dd-a1eh-ct-abdomen-2026-01-06"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-tcga-dd-a1eh-path-right-hepatectomy-2026-01-26",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-tcga-dd-a1eh-path-right-hepatectomy-2026-01-26",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP7839-6",
+                "display": "Pathology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11526-1",
+              "display": "Pathology study"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "effectiveDateTime": "2026-01-26",
+        "issued": "2026-01-26T17:00:00-05:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-pathologist",
+            "display": "Dr. Paul Pathologist"
+          }
+        ],
+        "imagingStudy": [
+          {
+            "reference": "ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-143171946530"
+          }
+        ],
+        "conclusion": "Liver, right lobe, hepatectomy: hepatocellular carcinoma, two tumors (7.8 cm and 2.1 cm). Margins negative. Background liver: chronic hepatitis, inactive, with fibrosis. Pathologic stage pT3 pN0.",
+        "conclusionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "25370001",
+                "display": "Hepatocellular carcinoma"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-tcga-dd-a1eh-path-right-hepatectomy-2026-01-26"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-tcga-dd-a1eh-ct-abdomen-2026-03-11",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-tcga-dd-a1eh-ct-abdomen-2026-03-11",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP29684-5",
+                "display": "Radiology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "36267-3",
+              "display": "CT Abdomen WO and W contrast IV"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "effectiveDateTime": "2026-03-11",
+        "issued": "2026-03-11T17:00:00-05:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-radiologist",
+            "display": "Dr. Rita Radiologist"
+          }
+        ],
+        "imagingStudy": [
+          {
+            "reference": "ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-520770797703"
+          }
+        ],
+        "conclusion": "Post-resection baseline. Expected changes after right hepatectomy, with hypertrophy of the left lobe. No residual or recurrent tumor. No ascites or abdominal lymphadenopathy."
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-tcga-dd-a1eh-ct-abdomen-2026-03-11"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-tcga-dd-a1eh-ct-cap-2026-05-02",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-tcga-dd-a1eh-ct-cap-2026-05-02",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP29684-5",
+                "display": "Radiology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "72254-6",
+              "display": "CT Chest and Abdomen and Pelvis W contrast IV"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "effectiveDateTime": "2026-05-02",
+        "issued": "2026-05-02T17:00:00-05:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-radiologist",
+            "display": "Dr. Rita Radiologist"
+          }
+        ],
+        "imagingStudy": [
+          {
+            "reference": "ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-959986642831"
+          }
+        ],
+        "conclusion": "Recurrence. New 2.6 cm arterially enhancing lesion with washout in the left hepatic lobe (segment 3), consistent with recurrent hepatocellular carcinoma. Multiple new bilateral pulmonary nodules, the largest 1.4 cm in the right lower lobe, consistent with metastases. Post-hepatectomy changes. No lymphadenopathy."
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-tcga-dd-a1eh-ct-cap-2026-05-02"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-tcga-dd-a1eh-ct-chest-abdomen-2026-07-13",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-tcga-dd-a1eh-ct-chest-abdomen-2026-07-13",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP29684-5",
+                "display": "Radiology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "42275-8",
+              "display": "CT Chest and Abdomen W contrast IV"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "effectiveDateTime": "2026-07-13",
+        "issued": "2026-07-13T17:00:00-05:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-radiologist",
+            "display": "Dr. Rita Radiologist"
+          }
+        ],
+        "imagingStudy": [
+          {
+            "reference": "ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-200293764710"
+          }
+        ],
+        "conclusion": "Progression since 2026-05-02. Bilateral pulmonary metastases increased in size and number, the largest now 2.2 cm (previously 1.4 cm). Left hepatic lobe recurrence enlarged to 3.9 cm (previously 2.6 cm)."
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-tcga-dd-a1eh-ct-chest-abdomen-2026-07-13"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/mtb-tcga-dd-a1eh-mr-abdomen-2026-07-14",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "mtb-tcga-dd-a1eh-mr-abdomen-2026-07-14",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note"
+          ],
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "LP29684-5",
+                "display": "Radiology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "24557-1",
+              "display": "MR Abdomen WO and W contrast IV"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh"
+        },
+        "effectiveDateTime": "2026-07-14",
+        "issued": "2026-07-14T17:00:00-05:00",
+        "performer": [
+          {
+            "reference": "Practitioner/mtb-tcga-dd-a1eh-radiologist",
+            "display": "Dr. Rita Radiologist"
+          }
+        ],
+        "imagingStudy": [
+          {
+            "reference": "ImagingStudy/mtb-tcga-dd-a1eh-imaging-study-649561605548"
+          }
+        ],
+        "conclusion": "Left hepatic lobe recurrence, 4.0 cm, with arterial enhancement and washout, enlarged since 2026-05-02. New 1.2 cm nodule in segment 2. No portal vein tumor thrombus. No ascites."
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/mtb-tcga-dd-a1eh-mr-abdomen-2026-07-14"
       }
     }
   ]

@@ -98,6 +98,13 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
                     'Everything recorded as a laboratory result, including tumor markers and pathology findings, one row per test with the latest value, reference range and flag. Sort by test name or date, and click a row for its full history; tests with 3 or more numeric values get a trend line.',
                 ],
             },
+            {
+                title: 'Reports',
+                items: [
+                    'Reports are grouped by category, newest first; click a report\'s text to read all of it.',
+                    'A report with images has an amber chip after its date, for example 4 image studies or 3 slides. Click it to open the Imaging tab with that report\'s images highlighted and the newest one in the viewer.',
+                ],
+            },
         ],
     },
     {
@@ -219,9 +226,21 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
         title: 'Imaging',
         sections: [
             {
-                title: 'Images',
+                title: 'Image List',
                 items: [
-                    'The Imaging tab will show the patient\'s pathology slides and diagnostic images. It is a placeholder for now and shows No images available.',
+                    'The Imaging tab lists every imaging study in the patient\'s record (CT, PET/CT, MR, nuclear medicine and pathology slides), newest first, with its date, type, description and the report that discusses it.',
+                    'Click a row to open that study in the viewer below; the open study\'s row is highlighted. The list then folds to one line showing what is open; click that line, or its arrow, to unfold it and pick another study.',
+                    'Arriving from a report\'s image chip in the Case Summary, that report\'s studies are highlighted and its newest one is already open.',
+                    'Patients with no images, including those with no clinical data, show a message instead.',
+                ],
+            },
+            {
+                title: 'Viewer',
+                items: [
+                    'Studies open in the NCI Imaging Data Commons viewer, inside the tab: scroll through CT and MR series, adjust the window, and pan and zoom slides. Use Full screen for more room. The tab widens with your browser window.',
+                    'For slides, the viewer opens on the FFPE diagnostic slide when the study has one; the frozen-section slides are in the viewer\'s Slides list on the left.',
+                    'Some studies carry AI-generated overlays from the Imaging Data Commons: tumor-infiltrating lymphocyte maps and nuclear outlines on slides, and lung, nodule, tumor or liver outlines on CT and PET/CT. They start switched off. On a slide, open Annotation Groups or Segmentations at the bottom of the viewer\'s right-hand panel and switch one on; on CT and PET/CT, double-click the SEG series in the viewer\'s series list.',
+                    'For the synthetic demo patients, report dates are shifted to the present while the images keep their real dates, so the viewer shows a different date. An amber note above the viewer gives both. The report texts are also synthetic, so an image may not show what its report says.',
                 ],
             },
         ],
