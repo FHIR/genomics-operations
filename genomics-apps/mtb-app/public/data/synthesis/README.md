@@ -151,7 +151,7 @@ A cancer driver is an alteration that helps drive the tumor's growth, whether or
 
 **Cancer genes:** `public/data/OncoKB_CancerGeneList.tsv`, the OncoKB Cancer Gene List (downloaded 2026-11-06 from https://www.oncokb.org/api/v1/utils/cancerGeneList.txt; free for academic research). Its `Gene Type` column gives each gene's role. Genes typed ONCOGENE, TSG or ONCOGENE_AND_TSG are searched (858 genes in this download). Genes typed INSUFFICIENT_EVIDENCE or NEITHER, or with no type, are not.
 
-**Driver rule.** A somatic variant in a cancer gene is a driver if it's classified oncogenic or likely oncogenic in ClinVar's somatic oncogenicity classifications, or is at a Cancer Hotspots hotspot, whatever the gene's role (e.g. TP53 R248Q, a missense hotspot in a tumor suppressor). Otherwise, it's a driver when the variant fits the gene's role:
+**Driver rule.** A somatic variant in a cancer gene is a driver if it's classified oncogenic or likely oncogenic in ClinVar's somatic oncogenicity classifications, or is at a Cancer Hotspots hotspot, whatever the gene's role (e.g. TP53 R248Q, a missense hotspot in a tumor suppressor). A variant in a tumor suppressor is also a driver if ClinVar classifies it pathogenic or likely pathogenic (germline classification): until ClinVar accepted somatic classifications, only germline ones could be submitted, so many known loss-of-function variants have only those (e.g. TP53 R283P). Otherwise, it's a driver when the variant fits the gene's role:
 
 | Gene role | Variant counts as a driver when it's | Determined with |
 |---|---|---|
@@ -213,7 +213,7 @@ The exception is **general biology**: standard explanations of what a gene or pa
 - FDA approval announcements
 - abstracts from major oncology meetings (ASCO, ESMO, AACR)
 
-The **search window** reaches back to the earliest of: the AI's training cutoff (if an AI is writing), the date `CIViC_Cooccurrence_KB.csv` and the CIViC data were retrieved, and the dates of the labels used. Record the window and the searches in the search log. What's found goes in Emerging evidence (§5). Searches can miss things, and some papers can be read only as abstracts, so the synthesis states the window searched rather than claiming nothing new exists.
+The **search window** reaches back to the earliest of: the AI's training cutoff (if an AI is writing), the date `CIViC_Cooccurrence_KB.csv` and the CIViC data were retrieved, and the dates of the labels a decision rests on: those whose indications support a ranked option or a recommendation against one. A label cited only to show that a drug isn't indicated for the patient doesn't set the window. Never leave a label out of the citations to shorten the window. Record the window and the searches in the search log. What's found goes in Emerging evidence (§5). Searches can miss things, and some papers can be read only as abstracts, so the synthesis states the window searched rather than claiming nothing new exists.
 
 **Rules for what is listed:**
 
