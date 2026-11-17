@@ -36,6 +36,15 @@ import { geneCoordinates, geneForTranscript, NormalizedVariant, normalizeVariant
 // import EmailSubscription from "@/components/EmailSubscription";
 // import FeedbackForm from "@/components/FeedbackForm";
 
+// Contents links: the sections that apply to all tabs, then one link per tab's group
+const HOW_TO_USE_CONTENTS: string[] = HOW_TO_USE_GROUPS.flatMap((group) =>
+  group.title ? [group.title] : group.sections.map((section) => section.title)
+);
+
+function howToUseAnchorId(title: string): string {
+  return `how-to-use-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+}
+
 function isHowToUseLinkItem(item: string | HowToUseLinkItem): item is HowToUseLinkItem {
   return typeof item !== 'string';
 }
@@ -883,29 +892,55 @@ export default function Home() {
               className="max-h-[85vh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl"
               onClick={(event) => event.stopPropagation()}
             >
-              <div className="mb-6 flex items-start justify-between gap-4">
-                <div>
-                  <h2 id="how-to-use-title" className="text-2xl font-bold text-gray-900">
-                    {HOW_TO_USE_TITLE}
-                  </h2>
+              {/* Title, Close and Contents are pinned to the top of the scrolling panel, so they stay in reach while reading */}
+              <div className="sticky -top-6 z-10 -mx-6 -mt-6 mb-6 border-b border-slate-200 bg-white px-6 pt-6">
+                <div className="mb-3 flex items-start justify-between gap-4">
+                  <div>
+                    <h2 id="how-to-use-title" className="text-2xl font-bold text-gray-900">
+                      {HOW_TO_USE_TITLE}
+                    </h2>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsHowToUseOpen(false)}
+                    className="rounded-md border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2"
+                  >
+                    Close
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setIsHowToUseOpen(false)}
-                  className="rounded-md border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2"
-                >
-                  Close
-                </button>
+                <nav aria-label="How to use contents" className="pb-2 text-sm leading-6 text-gray-700">
+                  <span className="font-semibold text-gray-900">Contents:</span>{' '}
+                  {HOW_TO_USE_CONTENTS.map((title, index) => (
+                    <span key={title}>
+                      {index > 0 && ' · '}
+                      <button
+                        type="button"
+                        onClick={() => document.getElementById(howToUseAnchorId(title))?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                        className="font-medium text-blue-600 hover:text-blue-800 hover:underline"
+                      >
+                        {title}
+                      </button>
+                    </span>
+                  ))}
+                </nav>
               </div>
               <div className="space-y-8">
                 {HOW_TO_USE_GROUPS.map((group, groupIndex) => (
                   // Each tab's guidance is a group under its own heading; the untitled first group applies to all tabs
-                  <div key={group.title ?? `group-${groupIndex}`} className="space-y-6">
+                  <div
+                    key={group.title ?? `group-${groupIndex}`}
+                    id={group.title ? howToUseAnchorId(group.title) : undefined}
+                    className="scroll-mt-36 space-y-6"
+                  >
                     {group.title && (
                       <h3 className="border-b-2 border-slate-200 pb-1.5 text-xl font-bold text-gray-900">{group.title}</h3>
                     )}
                     {group.sections.map((section) => (
-                      <section key={`${group.title ?? 'general'}-${section.title}`}>
+                      <section
+                        key={`${group.title ?? 'general'}-${section.title}`}
+                        id={group.title ? undefined : howToUseAnchorId(section.title)}
+                        className="scroll-mt-36"
+                      >
                         <h4 className="text-lg font-semibold text-gray-900">{section.title}</h4>
                         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-gray-700">
                           {section.items.map((item) => (

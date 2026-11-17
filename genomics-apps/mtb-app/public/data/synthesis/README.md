@@ -10,16 +10,18 @@ A synthesis brings one patient's clinical record and genomic findings together i
 - It reports what labels, knowledge bases and guidelines support for this patient, and may recommend for or against an option when the evidence supports doing so.
 - For the demo, syntheses are written in advance, not generated live. The tab's Generate button shows a short progress display (`SynthesisView.tsx`) and then loads the stored file (`synthesisService.ts`). A live AI call could later replace `fetchSynthesis` without changing the tab.
 - A patient with no file here shows "Synthesis not available for this patient in the demo."
+- Every patient in the app's case list gets a synthesis, including patients whose cases wouldn't usually be brought to a tumor board (e.g. localized disease after surgery). For those, Reason for visit states the decision the record points to, such as surveillance or adjuvant therapy.
 
 Current files: `HCC1143.md`, `L2345.md`, `MRN1234.md`, `TCGA-DD-A1EH.md`.
 
 ## 2. Inputs
 
-Everything in a synthesis should come from the following sources, the same data the app shows on its other tabs. Use only what would be available for a real patient: the scenario notes in `clinical-data/<MRN>/` describe how the demo data was built and are not an input.
+Everything in a synthesis should come from the following sources, the same data the app shows on its other tabs. Use only what would be available for a real patient. What describes how the demo data was built is not an input: the scenario notes in `clinical-data/<MRN>/`, and for patients built by the synthetic data generator (the TCGA-derived lung and colorectal patients), its case catalog, build notes and run reports. The case catalog lists each patient's key findings and implications, so reading it would mean taking the answers instead of deriving them.
 
 | Input | Where it comes from | Used for |
 |---|---|---|
-| Clinical record | The patient's FHIR bundle, `clinical-data/<MRN>/<MRN>-transaction-bundle.json`, loaded to the clinical FHIR server (the Case Summary tab) | Case summary, current status, prior treatment, information gaps |
+| Clinical record | The patient's record on the clinical FHIR server (the Case Summary and Imaging tabs). For the original cases, the bundle is also in `clinical-data/<MRN>/<MRN>-transaction-bundle.json`; for generated patients, read it from the server | Case summary, current status, prior treatment, information gaps |
+| Tumor biomarkers | The record's tumor mutational burden (TMB), microsatellite instability (MSI), PD-L1, mismatch-repair (MMR) IHC and tumor markers, where present | Tissue-agnostic options (§2.3), immunotherapy, information gaps |
 | Genetic reports | The bundle's genomic reports, with their reported variants and implications (the Reported variants card) | Genomic findings as reported by the lab |
 | Genomic data | The genomics server's operations (the Genomics Explorer tab), for the genes in §2.1 | Genomic findings and their evidence |
 | Co-occurrence evidence | `public/data/CIViC_Cooccurrence_KB.csv` | Combination therapy for co-occurring alterations |
@@ -66,7 +68,13 @@ Some questions can't be answered from variants: MSI, TMB, protein expression (IH
 - **`regionStudied`**: the parts of the range the test studied
 - **`uncallableRegions`**: the parts of the range where the test couldn't make a call
 
-A finding is **absent** only if its location is within a studied region, not within an uncallable region, and covered by a test that detects that variant type. Otherwise it's **not tested** (or not callable), and goes under Information gaps. For example, a panel that studied only MET's exons can rule out an exon 14 point mutation but not an intronic splice-site variant outside the studied regions.
+A finding is **absent** only if its location is within a studied region, not within an uncallable region, and covered by a test that detects that variant type. Otherwise it's **not tested** (or not callable), and goes under Information gaps.
+
+A genetic report's region studied can be narrower than the test. For example, a whole-exome test whose report covers only a 228-gene panel. Use `$find-study-metadata` for what the test studied, and the report for what it reported.
+
+**Variant types the server doesn't hold.** If a report includes a variant type that the test's `dnaChangeType` on the server doesn't list (e.g. a fusion), the report is the only source for it. That's not a disagreement to reconcile. Use the reported finding as recorded, partner genes included, and note that it couldn't be checked against the genomic data.
+
+**Copy number recorded only for large changes.** Some tests record copy-number changes only for high-level gains and deep (two-copy) losses. Low-level gains and single-copy losses then aren't in the data and can't be ruled out. If the patient's copy-number records include only large changes, say so where it matters (e.g. a tumor suppressor with one hit, where a single-copy loss would make a second). For example, a panel that studied only MET's exons can rule out an exon 14 point mutation but not an intronic splice-site variant outside the studied regions.
 
 **Search log.** Every lookup is recorded in a companion file, `<MRN>.searches.md`, next to the synthesis: genome queries, and also label, CIViC, ClinVar, trial and literature lookups. The app doesn't show it. Each entry gives:
 
@@ -91,16 +99,17 @@ The list is refreshed before a batch of syntheses is written. A tumor-agnostic o
 
 | Gene | Required finding | Source | Checked |
 |---|---|---|---|
-| NTRK1, NTRK2, NTRK3 | Fusion | FDA labels: Vitrakvi (larotrectinib) 2026-05-22, Rozlytrek (entrectinib) 2025-12-04, Augtyro (repotrectinib) 2024-06-13 | 2026-11-06 |
-| BRAF | V600E | FDA labels: Tafinlar (dabrafenib) 2026-05-20 with Mekinist (trametinib) 2026-05-07 | 2026-11-06 |
-| RET | Fusion | FDA label: Retevmo (selpercatinib) 2026-07-14 | 2026-11-06 |
-| MLH1, MSH2, MSH6, PMS2 | Supports MSI-H/dMMR, which the labels require to be established by an FDA-authorized test | FDA labels: Keytruda (pembrolizumab, IV) 2026-07-10, Jemperli (dostarlimab) 2025-09-02 | 2026-11-06 |
-| ERBB2 | Amplification may point to HER2-positive disease, but the label requires HER2 IHC 3+ | FDA label: Enhertu (fam-trastuzumab deruxtecan) 2026-05-15 | 2026-11-06 |
-| FGFR1, FGFR2, FGFR3 | Activating mutation, fusion or rearrangement in tumor tissue | Recruiting trials open to any solid tumor after standard treatment: NCT06302621 (pemigatinib + afatinib), NCT06915753 (TYRA-430) | 2026-11-06 |
+| NTRK1, NTRK2, NTRK3 | Fusion | FDA labels: Vitrakvi (larotrectinib) 2026-05-22, Rozlytrek (entrectinib) 2026-10-08, Augtyro (repotrectinib) 2024-06-13 | 2026-11-16 |
+| BRAF | V600E | FDA labels: Tafinlar (dabrafenib) 2026-05-20 with Mekinist (trametinib) 2026-05-07 | 2026-11-16 |
+| RET | Fusion | FDA label: Retevmo (selpercatinib) 2026-09-11 | 2026-11-16 |
+| MLH1, MSH2, MSH6, PMS2 | Supports MSI-H/dMMR, which the labels require to be established by an FDA-authorized test | FDA labels: Keytruda (pembrolizumab, IV) 2026-10-16 and Keytruda Qlex (pembrolizumab and berahyaluronidase alfa, subcutaneous) 2026-10-16, Jemperli (dostarlimab) 2026-10-19 | 2026-11-16 |
+| ERBB2 | Amplification may point to HER2-positive disease, but the label requires HER2 IHC 3+ | FDA label: Enhertu (fam-trastuzumab deruxtecan) 2026-05-15 | 2026-11-16 |
 
-Labels retrieved from openFDA on 2026-11-06. One more tissue-agnostic indication can't be found by searching genes: tumor mutational burden-high (TMB-H, ≥10 mutations/Mb; Keytruda) needs a TMB measurement. If the record doesn't have one, it goes under Information gaps.
+Labels retrieved from openFDA on 2026-11-16. One more tissue-agnostic indication can't be found by searching genes: tumor mutational burden-high (TMB-H, ≥13 mutations/Mb; Keytruda) needs a TMB measurement. If the record doesn't have one, it goes under Information gaps.
 
-**Trials.** Recruiting tumor-agnostic trials are surveyed in [`tumor-agnostic-trials.md`](tumor-agnostic-trials.md) (2026-11-06: 34 genes with trials, e.g. KRAS G12 variants, MTAP loss, NRG1 fusions, PIK3CA H1047R, TP53 Y220C, CCNE1 amplification). All of them are in the OncoKB cancer gene list, so the driver sweep (§2.5) already searches them for every patient. The survey is used as a checklist instead: compare the patient's findings against it, and confirm each matching trial's required finding before listing it. A gene belongs in the table above only if it's outside the OncoKB list (so the sweep wouldn't search it) or has an FDA tissue-agnostic label.
+**TMB and MSI from the record.** When the record has a TMB value or an MSI result, judge TMB-H and MSI-H from it instead of listing them as gaps. The labels require these to be established by an FDA-authorized test. If the record doesn't say which test produced the value, list the option and add confirmation with an FDA-authorized test under its considerations.
+
+**Trials.** Recruiting tumor-agnostic trials are surveyed in [`tumor-agnostic-trials.md`](tumor-agnostic-trials.md) (2026-11-16: 34 genes with trials, e.g. KRAS G12 variants, MTAP loss, NRG1 fusions, PIK3CA H1047R, TP53 Y220C, CCNE1 amplification). All of them are in the OncoKB cancer gene list, so the driver sweep (§2.5) already searches them for every patient. The survey is used as a checklist instead: compare the patient's findings against it, and confirm each matching trial's required finding before listing it. A gene belongs in the table above only if it's outside the OncoKB list (so the sweep wouldn't search it) or has an FDA tissue-agnostic label.
 
 ### 2.4 Operations
 
@@ -118,9 +127,11 @@ Genomics server `https://fhir-gen-ops.herokuapp.com`; subject = the patient's MR
 | `subject-operations/phenotype-operations/$find-subject-tx-implications` | Therapeutic implications (CIViC, and the report's own) |
 | `subject-operations/phenotype-operations/$find-subject-dx-implications` | Diagnostic implications, including ClinVar pathogenicity |
 
+**Genes the server has no coordinates for.** If `get-feature-coordinates` returns nothing for a gene, look the gene up in HGNC ([genenames.org](https://www.genenames.org/), REST at rest.genenames.org). HGNC gives its previous symbols (e.g. NHERF1, previously SLC9A3R1), Ensembl gene ID and NCBI Gene ID. Take the gene's coordinates in the build needed from Ensembl (grch37.rest.ensembl.org for GRCh37), or from NCBI Gene for loci with no Ensembl gene (e.g. the T-cell receptor loci TRA, TRB, TRD and TRG). Record the source in the search log.
+
 **Use the operations for the patient's variants, and the knowledge bases directly for what the variants mean.** The reference implementation holds only a small snapshot of CIViC and ClinVar, and molecular consequences only for some variants. So it's fine, and often better, to:
 
-- query **CIViC** directly (civicdb.org API) for therapeutic implications
+- query **CIViC** directly (civicdb.org API) for therapeutic implications. The API returns at most 100 evidence items per page, so page through the results; a common variant (e.g. BRAF V600E) has more than 100, and reading only the first page can miss level A items
 - query **ClinVar** directly (NCBI E-utilities) for pathogenicity and somatic oncogenicity
 - compute **molecular consequences** directly (e.g. Ensembl VEP or SnpEff) for variants the server has none for
 
@@ -130,7 +141,7 @@ The operations remain the source for which variants the patient has, and for wha
 
 **Search by gene, not by chromosome.** Request time grows with the number of variants returned (about 0.3 seconds per variant, tested 2026-11-06), and the server's host ends any request at 30 seconds with HTTP 503 while the query keeps running. For an exome-sized patient (HG00406), a 1-Mb range took 12 seconds and a 10-Mb range timed out, so whole-chromosome queries aren't practical. The server-side consequence filter (`$find-subject-molecular-consequences` with `featureConsequences`) cut the 1-Mb query to 5 seconds. Real exome or genome volumes would need a bulk operation on the server.
 
-**Be gentle with the server.** It's a shared reference implementation. Send one request at a time, batch ranges (about 20 genes per request), pause between requests, and stop if it starts returning errors (e.g. HTTP 503).
+**Be gentle with the server.** It's a shared reference implementation. Send one request at a time, batch ranges (about 20 genes per request), pause between requests, and stop if it starts returning errors (e.g. HTTP 503). The variant searches handle about 20 genes per request, but `$find-study-metadata` with `ranges` doesn't: under load it returns HTTP 503 even for a few ranges. Send it one gene at a time (up to 3 when the server is quiet), and retry a failing gene a few times before recording its regions as not retrieved.
 
 ### 2.5 Finding cancer drivers
 
@@ -154,15 +165,21 @@ A cancer driver is an alteration that helps drive the tumor's growth, whether or
 | Deletion of the whole gene | Driver only if (a) copy number shows both copies lost, (b) the event is focal (under about 5 Mb), or (c) there's a second hit (e.g. a truncating variant) in the same gene. Otherwise report it as a possible single-copy loss, not a driver | Not a driver |
 | Deletion with one breakpoint in the gene | Driver (the gene is broken) | Check the other breakpoint: if it's in another gene, a possible fusion (candidate driver) |
 | Duplication inside the gene (both breakpoints in it) | Driver if it duplicates coding exons (it can disrupt the reading frame) | Not a driver unless a known activating duplication |
-| Duplication covering the whole gene | Not a driver | Amplification only if copy number shows it (e.g. ≥ 5 copies, or as the trial or label defines it); otherwise not a driver |
+| Duplication covering the whole gene | Not a driver | Amplification if the genetic report or the copy-number data calls it a gain (give the copy number); otherwise not a driver |
 | Inversion or translocation with a breakpoint in the gene | Driver (the gene is broken) | A possible fusion (candidate driver), especially if the other breakpoint is in a known fusion partner |
 | Inversion spanning the gene with no breakpoint in it | Not a driver (the gene is moved, intact) | Not a driver |
+
+**Copy number is positional.** A copy-number record is known by its coordinates and copy number, not by a gene: one record covers a chromosome segment, and every gene on that segment returns the same record. So a gene search can return a record that also covers its neighbours, and that's expected. Report a gain or loss for the genes it covers (from the report, or from the gene's position in the segment), with the copy number and whether the segment is focal or broad. Don't treat each gene it covers as a separate event.
+
+**Amplification thresholds.** Don't apply a copy-number threshold of your own. An amplification called in the patient's data matches CIViC or label evidence for that gene's amplification as the source names it. Give the copy number so the reader can judge. Apply a threshold only where a trial's or label's eligibility states one (e.g. a trial defining MET amplification as a copy number or ratio), and then say whether the patient meets it.
 
 The Genomics Explorer lists every structural variant that spans a gene, so genes merely spanned by a large event show rows there. When a reader would see such a gene in the Explorer, especially a gene they'd care about (e.g. one in the patient's germline panel or gene lists), say in Genomic findings that it's spanned, not broken, and why it isn't counted.
 
 Breakpoints just outside a gene (in its promoter or regulatory region) aren't counted. Note them only if the literature describes that mechanism for the gene. If the test doesn't detect a variant type (e.g. no translocations in `dnaChangeType`), those events are not tested and go under Information gaps.
 
 Other variants in cancer genes (for example a missense variant of unknown effect in a TSG) are not called drivers. Germline variants are not drivers in this sense; they stay in Genomic findings.
+
+**Exome-sized patients.** A whole-exome or genome test can return dozens of variants in cancer genes, most of unknown effect. Genomic findings lists the reported variants, the drivers, and any variant with therapeutic, diagnostic or trial relevance. The rest are recorded in the search log only, and the Genes searched line says how many were reviewed and not listed.
 
 *Known limitation:* there's no comprehensive free source for activating variants in oncogenes. ClinVar's somatic classifications and Cancer Hotspots cover only part of them, so some activating variants may be missed. Where variant allele frequencies are missing or a placeholder (e.g. the same value for every variant), the synthesis can't say whether a driver is clonal (present in all tumor cells) or subclonal.
 
@@ -177,7 +194,7 @@ The exception is **general biology**: standard explanations of what a gene or pa
 | Source | What it's used for | How it's cited |
 |---|---|---|
 | FDA prescribing information (openFDA) | Whether a therapy is labeled for this patient's disease, setting and alteration | Brand name (generic name), label date, and the date the label was retrieved |
-| CIViC | Therapeutic evidence for a variant, with its evidence level (A–E) and disease | Evidence item IDs (civicdb.org/evidence/&lt;id&gt;) |
+| CIViC | Therapeutic evidence for a variant, with its evidence level (A–E) and disease. Accepted and Submitted evidence items count alike; only Rejected items are excluded | Evidence item IDs (civicdb.org/evidence/&lt;id&gt;) |
 | CIViC co-occurring-variant profiles (via `CIViC_Cooccurrence_KB.csv`) | Evidence for a combination of variants | Molecular profile ID, evidence item ID and level, and the date the knowledge base was retrieved |
 | ClinVar | Whether a variant is pathogenic (germline) or oncogenic (somatic oncogenicity classifications) | "ClinVar records for &lt;variant&gt;" |
 | OncoKB Cancer Gene List | Which genes are cancer genes, and whether each is an oncogene or tumor suppressor (§2.5) | OncoKB Cancer Gene List, and the date downloaded |
@@ -206,13 +223,13 @@ The **search window** reaches back to the earliest of: the AI's training cutoff 
 
 ## 4. Steps
 
-1. **Gather the case.** Read the patient's bundle: any referral or visit reason, demographics, diagnosis and stage, biomarkers, treatment history and responses, progression, current status (ECOG, labs, comorbidities, allergies), and family history.
+1. **Gather the case.** Read the patient's bundle: any referral or visit reason, demographics, diagnosis and stage, biomarkers (including TMB, MSI, PD-L1 and MMR IHC), treatment history and responses, progression, imaging and pathology reports, current status (ECOG, labs, comorbidities, allergies), and family history. Use the reports' text; the synthesis doesn't interpret the images themselves.
 2. **Gather the genomic findings.** Take the reported variants and implications from the genetic reports. Check the patient's tests with `$find-study-metadata`, passing the ranges being searched. Search the genomics server for the minimum genes in §2.1, including the always-search list, and record each search in the search log (§2.2).
-3. **Reconcile them.** Check that the two agree, and note where they don't: a reported variant not found in the genomic data, a finding in the genomic data not on the report, or a report implication the knowledge bases don't share. Keep germline and somatic findings apart, and note when origin isn't reported.
+3. **Reconcile them.** Check that the two agree, and note where they don't: a reported variant not found in the genomic data, a finding in the genomic data not on the report, or a report implication the knowledge bases don't share. Keep germline and somatic findings apart, and note when origin isn't reported. If the patient has no germline testing (e.g. a tumor/normal test that reports only somatic findings), germline status goes under Information gaps.
 4. **Find cancer drivers.** Search the cancer genes (§2.5), apply the driver rule, and group the drivers by pathway. Drivers also go into the trial search (step 7).
 5. **Look up evidence.** For each finding, record its CIViC evidence (level, disease, therapy) and ClinVar significance. Check the co-occurrence knowledge base for combinations of the patient's variants. Search for recent evidence over the search window (§3, Recent evidence).
-6. **Look up treatment options.** For the patient's disease and treatment setting, check FDA labels for standard options, options matched to the genomic findings, and therapies that might seem to apply but don't (see §5, "Not indicated").
-7. **Search for trials.** Search ClinicalTrials.gov for recruiting trials matching the genomic findings first, then the disease setting. Check the main eligibility criteria against the record. If a trial's criteria name a genomic finding that hasn't been searched, search it now (§2.2). If the trial is open to any tumor type, also add its gene to the always-search list (§2.3).
+6. **Look up treatment options.** For the patient's disease and treatment setting, check FDA labels for standard options, options matched to the genomic findings, and therapies that might seem to apply but don't (see §5, "Not indicated"). Read each label's entire indications section: a drug can have several indications (e.g. first-line and after prior therapy), and stopping at the first one misses the others.
+7. **Search for trials.** Search ClinicalTrials.gov for recruiting trials matching the genomic findings first, then the disease setting. Check the main eligibility criteria against the record, **arm by arm**: a trial's parts, arms and cohorts often have different requirements (cancer type, nodal status, prior therapy, required finding), so one that excludes the patient doesn't rule out the others, and one that fits doesn't mean they all do. If a trial's criteria name a genomic finding that hasn't been searched, search it now (§2.2). If the trial is open to any tumor type, also add it to the tumor-agnostic trial survey (§2.3), and to the always-search list only if its gene meets that list's rule.
 8. **Repeat steps 3–7** for any new finding, until the evidence raises no new genomic question (§2.2).
 9. **Write** the synthesis using the template in §5 and the writing rules in §6.
 10. **Check** it against §7 before saving.
@@ -313,3 +330,13 @@ Each synthesis has the same sections, in this order.
 - This README's process changes.
 
 When revising, update the banner date and the retrieval dates of anything looked up again.
+
+## 9. Writing a batch
+
+When many syntheses are written together (e.g. all patients of a newly added study):
+
+1. **Refresh the tumor-agnostic list (§2.3) once**, before the first patient.
+2. **Write each patient from scratch.** An AI writes each patient in its own session, starting from this README and that patient's data, so nothing from one patient's case carries into another's.
+3. **Look up shared evidence once.** Many patients share findings (e.g. KRAS G12C or EGFR exon 19 deletions in lung cancer). A lookup of evidence that doesn't depend on the patient (a label, a CIViC variant's evidence items, a recent-evidence search for a variant in a tumor type) may be reused across the batch's patients with the same tumor type. Each patient's search log records the lookup with its original date. Patient-specific checks are never reused: the genome searches, eligibility of each trial against the record, and how evidence applies to this patient. Trial recruitment status is rechecked if the batch takes more than a few days.
+4. **Run the §7 checks on every synthesis**, not a sample.
+5. **Share the genomics server.** At most three patients are worked on at once, each still sending one request at a time (§2.4). If the server starts returning errors, drop to one patient at a time.
