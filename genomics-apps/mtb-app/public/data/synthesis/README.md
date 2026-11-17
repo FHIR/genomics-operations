@@ -70,11 +70,13 @@ Some questions can't be answered from variants: MSI, TMB, protein expression (IH
 
 A finding is **absent** only if its location is within a studied region, not within an uncallable region, and covered by a test that detects that variant type. Otherwise it's **not tested** (or not callable), and goes under Information gaps.
 
-A genetic report's region studied can be narrower than the test. For example, a whole-exome test whose report covers only a 228-gene panel. Use `$find-study-metadata` for what the test studied, and the report for what it reported.
+A genetic report's region studied can be narrower than the test. For example, a whole-exome test whose report covers only a 228-gene panel. Use `$find-study-metadata` for what the test studied, and the report for what it reported. A test's studied regions can also be narrower than its genes: a panel that studied only MET's exons can rule out an exon 14 point mutation but not an intronic splice-site variant outside the studied regions.
+
+**Tests that can't be tied to the record.** If a tumor test's specimen or date doesn't match a specimen or procedure in the clinical record (e.g. a test dated years before the diagnosis), its acquired findings can't be assumed to come from this tumor. Report them under Genomic findings as unconfirmed, and under Information gaps ask for the specimen to be confirmed. Don't base a treatment option on them alone.
 
 **Variant types the server doesn't hold.** If a report includes a variant type that the test's `dnaChangeType` on the server doesn't list (e.g. a fusion), the report is the only source for it. That's not a disagreement to reconcile. Use the reported finding as recorded, partner genes included, and note that it couldn't be checked against the genomic data.
 
-**Copy number recorded only for large changes.** Some tests record copy-number changes only for high-level gains and deep (two-copy) losses. Low-level gains and single-copy losses then aren't in the data and can't be ruled out. If the patient's copy-number records include only large changes, say so where it matters (e.g. a tumor suppressor with one hit, where a single-copy loss would make a second). For example, a panel that studied only MET's exons can rule out an exon 14 point mutation but not an intronic splice-site variant outside the studied regions.
+**Copy number recorded only for large changes.** Some tests record copy-number changes only for high-level gains and deep (two-copy) losses. Low-level gains and single-copy losses then aren't in the data and can't be ruled out. If the patient's copy-number records include only large changes, say so where it matters (e.g. a tumor suppressor with one hit, where a single-copy loss would make a second).
 
 **Search log.** Every lookup is recorded in a companion file, `<MRN>.searches.md`, next to the synthesis: genome queries, and also label, CIViC, ClinVar, trial and literature lookups. The app doesn't show it. Each entry gives:
 
@@ -131,7 +133,7 @@ Genomics server `https://fhir-gen-ops.herokuapp.com`; subject = the patient's MR
 
 **Use the operations for the patient's variants, and the knowledge bases directly for what the variants mean.** The reference implementation holds only a small snapshot of CIViC and ClinVar, and molecular consequences only for some variants. So it's fine, and often better, to:
 
-- query **CIViC** directly (civicdb.org API) for therapeutic implications. The API returns at most 100 evidence items per page, so page through the results; a common variant (e.g. BRAF V600E) has more than 100, and reading only the first page can miss level A items
+- query **CIViC** directly (civicdb.org API) for therapeutic implications. The API returns at most 100 evidence items per page, so page through the results; a common variant (e.g. BRAF V600E) has more than 100, and reading only the first page can miss level A items. Also search by gene: evidence recorded under a combined molecular profile (e.g. "BRAF V600E OR BRAF V600K") isn't found by searching the variant's name. Keep a combined profile's items when one of its variants is the patient's
 - query **ClinVar** directly (NCBI E-utilities) for pathogenicity and somatic oncogenicity
 - compute **molecular consequences** directly (e.g. Ensembl VEP or SnpEff) for variants the server has none for
 
