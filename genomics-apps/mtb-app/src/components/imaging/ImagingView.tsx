@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDown, ChevronUp, Maximize2, TriangleAlert } from 'lucide-react';
 import { ClinicalState } from '@/lib/useClinicalRecord';
+import { useBannerHeight } from '@/lib/useBannerHeight';
 import { formatDate } from '@/lib/clinicalSummary';
 import { resourceKey } from '@/lib/caseSummary';
 import { buildImageCatalog, idcViewerUrl, ImageEntry, reportTitle } from '@/lib/imaging';
@@ -41,23 +42,6 @@ function TypeChip({ entry }: { entry: ImageEntry }) {
 
 function studyLabel(entry: ImageEntry) {
   return entry.isSlide && entry.slideCount > 1 ? `${entry.description} · ${entry.slideCount} slides` : entry.description;
-}
-
-// Height of the sticky patient banner, kept current as the window resizes
-function useBannerHeight() {
-  const [height, setHeight] = useState(0);
-  useEffect(() => {
-    const banner = document.getElementById('patient-banner');
-    if (!banner) {
-      return;
-    }
-    const update = () => setHeight(banner.offsetHeight);
-    update();
-    const observer = new ResizeObserver(update);
-    observer.observe(banner);
-    return () => observer.disconnect();
-  }, []);
-  return height;
 }
 
 function StatusMessage({ subjectId, clinicalState, onRetry }: Omit<ImagingViewProps, 'focusRequest'>) {

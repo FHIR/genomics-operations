@@ -1,8 +1,9 @@
-import { isValidElement, useEffect, useRef, useState, type ReactNode } from 'react';
+import { isValidElement, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import ReactMarkdown, { Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Sparkles } from 'lucide-react';
 import { fetchSynthesis } from '@/services/synthesisService';
+import { useBannerHeight } from '@/lib/useBannerHeight';
 
 // The demo's syntheses are pre-generated (public/data/synthesis/); these steps stand in for the
 // work a live model would do, shown briefly before the stored result appears
@@ -38,7 +39,8 @@ function headingId(children: ReactNode): string {
 const MARKDOWN_COMPONENTS: Components = {
   h1: ({ children }) => <h1 className="mb-4 text-2xl font-bold tracking-tight text-slate-900">{children}</h1>,
   h2: ({ children }) => (
-    <h2 id={headingId(children)} className="mb-3 mt-8 scroll-mt-4 border-b border-slate-200 pb-1.5 text-lg font-semibold text-slate-900">{children}</h2>
+    // Scrolls to just below the patient banner and the pinned title and Contents
+    <h2 id={headingId(children)} className="mb-3 mt-8 scroll-mt-[var(--synthesis-pinned-offset,1rem)] border-b border-slate-200 pb-1.5 text-lg font-semibold text-slate-900">{children}</h2>
   ),
   h3: ({ children }) => <h3 className="mb-2 mt-5 text-base font-semibold text-slate-900">{children}</h3>,
   p: ({ children }) => <p className="my-2 leading-relaxed text-slate-700">{children}</p>,
@@ -78,6 +80,72 @@ const MARKDOWN_COMPONENTS: Components = {
   code: ({ children }) => <code className="rounded bg-slate-100 px-1 py-0.5 text-[0.9em]">{children}</code>,
 };
 
+// The pinned header: the title and Contents line, tighter than in the body
+const PINNED_COMPONENTS: Components = {
+  ...MARKDOWN_COMPONENTS,
+  h1: ({ children }) => <h1 className="mb-1 text-2xl font-bold tracking-tight text-slate-900">{children}</h1>,
+  p: ({ children }) => <p className="my-1 leading-relaxed text-slate-700">{children}</p>,
+};
+
+// Every synthesis opens with its title (# …) and a "**Contents:** …" line; these are pinned while the rest
+// scrolls. Without both, nothing is pinned.
+function splitPinned(markdown: string): { pinned: string; body: string } | null {
+  const lines = markdown.split('\n');
+  const titleIndex = lines.findIndex((line) => line.startsWith('# '));
+  const contentsIndex = lines.findIndex((line) => line.startsWith('**Contents:**'));
+  if (titleIndex < 0 || contentsIndex < 0) {
+    return null;
+  }
+  return {
+    pinned: `${lines[titleIndex]}\n\n${lines[contentsIndex]}`,
+    body: lines.filter((_, index) => index !== titleIndex && index !== contentsIndex).join('\n'),
+  };
+}
+
+function SynthesisDocument({ markdown, card }: { markdown: string; card: string }) {
+  const bannerHeight = useBannerHeight();
+  const pinnedRef = useRef<HTMLDivElement>(null);
+  const [pinnedHeight, setPinnedHeight] = useState(0);
+  const parts = splitPinned(markdown);
+  const hasPinned = parts !== null;
+
+  useEffect(() => {
+    const pinned = pinnedRef.current;
+    if (!pinned) {
+      return;
+    }
+    const update = () => setPinnedHeight(pinned.offsetHeight);
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(pinned);
+    return () => observer.disconnect();
+  }, [hasPinned]);
+
+  if (!parts) {
+    return (
+      <article className={`${card} mx-auto max-w-5xl text-sm sm:p-8`}>
+        <ReactMarkdown remarkPlugins={[remarkGfm]} components={MARKDOWN_COMPONENTS}>{markdown}</ReactMarkdown>
+      </article>
+    );
+  }
+
+  return (
+    <article
+      className={`${card} mx-auto max-w-5xl pt-0 text-sm sm:p-8 sm:pt-0`}
+      style={{ '--synthesis-pinned-offset': `${bannerHeight + pinnedHeight + 12}px` } as CSSProperties}
+    >
+      <div
+        ref={pinnedRef}
+        className="sticky z-20 -mx-6 rounded-t-2xl border-b border-slate-200 bg-white px-6 pb-2 pt-6 sm:-mx-8 sm:px-8 sm:pt-8"
+        style={{ top: bannerHeight }}
+      >
+        <ReactMarkdown remarkPlugins={[remarkGfm]} components={PINNED_COMPONENTS}>{parts.pinned}</ReactMarkdown>
+      </div>
+      <ReactMarkdown remarkPlugins={[remarkGfm]} components={MARKDOWN_COMPONENTS}>{parts.body}</ReactMarkdown>
+    </article>
+  );
+}
+
 export default function SynthesisView({ subjectId }: { subjectId: string }) {
   const [state, setState] = useState<SynthesisState>({ status: 'idle' });
   // Ignores a generation that finishes after the patient has changed
@@ -116,11 +184,7 @@ export default function SynthesisView({ subjectId }: { subjectId: string }) {
   }
 
   if (state.status === 'ready') {
-    return (
-      <article className={`${card} mx-auto max-w-5xl text-sm sm:p-8`}>
-        <ReactMarkdown remarkPlugins={[remarkGfm]} components={MARKDOWN_COMPONENTS}>{state.markdown}</ReactMarkdown>
-      </article>
-    );
+    return <SynthesisDocument markdown={state.markdown} card={card} />;
   }
 
   return (
