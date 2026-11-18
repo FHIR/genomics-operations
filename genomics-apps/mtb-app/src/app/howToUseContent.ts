@@ -38,7 +38,7 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
                 title: 'Patient Banner',
                 items: [
                     'The banner at the top of the page stays in view as you scroll. Choose a patient from its MRN dropdown, or pick Enter custom MRN at the bottom of the list.',
-                    'Below the banner, the Case Summary, Genomics Explorer, Imaging and AI Synthesis tabs switch views. The app starts with no patient selected: choose one from the MRN box in the banner. The first patient you choose opens on Case Summary if they have clinical data, otherwise on Genomics Explorer; after that your tab stays as you switch patients. Searches and results are kept while you look at the other tabs.',
+                    'Below the banner, the Case Summary, Genomics Explorer, Imaging and AI Synthesis tabs switch views. The app starts with no patient selected, unless its link names one (see Sharing a Link): choose one from the MRN box in the banner. The first patient you choose opens on Case Summary if they have clinical data, otherwise on Genomics Explorer; after that your tab stays as you switch patients. Searches and results are kept while you look at the other tabs.',
                     'Patients are grouped into With clinical data (patients the app found on the clinical FHIR server) and Genomic data only. Switching patients clears the previous patient\'s genomic results; the search terms stay so you can rerun them.',
                     'For a patient with clinical data, the banner shows name, age, sex and date of birth, plus the latest stage (with the year it was assigned), ECOG performance status and cancer disease status from the patient\'s record. Hover over an item for its date and details.',
                     'When the patient is enrolled in a research study, an outlined On study chip with a flask icon follows the disease status, showing the study\'s ClinicalTrials.gov number (NCT…). Hover over it for the study title and enrollment date; click it to open the study on ClinicalTrials.gov. A patient in more than one study shows On 2 studies, with each study listed on hover. Screening and past enrollments aren\'t shown.',
@@ -52,6 +52,21 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
                         linkUrl: 'https://vsac.nlm.nih.gov/',
                         textAfter: ' value set (exact code match), or is one of a few codes the app adds where the value set lacks them (the colorectal adenocarcinoma codes). Other diagnoses still appear in the Dx dropdown but set no presets or predictor tumor type.',
                     },
+                ],
+            },
+            {
+                title: 'Sharing a Link',
+                items: [
+                    'The address bar always names the current patient and tab, so you can copy it to share or bookmark what you are looking at. Opening the link goes straight to that patient and tab.',
+                    'The link has two parts: mrn (the patient) and tab (summary, genomic, imaging or synthesis). On the AI Synthesis tab it can also end with a section, e.g. #cancer-drivers, which opens the synthesis at that section.',
+                    {
+                        textBefore: 'For example, ',
+                        linkLabel: '?mrn=TCGA-DD-A1EH&tab=synthesis#treatment-options',
+                        linkUrl: 'https://mtb-app-elimu1.vercel.app/?mrn=TCGA-DD-A1EH&tab=synthesis#treatment-options',
+                        textAfter: ' opens TCGA-DD-A1EH\'s synthesis at its treatment options.',
+                    },
+                    'The browser\'s Back and Forward buttons move between the patients and tabs you have viewed.',
+                    'A link restores the patient and tab only. Genomics Explorer searches, filters, selections and oncogenicity results aren\'t part of the link.',
                 ],
             },
         ],
@@ -252,8 +267,9 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
                 title: 'Generating a Synthesis',
                 items: [
                     'Open the AI Synthesis tab and click Generate synthesis. After a short progress display, the synthesis appears: the reason for the visit and the questions for the tumor board, a case summary, genomic findings, the cancer drivers (a bottom line, a table of drivers and a short explanation), information gaps, ranked treatment options with recruiting clinical trials, emerging evidence, and references.',
-                    'The Contents line at the top links to each section; click a link to scroll to it.',
-                    'In this demo the syntheses are pre-generated for the four example patients (L2345, HCC1143, MRN1234 and TCGA-DD-A1EH) and labeled as such; other patients show that no synthesis is available. A future version could generate them live with an AI model.',
+                    'The synthesis title and the Contents line stay in view as you scroll. Click a Contents link to scroll to that section; the address bar then links to it (see Sharing a Link).',
+                    'In this demo the syntheses are pre-generated for some patients (the four original example patients and some of the generated TCGA patients) and labeled as such; other patients show that no synthesis is available. A future version could generate them live with an AI model.',
+                    'A link that opens the AI Synthesis tab shows the synthesis straight away, without the Generate synthesis step.',
                     'A generated synthesis stays on the tab while you look at other tabs, and is cleared when you choose a different patient.',
                     'The synthesis is a research demonstration based on synthetic patients and is not for clinical use.',
                 ],

@@ -29,6 +29,7 @@ The app is built around a typical MTB workflow: a patient's case, including tumo
   * **Genomics Explorer:** read-only search of the patient's complete genomic data set by gene symbol or genomic range, with presets, actionability filters, co-occurring variants, pathway diagrams and oncogenicity prediction. Reported variants are layered into the results.
   * **Imaging:** the patient's radiology and pathology slide studies, viewed in the NCI Imaging Data Commons viewer embedded in the tab.
   * **AI Synthesis:** a case synthesis for the tumor board (pre-generated for the demo patients).
+* **Links:** the URL names the patient and tab, e.g. [`?mrn=TCGA-DD-A1EH&tab=synthesis`](https://mtb-app-elimu1.vercel.app/?mrn=TCGA-DD-A1EH&tab=synthesis), so a view can be shared or bookmarked.
 
 The Case Summary shows what the lab chose to report, as of the report date; the Genomics Explorer shows the complete data set with current annotations. A variant in the Explorer that isn't on the report is expected, not an error.
 
@@ -46,10 +47,11 @@ The Case Summary shows what the lab chose to report, as of the report date; the 
 * **Advanced Filtering**: Sidebar actionability, evidence levels, medications, implications, and molecular consequences
 * **Real-time Results**: Incremental loading with search status indicators and cancellation support
 * **Comprehensive Data Display**: Therapeutic implications with evidence levels and medications, diagnostic implications with clinical significance, molecular consequences and variant impact, per-variant oncogenicity prediction for simple variants, and ClinVar integration with star ratings
-* **Ephemeral Oncogenicity Results**: Computed oncogenicity predictions remain visible only in the current page view and are cleared on a full page reload or in a new tab
+* **Ephemeral Oncogenicity Results**: Computed oncogenicity predictions remain visible only in the current page view and are cleared on a full page reload or in a new tab (a reload restores the patient and tab from the URL, but not the predictions)
 * **Co-occurring Variants**: Flags CIViC molecular profiles (AND combinations of variants) when the patient has every component variant, shown as a collapsible box at the top of the Tx Implications cell
 * **Pathway Diagrams**: Select variants and view them on the 10 TCGA oncogenic signaling pathways (Sanchez-Vega et al., *Cell* 2018), with oncogenes in pink, tumor suppressor genes in blue, the patient's variants outlined, and co-occurring variants connected
 * **AI Synthesis**: a tumor-board brief per patient (reason for visit, case summary, genomic findings, cancer drivers, information gaps, ranked treatment options with trials, emerging evidence, references), with a linked table of contents. Pre-generated for the demo; see `public/data/synthesis/README.md` for how they're written
+* **Shareable Links**: the URL carries the patient and tab (`?mrn=<MRN>&tab=summary|genomic|imaging|synthesis`) and is kept current as you navigate, so the address bar can be copied to share a view; Back and Forward move between views. On the AI Synthesis tab a `#section` (e.g. `#treatment-options`) opens the synthesis at that section. Genomics Explorer searches, filters and selections aren't in the link
 * **User Experience**: Responsive design optimized for clinical workflows, tooltips and help text for complex terminology, and an in-app How to Use guide
 
 ---
@@ -82,7 +84,7 @@ src/
 │   ├── globals.css         # Global styles
 │   ├── howToUseContent.ts  # In-app How to Use guide
 │   ├── layout.tsx          # Root layout
-│   └── page.tsx            # Main page: banner, tabs, Genomics Explorer
+│   └── page.tsx            # Main page: banner, tabs, Genomics Explorer, URL (patient and tab)
 ├── components/             # Reusable UI components
 │   ├── PatientBanner.tsx   # MRN, clinical status, Dx
 │   ├── caseSummary/        # Case Summary sections, incl. ReportedVariantsSection.tsx
@@ -152,7 +154,7 @@ scripts/
 
 ### AI Synthesis
 
-Open the AI Synthesis tab and click `Generate synthesis`. For the demo, syntheses are pre-generated Markdown files (`public/data/synthesis/<MRN>.md`) written by the process in `public/data/synthesis/README.md`; `synthesisService.ts` could be replaced by a live AI call without changing the tab. Section headings get ids from their text, so the synthesis's table of contents links scroll within the tab.
+Open the AI Synthesis tab and click `Generate synthesis`. For the demo, syntheses are pre-generated Markdown files (`public/data/synthesis/<MRN>.md`) written by the process in `public/data/synthesis/README.md`; `synthesisService.ts` could be replaced by a live AI call without changing the tab. Section headings get ids from their text, so the synthesis's table of contents links scroll within the tab. The title and table of contents stay pinned below the patient banner while the synthesis scrolls. A link with `tab=synthesis` (e.g. `?mrn=TCGA-DD-A1EH&tab=synthesis#cancer-drivers`) shows the synthesis without the Generate step, at the `#section` if given; clicking a table-of-contents link puts its section in the address bar.
 
 ### Co-occurring Variants
 

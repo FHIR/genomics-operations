@@ -10,7 +10,7 @@ import { PatientNotOnServerError } from '@/services/variantService';
 import SearchForm from '../components/SearchForm';
 import PatientBanner from '../components/PatientBanner';
 import CaseSummary from '../components/caseSummary/CaseSummary';
-import SynthesisView from '../components/SynthesisView';
+import SynthesisView, { SynthesisLinkRequest } from '../components/SynthesisView';
 import ImagingView, { ImagingFocusRequest } from '../components/imaging/ImagingView';
 import SearchStatus, { searchSummaryText } from '../components/SearchStatus';
 import ResultsTable, { HighlightRequest } from '../components/ResultsTable';
@@ -61,6 +61,36 @@ const CASE_VIEWS: { view: CaseView; label: string; icon: LucideIcon; iconClass: 
   { view: 'synthesis', label: 'AI Synthesis', icon: Sparkles, iconClass: 'text-violet-600', activeIconClass: 'text-violet-300' },
 ];
 
+// The URL names the patient and tab (?mrn=…&tab=…), so a view can be shared or bookmarked; on the AI Synthesis
+// tab a #section opens the synthesis at that section
+interface UrlView {
+  mrn: string;
+  tab: CaseView | null;
+  section: string;
+}
+
+function readUrlView(): UrlView {
+  const params = new URLSearchParams(window.location.search);
+  const tab = params.get('tab');
+  return {
+    mrn: params.get('mrn')?.trim() ?? '',
+    tab: CASE_VIEWS.some((entry) => entry.view === tab) ? (tab as CaseView) : null,
+    section: decodeURIComponent(window.location.hash.slice(1)),
+  };
+}
+
+function buildViewUrl(mrn: string, view: CaseView, hash: string) {
+  const params = new URLSearchParams(window.location.search);
+  params.delete('mrn');
+  params.delete('tab');
+  if (mrn) {
+    params.set('mrn', mrn);
+    params.set('tab', view);
+  }
+  const query = params.toString();
+  return `${window.location.pathname}${query ? `?${query}` : ''}${hash}`;
+}
+
 function hasActiveSidebarFilters(filters: FilterCriteria) {
   return filters.actionableFilter !== 'None' ||
     filters.selectedImpacts.length > 0 ||
@@ -105,6 +135,13 @@ export default function Home() {
   // if they have clinical data and moves to Genomics Explorer if they don't (decided once, unless the user picks a tab first); after that the
   // chosen tab stays put when the patient changes
   const [caseView, setCaseView] = useState<CaseView>('summary');
+  // Current patient and tab, for the URL handlers, which run outside a render
+  const subjectIdRef = useRef(subjectId);
+  const caseViewRef = useRef(caseView);
+  useEffect(() => {
+    subjectIdRef.current = subjectId;
+    caseViewRef.current = caseView;
+  }, [subjectId, caseView]);
   const initialViewChosenRef = useRef(false);
   const chooseCaseView = useCallback((view: CaseView) => {
     initialViewChosenRef.current = true;
@@ -427,6 +464,59 @@ export default function Home() {
     setSubjectId(value);
   }, []);
 
+  // A link (or Back/Forward) that opens the AI Synthesis tab shows the synthesis at once, at its #section if given
+  const [synthesisLinkRequest, setSynthesisLinkRequest] = useState<SynthesisLinkRequest | null>(null);
+  // The view a URL asked for, until the state has caught up; the URL isn't rewritten meanwhile
+  const pendingUrlViewRef = useRef<{ mrn: string; tab: CaseView } | null>(null);
+  const urlSyncReadyRef = useRef(false);
+
+  const applyUrlView = useCallback((url: UrlView) => {
+    // Without an MRN (the start page) the tab is left as it is
+    const tab = url.mrn ? (url.tab ?? 'summary') : caseViewRef.current;
+    const changes = url.mrn !== subjectIdRef.current || tab !== caseViewRef.current;
+    pendingUrlViewRef.current = changes ? { mrn: url.mrn, tab } : null;
+    if (url.mrn !== subjectIdRef.current) {
+      handleSubjectIdChange(url.mrn);
+    }
+    if (url.mrn) {
+      chooseCaseView(tab);
+    }
+    if (url.mrn && tab === 'synthesis') {
+      setSynthesisLinkRequest((previous) => ({ mrn: url.mrn, section: url.section, nonce: (previous?.nonce ?? 0) + 1 }));
+    }
+  }, [handleSubjectIdChange, chooseCaseView]);
+
+  // On load, open the view the URL names; Back and Forward do the same
+  useEffect(() => {
+    applyUrlView(readUrlView());
+    urlSyncReadyRef.current = true;
+    const onPopState = () => applyUrlView(readUrlView());
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, [applyUrlView]);
+
+  // Keep the URL in step with the chosen patient and tab, one history entry per change
+  useEffect(() => {
+    if (!urlSyncReadyRef.current) {
+      return;
+    }
+    const pending = pendingUrlViewRef.current;
+    if (pending) {
+      if (pending.mrn !== subjectId || pending.tab !== caseView) {
+        return;
+      }
+      pendingUrlViewRef.current = null;
+      return;
+    }
+    const current = readUrlView();
+    // A section belongs to this patient's synthesis; it is dropped when the patient or tab changes
+    const hash = caseView === 'synthesis' && current.mrn === subjectId ? window.location.hash : '';
+    const url = buildViewUrl(subjectId, caseView, hash);
+    if (url !== `${window.location.pathname}${window.location.search}${window.location.hash}`) {
+      window.history.pushState(null, '', url);
+    }
+  }, [subjectId, caseView]);
+
   const handlePresetSelect = useCallback((selection: PresetSelection) => {
     setSelectedPreset(selection);
     setPresetRequestId((currentRequestId) => currentRequestId + 1);
@@ -738,7 +828,7 @@ export default function Home() {
 
         {/* Kept mounted while hidden, so a generated synthesis is still there when you return to the tab */}
         <div className={caseView === 'synthesis' ? 'mb-8 rounded-3xl bg-slate-100 p-3 ring-1 ring-inset ring-slate-200 sm:p-5' : 'hidden'}>
-          <SynthesisView subjectId={subjectId} />
+          <SynthesisView subjectId={subjectId} linkRequest={synthesisLinkRequest} />
         </div>
 
         <RegionLoader

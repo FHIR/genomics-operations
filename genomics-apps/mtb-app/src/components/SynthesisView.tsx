@@ -56,6 +56,8 @@ const MARKDOWN_COMPONENTS: Components = {
         onClick={(event) => {
           event.preventDefault();
           document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // The address bar then links to this section
+          window.history.replaceState(window.history.state, '', href);
         }}
         className="font-medium text-blue-600 hover:underline"
       >
@@ -146,15 +148,48 @@ function SynthesisDocument({ markdown, card }: { markdown: string; card: string 
   );
 }
 
-export default function SynthesisView({ subjectId }: { subjectId: string }) {
+// A link to the AI Synthesis tab: the synthesis is shown at once (no progress steps), at the section if given
+export interface SynthesisLinkRequest {
+  mrn: string;
+  section: string;
+  nonce: number;
+}
+
+export default function SynthesisView({ subjectId, linkRequest }: { subjectId: string; linkRequest?: SynthesisLinkRequest | null }) {
   const [state, setState] = useState<SynthesisState>({ status: 'idle' });
   // Ignores a generation that finishes after the patient has changed
   const runRef = useRef(0);
+  const handledLinkRef = useRef(0);
+  const pendingSectionRef = useRef('');
 
   useEffect(() => {
     runRef.current += 1;
     setState({ status: 'idle' });
   }, [subjectId]);
+
+  useEffect(() => {
+    if (!linkRequest || linkRequest.nonce === handledLinkRef.current || linkRequest.mrn !== subjectId.trim()) {
+      return;
+    }
+    handledLinkRef.current = linkRequest.nonce;
+    pendingSectionRef.current = linkRequest.section;
+    const run = ++runRef.current;
+    fetchSynthesis(subjectId.trim()).then(
+      (markdown) => run === runRef.current && setState(markdown === null ? { status: 'unavailable' } : { status: 'ready', markdown }),
+      (error) => run === runRef.current && setState({ status: 'error', message: error instanceof Error ? error.message : String(error) }),
+    );
+  }, [linkRequest, subjectId]);
+
+  // Once a linked synthesis is shown, scroll to its section
+  useEffect(() => {
+    const section = pendingSectionRef.current;
+    if (state.status !== 'ready' || !section) {
+      return;
+    }
+    pendingSectionRef.current = '';
+    // Two frames: the pinned header is measured first, which sets the sections' scroll offset
+    window.requestAnimationFrame(() => window.requestAnimationFrame(() => document.getElementById(section)?.scrollIntoView({ block: 'start' })));
+  }, [state]);
 
   const generate = async () => {
     const run = ++runRef.current;
