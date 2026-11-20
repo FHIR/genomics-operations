@@ -132,3 +132,14 @@ Built by `build_hcc1143.py` (the "Tumor profiling" block before the molecular re
 **Validation:** 0 errors against `hl7.fhir.us.mcode#4.0.0` (2026-11-05). New warnings are benign: HGNC, NCBI nuccore/variation and Sequence Ontology code systems unknown to the validator, and the implications' CIViC text in place of a coded value.
 
 **Reloaded to hapi.fhir.org 2026-11-05**: the five new Observations were created, the report updated, and all come back through `Patient/$everything`.
+
+## Tumor board referral (2026-11-20)
+
+The case's reason for presentation, so the MTB app can show it at the top of the Case Summary. Same shape as the referral the synthetic-data-generator writes for its patients; added by `build_hcc1143.py`.
+
+- **ServiceRequest** `mtb-hcc1143-tumor-board`: SNOMED 384682003 "Multidisciplinary care conference", status active, intent order; requested by Dr. Olivia Oncologist on 2026-11-24 for the tumor board on 2026-12-01 (the same board date as the generated patients); reason: the primary cancer.
+- **Note:** "54-year-old woman with metastatic triple-negative breast cancer (initially stage IIA; PD-L1 CPS 12), with lung and mediastinal nodal recurrence about 21 months after surgery and adjuvant chemotherapy (doxorubicin/cyclophosphamide, paclitaxel). Presented for first-line treatment recommendation in light of tumor genomic results."
+
+**Validation** against `hl7.fhir.us.mcode#4.0.0` (2026-11-20): 0 errors; the referral itself has only the usual benign notes (no narrative, `mtb-demo` tag system unknown).
+
+**Loaded to hapi.fhir.org 2026-11-20**: the ServiceRequest alone was created (nothing else changed), and it comes back through `Patient/$everything`.

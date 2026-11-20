@@ -117,3 +117,14 @@ Built by `build_l2345.py` (the genomic helpers after `report()`, the 2023 report
 **Validation** against `hl7.fhir.us.mcode#4.0.0` (2026-11-05): 6 errors, all from tx.fhir.org not recognizing the two frameshift p.HGVS values (EGFR, STK11): unknown code, HGVS value set, and the report's link to each variant. The same validator limitation as TCGA-DD-A1EH.
 
 **Reloaded to hapi.fhir.org 2026-11-05**: the 22 new resources were created, the 2023 report updated, and all come back through `Patient/$everything`.
+
+## Tumor board referral (2026-11-20)
+
+The case's reason for presentation, so the MTB app can show it at the top of the Case Summary. Same shape as the referral the synthetic-data-generator writes for its patients; added by `build_l2345.py`.
+
+- **ServiceRequest** `mtb-l2345-tumor-board`: SNOMED 384682003 "Multidisciplinary care conference", status active, intent order; requested by Dr. Olivia Oncologist on 2026-11-24 for the tumor board on 2026-12-01 (the same board date as the generated patients); reason: the primary cancer.
+- **Note:** "69-year-old man with metastatic lung adenocarcinoma (initially stage IVB; EGFR L858R), now progressing after 1 line of therapy (osimertinib/carboplatin/pemetrexed, then pemetrexed maintenance), with new liver metastases. Presented for next-line treatment recommendation in light of repeat tumor genomic results."
+
+**Validation** against `hl7.fhir.us.mcode#4.0.0` (2026-11-20): 6 errors, the same frameshift p.HGVS ones as before (EGFR, STK11); the referral itself has only the usual benign notes (no narrative, `mtb-demo` tag system unknown).
+
+**Loaded to hapi.fhir.org 2026-11-20**: the ServiceRequest alone was created (nothing else changed), and it comes back through `Patient/$everything`.

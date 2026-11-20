@@ -5317,6 +5317,58 @@
         "method": "PUT",
         "url": "DiagnosticReport/mtb-tcga-dd-a1eh-mr-abdomen-2026-07-14"
       }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/ServiceRequest/mtb-tcga-dd-a1eh-tumor-board",
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "mtb-tcga-dd-a1eh-tumor-board",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "active",
+        "intent": "order",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "384682003",
+              "display": "Multidisciplinary care conference"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-tcga-dd-a1eh",
+          "display": "Higado Sobreviviente"
+        },
+        "occurrenceDateTime": "2026-12-01",
+        "authoredOn": "2026-11-24",
+        "requester": {
+          "reference": "Practitioner/mtb-tcga-dd-a1eh-oncologist",
+          "display": "Dr. Owen Oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-tcga-dd-a1eh-primary-cancer",
+            "display": "Hepatocellular carcinoma"
+          }
+        ],
+        "note": [
+          {
+            "text": "24-year-old man with recurrent hepatocellular carcinoma (initially stage IIIA), with liver and lung recurrence after resection, progression on sorafenib, and now on a clinical trial (tazemetostat). Presented for review of treatment options in light of tumor genomic results."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ServiceRequest/mtb-tcga-dd-a1eh-tumor-board"
+      }
     }
   ]
 }

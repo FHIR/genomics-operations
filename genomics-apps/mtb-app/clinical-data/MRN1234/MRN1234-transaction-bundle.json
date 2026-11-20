@@ -4719,6 +4719,58 @@
         "method": "PUT",
         "url": "Practitioner/mtb-mrn1234-practitioner-peter-pathologist"
       }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/ServiceRequest/mtb-mrn1234-tumor-board",
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "mtb-mrn1234-tumor-board",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "active",
+        "intent": "order",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "384682003",
+              "display": "Multidisciplinary care conference"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-mrn1234",
+          "display": "Jenny M"
+        },
+        "occurrenceDateTime": "2026-12-01",
+        "authoredOn": "2026-11-24",
+        "requester": {
+          "reference": "Practitioner/mtb-mrn1234-practitioner-owen-oncologist",
+          "display": "Dr. Owen Oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-mrn1234-primary-cancer",
+            "display": "Infiltrating duct carcinoma of left breast"
+          }
+        ],
+        "note": [
+          {
+            "text": "53-year-old woman with stage IIB ER-positive, HER2-negative breast cancer (germline PALB2 pathogenic variant), currently on adjuvant anastrozole after chemotherapy (doxorubicin/cyclophosphamide, paclitaxel) and radiotherapy. Presented for review of adjuvant treatment in light of genomic results."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ServiceRequest/mtb-mrn1234-tumor-board"
+      }
     }
   ]
 }

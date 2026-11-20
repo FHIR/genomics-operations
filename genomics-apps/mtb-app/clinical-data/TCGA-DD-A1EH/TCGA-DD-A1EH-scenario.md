@@ -141,3 +141,14 @@ This patient is a real TCGA liver cancer case, and the NCI Imaging Data Commons 
 - Fixed the same day: the primary cancer's code, SNOMED CT 109841003, is active, but in the 2026-07-01 release its fully specified name changed to "Hepatocellular carcinoma (disorder)". The old display, "Liver cell carcinoma (disorder)", is now an inactive description, which caused 11 errors (the display itself, plus 10 profile-match errors in resources referencing the primary cancer). Only the display changed. The app's Dx now reads "Hepatocellular carcinoma"; the tumor-type mapping goes by code and is unchanged.
 
 **Reloaded to hapi.fhir.org 2026-11-16**: 14 resources created, 43 updated (the shared IDC Endpoint already existed). `Patient/$everything` returns the 6 ImagingStudies, 7 DiagnosticReports and the Endpoint, and the MTB app's Imaging tab shows them. Reloaded again after the display fix (57 updated).
+
+## Tumor board referral (2026-11-20)
+
+The case's reason for presentation, so the MTB app can show it at the top of the Case Summary. Same shape as the referral the synthetic-data-generator writes for its patients; added by a one-off edit of the bundle.
+
+- **ServiceRequest** `mtb-tcga-dd-a1eh-tumor-board`: SNOMED 384682003 "Multidisciplinary care conference", status active, intent order; requested by Dr. Owen Oncologist on 2026-11-24 for the tumor board on 2026-12-01 (the same board date as the generated patients); reason: the primary cancer.
+- **Note:** "24-year-old man with recurrent hepatocellular carcinoma (initially stage IIIA), with liver and lung recurrence after resection, progression on sorafenib, and now on a clinical trial (tazemetostat). Presented for review of treatment options in light of tumor genomic results."
+
+**Validation** against `hl7.fhir.us.mcode#4.0.0` (2026-11-20): 3 errors, the same frameshift p.HGVS ones as before (ARID1A); the referral itself has only the usual benign notes (no narrative, `mtb-demo` tag system unknown).
+
+**Loaded to hapi.fhir.org 2026-11-20**: the ServiceRequest alone was created (nothing else changed), and it comes back through `Patient/$everything`.

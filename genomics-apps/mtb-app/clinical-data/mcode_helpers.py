@@ -112,6 +112,18 @@ def shift_dates(node, shift):
             shift_dates(v, shift)
 
 
+def tumor_board_referral(rid, subject, requester, reason, authored_on, board_date, note):
+    """The referral to the molecular tumor board, in the synthetic-data-generator's shape: a ServiceRequest for a
+    multidisciplinary care conference, its note a short case presentation ending with the question for the board.
+    The MTB app shows it at the top of the Case Summary."""
+    return add({
+        'resourceType': 'ServiceRequest', 'id': rid, 'status': 'active', 'intent': 'order',
+        'code': cc(SCT, '384682003', 'Multidisciplinary care conference'), 'subject': subject,
+        'occurrenceDateTime': board_date, 'authoredOn': authored_on, 'requester': requester,
+        'reasonReference': [reason], 'note': [{'text': note}],
+    })
+
+
 def write_bundle(out, bundle_id):
     bundle = {'resourceType': 'Bundle', 'id': bundle_id, 'meta': {'tag': [TAG]},
               'type': 'transaction', 'entry': entries}

@@ -6,6 +6,7 @@ import {
   FlaskConical,
   HeartPulse,
   LucideIcon,
+  MessageSquare,
   Ribbon,
   ScanLine,
   Stethoscope,
@@ -41,6 +42,7 @@ export interface CaseSection {
 }
 
 export const CASE_SECTIONS = {
+  referral: { title: 'Tumor board referral', short: 'Referral', icon: MessageSquare, accent: 'sky' },
   diagnosis: { title: 'Cancer diagnosis & staging', short: 'Diagnosis', icon: Ribbon, accent: 'violet' },
   variants: { title: 'Reported variants', short: 'Variants', icon: Dna, accent: 'emerald' },
   timeline: { title: 'Treatment timeline', short: 'Timeline', icon: CalendarRange, accent: 'blue' },

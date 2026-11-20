@@ -121,3 +121,14 @@ The text-only genetic report becomes a structured mCODE genomics report, from th
 **Validation:** 0 errors against `hl7.fhir.us.mcode#4.0.0` (2026-11-05). New warnings are benign: no narrative; HGNC, ClinVar and Disease Ontology code systems unknown to the validator; and the implication's value is text, not a code from the Genetic Therapeutic Implications value set.
 
 **Reloaded to hapi.fhir.org 2026-11-05**: the three new Observations were created, the report updated, and all four come back through `Patient/$everything`.
+
+## Tumor board referral (2026-11-20)
+
+The case's reason for presentation, so the MTB app can show it at the top of the Case Summary. Same shape as the referral the synthetic-data-generator writes for its patients; added by a one-off edit of the bundle.
+
+- **ServiceRequest** `mtb-mrn1234-tumor-board`: SNOMED 384682003 "Multidisciplinary care conference", status active, intent order; requested by Dr. Owen Oncologist on 2026-11-24 for the tumor board on 2026-12-01 (the same board date as the generated patients); reason: the primary cancer.
+- **Note:** "53-year-old woman with stage IIB ER-positive, HER2-negative breast cancer (germline PALB2 pathogenic variant), currently on adjuvant anastrozole after chemotherapy (doxorubicin/cyclophosphamide, paclitaxel) and radiotherapy. Presented for review of adjuvant treatment in light of genomic results."
+
+**Validation** against `hl7.fhir.us.mcode#4.0.0` (2026-11-20): 0 errors; the referral itself has only the usual benign notes (no narrative, `mtb-demo` tag system unknown).
+
+**Loaded to hapi.fhir.org 2026-11-20**: the ServiceRequest alone was created (nothing else changed), and it comes back through `Patient/$everything`.

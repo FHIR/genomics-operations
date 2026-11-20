@@ -56,7 +56,7 @@ Each genetic report is a structured report, not text only:
 
 These made the syntheses harder or vaguer when missing:
 
-- **A referral or visit reason** for the tumor board (e.g. a ServiceRequest with `reasonCode` or a note, or an Encounter `reasonCode`), so the reason for presenting the case is in the record, not inferred.
+- **A tumor board referral**, so the reason for presenting the case is in the record, not inferred: a ServiceRequest with `code` SNOMED 384682003 "Multidisciplinary care conference", `requester` the oncologist, `authoredOn`, `occurrenceDateTime` the board date, `reasonReference` the primary cancer, and a `note` with a short case presentation ending in the question for the board (`tumor_board_referral()` in `mcode_helpers.py`; the same shape the synthetic-data-generator writes). The app shows it at the top of the Case Summary.
 - **Values that decide treatment:** menopausal status (HR-positive breast cancer), Ki-67, PD-L1 on the most recent biopsy, current labs (liver, kidney, counts), ECOG, allergies with reactions, and enough treatment detail (cycles, dates, end dates).
 - **Consistent staging:** the T category must fit the recorded size (MRN1234 records pT3 for a 2.5 cm tumor).
 - **Germline testing** recorded whenever a variant could be inherited (L2345's BRCA2 Q66\* is a known germline pathogenic variant, reported as somatic, with no germline test).

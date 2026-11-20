@@ -7006,6 +7006,58 @@
         "method": "PUT",
         "url": "Observation/mtb-hcc1143-lab-777-3-2026-09-15"
       }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/ServiceRequest/mtb-hcc1143-tumor-board",
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "mtb-hcc1143-tumor-board",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "active",
+        "intent": "order",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "384682003",
+              "display": "Multidisciplinary care conference"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-hcc1143",
+          "display": "Betty Breast"
+        },
+        "occurrenceDateTime": "2026-12-01",
+        "authoredOn": "2026-11-24",
+        "requester": {
+          "reference": "Practitioner/mtb-hcc1143-oncologist",
+          "display": "Dr. Olivia Oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-hcc1143-primary-cancer",
+            "display": "Infiltrating duct carcinoma of right breast"
+          }
+        ],
+        "note": [
+          {
+            "text": "54-year-old woman with metastatic triple-negative breast cancer (initially stage IIA; PD-L1 CPS 12), with lung and mediastinal nodal recurrence about 21 months after surgery and adjuvant chemotherapy (doxorubicin/cyclophosphamide, paclitaxel). Presented for first-line treatment recommendation in light of tumor genomic results."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ServiceRequest/mtb-hcc1143-tumor-board"
+      }
     }
   ]
 }

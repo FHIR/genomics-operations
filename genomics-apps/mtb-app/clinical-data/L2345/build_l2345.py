@@ -11,7 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))  # shared mcode_
 
 from mcode_helpers import (  # noqa: E402
     ICD10, LEFT, LOINC, MCODE, RIGHT, RXN, SCT, USCORE, add, cc, condition_base, ext,
-    laterality, obs_cat, qty, specimen_type, write_bundle,
+    laterality, obs_cat, qty, specimen_type, tumor_board_referral, write_bundle,
 )
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else Path(__file__).with_name('L2345-transaction-bundle.json')
@@ -719,5 +719,13 @@ for code, display, value, unit, low, high, interp in [
     if interp:
         r['interpretation'] = [interp]
     add(r, [USCORE + 'us-core-observation-lab'])
+
+# ---------------------------------------------------------------- Tumor board referral (2026-11-24)
+
+tumor_board_referral(
+    'mtb-l2345-tumor-board', PAT, ONC, PRIMARY, '2026-11-24', '2026-12-01',
+    '69-year-old man with metastatic lung adenocarcinoma (initially stage IVB; EGFR L858R), now progressing after '
+    '1 line of therapy (osimertinib/carboplatin/pemetrexed, then pemetrexed maintenance), with new liver metastases. '
+    'Presented for next-line treatment recommendation in light of repeat tumor genomic results.')
 
 write_bundle(OUT, 'mtb-l2345-transaction')

@@ -84,7 +84,8 @@ export default function JumpBar() {
     <nav
       ref={barRef}
       aria-label="Case Summary sections"
-      className="sticky z-20 flex flex-wrap gap-1.5 rounded-2xl bg-white/95 p-2 shadow-sm ring-1 ring-inset ring-slate-200 backdrop-blur"
+      // One line: on a narrow window the bar scrolls sideways rather than wrapping
+      className="sticky z-20 flex flex-nowrap gap-1 overflow-x-auto rounded-2xl bg-white/95 p-2 shadow-sm ring-1 ring-inset ring-slate-200 backdrop-blur"
       style={{ top: bannerHeight }}
     >
       {CASE_SECTION_ORDER.map((key) => {
@@ -96,7 +97,7 @@ export default function JumpBar() {
             type="button"
             onClick={() => jumpTo(key)}
             aria-current={isActive ? 'location' : undefined}
-            className={`inline-flex items-center gap-2 rounded-xl px-2.5 py-1.5 text-sm transition-colors ${isActive ? 'bg-slate-100 font-semibold text-slate-900 ring-1 ring-inset ring-slate-300' : 'font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900'}`}
+            className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xl px-2 py-1.5 text-sm transition-colors ${isActive ? 'bg-slate-100 font-semibold text-slate-900 ring-1 ring-inset ring-slate-300' : 'font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900'}`}
           >
             <span className={`flex h-6 w-6 items-center justify-center rounded-md ${ACCENT_CLASSES[accent]}`} aria-hidden="true">
               <Icon size={14} strokeWidth={2.25} />

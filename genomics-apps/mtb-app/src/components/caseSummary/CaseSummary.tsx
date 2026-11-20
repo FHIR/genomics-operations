@@ -18,6 +18,7 @@ import {
 import { buildTreatmentTimeline } from '@/lib/treatmentTimeline';
 import { buildImageCatalog, imagesByReport, reportImagesLabel } from '@/lib/imaging';
 import JumpBar from './JumpBar';
+import ReferralSection from './ReferralSection';
 import LabsSection from './LabsSection';
 import TreatmentTimeline from './TreatmentTimeline';
 import ReportsSection from './ReportsSection';
@@ -367,6 +368,7 @@ export default function CaseSummary({ subjectId, clinicalState, onRetry, onGoToG
   return (
     <div className="flex flex-col gap-5">
       <JumpBar />
+      <ReferralSection referral={data.referral} />
       {/* Diagnosis takes two thirds of the row on wide screens and Reported variants the rest; the variants card
           is positioned over its cell so the diagnosis card sets the row's height, and its body scrolls */}
       <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">

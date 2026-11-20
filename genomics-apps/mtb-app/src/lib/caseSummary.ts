@@ -89,7 +89,18 @@ export interface ComorbidityNote {
   labels: string[];
 }
 
+// Why the patient is before the tumor board: the most recent referral to a multidisciplinary care conference
+export interface TumorBoardReferral {
+  requester?: string;
+  authoredOn?: string;
+  boardDate?: string;
+  // The referral's notes as written, one per paragraph
+  notes: string[];
+}
+
 export interface CaseSummaryData {
+  // Null when the record has no tumor board referral
+  referral: TumorBoardReferral | null;
   primaryCancers: PrimaryCancer[];
   // Stage groups and TNM categories not tied to a recognized primary cancer
   otherStaging: StageGroup[];
@@ -123,6 +134,47 @@ export function resourceKey(resource: FhirResource) {
 export function resolveReference(reference: Reference | undefined, index: Map<string, FhirResource>) {
   const parts = reference?.reference?.split('/') ?? [];
   return parts.length >= 2 ? index.get(parts.slice(-2).join('/')) : undefined;
+}
+
+const MULTIDISCIPLINARY_CARE_CONFERENCE = '384682003';
+
+interface HumanName {
+  text?: string;
+  prefix?: string[];
+  given?: string[];
+  family?: string;
+}
+
+function practitionerName(reference: Reference | undefined, index: Map<string, FhirResource>) {
+  if (reference?.display) {
+    return reference.display;
+  }
+  const name = (resolveReference(reference, index)?.name as HumanName[] | undefined)?.[0];
+  return name?.text ?? ([...(name?.prefix ?? []), ...(name?.given ?? []), name?.family].filter(Boolean).join(' ') || undefined);
+}
+
+/**
+ * The most recent referral to a multidisciplinary care conference (SNOMED 384682003), by when it was written,
+ * then by the board date. Other ServiceRequests, such as test orders, and revoked referrals are left out.
+ */
+function tumorBoardReferral(resources: FhirResource[], index: Map<string, FhirResource>): TumorBoardReferral | null {
+  const referral = resources
+    .filter((resource) => resource.resourceType === 'ServiceRequest'
+      && resource.status !== 'revoked'
+      && hasCode(resource.code as CodeableConcept | undefined, [`${SNOMED}|${MULTIDISCIPLINARY_CARE_CONFERENCE}`]))
+    .sort((left, right) => String(right.authoredOn ?? '').localeCompare(String(left.authoredOn ?? ''))
+      || String(right.occurrenceDateTime ?? '').localeCompare(String(left.occurrenceDateTime ?? '')))[0];
+  if (!referral) {
+    return null;
+  }
+  return {
+    requester: practitionerName(referral.requester as Reference | undefined, index),
+    authoredOn: formatDate(referral.authoredOn as string | undefined),
+    boardDate: formatDate(referral.occurrenceDateTime as string | undefined),
+    notes: ((referral.note as { text?: string }[] | undefined) ?? [])
+      .map((note) => note.text?.trim())
+      .filter((text): text is string => Boolean(text)),
+  };
 }
 
 function hasCategory(observation: Observation, ...codes: string[]) {
@@ -483,6 +535,7 @@ export function classifyClinicalRecord(record: ClinicalRecord, crosswalk: Crossw
   const familyHistory = ofType<FamilyMemberHistory>('FamilyMemberHistory');
 
   return {
+    referral: tumorBoardReferral(usable, index),
     primaryCancers,
     otherStaging,
     looseTnmCategories,

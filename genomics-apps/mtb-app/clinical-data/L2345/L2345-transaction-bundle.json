@@ -10445,6 +10445,58 @@
         "method": "PUT",
         "url": "Observation/mtb-l2345-lab-777-3-2026-10-08"
       }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/ServiceRequest/mtb-l2345-tumor-board",
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "mtb-l2345-tumor-board",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://elimu.io/fhir/tags",
+              "code": "mtb-demo",
+              "display": "MTB app synthetic demo data"
+            }
+          ]
+        },
+        "status": "active",
+        "intent": "order",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "384682003",
+              "display": "Multidisciplinary care conference"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/mtb-l2345",
+          "display": "Larry Lung"
+        },
+        "occurrenceDateTime": "2026-12-01",
+        "authoredOn": "2026-11-24",
+        "requester": {
+          "reference": "Practitioner/mtb-l2345-oncologist",
+          "display": "Dr. Olivia Oncologist"
+        },
+        "reasonReference": [
+          {
+            "reference": "Condition/mtb-l2345-primary-cancer",
+            "display": "Adenocarcinoma of right lower lobe of lung"
+          }
+        ],
+        "note": [
+          {
+            "text": "69-year-old man with metastatic lung adenocarcinoma (initially stage IVB; EGFR L858R), now progressing after 1 line of therapy (osimertinib/carboplatin/pemetrexed, then pemetrexed maintenance), with new liver metastases. Presented for next-line treatment recommendation in light of repeat tumor genomic results."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ServiceRequest/mtb-l2345-tumor-board"
+      }
     }
   ]
 }
