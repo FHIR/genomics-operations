@@ -190,7 +190,11 @@ def vcf2json(vcf_filename=None, ref_build=None, patient_id=None,
             if hasattr(record.samples[sample_position].data, "PS") and record.samples[sample_position]["PS"] is not None:
                 output_json["PS"] = record.samples[sample_position]["PS"]
             if hasattr(record.samples[sample_position].data, "CN") and record.samples[sample_position]["CN"] is not None:
-                output_json["CN"] = record.samples[sample_position]["CN"]
+                cn = record.samples[sample_position]["CN"]
+                # Some VCFs declare CN with Number=. so it parses as a list; store a single value as a plain int
+                if isinstance(cn, list) and len(cn) == 1:
+                    cn = cn[0]
+                output_json["CN"] = cn
             # populate GT, allelicFrequency. We are currently setting them to null for multiALT VCF rows
             output_json["GT"] = record.samples[sample_position]["GT"]
             try:

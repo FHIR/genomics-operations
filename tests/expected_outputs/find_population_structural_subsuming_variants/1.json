@@ -6,18 +6,30 @@
                 {
                     "name": "denominator",
                     "valueQuantity": {
-                        "value": 1115
+                        "value": 1175
                     }
                 },
                 {
                     "name": "numerator",
                     "valueQuantity": {
-                        "value": 0
+                        "value": 3
                     }
                 },
                 {
                     "name": "rangeItem",
                     "valueString": "NC_000022.10:42522500-42526812"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "ABC789"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-44-A47F"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-G4-6309"
                 }
             ]
         }

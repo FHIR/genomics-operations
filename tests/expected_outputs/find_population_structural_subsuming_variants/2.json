@@ -6,18 +6,26 @@
                 {
                     "name": "denominator",
                     "valueQuantity": {
-                        "value": 1115
+                        "value": 1175
                     }
                 },
                 {
                     "name": "numerator",
                     "valueQuantity": {
-                        "value": 0
+                        "value": 2
                     }
                 },
                 {
                     "name": "rangeItem",
                     "valueString": "NC_000017.10:37844346-37884911"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-EI-6509"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-J2-A4AG"
                 }
             ]
         },
@@ -27,13 +35,13 @@
                 {
                     "name": "denominator",
                     "valueQuantity": {
-                        "value": 1115
+                        "value": 1175
                     }
                 },
                 {
                     "name": "numerator",
                     "valueQuantity": {
-                        "value": 1
+                        "value": 5
                     }
                 },
                 {
@@ -42,7 +50,23 @@
                 },
                 {
                     "name": "subject",
+                    "valueString": "FLATIRON2"
+                },
+                {
+                    "name": "subject",
                     "valueString": "HCC1143"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "L2345"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-AA-A01R"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-CI-6620"
                 }
             ]
         }

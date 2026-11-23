@@ -6,13 +6,13 @@
                 {
                     "name": "denominator",
                     "valueQuantity": {
-                        "value": 1115
+                        "value": 1175
                     }
                 },
                 {
                     "name": "numerator",
                     "valueQuantity": {
-                        "value": 15
+                        "value": 44
                     }
                 },
                 {
@@ -74,6 +74,122 @@
                 {
                     "name": "subject",
                     "valueString": "NB6TK329"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-05-4427"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-44-6146"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-44-A47F"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-50-8459"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-55-7281"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-55-7815"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-55-8615"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-55-A48Z"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-64-5778"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-67-6217"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-78-7539"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-86-8054"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-95-A4VK"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-95-A4VP"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-A6-2674"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-A6-5662"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-AA-3713"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-AG-3731"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-AY-6196"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-AZ-4615"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-CI-6620"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-CM-4747"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-CM-6678"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-F4-6806"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-G4-6299"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-G4-6304"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-J2-8194"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-J2-A4AG"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-NH-A6GC"
                 }
             ]
         }

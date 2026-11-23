@@ -6,28 +6,7 @@
                 {
                     "name": "denominator",
                     "valueQuantity": {
-                        "value": 1115
-                    }
-                },
-                {
-                    "name": "numerator",
-                    "valueQuantity": {
-                        "value": 0
-                    }
-                },
-                {
-                    "name": "rangeItem",
-                    "valueString": "NC_000017.11:43044294-43125364"
-                }
-            ]
-        },
-        {
-            "name": "variants",
-            "part": [
-                {
-                    "name": "denominator",
-                    "valueQuantity": {
-                        "value": 1115
+                        "value": 1175
                     }
                 },
                 {
@@ -38,11 +17,52 @@
                 },
                 {
                     "name": "rangeItem",
+                    "valueString": "NC_000017.11:43044294-43125364"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-J2-A4AG"
+                }
+            ]
+        },
+        {
+            "name": "variants",
+            "part": [
+                {
+                    "name": "denominator",
+                    "valueQuantity": {
+                        "value": 1175
+                    }
+                },
+                {
+                    "name": "numerator",
+                    "valueQuantity": {
+                        "value": 5
+                    }
+                },
+                {
+                    "name": "rangeItem",
                     "valueString": "NC_000013.11:32315507-32400268"
                 },
                 {
                     "name": "subject",
                     "valueString": "HCC1143"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-A6-2674"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-AA-A01R"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-DC-6156"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-F5-6571"
                 }
             ]
         }

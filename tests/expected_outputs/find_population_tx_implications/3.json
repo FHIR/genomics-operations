@@ -6,13 +6,13 @@
                 {
                     "name": "denominator",
                     "valueQuantity": {
-                        "value": 1115
+                        "value": 1175
                     }
                 },
                 {
                     "name": "numerator",
                     "valueQuantity": {
-                        "value": 2
+                        "value": 11
                     }
                 },
                 {
@@ -22,6 +22,42 @@
                 {
                     "name": "subject",
                     "valueString": "L2345"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-A6-2674"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-AA-3713"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-AY-6196"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-AZ-4615"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-CI-6620"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-CM-6678"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-G4-6299"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-G4-6304"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-J2-A4AG"
                 }
             ]
         }

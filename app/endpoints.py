@@ -68,46 +68,11 @@ def find_subject_variants(
         })
 
         variant_q = []
-        genomic_builds = [chrom["PGB"]["BUILD"]]
-
         query["$and"] = []
         query["$and"].append({"SVTYPE": {"$exists": False}})
         query["$and"].append({"$expr": {"$gte": [{"$subtract": [{"$add": [{"$strLenCP": "$REF"}, "$POS"]}, "$POS"]}, 1]}})
-        query["$and"].append({"$or": [
-            {
-                "$and": [
-                    {"POS": {"$lte": chrom["PGB"]["L"]}},
-                    {"$expr": {"$gt": [{"$add": [{"$strLenCP": "$REF"}, "$POS"]}, chrom["PGB"]["L"]]}}
-                ]
-            },
-            {
-                "$and": [
-                    {"POS": {"$gte": chrom["PGB"]["L"]}},
-                    {"POS": {"$lt": chrom["PGB"]["H"]}}
-                ]
-            }
-        ]})
+        query["$and"].append(common.build_matched_range_clause(chrom, "intersect-simple"))
         query["$and"].append({"CHROM": {"$eq": chrom["CHROM"]}})
-
-        if chrom["OGB"] is not None:
-            query["$and"][2]["$or"].extend(
-                [{
-                    "$and": [
-                        {"POS": {"$lte": chrom["OGB"]["L"]}},
-                        {"$expr": {"$gt": [{"$add": [{"$strLenCP": "$REF"}, "$POS"]}, chrom["OGB"]["L"]]}}
-                    ]
-                },
-                    {
-                    "$and": [
-                        {"POS": {"$gte": chrom["OGB"]["L"]}},
-                        {"POS": {"$lt": chrom["OGB"]["H"]}}
-                    ]
-                }]
-            )
-
-            genomic_builds.append(chrom["OGB"]["BUILD"])
-
-        query["genomicBuild"] = {"$in": genomic_builds}
 
         try:
             variant_q = common.variants_db.aggregate([{"$match": query}])
@@ -348,46 +313,11 @@ def find_subject_structural_intersecting_variants(
         })
 
         variant_q = []
-        genomic_builds = [chrom["PGB"]["BUILD"]]
-
         query["$and"] = []
         query["$and"].append({"SVTYPE": {"$exists": True, "$ne": None}})
         query["$and"].append({"END": {"$exists": True, "$ne": None}})
-        query["$and"].append({"$or": [
-            {
-                "$and": [
-                    {"POS": {"$lte": chrom["PGB"]["L"]}},
-                    {"END": {"$gte": chrom["PGB"]["L"]}}
-                ]
-            },
-            {
-                "$and": [
-                    {"POS": {"$gte": chrom["PGB"]["L"]}},
-                    {"POS": {"$lte": chrom["PGB"]["H"]}}
-                ]
-            }
-        ]})
+        query["$and"].append(common.build_matched_range_clause(chrom, "intersect-structural"))
         query["$and"].append({"CHROM": {"$eq": chrom["CHROM"]}})
-
-        if chrom["OGB"] is not None:
-            query["$and"][2]["$or"].extend(
-                [{
-                    "$and": [
-                        {"POS": {"$lte": chrom["OGB"]["L"]}},
-                        {"END": {"$gt": chrom["OGB"]["L"]}}
-                    ]
-                },
-                    {
-                    "$and": [
-                        {"POS": {"$gte": chrom["OGB"]["L"]}},
-                        {"POS": {"$lt": chrom["OGB"]["H"]}}
-                    ]
-                }]
-            )
-
-            genomic_builds.append(chrom["OGB"]["BUILD"])
-
-        query["genomicBuild"] = {"$in": genomic_builds}
 
         try:
             variant_q = common.variants_db.aggregate([{"$match": query}])
@@ -495,29 +425,11 @@ def find_subject_structural_subsuming_variants(
         })
 
         variant_q = []
-        genomic_builds = [chrom["PGB"]["BUILD"]]
-
         query["$and"] = []
         query["$and"].append({"SVTYPE": {"$exists": True, "$ne": None}})
         query["$and"].append({"END": {"$exists": True, "$ne": None}})
-        query["$and"].append({"$and": [
-            {"POS": {"$lte": chrom["PGB"]["L"]}},
-            {"END": {"$gte": chrom["PGB"]["H"]}}
-        ]
-        })
+        query["$and"].append(common.build_matched_range_clause(chrom, "subsume"))
         query["$and"].append({"CHROM": {"$eq": chrom["CHROM"]}})
-
-        if chrom["OGB"] is not None:
-            query["$and"][2]["$and"].extend(
-                [
-                    {"POS": {"$lte": chrom["OGB"]["L"]}},
-                    {"END": {"$gte": chrom["OGB"]["H"]}}
-                ]
-            )
-
-            genomic_builds.append(chrom["OGB"]["BUILD"])
-
-        query["genomicBuild"] = {"$in": genomic_builds}
 
         try:
             variant_q = common.variants_db.aggregate([{"$match": query}])
@@ -1617,37 +1529,8 @@ def find_population_structural_intersecting_variants(
         query["$and"] = []
         query["$and"].append({"SVTYPE": {"$exists": True, "$ne": None}})
         query["$and"].append({"END": {"$exists": True, "$ne": None}})
-        query["$and"].append({"$or": [
-            {
-                "$and": [
-                    {"POS": {"$lte": chrom["PGB"]["L"]}},
-                    {"END": {"$gte": chrom["PGB"]["L"]}}
-                ]
-            },
-            {
-                "$and": [
-                    {"POS": {"$gte": chrom["PGB"]["L"]}},
-                    {"POS": {"$lte": chrom["PGB"]["H"]}}
-                ]
-            }
-        ]})
+        query["$and"].append(common.build_matched_range_clause(chrom, "intersect-structural"))
         query["$and"].append({"CHROM": {"$eq": chrom["CHROM"]}})
-
-        if chrom["OGB"] is not None:
-            query["$and"][2]["$or"].extend(
-                [{
-                    "$and": [
-                        {"POS": {"$lte": chrom["OGB"]["L"]}},
-                        {"END": {"$gte": chrom["OGB"]["L"]}}
-                    ]
-                },
-                    {
-                    "$and": [
-                        {"POS": {"$gte": chrom["OGB"]["L"]}},
-                        {"POS": {"$lte": chrom["OGB"]["H"]}}
-                    ]
-                }]
-            )
 
         try:
             variant_q = common.variants_db.aggregate([
@@ -1703,20 +1586,8 @@ def find_population_structural_subsuming_variants(
         query["$and"] = []
         query["$and"].append({"SVTYPE": {"$exists": True, "$ne": None}})
         query["$and"].append({"END": {"$exists": True, "$ne": None}})
-        query["$and"].append({"$and": [
-            {"POS": {"$lte": chrom["PGB"]["L"]}},
-            {"END": {"$gte": chrom["PGB"]["H"]}}
-        ]
-        })
+        query["$and"].append(common.build_matched_range_clause(chrom, "subsume"))
         query["$and"].append({"CHROM": {"$eq": chrom["CHROM"]}})
-
-        if chrom["OGB"] is not None:
-            query["$and"][2]["$and"].extend(
-                [
-                    {"POS": {"$lte": chrom["OGB"]["L"]}},
-                    {"END": {"$gte": chrom["OGB"]["H"]}}
-                ]
-            )
 
         try:
             variant_q = common.variants_db.aggregate([

@@ -6,13 +6,13 @@
                 {
                     "name": "denominator",
                     "valueQuantity": {
-                        "value": 1115
+                        "value": 1175
                     }
                 },
                 {
                     "name": "numerator",
                     "valueQuantity": {
-                        "value": 20
+                        "value": 26
                     }
                 },
                 {
@@ -70,6 +70,30 @@
                 {
                     "name": "subject",
                     "valueString": "NB6TK329"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-05-4427"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-44-7660"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-50-8460"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-AA-A01R"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-AY-6196"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "TCGA-AZ-4615"
                 },
                 {
                     "name": "subject",

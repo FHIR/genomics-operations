@@ -33,7 +33,7 @@
                 {
                     "name": "numerator",
                     "valueQuantity": {
-                        "value": 1
+                        "value": 3
                     }
                 },
                 {
@@ -42,7 +42,15 @@
                 },
                 {
                     "name": "subject",
+                    "valueString": "FLATIRON2"
+                },
+                {
+                    "name": "subject",
                     "valueString": "HCC1143"
+                },
+                {
+                    "name": "subject",
+                    "valueString": "L2345"
                 }
             ]
         }

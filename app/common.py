@@ -534,9 +534,51 @@ def get_chromosome_to_ranges(ranges, genomics_build_presence):
     return chromosome_to_ranges
 
 
+def build_matched_range_clause(chrom, match):
+    """
+    Position clause for one entry of get_chromosome_to_ranges(), pairing each range with its own build:
+    a record matches the provided range (PGB) only if it is in that build, and the lifted range (OGB)
+    only if it is in the other build.
+
+    Ranges and records are zero-based, half-open ([L, H) and [POS, END)), per the HL7 Genomics
+    Reporting operations ("a variant at position X intersects the X..Y range, a variant at position Y does not").
+    match:
+      "intersect-simple"     - simple variant overlaps the range (end taken as POS + len(REF))
+      "intersect-structural" - structural variant overlaps the range
+      "subsume"              - structural variant covers the whole range
+    """
+    branches = []
+    for build_range in (chrom["PGB"], chrom.get("OGB")):
+        if build_range is None:
+            continue
+        low, high = build_range["L"], build_range["H"]
+        if match == "intersect-simple":
+            position = [{"POS": {"$lt": high}},
+                        {"$expr": {"$gt": [{"$add": [{"$strLenCP": "$REF"}, "$POS"]}, low]}}]
+        elif match == "intersect-structural":
+            position = [{"POS": {"$lt": high}}, {"END": {"$gt": low}}]
+        elif match == "subsume":
+            position = [{"POS": {"$lte": low}}, {"END": {"$gte": high}}]
+        else:
+            raise ValueError(f"Unknown range match type: {match}")
+        branches.append({"$and": [{"genomicBuild": {"$eq": build_range["BUILD"]}}] + position})
+
+    return {"$or": branches}
+
+
 def get_dna_chg(svtype):
     dna_chg = SVTYPE_TO_DNA_CHANGE_TYPE.get(svtype.upper())
     return {"CODE": dna_chg[0], "DISPLAY": dna_chg[1]}
+
+
+def get_copy_number(cn):
+    """CN may be stored as an int or as a single-item list (e.g. [10]); return an int, or None."""
+    if isinstance(cn, list):
+        cn = cn[0] if len(cn) == 1 else None
+    try:
+        return int(cn)
+    except (TypeError, ValueError):
+        return None
 
 
 def create_fhir_variant_resource(record, ref_seq, subject):
@@ -618,11 +660,12 @@ def create_fhir_variant_resource(record, ref_seq, subject):
             print(f"DEBUG: Error calculating Allelic Frequency - {e}")
 
     # Copy Number
-    if (('SVTYPE' in record) and (record['SVTYPE'] in ['CNV', 'DUP', 'DEL']) and 'CN' in record):
+    copy_number = get_copy_number(record.get('CN'))
+    if (('SVTYPE' in record) and (record['SVTYPE'] in ['CNV', 'DUP', 'DEL']) and copy_number is not None):
         resource["component"].append({"code": {"coding": [{"system": "http://loinc.org",
                                                            "code": "82155-3",
                                                            "display": "Genomic Structural Variant copy Number"}]},
-                                      "valueQuantity": {"value": int(f"{record['CN']}"),
+                                      "valueQuantity": {"value": copy_number,
                                                         "system": "http://unitsofmeasure.org",
                                                         "code": "1"}})
 
@@ -2173,8 +2216,8 @@ def query_CIVIC_cat_var(ranges, normalized_variant_list, condition_code_list, tr
                     ALT = (variantQueryResult["SPDI"]).split(":")[3]
                     if len(REF) > len(ALT) and max_copy < 2:
                         criteriaSatisfied = True
-                if "CN" in variantQueryResult:
-                    CN = variantQueryResult["CN"]
+                CN = get_copy_number(variantQueryResult.get("CN"))
+                if CN is not None:
                     SVTYPE = variantQueryResult["SVTYPE"]
                     if CN in allowed_copies:
                         criteriaSatisfied = True
@@ -2198,8 +2241,8 @@ def query_CIVIC_cat_var(ranges, normalized_variant_list, condition_code_list, tr
                     ALT = (variantQueryResult["SPDI"]).split(":")[3]
                     if len(REF) > len(ALT) and CopyChange == "loss":
                         criteriaSatisfied = True
-                if "CN" in variantQueryResult:
-                    CN = variantQueryResult["CN"]
+                CN = get_copy_number(variantQueryResult.get("CN"))
+                if CN is not None:
                     if (
                         (CN > 2 and CopyChange == "gain")
                         or (CN < 2 and CopyChange == "loss")
