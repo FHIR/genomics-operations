@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useEffect, useLayoutEffect, useState, useRef, useCallback, useMemo } from 'react';
 import Image from 'next/image';
-import { ChevronDown, ChevronUp, ClipboardPlus, Dna, Images, LucideIcon, Network, Sparkles, Table2 } from 'lucide-react';
+import { ChevronDown, ChevronUp, ClipboardPlus, Dna, Gamepad2, Images, LucideIcon, Network, Sparkles, Table2 } from 'lucide-react';
 import { Variant } from '@/types/variants';
 import { findSubjectVariantsWithCache } from '@/services/cachedVariantService';
 import { PatientNotOnServerError } from '@/services/variantService';
@@ -12,6 +12,7 @@ import PatientBanner from '../components/PatientBanner';
 import CaseSummary from '../components/caseSummary/CaseSummary';
 import SynthesisView, { SynthesisLinkRequest } from '../components/SynthesisView';
 import ImagingView, { ImagingFocusRequest } from '../components/imaging/ImagingView';
+import GamesView from '../components/games/GamesView';
 import SearchStatus, { searchSummaryText } from '../components/SearchStatus';
 import ResultsTable, { HighlightRequest } from '../components/ResultsTable';
 import SelectionTray from '../components/SelectionTray';
@@ -49,7 +50,7 @@ function isHowToUseLinkItem(item: string | HowToUseLinkItem): item is HowToUseLi
   return typeof item !== 'string';
 }
 
-type CaseView = 'summary' | 'genomic' | 'imaging' | 'synthesis';
+type CaseView = 'summary' | 'genomic' | 'imaging' | 'synthesis' | 'games';
 
 // Each tab has an icon in its own color (lighter when the tab is selected); AI Synthesis uses the sparkles icon
 // commonly used to mark AI features
@@ -59,6 +60,7 @@ const CASE_VIEWS: { view: CaseView; label: string; icon: LucideIcon; iconClass: 
   { view: 'genomic', label: 'Genomics Explorer', icon: Dna, iconClass: 'text-emerald-600', activeIconClass: 'text-emerald-300', tooltip: 'Full genomic data set' },
   { view: 'imaging', label: 'Imaging', icon: Images, iconClass: 'text-amber-600', activeIconClass: 'text-amber-300' },
   { view: 'synthesis', label: 'AI Synthesis', icon: Sparkles, iconClass: 'text-violet-600', activeIconClass: 'text-violet-300' },
+  { view: 'games', label: 'Games', icon: Gamepad2, iconClass: 'text-rose-600', activeIconClass: 'text-rose-300' },
 ];
 
 // The URL names the patient and tab (?mrn=…&tab=…), so a view can be shared or bookmarked; on the AI Synthesis
@@ -830,6 +832,12 @@ export default function Home() {
         <div className={caseView === 'synthesis' ? 'mb-8 rounded-3xl bg-slate-100 p-3 ring-1 ring-inset ring-slate-200 sm:p-5' : 'hidden'}>
           <SynthesisView subjectId={subjectId} linkRequest={synthesisLinkRequest} />
         </div>
+
+        {caseView === 'games' && (
+          <div className="mb-8 rounded-3xl bg-slate-100 p-3 ring-1 ring-inset ring-slate-200 sm:p-5">
+            <GamesView />
+          </div>
+        )}
 
         <RegionLoader
           presetSelection={selectedPreset}

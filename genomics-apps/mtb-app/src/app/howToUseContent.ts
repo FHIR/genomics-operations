@@ -276,4 +276,19 @@ export const HOW_TO_USE_GROUPS: HowToUseGroup[] = [
             },
         ],
     },
+    {
+        title: 'Games',
+        sections: [
+            {
+                title: 'Playing',
+                items: [
+                    'The Games tab has three short games with a cancer genetics theme. They don\'t need a patient to be selected.',
+                    'Mutation Hunter: compare a patient\'s coding sequence with the reference and name the kind of variant (silent, missense, nonsense, frameshift or in-frame deletion). The answer shows the protein change.',
+                    'Target Match: a memory game pairing genomic alterations with targeted therapies approved for them.',
+                    'Clone Control: choose each week\'s treatment to keep a simulated tumor in check for two years, balancing tumor burden, toxicity and the emergence of resistant clones.',
+                    'Best scores are kept in your browser. The games are for fun and learning and are not clinical guidance.',
+                ],
+            },
+        ],
+    },
 ];
